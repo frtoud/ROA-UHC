@@ -41,9 +41,46 @@ if ("anim_blink_timer" in self)
 // Note: draws behind portrait and result boxes.
 if (object_index == asset_get("draw_result_screen"))
 {
-    draw_set_colour(c_white);
-    draw_rectangle_color(0, 60, 300, 180, c_white, c_white, c_white, c_white, false);
-    draw_debug_text(40, 80, "'lol gottem gg'");
+    //Must check if Hypercam is in front of the portraits
+    //Must check if result boxes are open
+    //Must track animation timers
+    if ("uhc_victory_quote" not in self)
+    {
+        //Must recover text and clip it
+        var backup_text = "lol gottem gg thanks 4 watchign";
+        uhc_victory_quote = backup_text;
+    }
+    
+    draw_sprite(sprite_get("victory_quote_bg"), 0, -20, 50);
+    draw_win_quote(115, 65, uhc_victory_quote);
 }
+//====================================================
 
+#define draw_win_quote(posx, posy, quote)
+{
+    var text_scale = 3; //3x3 pixels
+    var half_scale = text_scale/2; //font is already 2x2
+    var max_line_length = floor(600 / text_scale);
+    var line_spacing = 20;
+    draw_set_font(asset_get("fName"));
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_top);
+    
+    //black contour
+    for (var i = 0; i < 9; i++)
+    {
+        if (i != 4) //ignore middle
+        {
+            var t_x = floor(i/3 - 1) * text_scale;
+            var t_y = floor(i%3 - 1) * text_scale;
+            draw_text_ext_transformed_color
+            (posx + t_x, posy + t_y, quote, line_spacing, max_line_length, 
+             half_scale, half_scale, 0, c_black, c_black, c_black, c_black, 1);
+        }
+    }
+    //white text
+    draw_text_ext_transformed_color
+    (posx, posy, quote, line_spacing, max_line_length, 
+     half_scale, half_scale, 0, c_white, c_white, c_white, c_white, 1);
+}
 
