@@ -47,8 +47,9 @@ if (object_index == asset_get("draw_result_screen"))
     if ("uhc_victory_quote" not in self)
     {
         //Must recover text and clip it
-        var backup_text = "lol gottem gg thanks 4 watchign";
-        uhc_victory_quote = backup_text;
+        var end_pos = string_pos("¸", keyboard_string)
+        uhc_victory_quote = string_copy(keyboard_string, 1, end_pos);
+        
     }
     
     draw_sprite(sprite_get("victory_quote_bg"), 0, -20, 50);

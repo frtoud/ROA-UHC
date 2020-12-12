@@ -107,6 +107,9 @@ anim_blink_timer_max = 60;
 
 vfx_label = sprite_get("vfx_label");
 
+
+uhc_victory_quote = "this text coms from" +chr(10)+ " teh init file lololol";
+
 //=================================================
 //Balancing variables
 
