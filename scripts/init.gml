@@ -106,13 +106,13 @@ anim_blink_timer_max = 60;
 
 vfx_label = sprite_get("vfx_label");
 
-spr_article_cd_mask = sprite_get("article_cd_mask");
-spr_article_cd_idle = sprite_get("article_cd_idle");
-
 uhc_victory_quote = "this text coms from" +chr(10)+ " teh init file lololol";
 
 //=================================================
 //Balancing variables
+uhc_fstrong_throwspeed_base = 8;
+uhc_fstrong_throwspeed_max = 11;
+
 
 //=================================================
 //Custom variables initialized here

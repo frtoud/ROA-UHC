@@ -55,6 +55,7 @@ sprite_change_offset("nspecial_proj", 64, 94);
 set_victory_theme(sound_get("victory"));
 
 sprite_change_offset("article_cd_idle", 19, 19);
+sprite_change_offset("article_cd_shoot", 19, 19);
 sprite_change_offset("article_cd_mask", 19, 19);
 sprite_change_collision_mask("article_cd_mask", false, 0, noone, noone, noone, noone, 2);
 

@@ -10,12 +10,10 @@ switch (attack)
     {
         if (window == 3 && window_timer == 1)
         {
-            uhc_current_cd.x = x + spr_dir * 32;
-            uhc_current_cd.y = y - 18;
-            uhc_current_cd.hsp = 5;
-            uhc_current_cd.state = AT_FSTRONG;
-            uhc_current_cd.temp_timer = 120;
-            uhc_has_cd_blade = false;
+            throw_blade(32, 20, ease_linear(uhc_fstrong_throwspeed_base, 
+                                            uhc_fstrong_throwspeed_max, 
+                                            strong_charge, 60),
+                        0, AT_FSTRONG);
         }
     } break;
 //==========================================================
@@ -89,4 +87,21 @@ if (attack == AT_DSPECIAL){
     }
     can_fast_fall = false;
     can_move = false
+}
+
+#define throw_blade(xoffset, yoffset, hspd, vspd, cd_atk)
+{
+    uhc_current_cd.x = x + (spr_dir * xoffset);
+    uhc_current_cd.y = y - yoffset;
+    uhc_current_cd.hsp = spr_dir * hspd;
+    uhc_current_cd.vsp = vspd;
+    uhc_current_cd.buffered_state = cd_atk;
+    uhc_current_cd.spr_dir = spr_dir;
+    uhc_has_cd_blade = false;
+    
+    //swapping CD indexes
+    var temp_cd = uhc_current_cd;
+    uhc_current_cd = uhc_other_cd;
+    uhc_other_cd = temp_cd;
+    
 }
