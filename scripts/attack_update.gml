@@ -84,6 +84,10 @@ if (attack == AT_USPECIAL){
 if (attack == AT_DSPECIAL){
     if (window == 2 && !was_parried){
         can_jump = true;
+        if (window_timer == 1)
+        {
+            uhc_current_cd.buffered_state = AT_DSPECIAL;
+        }
     }
     can_fast_fall = false;
     can_move = false

@@ -21,7 +21,7 @@ if (buffered_state != AR_STATE_BUFFER)
 }
 
 visible = (state != AR_STATE_DEAD);
-ignore_walls = (state == AR_STATE_DSPECIAL);
+//ignore_walls = (state == AR_STATE_DSPECIAL);??
 
 switch (state)
 {
@@ -88,10 +88,37 @@ switch (state)
 //=====================================================
     case AR_STATE_DSPECIAL:
     {
+        //Update
+        //Shoot towards player
+        var total_speed = point_distance(0, 0, hsp, vsp);
+        if (total_speed < cd_dspecial_speed)
+        {
+            total_speed += cd_dspecial_force;
+        }
+        else
+        {
+            total_speed = cd_dspecial_speed;
+        }
+        var lookat_angle = point_direction(x, y, 
+                      player_id.x, player_id.y - 20);
+        hsp = lengthdir_x(total_speed, lookat_angle);
+        vsp = lengthdir_y(total_speed, lookat_angle);
         
+        try_pickup();
+        if (state == AR_STATE_DEAD)
+        {
+            //blade was caught!
+            //Activate DSPECIAL 2
+        }
+        
+        //Animation
+        sprite_index = spr_article_cd_shoot;
+        //image_angle = lookat_angle;
+        image_index += 0.25;
+                               
     } break;
 //=====================================================
-    default: state = AR_STATE_IDLE; 
+    default: state = AR_STATE_IDLE;
     break;
 }
 
