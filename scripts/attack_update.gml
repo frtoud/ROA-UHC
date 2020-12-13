@@ -3,6 +3,26 @@ if (attack == AT_NSPECIAL || attack == AT_FSPECIAL || attack == AT_DSPECIAL || a
     trigger_b_reverse();
 }
 
+switch (attack)
+{
+//==========================================================
+    case AT_FSTRONG:
+    {
+        if (window == 3 && window_timer == 1)
+        {
+            uhc_current_cd.x = x + spr_dir * 32;
+            uhc_current_cd.y = y - 18;
+            uhc_current_cd.hsp = 5;
+            uhc_current_cd.state = AT_FSTRONG;
+            uhc_current_cd.temp_timer = 120;
+            uhc_has_cd_blade = false;
+        }
+    } break;
+//==========================================================
+    default:
+    break;
+}
+
 if (attack == AT_NSPECIAL){
     if (window == 3){
         if (special_pressed){

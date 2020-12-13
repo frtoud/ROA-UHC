@@ -2,8 +2,7 @@
 
 //===================================================
 // Drawing bladed sprites
-
-if (at_dspecial_has_blade && ds_map_exists(uhc_blade_spr_map, sprite_index))
+if (uhc_has_cd_blade && ds_map_exists(uhc_blade_spr_map, sprite_index))
 {
    shader_start();
    draw_sprite_ext(ds_map_find_value(uhc_blade_spr_map, sprite_index),

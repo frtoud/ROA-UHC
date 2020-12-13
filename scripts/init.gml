@@ -100,13 +100,14 @@ bubble_y = 8;
 
 //=================================================
 //Custom vfx & sprites
-
 anim_blade_spin = 0;
 anim_blink_timer = 0;
 anim_blink_timer_max = 60;
 
 vfx_label = sprite_get("vfx_label");
 
+spr_article_cd_mask = sprite_get("article_cd_mask");
+spr_article_cd_idle = sprite_get("article_cd_idle");
 
 uhc_victory_quote = "this text coms from" +chr(10)+ " teh init file lololol";
 
@@ -115,4 +116,10 @@ uhc_victory_quote = "this text coms from" +chr(10)+ " teh init file lololol";
 
 //=================================================
 //Custom variables initialized here
-at_dspecial_has_blade = true;
+uhc_current_cd = noone;
+uhc_other_cd = noone;
+uhc_has_cd_blade = true;
+
+
+
+
