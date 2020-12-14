@@ -25,7 +25,7 @@ spr_dir = 1;
 uses_shader = true;
 
 //=====================================================
-//Physics
+//Standard Physics
 hitstop = 0;
 hsp = 0;
 vsp = 0;
@@ -35,7 +35,7 @@ ignores_walls = false;
 hit_wall = false;
 through_platforms = false;
 
-//=====================================================
+//Constants
 cd_grav_force  = 0.35;
 cd_frict_force = 0.07;
 cd_accel_force = 0.35;
@@ -44,10 +44,14 @@ cd_fall_speed = 6;
 cd_dspecial_force = 0.75;
 cd_dspecial_speed = 24;
 
+cd_multihit_speed_bonus = 0.75;
+
 //=====================================================
 //start in the invisible state
 buffered_state = AR_STATE_BUFFER;
 state = AR_STATE_DEAD;
 state_timer = 0;
 visible = false;
-pickup_cooldown = 0;
+
+pickup_cooldown = 0; //prevents Hypercam from grabbing this CD
+

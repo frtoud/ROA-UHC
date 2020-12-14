@@ -12,6 +12,8 @@
 #macro AR_STATE_DSPECIAL     AT_DSPECIAL
 //=====================================================
 
+// no logic/timers affected if we're currently in hitstop
+if (hitstop) exit;
 //=====================================================
 //applying buffered state
 if (buffered_state != AR_STATE_BUFFER)
@@ -21,7 +23,7 @@ if (buffered_state != AR_STATE_BUFFER)
 }
 
 visible = (state != AR_STATE_DEAD);
-//ignore_walls = (state == AR_STATE_DSPECIAL);??
+ignores_walls = (state == AR_STATE_DSPECIAL);
 
 switch (state)
 {
@@ -47,13 +49,19 @@ switch (state)
     case AR_STATE_FSTRONG:
     {
         //Update
+        
         if (hsp * spr_dir > 0)
         {
             hsp -= (spr_dir * cd_accel_force);
+            if (0 == state_timer % 5)
+            {
+                spawn_hitbox(AT_FSTRONG, 2, true, false);
+            }
         }
         else
         {
             set_state(AR_STATE_FSTRONG_ROLL);
+            spawn_hitbox(AT_FSTRONG, 3, false, false);
         }
         
         //Animation
@@ -125,6 +133,7 @@ switch (state)
 state_timer++;
 
 
+//=====================================================
 #define set_state(new_state)
 {
     state = new_state;
@@ -133,7 +142,7 @@ state_timer++;
 
 #define do_gravity()
 {
-    if (free) vsp += cd_grav_force;
+    if (free && vsp < cd_fall_speed) vsp += cd_grav_force;
 }
 
 #define do_friction()
@@ -152,5 +161,16 @@ state_timer++;
         state = AR_STATE_DEAD;
         player_id.uhc_has_cd_blade = true;
         sound_play(asset_get("sfx_coin_collect"));
+    }
+}
+#define spawn_hitbox(atk, hnum, multihits, hit_self)
+{
+    //spawn hitbox at the correct position for next frame's disc position
+    var hb = create_hitbox(atk, hnum, x, y);
+    hb.uhc_parent_cd = self;
+    hb.can_hit_self = hit_self;
+    if (multihits)
+    {
+        hb.kb_value += cd_multihit_speed_bonus * abs(hsp);
     }
 }
