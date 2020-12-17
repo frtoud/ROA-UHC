@@ -10,11 +10,14 @@ set_color_profile_slot(0, 0,  55,  60,  72); //Body
 set_color_profile_slot_range(0,  2,  2, 36);
 
 //RGB - HSV
-//195:198:219 - 232: 11: 86
-//120:121:161 - 238: 25: 63 - Main color
-// 44: 53:113 - 232: 61: 44
-set_color_profile_slot(0, 1, 120, 121, 161); //Lens
-set_color_profile_slot_range(1,  8, 37, 24);
+//195:195:219 - 240: 10: 85
+//118:118:158 - 240: 25: 61
+// 60: 60:109 - 240: 44: 42 - Main color
+// 45: 45: 86 - 240: 47: 33
+// 28: 28: 68 - 240: 58: 26
+// 17: 17: 38 - 240: 55: 14
+set_color_profile_slot(0, 1,  60,  60, 109); //Lens
+set_color_profile_slot_range(1,  1, 36, 44);
 
 //RGB - HSV
 //209:199:192 -  24:  8: 81
