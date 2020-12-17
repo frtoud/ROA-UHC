@@ -110,8 +110,8 @@ uhc_victory_quote = "this text coms from" +chr(10)+ " teh init file lololol";
 
 //=================================================
 //Balancing variables
-uhc_fstrong_throwspeed_base = 8;
-uhc_fstrong_throwspeed_max = 11;
+uhc_fstrong_throwspeed_base = 7.5;
+uhc_fstrong_throwspeed_max = 12;
 
 
 //=================================================

@@ -10,9 +10,8 @@ switch (attack)
     {
         if (window == 3 && window_timer == 1)
         {
-            throw_blade(32, 20, ease_linear(uhc_fstrong_throwspeed_base, 
-                                            uhc_fstrong_throwspeed_max, 
-                                            strong_charge, 60),
+            throw_blade(32, 20, uhc_fstrong_throwspeed_base + (strong_charge/60.0) * 
+                               (uhc_fstrong_throwspeed_max - uhc_fstrong_throwspeed_base),
                         0, AT_FSTRONG);
         }
     } break;
