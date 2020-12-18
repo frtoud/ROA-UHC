@@ -70,12 +70,12 @@ set_color_profile_slot_range(7, 16, 16, 22);
 
 set_num_palettes(4);
 
-// Host
-set_color_profile_slot(1, 0,  55,  60,  72); //Body
-set_color_profile_slot(1, 1, 120, 121, 161); //Lens
-set_color_profile_slot(1, 2, 160, 145, 130); //CD
-set_color_profile_slot(1, 3, 160, 160, 180); //Paper
-set_color_profile_slot(1, 4, 255, 255, 255); //Blinker 
+// Retro -- too similar...
+set_color_profile_slot(1, 0,  70,  70,  70); //Body
+set_color_profile_slot(1, 1, 120, 120, 160); //Lens
+set_color_profile_slot(1, 2, 205, 180, 160); //CD
+set_color_profile_slot(1, 3, 190, 180, 160); //Paper
+set_color_profile_slot(1, 4, 255,  25,  25); //Blinker 
 
 // Unrestrained
 set_color_profile_slot(2, 0,  40,  40,  40); //Body -- needs shading x0.5
@@ -85,8 +85,8 @@ set_color_profile_slot(2, 3,  65,  65,  65); //Paper -- needs shading x0.0
 set_color_profile_slot(2, 4, 255,  25,  25); //Blinker
 
 // Nice
-set_color_profile_slot(3, 0, 120,  45,  25); //Body
-set_color_profile_slot(3, 1,  45, 165,  50); //Lens
+set_color_profile_slot(3, 0, 110,  50,  35); //Body
+set_color_profile_slot(3, 1, 120, 150, 115); //Lens
 set_color_profile_slot(3, 2,  25,  90,  25); //CD
 set_color_profile_slot(3, 3, 200, 150,   0); //Paper
 set_color_profile_slot(3, 4, 255,  25,  25); //Blinker
