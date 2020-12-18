@@ -7,7 +7,6 @@ var current_color = get_player_color(player);
 if (current_color == 2) 
 { 
     set_character_color_shading( 0, 0.5 ); 
-    set_character_color_shading( 1, 2.0 );
     set_character_color_shading( 3, 0.0 );
 }
 
