@@ -17,8 +17,8 @@ switch (attack)
         else if (window == 3 && window_timer == 1)
         {
             throw_blade(32, 20, uhc_fstrong_throwspeed_base + (strong_charge/60.0) * 
-                               (uhc_fstrong_throwspeed_max - uhc_fstrong_throwspeed_base),
-                        0, AT_FSTRONG);
+                               (uhc_fstrong_throwspeed_max - uhc_fstrong_throwspeed_base)
+                               + (hsp*spr_dir*0.5), 0, AT_FSTRONG);
         }
     } break;
 //==========================================================
