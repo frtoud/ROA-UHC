@@ -8,7 +8,13 @@ switch (attack)
 //==========================================================
     case AT_FSTRONG:
     {
-        if (window == 3 && window_timer == 1)
+        can_move = false;
+        if (window <= 2)
+        {
+            //dampen fall?
+            vsp *= (vsp < 0) ? 1 : 0.85;
+        }
+        else if (window == 3 && window_timer == 1)
         {
             throw_blade(32, 20, uhc_fstrong_throwspeed_base + (strong_charge/60.0) * 
                                (uhc_fstrong_throwspeed_max - uhc_fstrong_throwspeed_base),
