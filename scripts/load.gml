@@ -14,12 +14,12 @@ sprite_change_offset("dashstart", 32, 62);
 sprite_change_offset("dashstop", 32, 62);
 sprite_change_offset("dashturn", 32, 62);
 
-sprite_change_offset("jumpstart", 32, 62);
-sprite_change_offset("jump", 32, 62);
+sprite_change_offset_bladed("jumpstart", 34, 48);
+sprite_change_offset_bladed("jump", 42, 62);
 sprite_change_offset("doublejump", 32, 62);
 sprite_change_offset("walljump", 32, 62);
 sprite_change_offset("pratfall", 32, 62);
-sprite_change_offset("land", 32, 62);
+sprite_change_offset_bladed("land", 38, 52);
 sprite_change_offset("landinglag", 32, 62);
 
 sprite_change_offset("parry", 32, 62);
@@ -64,7 +64,7 @@ sprite_change_collision_mask("article_cd_mask", false, 0, noone, noone, noone, n
 #define sprite_change_offset_bladed(_spr_name, _offset_x, _offset_y)
 var _bladed_name = _spr_name + "_blade";
 sprite_change_offset(_spr_name, _offset_x, _offset_y);
-if ("uhc_blade_spr_map" in self)// && ds_map_valid(uhc_blade_spr_map))
+if ("uhc_blade_spr_map" in self)
 {
    ds_map_set(uhc_blade_spr_map, sprite_get(_spr_name), sprite_get(_bladed_name));
    sprite_change_offset(_bladed_name, _offset_x, _offset_y);
