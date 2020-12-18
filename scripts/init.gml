@@ -103,8 +103,10 @@ bubble_y = 8;
 anim_blade_spin = 0;
 anim_blink_timer = 0;
 anim_blink_timer_max = 60;
+anim_is_buffering = false;
 
 vfx_label = sprite_get("vfx_label");
+vfx_buffering = sprite_get("vfx_buffering");
 
 uhc_victory_quote = "this text coms from" +chr(10)+ " teh init file lololol";
 
