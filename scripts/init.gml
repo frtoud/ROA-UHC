@@ -72,10 +72,10 @@ techroll_recovery_frames = 2;
 techroll_speed = 10;
 
 //airdodge animation frames
-air_dodge_startup_frames = 1;
+air_dodge_startup_frames = 2;
 air_dodge_active_frames = 2;
-air_dodge_recovery_frames = 3;
-air_dodge_speed = 7.5;
+air_dodge_recovery_frames = 4;
+air_dodge_speed = 7.7;
 
 //roll animation frames
 roll_forward_startup_frames = 2;
@@ -103,6 +103,9 @@ bubble_y = 8;
 anim_blade_spin = 0;
 anim_blink_timer = 0;
 anim_blink_timer_max = 60;
+
+//airdodge buffering effect
+anim_last_dodge = { posx:0, posy:0 };
 
 vfx_label = sprite_get("vfx_label");
 vfx_buffering = sprite_get("vfx_buffering");
