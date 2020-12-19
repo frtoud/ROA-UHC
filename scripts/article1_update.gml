@@ -60,8 +60,9 @@ switch (state)
         }
         else
         {
+            if (has_hit) //finisher
+            { spawn_hitbox(AT_FSTRONG, 3, false, false); }
             set_state(AR_STATE_FSTRONG_ROLL);
-            spawn_hitbox(AT_FSTRONG, 3, false, false);
         }
         
         //Animation
@@ -73,7 +74,11 @@ switch (state)
     case AR_STATE_FSTRONG_ROLL:
     {
         //Update
-        if (state_timer > 30)
+        if (state_timer == 1)
+        {
+            spawn_hitbox(AT_FSTRONG, 4, false, false);
+        }
+        else if (state_timer > 30)
         {
             set_state(AR_STATE_IDLE);
         }
@@ -138,6 +143,7 @@ state_timer++;
 {
     state = new_state;
     state_timer = 0;
+    has_hit = false;
 }
 
 #define do_gravity()

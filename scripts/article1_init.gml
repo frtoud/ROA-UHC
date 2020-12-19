@@ -53,5 +53,6 @@ state = AR_STATE_DEAD;
 state_timer = 0;
 visible = false;
 
+has_hit = false; //if a cd-hitbox connected on this move
 pickup_cooldown = 0; //prevents Hypercam from grabbing this CD
 
