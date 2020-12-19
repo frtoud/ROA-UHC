@@ -68,7 +68,7 @@ set_color_profile_slot(0, 7,  30,  62, 204); //CD Spin 3 (Blue)
 set_color_profile_slot_range(7, 16, 16, 22);
 //==============================================================
 
-set_num_palettes(4);
+set_num_palettes(5);
 
 // Retro -- too similar...
 set_color_profile_slot(1, 0,  70,  70,  70); //Body
@@ -91,26 +91,10 @@ set_color_profile_slot(3, 2,  25,  90,  25); //CD
 set_color_profile_slot(3, 3, 200, 150,   0); //Paper
 set_color_profile_slot(3, 4, 255,  25,  25); //Blinker
 
-//SANDBERT STUFF
-/*
-//DEFAULT COLOR (R,G,B)
-set_color_profile_slot(0, 8, 255, 255, 255); //SKIN
+// Terebii Chan
+set_color_profile_slot(4, 0, 190, 190, 190); //Body
+set_color_profile_slot(4, 1, 140, 140, 140); //Lens
+set_color_profile_slot(4, 2, 230, 150, 150); //CD
+set_color_profile_slot(4, 3, 230, 170, 170); //Paper
+set_color_profile_slot(4, 4, 255,  25,  25); //Blinker
 
-//COLOR RANGE (H,S,V)
-set_color_profile_slot_range(8, 4, 10, 41);
-
-//Blue Color
-set_color_profile_slot(1, 8, 157, 159, 255);
-
-//Red Color
-set_color_profile_slot(2, 8, 255, 75, 75);
-
-//Green Color
-set_color_profile_slot(3, 8, 120, 255, 120);
-
-//Black Color
-set_color_profile_slot(4, 8, 180, 180, 180);
-
-//Yellow Color
-set_color_profile_slot(5, 8, 235, 248, 69);
-*/
