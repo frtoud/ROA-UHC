@@ -9,10 +9,10 @@ sprite_change_offset("hurt", 32, 62);
 sprite_change_offset_bladed("crouch", 40, 44);
 sprite_change_offset_bladed("walk", 36, 50);
 sprite_change_offset_bladed("walkturn", 34, 48);
-sprite_change_offset("dash", 32, 62);
-sprite_change_offset("dashstart", 32, 62);
-sprite_change_offset("dashstop", 32, 62);
-sprite_change_offset("dashturn", 32, 62);
+sprite_change_offset_bladed("dash", 36, 44);
+sprite_change_offset_bladed("dashstart", 36, 46);
+sprite_change_offset_bladed("dashstop", 36, 48);
+sprite_change_offset_bladed("dashturn", 36, 44);
 
 sprite_change_offset_bladed("jumpstart", 34, 48);
 sprite_change_offset_bladed("jump", 42, 62);
