@@ -24,6 +24,14 @@ switch (state)
             sound_play(asset_get("sfx_may_arc_five"), false, noone, 0.2, 3);
         }
     } break;
+    case PS_JUMPSQUAT:
+    {
+        //wheeled sprite when jumping from a dash
+        image_index = (prev_state == PS_DASH 
+                    || prev_state == PS_DASH_START
+                    || prev_state == PS_DASH_TURN) ? 1 : 0;
+        
+    } break;
     case PS_AIR_DODGE:
     {
         if (window == 0)
