@@ -1,13 +1,35 @@
 //init_shader.gml
+//Update this if color.gml changes
+#macro ALT_GAMEBOY  7
+#macro ALT_EVIL     2
+#macro ALT_TANK     1
 
 var current_color = get_player_color(player);
 
-//Colors.gml dependent on set_character_color_shading
 //===================================================
-if (current_color == 2) 
+//Registered Hypercam 2 gets dark colors & no label
+if (current_color == ALT_EVIL) 
 { 
     set_character_color_shading( 0, 0.5 ); 
     set_character_color_shading( 3, 0.0 );
+}
+
+//===================================================
+// Newgrounds Monochrome aesthetics
+if (current_color == ALT_TANK)
+{
+    set_character_color_shading( 0, 0.0 );  
+    set_character_color_shading( 3, 0.0 );
+    
+    //Body/Paper ranges adjusted to overlap & only consider value
+    set_color_profile_slot_range(0,  25, 15, 40);
+    set_color_profile_slot_range(3,  25, 50, 40);
+}
+else
+{
+    //need to restore ranges
+    set_color_profile_slot_range(0,  2,  2, 36); //Body
+    set_color_profile_slot_range(3,  5, 10, 25); //Paper
 }
 
 //===================================================

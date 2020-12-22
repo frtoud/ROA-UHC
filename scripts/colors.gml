@@ -70,12 +70,12 @@ set_color_profile_slot_range(7, 16, 16, 22);
 
 set_num_palettes(5);
 
-// Retro -- too similar...
-set_color_profile_slot(1, 0,  70,  70,  70); //Body
-set_color_profile_slot(1, 1, 120, 120, 160); //Lens
-set_color_profile_slot(1, 2, 205, 180, 160); //CD
-set_color_profile_slot(1, 3, 190, 180, 160); //Paper
-set_color_profile_slot(1, 4, 255,  25,  25); //Blinker 
+// Tank -- move to #15
+set_color_profile_slot(1, 0,   0,   0,   0); //Body
+set_color_profile_slot(1, 1, 255, 255, 255); //Lens
+set_color_profile_slot(1, 2, 250, 180,  10); //CD
+set_color_profile_slot(1, 3, 255, 255, 255); //Paper
+set_color_profile_slot(1, 4, 255, 255, 255); //Blinker 
 
 // Unrestrained
 set_color_profile_slot(2, 0,  40,  40,  40); //Body -- needs shading x0.5
