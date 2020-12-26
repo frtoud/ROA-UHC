@@ -1,8 +1,9 @@
 //init_shader.gml
 //Update this if color.gml changes
 #macro ALT_GAMEBOY  7
-#macro ALT_EVIL     2
-#macro ALT_TANK     1
+#macro ALT_ROB      5
+#macro ALT_EVIL     14
+#macro ALT_TANK     15
 
 var current_color = get_player_color(player);
 
@@ -12,6 +13,10 @@ if (current_color == ALT_EVIL)
 { 
     set_character_color_shading( 0, 0.5 ); 
     set_character_color_shading( 3, 0.0 );
+}
+else if (current_color == ALT_ROB) 
+{ 
+    set_character_color_shading( 0, 2.0 );
 }
 
 //===================================================

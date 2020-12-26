@@ -12,6 +12,7 @@ set_color_profile_slot_range(0,  2,  2, 36);
 //RGB - HSV
 //195:195:219 - 240: 10: 85
 //118:118:158 - 240: 25: 61
+// 86: 86:127 - 240: 32: 49
 // 60: 60:109 - 240: 44: 42 - Main color
 // 45: 45: 86 - 240: 47: 33
 // 28: 28: 68 - 240: 58: 26
@@ -68,21 +69,7 @@ set_color_profile_slot(0, 7,  30,  62, 204); //CD Spin 3 (Blue)
 set_color_profile_slot_range(7, 16, 16, 22);
 //==============================================================
 
-set_num_palettes(5);
-
-// Tank -- move to #15
-set_color_profile_slot(1, 0,   0,   0,   0); //Body
-set_color_profile_slot(1, 1, 255, 255, 255); //Lens
-set_color_profile_slot(1, 2, 250, 180,  10); //CD
-set_color_profile_slot(1, 3, 255, 255, 255); //Paper
-set_color_profile_slot(1, 4, 255, 255, 255); //Blinker 
-
-// Unrestrained
-set_color_profile_slot(2, 0,  40,  40,  40); //Body -- needs shading x0.5
-set_color_profile_slot(2, 1, 255,  25,  35); //Lens
-set_color_profile_slot(2, 2,  45,  45,  45); //CD
-set_color_profile_slot(2, 3,  65,  65,  65); //Paper -- needs shading x0.0
-set_color_profile_slot(2, 4, 255,  25,  25); //Blinker
+set_num_palettes(16);
 
 // Nice
 set_color_profile_slot(3, 0, 110,  50,  35); //Body
@@ -98,3 +85,37 @@ set_color_profile_slot(4, 2, 230, 150, 150); //CD
 set_color_profile_slot(4, 3, 230, 170, 170); //Paper
 set_color_profile_slot(4, 4, 255,  25,  25); //Blinker
 
+// Famicom
+set_color_profile_slot(5, 0, 165, 160, 140); //Body
+set_color_profile_slot(5, 1,  77,  77, 140); //Lens
+set_color_profile_slot(5, 2, 153,  70,  66); //CD
+set_color_profile_slot(5, 3, 122,  45,  45); //Paper
+set_color_profile_slot(5, 4,  25, 255, 255); //Blinker 
+
+// Motherload/Halo
+set_color_profile_slot(6, 0,  88,  94,  75); //Body
+set_color_profile_slot(6, 1, 196, 175,  96); //Lens
+set_color_profile_slot(6, 2,  45,  45,  45); //CD
+set_color_profile_slot(6, 3,   0,   0,   0); //Paper
+set_color_profile_slot(6, 4, 255,  25,  25); //Blinker 
+
+// Wall-E
+set_color_profile_slot(7, 0,  88,  94,  75); //Body
+set_color_profile_slot(7, 1, 255, 255, 200); //Lens
+set_color_profile_slot(7, 2, 170, 170, 180); //CD
+set_color_profile_slot(7, 3,   0,   0,   0); //Paper
+set_color_profile_slot(7, 4, 255,  25,  25); //Blinker 
+
+// Unrestrained
+set_color_profile_slot(14, 0,  40,  40,  40); //Body -- needs shading x0.5
+set_color_profile_slot(14, 1, 255,  25,  35); //Lens
+set_color_profile_slot(14, 2,  45,  45,  45); //CD
+set_color_profile_slot(14, 3,  65,  65,  65); //Paper -- needs shading x0.0
+set_color_profile_slot(14, 4, 255,  25,  25); //Blinker
+
+// Tank
+set_color_profile_slot(15, 0,   0,   0,   0); //Body
+set_color_profile_slot(15, 1, 255, 255, 255); //Lens
+set_color_profile_slot(15, 2, 250, 180,  10); //CD
+set_color_profile_slot(15, 3, 255, 255, 255); //Paper
+set_color_profile_slot(15, 4, 255, 255, 255); //Blinker 
