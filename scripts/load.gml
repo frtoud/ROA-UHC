@@ -32,7 +32,7 @@ sprite_change_offset("tech", 32, 62);
 sprite_change_offset("jab", 64, 94);
 sprite_change_offset("dattack", 64, 94);
 sprite_change_offset("ftilt", 32, 62);
-sprite_change_offset("dtilt", 64, 94);
+sprite_change_offset_bladed("dtilt", 40, 40);
 sprite_change_offset("utilt", 64, 94);
 sprite_change_offset("nair", 64, 94);
 sprite_change_offset("fair", 64, 94);
