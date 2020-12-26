@@ -1,4 +1,5 @@
 set_attack_value(AT_FSTRONG, AG_SPRITE, sprite_get("fstrong"));
+set_attack_value(AT_FSTRONG, AG_AIR_SPRITE, sprite_get("fstrong_air"));
 set_attack_value(AT_FSTRONG, AG_NUM_WINDOWS, 4);
 set_attack_value(AT_FSTRONG, AG_CATEGORY, 2);
 set_attack_value(AT_FSTRONG, AG_HAS_LANDING_LAG, 3);
@@ -74,7 +75,7 @@ set_hitbox_value(AT_FSTRONG, 3, HG_PROJECTILE_WALL_BEHAVIOR, 1);
 set_hitbox_value(AT_FSTRONG, 3, HG_PROJECTILE_UNBASHABLE, 1);
 set_hitbox_value(AT_FSTRONG, 3, HG_DAMAGE, 6);
 set_hitbox_value(AT_FSTRONG, 3, HG_ANGLE, 55);
-set_hitbox_value(AT_FSTRONG, 3, HG_HIT_LOCKOUT, 8);
+set_hitbox_value(AT_FSTRONG, 3, HG_HIT_LOCKOUT, 3);
 set_hitbox_value(AT_FSTRONG, 3, HG_BASE_KNOCKBACK, 8);
 set_hitbox_value(AT_FSTRONG, 3, HG_KNOCKBACK_SCALING, 1);
 set_hitbox_value(AT_FSTRONG, 3, HG_BASE_HITPAUSE, 8);
