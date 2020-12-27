@@ -192,7 +192,19 @@ if (cd_spin_meter > 0 &&
     hb.uhc_parent_cd = self;
     hb.can_hit_self = hit_self;
     if (multihits)
+    { hb.kb_value += cd_multihit_speed_bonus * abs(hsp); }
+    
+    //apply buffs (should be the same as set_attack.gml)
+    var charge_percent = cd_saved_spin_meter / player_id.uhc_cd_spin_max;
+    with (player_id)
     {
-        hb.kb_value += cd_multihit_speed_bonus * abs(hsp);
+        if (0 < get_hitbox_value(atk, hnum, HG_SPIN_DAMAGE_BONUS))
+        { hb.damage += charge_percent * get_hitbox_value(atk, hnum, HG_SPIN_DAMAGE_BONUS); }
+        if (0 < get_hitbox_value(atk, hnum, HG_SPIN_HITPAUSE_BONUS))
+        { hb.hitpause += charge_percent * get_hitbox_value(atk, hnum, HG_SPIN_HITPAUSE_BONUS); }
+        if (0 < get_hitbox_value(atk, hnum, HG_SPIN_KNOCKBACK_BONUS))
+        { hb.kb_value += charge_percent * get_hitbox_value(atk, hnum, HG_SPIN_KNOCKBACK_BONUS); }
+        if (0 < get_hitbox_value(atk, hnum, HG_SPIN_KNOCKBACK_SCALING_BONUS))
+        { hb.kb_scale += charge_percent * get_hitbox_value(atk, hnum, HG_SPIN_KNOCKBACK_SCALING_BONUS); }
     }
 }

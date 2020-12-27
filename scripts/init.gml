@@ -99,7 +99,8 @@ bubble_x = 0;
 bubble_y = 8;
 
 //=================================================
-//Custom Frame Data
+//Custom Frame Data indices
+AG_NUM_HITBOXES_BLADED = 70;
 AG_WINDOW_SPIN_COST = 70;
 HG_SPIN_COST = 70;
 HG_SPIN_DAMAGE_BONUS = 71;
