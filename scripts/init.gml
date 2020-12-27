@@ -99,6 +99,15 @@ bubble_x = 0;
 bubble_y = 8;
 
 //=================================================
+//Custom Frame Data
+AG_WINDOW_SPIN_COST = 70;
+HG_SPIN_COST = 70;
+HG_SPIN_DAMAGE_BONUS = 71;
+HG_SPIN_HITPAUSE_BONUS = 72;
+HG_SPIN_KNOCKBACK_BONUS = 73;
+HG_SPIN_KNOCKBACK_SCALING_BONUS = 74;
+
+//=================================================
 //Custom vfx & sprites
 anim_blade_spin = 0;
 anim_blink_timer = 0;
@@ -117,6 +126,9 @@ uhc_victory_quote = "this text coms from" +chr(10)+ " teh init file lololol";
 uhc_fstrong_throwspeed_base = 7.5;
 uhc_fstrong_throwspeed_max = 12;
 
+uhc_cd_spin_drain_base = 0.04;
+uhc_cd_spin_drain_idle = 0.10;
+uhc_cd_spin_max = 100;
 
 //=================================================
 //Custom variables initialized here

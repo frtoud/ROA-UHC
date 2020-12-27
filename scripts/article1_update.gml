@@ -14,14 +14,18 @@
 
 // no logic/timers affected if we're currently in hitstop
 if (hitstop) exit;
+
 //=====================================================
 //applying buffered state
 if (buffered_state != AR_STATE_BUFFER)
 {
     set_state(buffered_state);
+    cd_saved_spin_meter = cd_spin_meter;
     buffered_state = AR_STATE_BUFFER;
 }
+//=====================================================
 
+//General logic
 visible = (state != AR_STATE_DEAD);
 ignores_walls = (state == AR_STATE_DSPECIAL);
 
@@ -137,6 +141,15 @@ switch (state)
 
 state_timer++;
 
+// Charge drain
+if (cd_spin_meter > 0 && 
+  !(player_id.state == PS_SPAWN || player_id.state == PS_RESPAWN))
+{
+    cd_spin_meter -= (state == AR_STATE_IDLE) ? player_id.uhc_cd_spin_drain_idle
+                                              : player_id.uhc_cd_spin_drain_base;
+    cd_spin_meter = clamp(cd_spin_meter, 0, player_id.uhc_cd_spin_max);
+}
+
 
 //=====================================================
 #define set_state(new_state)
@@ -146,16 +159,18 @@ state_timer++;
     has_hit = false;
 }
 
+//==============================================================================
 #define do_gravity()
 {
     if (free && vsp < cd_fall_speed) vsp += cd_grav_force;
 }
-
+//==============================================================================
 #define do_friction()
 {
     if (!free) hsp *= (1 - cd_frict_force);
 }
 
+//==============================================================================
 #define try_pickup()
 {
     if (pickup_cooldown > 0)
@@ -169,6 +184,7 @@ state_timer++;
         sound_play(asset_get("sfx_coin_collect"));
     }
 }
+//==============================================================================
 #define spawn_hitbox(atk, hnum, multihits, hit_self)
 {
     //spawn hitbox at the correct position for next frame's disc position

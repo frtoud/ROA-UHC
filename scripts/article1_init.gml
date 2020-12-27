@@ -47,6 +47,10 @@ cd_dspecial_speed = 24;
 cd_multihit_speed_bonus = 0.75;
 
 //=====================================================
+// gameplay relevant
+cd_spin_meter = floor(player_id.uhc_cd_spin_max / 2); //current charge of blade
+cd_saved_spin_meter = cd_spin_meter; //charge of blade at the beginning of current move (for hitboxes)
+//=====================================================
 //start in the invisible state
 buffered_state = AR_STATE_BUFFER;
 state = AR_STATE_DEAD;

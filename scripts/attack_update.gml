@@ -91,26 +91,32 @@ if (attack == AT_DSPECIAL){
         can_jump = true;
         if (window_timer == 1)
         {
-            uhc_current_cd.buffered_state = AT_DSPECIAL;
+            if (uhc_has_cd_blade)
+            { uhc_current_cd.cd_spin_meter = uhc_cd_spin_max; }
+            else
+            { uhc_current_cd.buffered_state = AT_DSPECIAL; }
         }
     }
     can_fast_fall = false;
     can_move = false
 }
 
+//==============================================================================
 #define throw_blade(xoffset, yoffset, hspd, vspd, cd_atk)
 {
     uhc_current_cd.x = x + (spr_dir * xoffset);
     uhc_current_cd.y = y - yoffset;
     uhc_current_cd.hsp = spr_dir * hspd;
     uhc_current_cd.vsp = vspd;
-    uhc_current_cd.buffered_state = cd_atk;
     uhc_current_cd.spr_dir = spr_dir;
+    
     uhc_has_cd_blade = false;
+    
+    //Set specific attack as the CD state
+    uhc_current_cd.buffered_state = cd_atk;
     
     //swapping CD indexes
     var temp_cd = uhc_current_cd;
     uhc_current_cd = uhc_other_cd;
     uhc_other_cd = temp_cd;
-    
 }

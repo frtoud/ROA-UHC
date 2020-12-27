@@ -1,12 +1,16 @@
 //animation.gml
 
-anim_blade_spin = (3 + anim_blade_spin - 0.2) % 3;
-anim_blink_timer = (anim_blink_timer + 2) % anim_blink_timer_max;
-
-if (get_gameplay_time() % 60 == 0)
+//===============================================================
+//Blade spin animation
+if (uhc_has_cd_blade)
 {
-    //at_dspecial_has_blade = !at_dspecial_has_blade;
+    var spin_speed = 0.5 * (uhc_current_cd.cd_spin_meter / uhc_cd_spin_max);
+    anim_blade_spin = (3 + anim_blade_spin - spin_speed) % 3;
 }
+
+//Blinker animation
+anim_blink_timer = (anim_blink_timer + 2) % anim_blink_timer_max;
+//===============================================================
 
 init_shader();
 
