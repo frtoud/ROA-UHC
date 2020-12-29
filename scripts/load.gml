@@ -2,7 +2,10 @@
 //Setup blade sprites mapping
 //each sprite that has a blade gets its *_blade sprite registered in there
 //use sprite_change_offset_bladed("spr", x, y); as usual 
-uhc_blade_spr_map = ds_map_create();
+if ("hsp" in self) //prevents error in workshop menu
+{
+    uhc_blade_spr_map = ds_map_create();
+}
 
 sprite_change_offset_bladed("idle", 38, 54);
 sprite_change_offset("hurt", 32, 62);
