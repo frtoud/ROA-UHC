@@ -22,6 +22,25 @@ switch (attack)
         }
     } break;
 //==========================================================
+    case AT_TAUNT:
+    {
+        if (window >= 2 && window <= 6)
+        { suppress_stage_music(0, 0.01); }
+
+        if (window == 4)
+        {
+            if (taunt_pressed || special_pressed || attack_pressed)
+            {
+                window = 5;
+                window_timer = 0;
+                uhc_taunt_reloop = taunt_pressed;
+            }
+        }
+        else if (window == 6 && uhc_taunt_reloop)
+        {
+            window = 2;
+        }
+    } break;
     default:
     break;
 }

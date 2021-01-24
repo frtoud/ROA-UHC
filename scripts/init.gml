@@ -119,8 +119,21 @@ anim_last_dodge = { posx:0, posy:0 };
 
 vfx_label = sprite_get("vfx_label");
 vfx_buffering = sprite_get("vfx_buffering");
+vfx_mini_buffering = sprite_get("vfx_mini_buffering");
 
 uhc_victory_quote = "this text coms from" +chr(10)+ " teh init file lololol";
+
+uhc_taunt_videos[3] = { sprite:sprite_get("video_rick"), song:sound_get("video_rick"), spd:12, buffers:true };
+uhc_taunt_videos[2] = { sprite:sprite_get("video_nyan"), song:sound_get("video_nyan"), spd:6, buffers:true };
+uhc_taunt_videos[1] = { sprite:sprite_get("video_dream"), song:sound_get("video_dream"), spd:1, buffers:true };
+uhc_taunt_videos[0] = { sprite:sprite_get("video_blocked"), song:sound_get("video_blocked"), spd:1, buffers:false };
+
+uhc_taunt_current_video = noone;
+uhc_taunt_timer = 0;
+uhc_taunt_opening_timer = 0;
+uhc_taunt_opening_timer_max = 8;
+uhc_taunt_buffering_timer = 0;
+uhc_taunt_reloop = false;
 
 //=================================================
 //Balancing variables

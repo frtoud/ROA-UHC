@@ -54,7 +54,7 @@ sprite_change_offset("fstrong_air", 17, 24);
  sprite_change_offset("fspecial", 64, 94);
  sprite_change_offset("uspecial", 64, 94);
  sprite_change_offset("dspecial", 64, 94);
- sprite_change_offset("taunt", 32, 62);
+sprite_change_offset_bladed("taunt", 22, 22);
 
  sprite_change_offset("plat", 64, 94);
 
@@ -66,6 +66,14 @@ sprite_change_offset("article_cd_mask", 19, 19);
 sprite_change_collision_mask("article_cd_mask", false, 0, noone, noone, noone, noone, 1);
 
 sprite_change_offset("vfx_buffering", 12, 12);
+sprite_change_offset("vfx_mini_buffering", 5, 5);
+
+sprite_change_offset("video_rick", 11, 8);
+sprite_change_offset("video_nyan", 11, 8);
+sprite_change_offset("video_dream", 11, 8);
+sprite_change_offset("video_sparta", 11, 8);
+sprite_change_offset("video_blocked", 11, 8);
+
 set_victory_theme(sound_get("victory"));
 
 //=================================================
