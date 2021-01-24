@@ -116,10 +116,16 @@ if (uhc_taunt_current_video != noone && state != PS_ATTACK_GROUND)
 //collect compat videos
 if (uhc_taunt_collect_videos)
 {
+    uhc_taunt_collect_videos = false; //collect once only
+    
+    var collected_urls = [];
+    collected_urls[0] = url;
     var vid = noone;
-    with (oPlayer) if (self != other)
+    
+    with (oPlayer) if !array_exists(url, collected_urls)
     && ("uhc_custom_videos" in self) && is_array(uhc_taunt_videos)
     {
+        collected_urls[array_length(collected_urls)] = url;
         for (var i = 0; i < array_length(uhc_taunt_videos); i++)
         {
             vid = uhc_taunt_videos[i];
@@ -135,10 +141,12 @@ if (uhc_taunt_collect_videos)
             }
         }
     }
-    uhc_taunt_collect_videos = false;
 }
 
 //==============================================================
-#define try_add_video(obj_vid)
+#define array_exists(value, array)
 {
+    for (i = 0; i < array_length(array); i++)
+    { if (value == array[i]) return true; }
+    return false;
 }   
