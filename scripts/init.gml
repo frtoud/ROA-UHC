@@ -136,6 +136,7 @@ uhc_cd_spin_max = 100;
 uhc_current_cd = noone;
 uhc_other_cd = noone;
 uhc_has_cd_blade = true;
+uhc_no_blade_drain = false;
 
 
 
