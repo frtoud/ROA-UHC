@@ -76,29 +76,23 @@ switch (state)
                  {
                      if (window == 2) //Click to start
                      {
-                         var num_videos = array_length(uhc_taunt_videos);
-                         var video_number = random_func(0, num_videos, true);
+                         var video_number = random_func(0, uhc_taunt_num_videos, true);
                          //Switching channels
                          if (uhc_taunt_current_video != noone)
                          {
                              sound_stop(uhc_taunt_current_video.song);
                              if (uhc_taunt_current_video == uhc_taunt_videos[video_number])
-                             { video_number = (video_number + 1) % num_videos; }
+                             { video_number = (video_number + 1) % uhc_taunt_num_videos; }
                          }
                          uhc_taunt_current_video = uhc_taunt_videos[video_number];
                          uhc_taunt_timer = 0;
                          uhc_taunt_is_opening = true;
-                         uhc_taunt_buffering_timer = 
-                            uhc_taunt_current_video.buffers ? 20 + random_func(0, 40, true) : 0;
-                            
-                        //sound_play(sound_get("click"));
+                         uhc_taunt_buffering_timer = (video_number != 0) ? 20 + random_func(0, 40, true) : 0;
                      }
                      else if (window == 6) //Click to end
                      {
                         sound_stop(uhc_taunt_current_video.song);
                         uhc_taunt_is_opening = false;
-                        
-                        //sound_play(sound_get("click"));
                      }
                  }
              } break;
@@ -117,3 +111,34 @@ if (uhc_taunt_current_video != noone && state != PS_ATTACK_GROUND)
     uhc_taunt_opening_timer = 0;
     uhc_taunt_current_video = noone;
 }
+
+//==============================================================
+//collect compat videos
+if (uhc_taunt_collect_videos)
+{
+    var vid = noone;
+    with (oPlayer) if (self != other)
+    && ("uhc_custom_videos" in self) && is_array(uhc_taunt_videos)
+    {
+        for (var i = 0; i < array_length(uhc_taunt_videos); i++)
+        {
+            vid = uhc_taunt_videos[i];
+            with (other) 
+            {
+                //Send vid to Hypercam
+                if (vid != noone) && ("uhc_taunt_videos" in self)
+                && ("sprite" in vid) && ("song" in vid) && ("fps" in vid)
+                {
+                    uhc_taunt_videos[uhc_taunt_num_videos] = vid;
+                    uhc_taunt_num_videos++;
+                }
+            }
+        }
+    }
+    uhc_taunt_collect_videos = false;
+}
+
+//==============================================================
+#define try_add_video(obj_vid)
+{
+}   

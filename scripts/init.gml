@@ -123,10 +123,14 @@ vfx_mini_buffering = sprite_get("vfx_mini_buffering");
 
 uhc_victory_quote = "this text coms from" +chr(10)+ " teh init file lololol";
 
-uhc_taunt_videos[3] = { sprite:sprite_get("video_rick"), song:sound_get("video_rick"), spd:12, buffers:true };
-uhc_taunt_videos[2] = { sprite:sprite_get("video_nyan"), song:sound_get("video_nyan"), spd:6, buffers:true };
-uhc_taunt_videos[1] = { sprite:sprite_get("video_dream"), song:sound_get("video_dream"), spd:1, buffers:true };
-uhc_taunt_videos[0] = { sprite:sprite_get("video_blocked"), song:sound_get("video_blocked"), spd:1, buffers:false };
+uhc_taunt_videos[31] = noone; //preinitialized to a reasonable amount
+
+uhc_taunt_collect_videos = true;
+uhc_taunt_videos[0] = { sprite:sprite_get("video_blocked"), song:sound_get("video_blocked"), fps:1  };
+uhc_taunt_videos[1] = { sprite:sprite_get("video_dream"),   song:sound_get("video_dream"),   fps:1  };
+uhc_taunt_videos[2] = { sprite:sprite_get("video_nyan"),    song:sound_get("video_nyan"),    fps:10 };
+uhc_taunt_videos[3] = { sprite:sprite_get("video_rick"),    song:sound_get("video_rick"),    fps:5  };
+uhc_taunt_num_videos = 4;
 
 uhc_taunt_current_video = noone;
 uhc_taunt_timer = 0;

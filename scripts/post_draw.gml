@@ -26,7 +26,7 @@ if (state == PS_AIR_DODGE && window == 1)
 // Taunt Video
 if (uhc_taunt_current_video != noone)
 {
-    var subimg = (uhc_taunt_timer/uhc_taunt_current_video.spd);
+    var subimg = floor(uhc_taunt_timer/60 * uhc_taunt_current_video.fps);
     var alpha = (image_index % 2 == 0) ? 0.85 : 0.75;
     var y_scale = ease_backOut(0, 20, uhc_taunt_opening_timer, uhc_taunt_opening_timer_max, 3) / 10.0;
     var vid_x = x +(spr_dir*44);
