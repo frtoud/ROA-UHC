@@ -130,7 +130,8 @@ uhc_taunt_videos[0] = { sprite:sprite_get("video_blocked"), song:sound_get("vide
 uhc_taunt_videos[1] = { sprite:sprite_get("video_dream"),   song:sound_get("video_dream"),   fps:1  };
 uhc_taunt_videos[2] = { sprite:sprite_get("video_nyan"),    song:sound_get("video_nyan"),    fps:10 };
 uhc_taunt_videos[3] = { sprite:sprite_get("video_rick"),    song:sound_get("video_rick"),    fps:5  };
-uhc_taunt_num_videos = 4;
+uhc_taunt_videos[4] = { sprite:sprite_get("video_unreal"),  song:sound_get("video_unreal"),  fps:15 };
+uhc_taunt_num_videos = 5;
 
 uhc_taunt_current_video = noone;
 uhc_taunt_timer = 0;

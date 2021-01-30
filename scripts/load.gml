@@ -71,6 +71,7 @@ sprite_change_offset("vfx_mini_buffering", 5, 5);
 sprite_change_offset("video_rick", 11, 8);
 sprite_change_offset("video_nyan", 11, 8);
 sprite_change_offset("video_dream", 11, 8);
+sprite_change_offset("video_unreal", 11, 8);
 sprite_change_offset("video_sparta", 11, 8);
 sprite_change_offset("video_blocked", 11, 8);
 
