@@ -16,11 +16,11 @@ if (state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR)
 if (state == PS_AIR_DODGE && window == 1)
 {
     shader_start();
-    draw_sprite_ext(sprite_index, 1, anim_last_dodge.posx, anim_last_dodge.posy, 
+    draw_sprite_ext(sprite_index, 1, uhc_anim_last_dodge.posx, uhc_anim_last_dodge.posy, 
                     spr_dir * 2, 2, spr_angle, c_white, 1);
     shader_end();
-    draw_blade(sprite_index, 1, anim_last_dodge.posx, anim_last_dodge.posy);
-    draw_buffering(anim_last_dodge.posx, anim_last_dodge.posy);
+    draw_blade(sprite_index, 1, uhc_anim_last_dodge.posx, uhc_anim_last_dodge.posy);
+    draw_buffering(uhc_anim_last_dodge.posx, uhc_anim_last_dodge.posy);
 }
 //===================================================
 // Taunt Video

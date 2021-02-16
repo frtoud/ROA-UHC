@@ -49,8 +49,8 @@ switch (state)
         if (window == 0)
         {
             //beginning of dodge
-            anim_last_dodge.posx = x;
-            anim_last_dodge.posy = y;
+            uhc_anim_last_dodge.posx = x;
+            uhc_anim_last_dodge.posy = y;
         }
     } break;
     case PS_ATTACK_AIR:

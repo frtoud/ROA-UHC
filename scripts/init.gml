@@ -115,7 +115,8 @@ anim_blink_timer = 0;
 anim_blink_timer_max = 60;
 
 //airdodge buffering effect
-anim_last_dodge = { posx:0, posy:0 };
+uhc_anim_last_dodge = { posx:0, posy:0 };
+
 uhc_anim_back_flipping = false;
 uhc_anim_backflip_spr = sprite_get("doublejump_back");
 
