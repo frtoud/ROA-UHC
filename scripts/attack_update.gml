@@ -29,7 +29,8 @@ switch (attack)
 
         if (window == 4)
         {
-            if (taunt_pressed || special_pressed || attack_pressed)
+            if (taunt_pressed || special_pressed 
+            || attack_pressed || jump_pressed)
             {
                 window = 5;
                 window_timer = 0;
@@ -43,6 +44,7 @@ switch (attack)
     } break;
     default:
     break;
+//==========================================================
 }
 
 if (attack == AT_NSPECIAL){
