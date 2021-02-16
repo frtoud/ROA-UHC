@@ -36,6 +36,14 @@ switch (state)
                     || prev_state == PS_DASH_TURN) ? 1 : 0;
         
     } break;
+    case PS_DOUBLE_JUMP:
+    {
+        if (state_timer <= 1) 
+        { uhc_anim_back_flipping = (hsp * spr_dir) < 0; }
+        
+        if (uhc_anim_back_flipping)
+        { sprite_index = uhc_anim_backflip_spr; }
+    }
     case PS_AIR_DODGE:
     {
         if (window == 0)

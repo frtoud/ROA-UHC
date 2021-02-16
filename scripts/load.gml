@@ -19,7 +19,8 @@ sprite_change_offset_bladed("dashturn", 18, 22);
 
 sprite_change_offset_bladed("jumpstart", 17, 24);
 sprite_change_offset_bladed("jump", 21, 31);
- sprite_change_offset("doublejump", 32, 62);
+sprite_change_offset_bladed("doublejump", 19, 30);
+sprite_change_offset_bladed("doublejump_back", 19, 31);
  sprite_change_offset("walljump", 32, 62);
  sprite_change_offset("pratfall", 32, 62);
 sprite_change_offset_bladed("land", 19, 26);

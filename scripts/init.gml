@@ -35,7 +35,7 @@ air_accel = .5;
 prat_fall_accel = .85; //multiplier of air_accel while in pratfall
 air_friction = .01;
 max_djumps = 1;
-double_jump_time = 32; //the number of frames to play the djump animation. Can't be less than 31.
+double_jump_time = 40; //the number of frames to play the djump animation. Can't be less than 31.
 walljump_hsp = 7;
 walljump_vsp = 11;
 walljump_time = 32;
@@ -116,6 +116,8 @@ anim_blink_timer_max = 60;
 
 //airdodge buffering effect
 anim_last_dodge = { posx:0, posy:0 };
+uhc_anim_back_flipping = false;
+uhc_anim_backflip_spr = sprite_get("doublejump_back");
 
 vfx_label = sprite_get("vfx_label");
 vfx_buffering = sprite_get("vfx_buffering");
