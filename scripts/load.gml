@@ -24,7 +24,7 @@ sprite_change_offset_bladed("doublejump_back", 19, 31);
  sprite_change_offset("walljump", 32, 62);
  sprite_change_offset("pratfall", 32, 62);
 sprite_change_offset_bladed("land", 19, 26);
- sprite_change_offset("landinglag", 32, 62);
+sprite_change_offset_bladed("landinglag", 19, 26);
 
  sprite_change_offset("parry", 32, 62);
  sprite_change_offset("roll_forward", 32, 62);
@@ -38,7 +38,7 @@ sprite_change_offset_bladed("waveland", 19, 26);
  sprite_change_offset("ftilt", 32, 62);
 sprite_change_offset_bladed("dtilt", 20, 20);
  sprite_change_offset("utilt", 64, 94);
- sprite_change_offset("nair", 64, 94);
+sprite_change_offset_bladed("nair", 21, 31);
  sprite_change_offset("fair", 64, 94);
  sprite_change_offset("bair", 64, 94);
  sprite_change_offset("uair", 64, 94);
