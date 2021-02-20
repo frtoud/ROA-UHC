@@ -71,6 +71,13 @@ set_color_profile_slot_range(7, 16, 16, 22);
 
 set_num_palettes(16);
 
+// Unbeatable
+set_color_profile_slot(1, 0,  45,  64, 190); //Body -- needs shading x2.0
+set_color_profile_slot(1, 1, 235, 210,  64); //Lens -- needs shading x2.0
+set_color_profile_slot(1, 2,  75, 205, 230); //CD
+set_color_profile_slot(1, 3, 210, 170,  10); //Paper
+set_color_profile_slot(1, 4, 255,  25,  25); //Blinker
+
 // Nice
 set_color_profile_slot(3, 0, 110,  50,  35); //Body
 set_color_profile_slot(3, 1, 120, 150, 115); //Lens
@@ -81,30 +88,51 @@ set_color_profile_slot(3, 4, 255,  25,  25); //Blinker
 // Terebii Chan
 set_color_profile_slot(4, 0, 190, 190, 190); //Body
 set_color_profile_slot(4, 1, 140, 140, 140); //Lens
-set_color_profile_slot(4, 2, 230, 150, 150); //CD
+set_color_profile_slot(4, 2, 230, 170, 170); //CD
 set_color_profile_slot(4, 3, 230, 170, 170); //Paper
 set_color_profile_slot(4, 4, 255,  25,  25); //Blinker
 
+// Abyss
+set_color_profile_slot(6, 0,  80,  48,  75); //Body
+set_color_profile_slot(6, 1, 201,  63, 193); //Lens
+set_color_profile_slot(6, 2,  78,  23, 141); //CD
+set_color_profile_slot(6, 3, 201,  63, 193); //Paper
+set_color_profile_slot(6, 4, 201,  63, 193); //Blinker 
+
+// Gameboy -- needs Monochrome shading
+set_color_profile_slot(7, 0,  83, 122,  62); //Body
+set_color_profile_slot(7, 1, 211, 226, 154); //Lens
+set_color_profile_slot(7, 2,  96, 122,  82); //CD
+set_color_profile_slot(7, 3, 211, 226, 154); //Paper
+set_color_profile_slot(7, 4, 211, 226, 154); //Blinker 
+
+// Astrodroid
+set_color_profile_slot(9, 0, 200, 200, 200); //Body -- needs shading x2.0
+set_color_profile_slot(9, 1,  45,  45,  45); //Lens
+set_color_profile_slot(9, 2,  50,  64, 150); //CD
+set_color_profile_slot(9, 3,  45,  35, 145); //Paper
+set_color_profile_slot(9, 4, 255,  25,  25); //Blinker
+
 // Famicom
-set_color_profile_slot(5, 0, 165, 160, 140); //Body
-set_color_profile_slot(5, 1,  77,  77, 140); //Lens
-set_color_profile_slot(5, 2, 153,  70,  66); //CD
-set_color_profile_slot(5, 3, 122,  45,  45); //Paper
-set_color_profile_slot(5, 4,  25, 255, 255); //Blinker 
+set_color_profile_slot(10, 0, 165, 160, 140); //Body -- needs shading x2.0
+set_color_profile_slot(10, 1,  77,  77, 140); //Lens
+set_color_profile_slot(10, 2, 153,  70,  66); //CD
+set_color_profile_slot(10, 3, 122,  45,  45); //Paper
+set_color_profile_slot(10, 4,  25, 255, 255); //Blinker 
 
 // Motherload/Halo
-set_color_profile_slot(6, 0,  88,  94,  75); //Body
-set_color_profile_slot(6, 1, 196, 175,  96); //Lens
-set_color_profile_slot(6, 2,  45,  45,  45); //CD
-set_color_profile_slot(6, 3,   0,   0,   0); //Paper
-set_color_profile_slot(6, 4, 255,  25,  25); //Blinker 
+set_color_profile_slot(12, 0,  88,  94,  75); //Body
+set_color_profile_slot(12, 1, 196, 175,  96); //Lens
+set_color_profile_slot(12, 2,  45,  45,  45); //CD
+set_color_profile_slot(12, 3,   0,   0,   0); //Paper
+set_color_profile_slot(12, 4, 255,  25,  25); //Blinker 
 
 // Wall-E
-set_color_profile_slot(7, 0,  88,  94,  75); //Body
-set_color_profile_slot(7, 1, 255, 255, 200); //Lens
-set_color_profile_slot(7, 2, 170, 170, 180); //CD
-set_color_profile_slot(7, 3,   0,   0,   0); //Paper
-set_color_profile_slot(7, 4, 255,  25,  25); //Blinker 
+set_color_profile_slot(13, 0, 173, 120,  30); //Body -- needs shading x2.0
+set_color_profile_slot(13, 1,  88,  96,  96); //Lens
+set_color_profile_slot(13, 2, 150, 148, 128); //CD
+set_color_profile_slot(13, 3,  82,  80,  72); //Paper
+set_color_profile_slot(13, 4, 255,  25,  25); //Blinker 
 
 // Unrestrained
 set_color_profile_slot(14, 0,  40,  40,  40); //Body -- needs shading x0.5
@@ -113,7 +141,7 @@ set_color_profile_slot(14, 2,  45,  45,  45); //CD
 set_color_profile_slot(14, 3,  65,  65,  65); //Paper -- needs shading x0.0
 set_color_profile_slot(14, 4, 255,  25,  25); //Blinker
 
-// Tank
+// Tankmen -- needs Monochrome shading
 set_color_profile_slot(15, 0,   0,   0,   0); //Body
 set_color_profile_slot(15, 1, 255, 255, 255); //Lens
 set_color_profile_slot(15, 2, 250, 180,  10); //CD

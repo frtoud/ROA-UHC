@@ -1,7 +1,10 @@
 //init_shader.gml
 //Update this if color.gml changes
+#macro ALT_AIR      1
 #macro ALT_GAMEBOY  7
-#macro ALT_ROB      5
+#macro ALT_R2       9
+#macro ALT_ROB      10
+#macro ALT_WALLE    13
 #macro ALT_EVIL     14
 #macro ALT_TANK     15
 
@@ -14,14 +17,23 @@ if (current_color == ALT_EVIL)
     set_character_color_shading( 0, 0.5 ); 
     set_character_color_shading( 3, 0.0 );
 }
-else if (current_color == ALT_ROB) 
+//===================================================
+// More pronounced shadings
+if (current_color == ALT_AIR) 
+|| (current_color == ALT_R2) 
+|| (current_color == ALT_ROB) 
+|| (current_color == ALT_WALLE) 
 { 
     set_character_color_shading( 0, 2.0 );
 }
+if (current_color == ALT_AIR) 
+{ 
+    set_character_color_shading( 1, 2.0 );
+}
 
 //===================================================
-// Newgrounds Monochrome aesthetics
-if (current_color == ALT_TANK)
+// Monochrome aesthetics
+if (current_color == ALT_TANK) || (current_color == ALT_GAMEBOY)
 {
     set_character_color_shading( 0, 0.0 );  
     set_character_color_shading( 3, 0.0 );
