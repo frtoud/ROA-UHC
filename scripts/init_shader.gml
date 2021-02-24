@@ -51,13 +51,13 @@ else
 
 //===================================================
 //CD Spinning shenanigans
-if ("anim_blade_spin" in self)
+if ("uhc_anim_blade_spin" in self)
 {
     var tempR = get_color_profile_slot_r(current_color, 2);
     var tempG = get_color_profile_slot_g(current_color, 2);
     var tempB = get_color_profile_slot_b(current_color, 2);
     
-    var flashing_sector = (floor(anim_blade_spin % 3)) + 5;
+    var flashing_sector = (floor(uhc_anim_blade_spin % 3)) + 5;
     
     for (var i = 5; i < 8; i++)
     {

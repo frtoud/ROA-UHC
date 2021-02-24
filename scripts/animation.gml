@@ -5,7 +5,7 @@
 if (uhc_has_cd_blade)
 {
     var spin_speed = 0.5 * (uhc_current_cd.cd_spin_meter / uhc_cd_spin_max);
-    anim_blade_spin = (3 + anim_blade_spin - spin_speed) % 3;
+    uhc_anim_blade_spin = (3 + uhc_anim_blade_spin - spin_speed) % 3;
 }
 
 //Blinker animation
@@ -130,8 +130,9 @@ if (uhc_taunt_collect_videos)
     collected_urls[0] = url;
     var vid = noone;
     
-    with (oPlayer) if !array_exists(url, collected_urls)
-    && ("uhc_custom_videos" in self) && is_array(uhc_taunt_videos)
+    with (oPlayer) 
+    if ("url" in self) && !array_exists(url, collected_urls)
+    && ("uhc_taunt_videos" in self) && is_array(uhc_taunt_videos)
     {
         collected_urls[array_length(collected_urls)] = url;
         for (var i = 0; i < array_length(uhc_taunt_videos); i++)
