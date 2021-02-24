@@ -22,6 +22,17 @@ switch (attack)
         }
     } break;
 //==========================================================
+    case AT_FSPECIAL:
+    {
+        if (window <= 2)
+        {
+            can_move = false;
+            //dampen momentum massively
+            vsp *= (vsp < 0) ? 1 : 0.65;
+            hsp *= (vsp < 0) ? 0.95 : 0.75;
+        }
+    }
+//==========================================================
     case AT_TAUNT:
     {
         if (window >= 2 && window <= 6)
