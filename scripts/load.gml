@@ -39,7 +39,7 @@ sprite_change_offset_bladed("waveland", 19, 26);
 sprite_change_offset_bladed("dtilt", 20, 20);
  sprite_change_offset("utilt", 64, 94);
 sprite_change_offset_bladed("nair", 21, 31);
- sprite_change_offset("fair", 64, 94);
+ sprite_change_offset("fair", 26, 44, true);
  sprite_change_offset("bair", 64, 94);
  sprite_change_offset("uair", 64, 94);
  sprite_change_offset("dair", 64, 94);
