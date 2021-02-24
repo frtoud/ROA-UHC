@@ -111,8 +111,10 @@ HG_SPIN_KNOCKBACK_SCALING_BONUS = 74;
 //=================================================
 //Custom vfx & sprites
 uhc_anim_blade_spin = 0;
-anim_blink_timer = 0;
-anim_blink_timer_max = 60;
+
+uhc_anim_blink_timer = 0;
+uhc_anim_blink_timer_max = 16;
+uhc_anim_blinker_shading = 0.0;
 
 //airdodge buffering effect
 uhc_anim_last_dodge = { posx:0, posy:0 };
@@ -155,6 +157,10 @@ uhc_cd_spin_drain_base = 0.04;
 uhc_cd_spin_drain_idle = 0.10;
 uhc_cd_spin_max = 100;
 
+uhc_fspecial_charge_max = 480; // 8s * 60
+uhc_fspecial_charge_half = 240; // 4s * 60
+uhc_fspecial_cooldown = 60; // 1s * 60
+
 //=================================================
 //Custom variables initialized here
 uhc_current_cd = noone;
@@ -162,6 +168,4 @@ uhc_other_cd = noone;
 uhc_has_cd_blade = true;
 uhc_no_blade_drain = false;
 
-
-
-
+uhc_fspecial_charge_current = 0;

@@ -11,9 +11,6 @@ set_window_value(AT_FSPECIAL, 1, AG_WINDOW_ANIM_FRAMES, 3);
 set_window_value(AT_FSPECIAL, 1, AG_WINDOW_HAS_SFX, 1);
 set_window_value(AT_FSPECIAL, 1, AG_WINDOW_SFX, asset_get("sfx_may_arc_cointoss"));
 set_window_value(AT_FSPECIAL, 1, AG_WINDOW_SFX_FRAME, 17);
-set_window_value(AT_FSPECIAL, 2, AG_WINDOW_HAS_CUSTOM_FRICTION, true);
-set_window_value(AT_FSPECIAL, 2, AG_WINDOW_CUSTOM_AIR_FRICTION, 0.75);
-set_window_value(AT_FSPECIAL, 2, AG_WINDOW_CUSTOM_GROUND_FRICTION, 0.5);
 
 set_window_value(AT_FSPECIAL, 2, AG_WINDOW_TYPE, 1);
 set_window_value(AT_FSPECIAL, 2, AG_WINDOW_LENGTH, 3);
@@ -43,7 +40,7 @@ set_hitbox_value(AT_FSPECIAL, 1, HG_DAMAGE, 6);
 set_hitbox_value(AT_FSPECIAL, 1, HG_ANGLE, 90);
 set_hitbox_value(AT_FSPECIAL, 1, HG_BASE_KNOCKBACK, 6);
 set_hitbox_value(AT_FSPECIAL, 1, HG_KNOCKBACK_SCALING, .3);
-set_hitbox_value(AT_FSPECIAL, 1, HG_EFFECT, 6);
+set_hitbox_value(AT_FSPECIAL, 1, HG_EFFECT, 9);
 set_hitbox_value(AT_FSPECIAL, 1, HG_BASE_HITPAUSE, 5);
 set_hitbox_value(AT_FSPECIAL, 1, HG_HIT_SFX, asset_get("sfx_absa_singlezap2"));
 set_hitbox_value(AT_FSPECIAL, 1, HG_IGNORES_PROJECTILES, 1);

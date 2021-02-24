@@ -68,10 +68,9 @@ if ("uhc_anim_blade_spin" in self)
 }
 //===================================================
 //Blinker light
-if ("anim_blink_timer" in self)
+if ("uhc_anim_blinker_shading" in self)
 {
-    set_character_color_shading( 4, 
-           ease_sineOut(0, 8, floor(anim_blink_timer), anim_blink_timer_max));
+    set_character_color_shading( 4, uhc_anim_blinker_shading);
 }
 
 //===================================================

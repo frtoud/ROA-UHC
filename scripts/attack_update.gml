@@ -31,6 +31,11 @@ switch (attack)
             vsp *= (vsp < 0) ? 1 : 0.65;
             hsp *= (vsp < 0) ? 0.95 : 0.75;
         }
+        if (window == 2)
+        {
+            move_cooldown[AT_FSPECIAL] = uhc_fspecial_cooldown;
+            uhc_fspecial_charge_current = 0;
+        }
     }
 //==========================================================
     case AT_TAUNT:

@@ -12,8 +12,14 @@ if (!instance_exists(uhc_other_cd))
                                  : uhc_current_cd;
 }
 //=====================================================
-
 //CD drain exceptions
 uhc_no_blade_drain = (state == PS_RESPAWN)
                   || (state == PS_SPAWN)
                   || (state == PS_ATTACK_GROUND && attack == AT_TAUNT);
+                  
+//=====================================================
+//FSPECIAL recharge
+if (uhc_fspecial_charge_current < uhc_fspecial_charge_max)
+{
+    uhc_fspecial_charge_current++;
+}
