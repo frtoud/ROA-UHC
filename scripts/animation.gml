@@ -84,6 +84,15 @@ switch (state)
         switch (attack)
         {
 //===============================================================
+             case AT_FSPECIAL:
+             {
+                 if (window == 2 && window_timer == 1)
+                 {
+                     //Caution: unsafe
+                     uhc_unsafe_screenshot_time = current_time;
+                 }
+             }
+//===============================================================
              case AT_TAUNT:
              {
                  //Timers

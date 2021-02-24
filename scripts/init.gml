@@ -128,8 +128,8 @@ vfx_mini_buffering = sprite_get("vfx_mini_buffering");
 
 uhc_victory_quote = "this text coms from" +chr(10)+ " teh init file lololol";
 
-uhc_taunt_videos[31] = noone; //preinitialized to a reasonable amount
 
+uhc_taunt_videos[31] = noone; //preinitialized to a reasonable amount
 uhc_taunt_collect_videos = true;
 var i = 0;
 //Must stay first
@@ -147,6 +147,9 @@ uhc_taunt_opening_timer = 0;
 uhc_taunt_opening_timer_max = 8;
 uhc_taunt_buffering_timer = 0;
 uhc_taunt_reloop = false;
+
+//NOTE: unsafe for online! only used in rendering!
+uhc_unsafe_screenshot_time = -1;
 
 //=================================================
 //Balancing variables
