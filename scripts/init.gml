@@ -24,7 +24,7 @@ ground_friction = .5;
 moonwalk_accel = 1.4;
 
 jump_start_time = 5;
-jump_speed = 11;
+jump_speed = 11.5;
 short_hop_speed = 7.5;
 djump_speed = 11;
 leave_ground_max = 8; //the maximum hsp you can have when you go from grounded to aerial without jumping
