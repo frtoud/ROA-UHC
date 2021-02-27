@@ -69,6 +69,10 @@ sprite_change_collision_mask("article_cd_mask", false, 0, noone, noone, noone, n
 
 sprite_change_offset("vfx_buffering", 12, 12);
 sprite_change_offset("vfx_mini_buffering", 5, 5);
+sprite_change_offset("vfx_flash_charge", -1, 21);
+sprite_change_offset("vfx_flash_small", 0, 24);
+sprite_change_offset("vfx_flash_medium", 0, 53);
+sprite_change_offset("vfx_flash_large", 0, 107);
 
 sprite_change_offset("video_rick", 11, 8);
 sprite_change_offset("video_nyan", 11, 8);

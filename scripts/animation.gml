@@ -36,7 +36,12 @@ uhc_anim_blinker_shading = min(uhc_anim_blinker_shading, blink_pulse);
 if (uhc_anim_blink_timer > 0) { uhc_anim_blink_timer--; }
 
 //===============================================================
+//Flash animation
 
+if (uhc_anim_fspecial_flash_timer > 0) { uhc_anim_fspecial_flash_timer--; }
+else { uhc_anim_fspecial_flash_spr = noone; }
+
+//===============================================================
 init_shader();
 
 switch (state)
@@ -84,60 +89,71 @@ switch (state)
         switch (attack)
         {
 //===============================================================
-             case AT_FSPECIAL:
-             {
-                 if (window == 2 && window_timer == 1)
-                 {
-                     //Caution: unsafe
-                     uhc_unsafe_screenshot_time = current_time;
-                 }
-             }
+            case AT_FSPECIAL:
+            {
+                if (window == 1 && window_timer == 7)
+                {
+                    uhc_anim_fspecial_flash_timer = 8;
+                    uhc_anim_fspecial_flash_spr = vfx_flash_charge;
+                }
+                else if (window >= 2 && window <= 4) && (window_timer == 0)
+                {
+                    uhc_anim_fspecial_flash_timer = 8;
+                     
+                    uhc_anim_fspecial_flash_spr = (window == 2 ? vfx_flash_small
+                                                : (window == 3 ? vfx_flash_medium
+                                                               : vfx_flash_large ));
+
+                    if (window == 2)
+                    { uhc_unsafe_screenshot_time = current_time; }               
+                }
+            }
 //===============================================================
-             case AT_TAUNT:
-             {
-                 //Timers
-                 if (uhc_taunt_current_video != noone)
-                 {
-                     if (uhc_taunt_opening_timer < uhc_taunt_opening_timer_max && uhc_taunt_is_opening)
-                     { uhc_taunt_opening_timer++; }
-                     else if (uhc_taunt_opening_timer > 0 && !uhc_taunt_is_opening)
-                     { uhc_taunt_opening_timer--; }
-                     else if (uhc_taunt_buffering_timer > 0)
-                     { 
-                         uhc_taunt_buffering_timer--; 
-                         if (uhc_taunt_buffering_timer == 0 && uhc_taunt_is_opening)
-                         {
-                             sound_play(uhc_taunt_current_video.song, true, noone, 1, 1);
-                         }
-                     }
-                     else
-                     { uhc_taunt_timer++; }
-                 }
+            case AT_TAUNT:
+            {
+                //Timers
+                if (uhc_taunt_current_video != noone)
+                {
+                    if (uhc_taunt_opening_timer < uhc_taunt_opening_timer_max && uhc_taunt_is_opening)
+                    { uhc_taunt_opening_timer++; }
+                    else if (uhc_taunt_opening_timer > 0 && !uhc_taunt_is_opening)
+                    { uhc_taunt_opening_timer--; }
+                    else if (uhc_taunt_buffering_timer > 0)
+                    { 
+                        uhc_taunt_buffering_timer--; 
+                        if (uhc_taunt_buffering_timer == 0 && uhc_taunt_is_opening)
+                        {
+                            sound_play(uhc_taunt_current_video.song, true, noone, 1, 1);
+                        }
+                    }
+                    else
+                    { uhc_taunt_timer++; }
+                }
                  
-                 if (window_timer == 4)
-                 {
-                     if (window == 2) //Click to start
-                     {
-                         var video_number = random_func(0, uhc_taunt_num_videos, true);
-                         //Switching channels
-                         if (uhc_taunt_current_video != noone)
-                         {
-                             sound_stop(uhc_taunt_current_video.song);
-                             if (uhc_taunt_current_video == uhc_taunt_videos[video_number])
-                             { video_number = (video_number + 1) % uhc_taunt_num_videos; }
-                         }
-                         uhc_taunt_current_video = uhc_taunt_videos[video_number];
-                         uhc_taunt_timer = 0;
-                         uhc_taunt_is_opening = true;
-                         uhc_taunt_buffering_timer = (video_number != 0) ? 20 + random_func(0, 40, true) : 0;
-                     }
-                     else if (window == 6) //Click to end
-                     {
+                if (window_timer == 4)
+                {
+                    if (window == 2) //Click to start
+                    {
+                        var video_number = random_func(0, uhc_taunt_num_videos, true);
+                        //Switching channels
+                        if (uhc_taunt_current_video != noone)
+                        {
+                            sound_stop(uhc_taunt_current_video.song);
+                            if (uhc_taunt_current_video == uhc_taunt_videos[video_number])
+                            { video_number = (video_number + 1) % uhc_taunt_num_videos; }
+                        }
+                        uhc_taunt_current_video = uhc_taunt_videos[video_number];
+                        uhc_taunt_timer = 0;
+                        uhc_taunt_is_opening = true;
+                        uhc_taunt_buffering_timer = (video_number != 0) ? 20 + random_func(0, 40, true) : 0;
+                    }
+                    else if (window == 6) //Click to end
+                    {
                         sound_stop(uhc_taunt_current_video.song);
                         uhc_taunt_is_opening = false;
-                     }
-                 }
-             } break;
+                    }
+                }
+            } break;
 //===============================================================
         }
     } break;

@@ -23,6 +23,16 @@ if (state == PS_AIR_DODGE && window == 1)
     draw_buffering(uhc_anim_last_dodge.posx, uhc_anim_last_dodge.posy);
 }
 //===================================================
+// FSPECIAL Flash
+if (uhc_anim_fspecial_flash_spr != noone)
+{
+    var frame = 4 - min(4, (uhc_anim_fspecial_flash_timer) / 2);
+    shader_start();
+    draw_sprite_ext(uhc_anim_fspecial_flash_spr, frame, 
+                    x + (spr_dir * 18), y - 28, spr_dir * 2, 2, 0, c_white, 1);
+    shader_end();
+}
+//===================================================
 // Taunt Video
 if (uhc_taunt_current_video != noone)
 {

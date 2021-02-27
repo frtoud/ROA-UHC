@@ -126,6 +126,14 @@ vfx_label = sprite_get("vfx_label");
 vfx_buffering = sprite_get("vfx_buffering");
 vfx_mini_buffering = sprite_get("vfx_mini_buffering");
 
+vfx_flash_charge = sprite_get("vfx_flash_charge");
+vfx_flash_small = sprite_get("vfx_flash_small");
+vfx_flash_medium = sprite_get("vfx_flash_medium");
+vfx_flash_large = sprite_get("vfx_flash_large");
+
+uhc_anim_fspecial_flash_spr = noone;
+uhc_anim_fspecial_flash_timer = 0;
+
 uhc_victory_quote = "this text coms from" +chr(10)+ " teh init file lololol";
 
 

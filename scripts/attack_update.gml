@@ -24,17 +24,31 @@ switch (attack)
 //==========================================================
     case AT_FSPECIAL:
     {
-        if (window <= 2)
+        if (window <= 4)
         {
             can_move = false;
             //dampen momentum massively
             vsp *= (vsp < 0) ? 1 : 0.65;
             hsp *= (vsp < 0) ? 0.95 : 0.75;
         }
-        if (window == 2)
+        if (window == 1)
         {
-            move_cooldown[AT_FSPECIAL] = uhc_fspecial_cooldown;
-            uhc_fspecial_charge_current = 0;
+            if (window_timer == 1)
+            {
+                var goto_window = 
+                  (uhc_fspecial_charge_current < uhc_fspecial_charge_half) ? 2 :
+                  (uhc_fspecial_charge_current < uhc_fspecial_charge_max)  ? 3 : 4;
+                
+                set_window_value(AT_FSPECIAL, 1, AG_WINDOW_GOTO, goto_window);
+                //Change SFX based on window (SFX stored on the target window)
+                set_window_value(AT_FSPECIAL, 1, AG_WINDOW_SFX, 
+                   get_window_value(AT_FSPECIAL, goto_window, AG_WINDOW_SFX));
+            }
+            else if (window_timer == get_window_value(AT_FSPECIAL, 1, AG_WINDOW_LENGTH) - 1)
+            {
+                move_cooldown[AT_FSPECIAL] = uhc_fspecial_cooldown;
+                uhc_fspecial_charge_current = 0;
+            }
         }
     }
 //==========================================================
@@ -70,17 +84,6 @@ if (attack == AT_NSPECIAL){
             window_timer = 0;
         }
     }
-}
-
-if (attack == AT_FSPECIAL){
-    if (window == 2){
-        if (special_pressed){
-            window = 3;
-            window_timer = 0;
-            destroy_hitboxes();
-        }
-    }
-    can_fast_fall = false;
 }
 
 if (attack == AT_USPECIAL){
