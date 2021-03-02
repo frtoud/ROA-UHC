@@ -156,8 +156,25 @@ uhc_taunt_opening_timer_max = 8;
 uhc_taunt_buffering_timer = 0;
 uhc_taunt_reloop = false;
 
-//NOTE: unsafe for online! only used in rendering!
-uhc_unsafe_screenshot_time = -1;
+//NOTE: time values unsafe for online! only used in rendering!
+uhc_fast_screenshot = 2 < (is_player_on(1) + is_player_on(2) + is_player_on(3) + is_player_on(4));
+uhc_unsafe_screenshot = 
+{
+    sfx_time:  -1, //sound effect
+    start_time:-1, //start of rising animation
+    rise_time: -1, //end of rising animation
+    fall_time: -1, //start of falling animation
+    end_time:  -1, //end of falling animation
+    next_time: -1, //Cooldown for next screenshot
+    
+    target: noone,
+    sprite: noone,
+    image: noone,
+    spr_dir: 0,
+    spr_left: 0,
+    spr_top: 0
+};
+vfx_screenshot_tab = sprite_get("vfx_screenshot");
 
 //=================================================
 //Balancing variables

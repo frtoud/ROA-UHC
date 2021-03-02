@@ -103,9 +103,6 @@ switch (state)
                     uhc_anim_fspecial_flash_spr = (window == 2 ? vfx_flash_small
                                                 : (window == 3 ? vfx_flash_medium
                                                                : vfx_flash_large ));
-
-                    if (window == 2)
-                    { uhc_unsafe_screenshot_time = current_time; }               
                 }
             }
 //===============================================================
