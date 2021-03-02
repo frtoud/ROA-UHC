@@ -16,7 +16,7 @@ set_window_value(AT_TAUNT, 2, AG_WINDOW_ANIM_FRAMES, 3);
 set_window_value(AT_TAUNT, 2, AG_WINDOW_ANIM_FRAME_START, 3);
 set_window_value(AT_TAUNT, 2, AG_WINDOW_HAS_SFX, 1);
 set_window_value(AT_TAUNT, 2, AG_WINDOW_SFX_FRAME, 4);
-set_window_value(AT_TAUNT, 2, AG_WINDOW_SFX, sound_get("click"));
+set_window_value(AT_TAUNT, 2, AG_WINDOW_SFX, sound_get("sfx_click"));
 
 set_window_value(AT_TAUNT, 3, AG_WINDOW_TYPE, 1);
 set_window_value(AT_TAUNT, 3, AG_WINDOW_LENGTH, 12);
@@ -31,7 +31,7 @@ set_window_value(AT_TAUNT, 4, AG_WINDOW_ANIM_FRAME_START, 9);
 
 set_window_value(AT_TAUNT, 5, AG_WINDOW_TYPE, 1);
 set_window_value(AT_TAUNT, 5, AG_WINDOW_LENGTH, 12);
-set_window_value(AT_TAUNT, 5, AG_WINDOW_ANIM_FRAMES, -3);
+set_window_value(AT_TAUNT, 5, AG_WINDOW_ANIM_FRAMES, -3); //not a typo >:]
 set_window_value(AT_TAUNT, 5, AG_WINDOW_ANIM_FRAME_START, 9);
 
 //Click out
@@ -41,9 +41,9 @@ set_window_value(AT_TAUNT, 6, AG_WINDOW_ANIM_FRAMES, 3);
 set_window_value(AT_TAUNT, 6, AG_WINDOW_ANIM_FRAME_START, 3);
 set_window_value(AT_TAUNT, 6, AG_WINDOW_HAS_SFX, 1);
 set_window_value(AT_TAUNT, 6, AG_WINDOW_SFX_FRAME, 4);
-set_window_value(AT_TAUNT, 6, AG_WINDOW_SFX, sound_get("click"));
+set_window_value(AT_TAUNT, 6, AG_WINDOW_SFX, sound_get("sfx_click"));
 
 set_window_value(AT_TAUNT, 7, AG_WINDOW_TYPE, 1);
 set_window_value(AT_TAUNT, 7, AG_WINDOW_LENGTH, 15);
-set_window_value(AT_TAUNT, 7, AG_WINDOW_ANIM_FRAMES, -3);
+set_window_value(AT_TAUNT, 7, AG_WINDOW_ANIM_FRAMES, -3); //not a typo >:]
 set_window_value(AT_TAUNT, 7, AG_WINDOW_ANIM_FRAME_START, 3);
