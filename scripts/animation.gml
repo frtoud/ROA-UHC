@@ -131,14 +131,18 @@ switch (state)
                 {
                     if (window == 2) //Click to start
                     {
-                        var video_number = random_func(0, uhc_taunt_num_videos, true);
+                        var video_number = 0;
                         //Switching channels
                         if (uhc_taunt_current_video != noone)
                         {
                             sound_stop(uhc_taunt_current_video.song);
-                            if (uhc_taunt_current_video == uhc_taunt_videos[video_number])
-                            { video_number = (video_number + 1) % uhc_taunt_num_videos; }
+                            video_number = (uhc_taunt_current_video.num + 1) % uhc_taunt_num_videos;
                         }
+                        else
+                        {
+                            video_number = random_func(0, uhc_taunt_num_videos, true);
+                        }
+
                         uhc_taunt_current_video = uhc_taunt_videos[video_number];
                         uhc_taunt_timer = 0;
                         uhc_taunt_is_opening = true;
