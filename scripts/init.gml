@@ -147,6 +147,7 @@ add_uhc_video(i, "video_dream",   1  ); i++;
 add_uhc_video(i, "video_nyan",    10 ); i++;
 add_uhc_video(i, "video_rick",     8 ); i++;
 add_uhc_video(i, "video_unreal",  15 ); i++;
+add_uhc_video(i, "video_love",    16 ); i++;
 uhc_taunt_num_videos = i;
 
 uhc_taunt_current_video = noone;
