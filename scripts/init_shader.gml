@@ -76,22 +76,100 @@ if ("uhc_anim_blinker_shading" in self)
 //===================================================
 // Result Screen drawing
 // Note: draws behind portrait and result boxes.
-if (object_index == asset_get("draw_result_screen"))
+if (object_index == asset_get("draw_result_screen") 
+&& (winner == player)) //...only do this when Hypercam's the one in front
 {
-    //Must check if Hypercam is in front of the portraits
-    //Must check if result boxes are open
-    //Must track animation timers
     if ("uhc_victory_quote" not in self)
     {
-        //Must recover text and clip it
-        var end_pos = string_pos("¸", keyboard_string)
-        uhc_victory_quote = string_copy(keyboard_string, 1, end_pos);
+        var quotes_array = [];
+        var quotes_priority = [];
+        for (var p = 1; p <= 4; p++)
+        { 
+            //defaults for player not present
+            quotes_priority[p] = 0; 
+            quotes_array[p] = "";
+        }  
+        //Must recover array of text and select best target
+        var data_pos = string_pos("uhc{", keyboard_string) + 4; //size of uhc{
+        var end_pos = string_pos("}", keyboard_string)       //end of data "}"
+        //crop out string of interest
+        var temp_string = string_copy(keyboard_string, data_pos, end_pos - data_pos);
         
+        end_pos = string_pos("¤", temp_string);
+        while (end_pos != 0)
+        {
+            var pl = real(string_char_at(temp_string, 1));
+            var pr = real(string_char_at(temp_string, 2));
+            quotes_array[pl] = string_copy(temp_string, 3, end_pos - 3);
+            quotes_priority[pl] = pr;
+            
+            //shift to next position
+            temp_string = string_delete(temp_string, 1, end_pos);
+            end_pos = string_pos("¤", temp_string);
+        }
+        
+        var player_order;
+        var player_teams;
+        with asset_get("result_screen_box")
+        {
+            player_order[player] = y;
+            player_teams[player] = get_player_team(player);
+        }
+        
+        // Best match:
+        // - Self if priority >= 2
+        // - not on your team
+        // - highest priority
+        // - highest ranking
+        var best_player = player;
+        if !(quotes_priority[player] >= 2)
+        {
+            for (var p = 1; p <= 4; p++)
+            {
+                var best_is_on_team = (player_teams[best_player] == player_teams[player]);
+                var not_on_team = (player_teams[p] != player_teams[player]);
+                var higher_ranking = (player_order[p] < player_order[best_player]);
+                var higher_priority = (quotes_priority[p] > quotes_priority[best_player]);
+                var same_priority = (quotes_priority[p] == quotes_priority[best_player]);
+                
+                if (best_is_on_team && not_on_team)
+                || (not_on_team && higher_priority)
+                || (not_on_team && same_priority && higher_ranking)
+                {
+                    best_player = p;
+                }
+            }
+        }
+        
+        uhc_victory_quote = quotes_array[best_player];
+        if (string_length(uhc_victory_quote) < 1)
+           uhc_victory_quote = get_random_quote();
     }
     
+    //Must check if result boxes are open
+    //Must track animation timers
     draw_sprite(sprite_get("victory_quote_bg"), 0, -20, 50);
     draw_win_quote(115, 65, uhc_victory_quote);
 }
+//=================================================
+// Runs inconditionally; but only once per box
+// deletes the smuggled ds_list and sends the contents to the winner display object
+// See unload.gml: why doesnt this work?
+/*
+else if (object_index == asset_get("result_screen_box"))
+{
+    //var list = get_color_profile_slot_r(0, 8);
+    if (ds_list_valid(list))
+    {
+        with (asset_get("draw_result_screen"))
+        {
+            uhc_victory_quotes = ds_list_to_array(list);
+        }
+        ds_list_clear(list);
+        ds_list_destroy(list); //Memory leak prevented
+    }
+}
+*/
 //====================================================
 
 #define draw_win_quote(posx, posy, quote)
@@ -122,3 +200,14 @@ if (object_index == asset_get("draw_result_screen"))
      half_scale, half_scale, 0, c_white, c_white, c_white, c_white, 1);
 }
 
+#define get_random_quote()
+{
+    var quote = "";
+    switch ((current_time) % 1)
+    {
+        case 0: default:
+            quote = "Random Quot xd"; 
+           break;
+    }
+    return quote;
+}

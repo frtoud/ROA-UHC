@@ -134,16 +134,17 @@ vfx_flash_large = sprite_get("vfx_flash_large");
 uhc_anim_fspecial_flash_spr = noone;
 uhc_anim_fspecial_flash_timer = 0;
 
-uhc_victory_quote = "this text coms from" +chr(10)+ " teh init file lololol";
+uhc_victory_quote = "this text coms from" +chr(10)+ " plyr" + string(player) + " init file lololol";
 
+uhc_handled_victory_quote = false;
 
 uhc_taunt_videos[31] = noone; //preinitialized to a reasonable amount
 uhc_taunt_collect_videos = true;
 var i = 0;
 //Must stay first
-add_uhc_video(i, "video_blocked", 1 ); i++;
+add_uhc_video(i, "video_blocked",  1 ); i++;
 
-add_uhc_video(i, "video_dream",   1  ); i++;
+add_uhc_video(i, "video_dream",    1 ); i++;
 add_uhc_video(i, "video_nyan",    10 ); i++;
 add_uhc_video(i, "video_rick",     8 ); i++;
 add_uhc_video(i, "video_unreal",  15 ); i++;
