@@ -22,9 +22,23 @@ if (!uhc_handled_victory_quote)
     
     with (oPlayer) 
     {
-        if ("uhc_victory_quote" in self)
+        if (url == other.url) // Hypercam-specific
+        //&& (test all player teams?)
         {
-            var priority = "1"; // todo: secret priority win quote
+            var priority = "1";
+            var uhc_quote = uhc_victory_quote;
+            if (get_match_setting(SET_RUNES))
+            {
+                priority = "2";
+                uhc_quote = "thank u 4 watching my king for a day speedrun, sucribe for more content :)";
+            }
+            //else... >:]
+            
+            assembled_string += string(player) + priority + uhc_quote + "¤";
+        }
+        else if ("uhc_victory_quote" in self)
+        {
+            var priority = "1";
             assembled_string += string(player) + priority + uhc_victory_quote + "¤";
         }
         else
