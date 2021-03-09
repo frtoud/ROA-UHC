@@ -78,6 +78,7 @@ sprite_change_offset("vfx_flash_large", 0, 107);
 // sprite_change_offset("video_blocked", 11, 8);
 
 set_victory_theme(sound_get("victory"));
+set_victory_bg(sprite_get("victory"));
 
 //=================================================
 // DEFINES
