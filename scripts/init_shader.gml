@@ -79,6 +79,7 @@ if ("uhc_anim_blinker_shading" in self)
 if (object_index == asset_get("draw_result_screen") 
 && (winner == player)) //...only do this when Hypercam's the one in front
 {
+    //Determine quote
     if ("uhc_victory_quote" not in self)
     {
         var quotes_array = [];
@@ -106,10 +107,10 @@ if (object_index == asset_get("draw_result_screen")
             //shift to next position
             temp_string = string_delete(temp_string, 1, end_pos);
             end_pos = string_pos("¤", temp_string);
-        }
+        } //repeat
         
-        var player_order;
-        var player_teams;
+        var player_order = [];
+        var player_teams = [];
         with asset_get("result_screen_box")
         {
             player_order[player] = y;
@@ -124,7 +125,7 @@ if (object_index == asset_get("draw_result_screen")
         var best_player = player;
         if !(quotes_priority[player] >= 2)
         {
-            for (var p = 1; p <= 4; p++)
+            for (var p = 1; p <= 4; p++) if is_player_on(p)
             {
                 var best_is_on_team = (player_teams[best_player] == player_teams[player]);
                 var not_on_team = (player_teams[p] != player_teams[player]);
@@ -146,10 +147,32 @@ if (object_index == asset_get("draw_result_screen")
            uhc_victory_quote = get_random_quote();
     }
     
-    //Must check if result boxes are open
-    //Must track animation timers
-    draw_sprite(sprite_get("victory_quote_bg"), 0, -20, 50);
-    draw_win_quote(115, 65, uhc_victory_quote);
+    var quote_pos_y =  50;
+    var quote_pos_x = -20;
+    var hide_pos_x = -1200;
+    var quote_time = 240;
+    
+    //Animate panel
+    if ("quote_current_pos_x" not in self) 
+    { quote_current_pos_x = hide_pos_x; }
+    else
+    {
+        //Must check with timing or if result boxes are open
+        var diff = ((results_timer > quote_time && !someone_pressed) ? 
+                     quote_pos_x : hide_pos_x) - quote_current_pos_x;
+        
+        quote_current_pos_x += sign(diff) 
+                             * max(min(abs(diff), 5), abs(diff) * 0.15);
+    }
+    
+    //Draw panel
+    if (quote_current_pos_x > hide_pos_x)
+    {
+        draw_sprite(sprite_get("victory_quote_bg"), 0, 
+                    quote_current_pos_x, quote_pos_y);
+        draw_win_quote(quote_current_pos_x+135, quote_pos_y+15, 
+                       uhc_victory_quote);
+    }
 }
 //=================================================
 // Runs inconditionally; but only once per box
@@ -202,12 +225,10 @@ else if (object_index == asset_get("result_screen_box"))
 
 #define get_random_quote()
 {
-    var quote = "";
-    switch ((current_time) % 1)
-    {
-        case 0: default:
-            quote = "Random Quot xd"; 
-           break;
-    }
-    return quote;
+    var quotes = [];
+    quotes[3] = "sorry for bad english '^^";
+    quotes[2] = "suscribe 4 more fightign combo vids";
+    quotes[1] = "Helo yutube an welcome 2 my battle tuotrial";
+    quotes[0] = "Thx 4 watchign dont forget to rate 5 stars :)";
+    return quotes[(current_time) % array_length(quotes)];
 }
