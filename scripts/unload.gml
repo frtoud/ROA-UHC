@@ -63,9 +63,50 @@ if (!uhc_handled_victory_quote)
     var quote = "";
     switch (url)
     {
+        //=================================================================
+        // Hi!
+        // If you see your own mod URL in here, feel free to copy/edit
+        // the victory quotes into your own mod with:
+        //    uhc_victory_quote = "Helo yutub";
+        // This will override the built in behavior!
+        //=================================================================
+        case "2218690857":
+           // King Dedede
+           quote = "if this tutoriel helped you pls subscribe for more kirby videos"; 
+           break;
+        case "2263955842":
+           // Reimu (ZUN stand-in)
+           quote = "2hu lets play #948539 ZUN FINAL BOSS"; 
+           break;
+        case "2318304706":
+           // Geno
+           quote = "https://www.latlmes.com/ opinion/free-snes-emulator -no-survey-1"; 
+           break;
+        //=================================================================
+        // Base cast
+        //=================================================================
+        case CH_ZETTERBURN: 
+           quote = "Thx 4 wathcing Lion King streaming 240p suscribe for mre movies"; 
+           break;
+        case CH_CLAIREN: 
+           quote = "future gen. consels wii2 ps4 xbox720?"; 
+           break;
+        case CH_ETALUS: 
+           quote = "Club Pengun lets play (part 4 final boss & endig)"; 
+           break;
         case CH_KRAGG: 
            quote = "How 2 get mincraft free no virus 100% workign 2011"; 
            break;
+        case CH_FORSBURN:
+        case CH_ORCANE:
+        case CH_RANNO:
+        case CH_MAYPUL:
+        case CH_SYLVANOS:
+        case CH_WRASTOR:
+        case CH_ABSA:
+        case CH_ELLIANA:
+        case CH_ORI:
+        case CH_SHOVEL_KNIGHT:
         default: break;
     }
     return quote;
