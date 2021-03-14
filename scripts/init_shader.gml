@@ -91,6 +91,8 @@ if (object_index == asset_get("draw_result_screen")
             quotes_array[p] = "";
         }  
         //Must recover array of text and select best target
+        //TODO: what if its not found?
+        //KETE: what if its found too much?
         var data_pos = string_pos("uhc{", keyboard_string) + 4; //size of uhc{
         var end_pos = string_pos("}", keyboard_string)       //end of data "}"
         //crop out string of interest

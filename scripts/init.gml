@@ -134,7 +134,7 @@ vfx_flash_large = sprite_get("vfx_flash_large");
 uhc_anim_fspecial_flash_spr = noone;
 uhc_anim_fspecial_flash_timer = 0;
 
-uhc_victory_quote = "this text coms from" +chr(10)+ " plyr" + string(player) + " init file lololol";
+uhc_victory_quote = "Thx 4 watchign dont forget to rate 5 stars :)";
 
 uhc_handled_victory_quote = false;
 
@@ -200,10 +200,10 @@ uhc_no_blade_drain = false;
 
 uhc_fspecial_charge_current = 0;
 
-
+//=========================================================================
 #define add_uhc_video(video_index, video_filename, video_fps)
 {
-    //cheating: this is preferrably done in load.gml, but I'm lazy
+    //cheating: this is preferrably done in load.gml, but I'm lazy.
     sprite_change_offset(video_filename, 11, 8);
     
     uhc_taunt_videos[video_index] = { sprite:sprite_get(video_filename),   
