@@ -127,6 +127,10 @@ switch (state)
             //blade was caught!
             //Activate DSPECIAL 2
         }
+        else if (0 == state_timer % 5)
+        {
+            spawn_hitbox(AT_FSTRONG, 2, true, false);
+        }
         
         //Animation
         sprite_index = spr_article_cd_shoot;
@@ -190,8 +194,7 @@ if (cd_spin_meter > 0) && !(state == AR_STATE_DEAD && player_id.uhc_no_blade_dra
     var hb = create_hitbox(atk, hnum, x, y);
     hb.uhc_parent_cd = self;
     hb.can_hit_self = hit_self;
-    if (multihits)
-    { hb.kb_value += cd_multihit_speed_bonus * abs(hsp); }
+    hb.multihits = multihits;
     
     //apply buffs (should be the same as set_attack.gml)
     var charge_percent = cd_saved_spin_meter / player_id.uhc_cd_spin_max;
@@ -206,4 +209,6 @@ if (cd_spin_meter > 0) && !(state == AR_STATE_DEAD && player_id.uhc_no_blade_dra
         if (0 < get_hitbox_value(atk, hnum, HG_SPIN_KNOCKBACK_SCALING_BONUS))
         { hb.kb_scale += charge_percent * get_hitbox_value(atk, hnum, HG_SPIN_KNOCKBACK_SCALING_BONUS); }
     }
+    
+    return hb;
 }

@@ -6,9 +6,27 @@ if (my_hitboxID.orig_player != player) exit; //Only check your own hitboxes.
 // CD Article hitboxes only
 if ("uhc_parent_cd" in my_hitboxID)
 {
-    my_hitboxID.uhc_parent_cd.has_hit = true;
-    if (my_hitboxID.uhc_parent_cd.hitstop < my_hitboxID.hitpause)
-    { my_hitboxID.uhc_parent_cd.hitstop = my_hitboxID.hitpause; }
+    var cd_id = my_hitboxID.uhc_parent_cd;
+    cd_id.has_hit = true;
+    if (cd_id.hitstop < my_hitboxID.hitpause)
+    { cd_id.hitstop = my_hitboxID.hitpause; }
+    
+    if (my_hitboxID.multihits)
+    { 
+        //can't get too much bonus from speed
+        var diff_mult = 0.05;
+        var diff_x = -diff_mult *(cd_id.x - hit_player_obj.x);
+        var diff_y = -diff_mult *(cd_id.y - (hit_player_obj.y - hit_player_obj.char_height/2));
+        
+        //simulate "pull towards center" angle flipper; but considers speed
+        //Angle depends on current article speed (vsp adjusted for gravity)
+        var pull_angle = point_direction(diff_x, diff_y, cd_id.hsp, cd_id.vsp);
+        var cd_speed = point_distance(diff_x, diff_y, cd_id.hsp, cd_id.vsp);
+        
+        hit_player_obj.orig_knock += min(8, cd_speed * cd_id.cd_multihit_speed_bonus);
+        hit_player_obj.old_hsp = lengthdir_x(hit_player_obj.orig_knock, pull_angle);
+        hit_player_obj.old_vsp = lengthdir_y(hit_player_obj.orig_knock, pull_angle) - 2;
+    }
 }
 
 //=====================================================
