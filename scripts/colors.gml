@@ -34,7 +34,6 @@ set_color_profile_slot_range(2, 15, 20, 20);
 set_color_profile_slot(0, 3, 158, 171, 178); //Paper
 set_color_profile_slot_range(3,  5, 10, 25);
 
-
 //RGB - HSV
 //255: 25: 25 -   0: 90:100 - Main color
 //232: 34: 34 -   0: 85: 90
