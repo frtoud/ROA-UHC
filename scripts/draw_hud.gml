@@ -26,7 +26,6 @@ if (screenshot.sfx_time > 0)
     screenshot.sfx_time = -1;
 }
 
-
 if (screenshot.target != noone > 0 && instance_exists(screenshot.target))
 && (screenshot.end_time > current_time)
 {
