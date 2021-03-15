@@ -1,4 +1,4 @@
-//init_shader.gml
+﻿//init_shader.gml
 //Update this if color.gml changes
 #macro ALT_AIR      1
 #macro ALT_GAMEBOY  7
@@ -195,8 +195,8 @@ else if (object_index == asset_get("result_screen_box"))
     }
 }
 */
-//====================================================
 
+//====================================================
 #define draw_win_quote(posx, posy, quote)
 {
     var text_scale = 3; //3x3 pixels
@@ -225,6 +225,7 @@ else if (object_index == asset_get("result_screen_box"))
      half_scale, half_scale, 0, c_white, c_white, c_white, c_white, 1);
 }
 
+//====================================================
 #define get_random_quote()
 {
     var quotes = [];
