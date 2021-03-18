@@ -28,44 +28,7 @@ else if (strong_down)
         reset_attack_value(AT_USTRONG, AG_STRONG_CHARGE_WINDOW);
     }
 }
-//===============================================
-//Generic logic for blade stats
-if (uhc_has_cd_blade)
-{
-    //activate blade hitboxes
-    if (0 < get_attack_value(attack, AG_NUM_HITBOXES_BLADED))
-    { set_num_hitboxes(attack, get_attack_value(attack, AG_NUM_HITBOXES_BLADED)); }
-    
-    //apply buffs based on current charge level
-    var charge_percent = (uhc_current_cd.cd_spin_meter / uhc_cd_spin_max);
-    for (var hb = 1; hb <= get_num_hitboxes(attack); hb++)
-    {
-        // Projectile-blades handled separately
-        if (1 == get_hitbox_value(attack, hb, HG_HITBOX_TYPE))
-        {
-            apply_spin_bonus(charge_percent, attack, hb, HG_DAMAGE, HG_SPIN_DAMAGE_BONUS);
-            apply_spin_bonus(charge_percent, attack, hb, HG_BASE_HITPAUSE, HG_SPIN_HITPAUSE_BONUS);
-            apply_spin_bonus(charge_percent, attack, hb, HG_BASE_KNOCKBACK, HG_SPIN_KNOCKBACK_BONUS);
-            apply_spin_bonus(charge_percent, attack, hb, HG_KNOCKBACK_SCALING, HG_SPIN_KNOCKBACK_SCALING_BONUS);
-        }
-    }
-}
-else
-{
-    //reset to number of non-bladed hitboxes
-    reset_num_hitboxes(attack);
-}
 
-//===============================================
-#define apply_spin_bonus(charge_percent, atk, hnum, base_index, bonus_index)
-{
-    if (0 < get_hitbox_value(atk, hnum, bonus_index))
-    {
-        reset_hitbox_value(atk, hnum, base_index);
-        
-        // total = base + charge * bonus
-        var value = get_hitbox_value(atk, hnum, base_index)
-           + (charge_percent * get_hitbox_value(atk, hnum, bonus_index) );
-        set_hitbox_value(atk, hnum, base_index, value);
-    }
-}
+// Forces an update to the attack grid
+// Moved to attack_update in case of catching the blade midmove 
+uhc_update_blade_status = true;

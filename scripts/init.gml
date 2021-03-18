@@ -100,13 +100,15 @@ bubble_y = 8;
 
 //=================================================
 //Custom Frame Data indices
-AG_NUM_HITBOXES_BLADED = 70;
-AG_WINDOW_SPIN_COST = 70;
-HG_SPIN_COST = 70;
-HG_SPIN_DAMAGE_BONUS = 71;
-HG_SPIN_HITPAUSE_BONUS = 72;
-HG_SPIN_KNOCKBACK_BONUS = 73;
-HG_SPIN_KNOCKBACK_SCALING_BONUS = 74;
+AG_NUM_HITBOXES_BLADED = 70; // Number of hitboxes when holding a blade
+AG_WINDOW_SPIN_COST = 70;    // CD Charge cost of using the move when reaching this window
+HG_SPIN_COST = 70;           // CD Charge cost of hitting with this hitbox
+
+// Scaling bonuses applied on top of their respective values depending on CD CHarge:
+HG_SPIN_DAMAGE_BONUS = 71;            // HG_DAMAGE
+HG_SPIN_HITPAUSE_BONUS = 72;          // HG_BASE_HITPAUSE
+HG_SPIN_KNOCKBACK_BONUS = 73;         // HG_BASE_KNOCKBACK
+HG_SPIN_KNOCKBACK_SCALING_BONUS = 74; // HG_KNOCKBACK_SCALING 
 
 //=================================================
 //Custom vfx & sprites
@@ -196,6 +198,7 @@ uhc_fspecial_cooldown = 60; // 1s * 60
 uhc_current_cd = noone;
 uhc_other_cd = noone;
 uhc_has_cd_blade = true;
+uhc_update_blade_status = false;
 uhc_no_charging = false; //prevents CD blade drain and FSPECIAL charge
 
 uhc_dattack_can_exit = false;

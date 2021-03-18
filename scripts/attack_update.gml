@@ -3,6 +3,14 @@ if (attack == AT_NSPECIAL || attack == AT_FSPECIAL || attack == AT_DSPECIAL || a
     trigger_b_reverse();
 }
 
+// Sync grid data with blade & charge
+// always done at least once at the start of a move
+if (uhc_update_blade_status) 
+{
+    adjust_bladed_attack_grid();
+    uhc_update_blade_status = false;
+}
+
 switch (attack)
 {
 //==========================================================
@@ -189,4 +197,47 @@ if (attack == AT_DSPECIAL){
     var temp_cd = uhc_current_cd;
     uhc_current_cd = uhc_other_cd;
     uhc_other_cd = temp_cd;
+}
+//==============================================================================
+#define adjust_bladed_attack_grid()
+{
+    if (uhc_has_cd_blade)
+    {
+        //activate blade hitboxes
+        if (0 < get_attack_value(attack, AG_NUM_HITBOXES_BLADED))
+        { set_num_hitboxes(attack, get_attack_value(attack, AG_NUM_HITBOXES_BLADED)); }
+        
+        //apply buffs based on current charge level
+        var charge_percent = (uhc_current_cd.cd_spin_meter / uhc_cd_spin_max);
+        for (var hb = 1; hb <= get_num_hitboxes(attack); hb++)
+        {
+            // Projectile-blades handled separately
+            if (1 == get_hitbox_value(attack, hb, HG_HITBOX_TYPE))
+            {
+                apply_spin_bonus(charge_percent, attack, hb, HG_DAMAGE, HG_SPIN_DAMAGE_BONUS);
+                apply_spin_bonus(charge_percent, attack, hb, HG_BASE_HITPAUSE, HG_SPIN_HITPAUSE_BONUS);
+                apply_spin_bonus(charge_percent, attack, hb, HG_BASE_KNOCKBACK, HG_SPIN_KNOCKBACK_BONUS);
+                apply_spin_bonus(charge_percent, attack, hb, HG_KNOCKBACK_SCALING, HG_SPIN_KNOCKBACK_SCALING_BONUS);
+            }
+        }
+    }
+    else
+    {
+        //reset to number of non-bladed hitboxes
+        reset_num_hitboxes(attack);
+    }
+}
+
+//===============================================
+#define apply_spin_bonus(charge_percent, atk, hnum, base_index, bonus_index)
+{
+    if (0 < get_hitbox_value(atk, hnum, bonus_index))
+    {
+        reset_hitbox_value(atk, hnum, base_index);
+        
+        // total = base + charge * bonus
+        var value = get_hitbox_value(atk, hnum, base_index)
+           + (charge_percent * get_hitbox_value(atk, hnum, bonus_index) );
+        set_hitbox_value(atk, hnum, base_index, value);
+    }
 }

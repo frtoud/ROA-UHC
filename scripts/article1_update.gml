@@ -184,7 +184,15 @@ if (cd_spin_meter > 0) && !(state == AR_STATE_DEAD && player_id.uhc_no_charging)
     {
         state = AR_STATE_DEAD;
         player_id.uhc_has_cd_blade = true;
+        player_id.uhc_update_blade_status = true;
         sound_play(asset_get("sfx_coin_collect"));
+        
+        if (self != player_id.uhc_current_cd)
+        {
+            player_id.uhc_other_cd = player_id.uhc_current_cd;
+            player_id.uhc_current_cd = self;
+        }
+        
     }
 }
 //==============================================================================
@@ -196,7 +204,7 @@ if (cd_spin_meter > 0) && !(state == AR_STATE_DEAD && player_id.uhc_no_charging)
     hb.can_hit_self = hit_self;
     hb.multihits = multihits;
     
-    //apply buffs (should be the same as set_attack.gml)
+    //apply buffs (should have the same effects as attack_update's adjust_blade_attack_grid)
     var charge_percent = cd_saved_spin_meter / player_id.uhc_cd_spin_max;
     with (player_id)
     {
