@@ -146,7 +146,7 @@ switch (state)
 state_timer++;
 
 // Charge drain
-if (cd_spin_meter > 0) && !(state == AR_STATE_DEAD && player_id.uhc_no_blade_drain)
+if (cd_spin_meter > 0) && !(state == AR_STATE_DEAD && player_id.uhc_no_charging)
 {
     cd_spin_meter -= (state == AR_STATE_IDLE) ? player_id.uhc_cd_spin_drain_idle
                                               : player_id.uhc_cd_spin_drain_base;

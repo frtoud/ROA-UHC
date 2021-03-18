@@ -196,7 +196,7 @@ uhc_fspecial_cooldown = 60; // 1s * 60
 uhc_current_cd = noone;
 uhc_other_cd = noone;
 uhc_has_cd_blade = true;
-uhc_no_blade_drain = false;
+uhc_no_charging = false; //prevents CD blade drain and FSPECIAL charge
 
 uhc_dattack_can_exit = false;
 uhc_fspecial_charge_current = 0;
