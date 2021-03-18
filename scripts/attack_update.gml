@@ -28,6 +28,14 @@ switch (attack)
                 uhc_dattack_can_exit = true;
             }
             
+            if ((window_timer % 6) == 1 && !hitpause)
+            && (uhc_has_cd_blade && uhc_current_cd.cd_spin_meter > 0)
+            {
+                //Looping hitbox as long as you hold
+                sound_play(asset_get("sfx_swipe_weak1"));
+                create_hitbox(AT_DATTACK, 4, 0, 0);
+            }
+            
             if (!attack_down && uhc_dattack_can_exit) 
             { 
                 window = 4;
