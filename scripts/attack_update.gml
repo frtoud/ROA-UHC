@@ -6,6 +6,29 @@ if (attack == AT_NSPECIAL || attack == AT_FSPECIAL || attack == AT_DSPECIAL || a
 switch (attack)
 {
 //==========================================================
+    case AT_DATTACK:
+    {
+        hsp = clamp(hsp, -dash_speed, dash_speed);
+        
+        if (window == 1 && window_timer == 1)
+        { uhc_dattack_can_exit = false; }
+        
+        if (window == 3)
+        {
+            if (window_timer >= 8)
+            {
+                uhc_dattack_can_exit = true;
+            }
+            
+            if (!attack_down && uhc_dattack_can_exit) 
+            { 
+                window = 4;
+                window_timer = 0;
+                destroy_hitboxes();
+            }
+        }
+    } break;
+//==========================================================
     case AT_FSTRONG:
     {
         can_move = false;

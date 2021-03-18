@@ -198,6 +198,7 @@ uhc_other_cd = noone;
 uhc_has_cd_blade = true;
 uhc_no_blade_drain = false;
 
+uhc_dattack_can_exit = false;
 uhc_fspecial_charge_current = 0;
 
 //=========================================================================
