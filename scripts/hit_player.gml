@@ -3,6 +3,21 @@ if (my_hitboxID.orig_player != player) exit; //Only check your own hitboxes.
 
 
 //=====================================================
+// CD hitboxes that might cost charge
+if ("uhc_has_paid_spin_cost" not in my_hitboxID 
+  || !my_hitboxID.uhc_has_paid_spin_cost)
+{
+    var spin_cost = get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_SPIN_COST);
+    if (spin_cost > 0)
+    {
+        var cd_id = ("uhc_parent_cd" in my_hitboxID) ? my_hitboxID.uhc_parent_cd : uhc_current_cd;
+        cd_id.cd_spin_meter = 
+            clamp(cd_id.cd_spin_meter - spin_cost, 0, uhc_cd_spin_max);
+    }
+    uhc_has_paid_spin_cost = true;
+}
+
+//=====================================================
 // CD Article hitboxes only
 if ("uhc_parent_cd" in my_hitboxID)
 {

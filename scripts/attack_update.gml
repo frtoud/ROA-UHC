@@ -180,6 +180,15 @@ if (attack == AT_DSPECIAL){
 }
 
 //==============================================================================
+// Blade costs
+if (uhc_has_cd_blade && window_timer == 1)
+{
+    var window_cost = get_window_value(attack, window, AG_WINDOW_SPIN_COST);
+    uhc_current_cd.cd_spin_meter = 
+       clamp(uhc_current_cd.cd_spin_meter - window_cost, 0, uhc_cd_spin_max);
+}
+
+//==============================================================================
 #define throw_blade(xoffset, yoffset, hspd, vspd, cd_atk)
 {
     uhc_current_cd.x = x + (spr_dir * xoffset);
