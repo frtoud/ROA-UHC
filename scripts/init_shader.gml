@@ -1,4 +1,4 @@
-//init_shader.gml
+﻿//init_shader.gml
 //Update this if color.gml changes
 #macro ALT_AIR      1
 #macro ALT_GAMEBOY  7
