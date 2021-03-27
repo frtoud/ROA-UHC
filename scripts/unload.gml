@@ -59,7 +59,7 @@ if (!uhc_handled_victory_quote)
                     + string_copy(keyboard_string, 0, 
                                   min(string_length(keyboard_string), 
                                       1020 - string_length(assembled_string)));
-    
+
     // Ideal solution... not sure why GML panics...?
     // Sneak this list to victory screen; which will decide which quote to pick
     // WARNING: this depends on init_shader.gml to clean it up later & avoid a blatant memory leak
@@ -84,17 +84,22 @@ if (!uhc_handled_victory_quote)
         //    uhc_victory_quote = "Helo yutub";
         // This will override the built in behavior!
         //=================================================================
-        case "2218690857":
-           // King Dedede
+        // KFAD
+        //=================================================================
+        case "2218690857": // King Dedede
            quote = "if this tutoriel helped you pls subscribe for more kirby videos"; 
            break;
-        case "2263955842":
-           // Reimu (ZUN stand-in)
+        case "2263955842": // Reimu (ZUN stand-in)
            quote = "2hu lets play #948539 ZUN FINAL BOSS"; 
            break;
-        case "2318304706":
-           // Geno
+        case "2318304706": // Geno
            quote = "https://www.latlmes.com/ opinion/free-snes-emulator -no-survey-1"; 
+           break;
+        //=================================================================
+        // Bonus
+        //=================================================================
+        case "2108835464": // Take a guess
+           quote = "lmaoooooo ahahahshahajh he said it he said tit im piickle woodmaaaan!!!!11!!"; 
            break;
         //=================================================================
         // Base cast

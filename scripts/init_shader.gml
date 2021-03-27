@@ -1,4 +1,4 @@
-﻿//init_shader.gml
+//init_shader.gml
 //Update this if color.gml changes
 #macro ALT_AIR      1
 #macro ALT_GAMEBOY  7
@@ -84,19 +84,29 @@ if (object_index == asset_get("draw_result_screen")
     {
         var quotes_array = [];
         var quotes_priority = [];
+        var quotes_order = [];
+        var quotes_teams = [];
         for (var p = 1; p <= 4; p++)
         { 
-            //defaults for player not present
+            //defaults for a player not present
             quotes_priority[p] = 0; 
             quotes_array[p] = "";
         }  
+        with asset_get("result_screen_box")
+        {
+            quotes_order[player] = y;
+            quotes_teams[player] = get_player_team(player);
+        }
         //Must recover array of text and select best target
-        //TODO: what if its not found?
-        //KETE: what if its found too much?
-        var data_pos = string_pos("uhc{", keyboard_string) + 4; //size of uhc{
-        var end_pos = string_pos("}", keyboard_string)       //end of data "}"
+        var data_pos = string_pos("uhc{", keyboard_string) + 4; //size of "uhc{"
+        
+        //crop out anything before the point of interest
+        var temp_string = string_copy(keyboard_string, data_pos, 
+                                       string_length(keyboard_string) - data_pos);
+                                       
+        var end_pos = string_pos("}", temp_string); //end of data "}"
         //crop out string of interest
-        var temp_string = string_copy(keyboard_string, data_pos, end_pos - data_pos);
+        temp_string = string_copy(temp_string, 0, end_pos);
         
         end_pos = string_pos("¤", temp_string);
         while (end_pos != 0)
@@ -111,14 +121,6 @@ if (object_index == asset_get("draw_result_screen")
             end_pos = string_pos("¤", temp_string);
         } //repeat
         
-        var player_order = [];
-        var player_teams = [];
-        with asset_get("result_screen_box")
-        {
-            player_order[player] = y;
-            player_teams[player] = get_player_team(player);
-        }
-        
         // Best match:
         // - Self if priority >= 2
         // - not on your team
@@ -129,9 +131,9 @@ if (object_index == asset_get("draw_result_screen")
         {
             for (var p = 1; p <= 4; p++) if is_player_on(p)
             {
-                var best_is_on_team = (player_teams[best_player] == player_teams[player]);
-                var not_on_team = (player_teams[p] != player_teams[player]);
-                var higher_ranking = (player_order[p] < player_order[best_player]);
+                var best_is_on_team = (quotes_teams[best_player] == quotes_teams[player]);
+                var not_on_team = (quotes_teams[p] != quotes_teams[player]);
+                var higher_ranking = (quotes_order[p] < quotes_order[best_player]);
                 var higher_priority = (quotes_priority[p] > quotes_priority[best_player]);
                 var same_priority = (quotes_priority[p] == quotes_priority[best_player]);
                 
@@ -176,6 +178,17 @@ if (object_index == asset_get("draw_result_screen")
                        uhc_victory_quote);
     }
 }
+
+//debug version
+/*
+    {
+        draw_sprite(sprite_get("victory_quote_bg"), 0, 
+                    200, 200);
+        draw_win_quote(200+135, 200+15, 
+             //quote = "https://www.latlmes.com/ opinion/free-snes-emulator -no-survey-1"; 
+                       "lmaoooooo haahahhashahh he said it he said tit im piickle woodmaaaan!!!!11!!");
+    }
+    */
 //=================================================
 // Runs inconditionally; but only once per box
 // deletes the smuggled ds_list and sends the contents to the winner display object
