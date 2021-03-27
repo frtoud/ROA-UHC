@@ -61,6 +61,14 @@ switch (attack)
         }
     } break;
 //==========================================================
+    case AT_DSTRONG_2:
+    {
+        if (window == 2 && window_timer == 1)
+        {
+            throw_blade(0, 20, 0, uhc_dstrong_throwspeed, AT_DSTRONG_2);
+        }
+    } break;
+//==========================================================
     case AT_FSPECIAL:
     {
         if (window <= 4)

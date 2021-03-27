@@ -184,6 +184,7 @@ vfx_screenshot_tab = sprite_get("vfx_screenshot");
 //Balancing variables
 uhc_fstrong_throwspeed_base = 7.5;
 uhc_fstrong_throwspeed_max = 12;
+uhc_dstrong_throwspeed = 12;
 
 uhc_cd_spin_drain_base = 0.04;
 uhc_cd_spin_drain_idle = 0.10;

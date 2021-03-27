@@ -49,7 +49,7 @@ sprite_change_offset("fstrong", 17, 24, true);
  sprite_change_offset("dstrong", 64, 94);
 sprite_change_offset("fstrong_air", 17, 24);
 //sprite_change_offset("ustrong_air", 64, 158);
-//sprite_change_offset("dstrong_air", 64, 94);
+sprite_change_offset("dstrong_air", 19, 29, true);
 
  sprite_change_offset("nspecial", 64, 94);
 sprite_change_offset_bladed("fspecial", 17, 23);

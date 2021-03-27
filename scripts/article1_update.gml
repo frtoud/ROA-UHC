@@ -8,7 +8,7 @@
 #macro AR_STATE_FSTRONG_ROLL 4
 #macro AR_STATE_USTRONG      AT_USTRONG
 #macro AR_STATE_DSTRONG      AT_DSTRONG
-#macro AR_STATE_DSTRONG_SPIN AT_DSTRONG_2
+#macro AR_STATE_DSTRONG_AIR  AT_DSTRONG_2
 #macro AR_STATE_DSPECIAL     AT_DSPECIAL
 //=====================================================
 
@@ -100,7 +100,26 @@ switch (state)
         //Animation
         sprite_index = spr_article_cd_shoot;
         image_index += 0.25;
+    } break;
+//=====================================================
+    case AR_STATE_DSTRONG_AIR:
+    {
+        //Update
+        if (state_timer == 1)
+        {
+            spawn_hitbox(AT_DSTRONG_2, 1, false, false);
+        }
+        else if (!free || has_hit)
+        {
+            set_state(AR_STATE_IDLE);
+            if (!has_hit) { sound_play(asset_get("sfx_blow_weak1")); }
+            vsp = -6;
+            hsp = spr_dir * -1;
+        }
         
+        //Animation
+        sprite_index = spr_article_cd_shoot;
+        image_index += 0.25;
     } break;
 //=====================================================
     case AR_STATE_DSPECIAL:
