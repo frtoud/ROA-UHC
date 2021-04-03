@@ -111,8 +111,8 @@ switch (state)
         }
         else if (!free || has_hit)
         {
-            set_state(AR_STATE_IDLE);
             if (!has_hit) { sound_play(asset_get("sfx_blow_weak1")); }
+            set_state(AR_STATE_IDLE);
             vsp = -6;
             hsp = spr_dir * -1;
         }
