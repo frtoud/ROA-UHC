@@ -53,7 +53,6 @@ switch (state)
     case AR_STATE_FSTRONG:
     {
         //Update
-        
         if (hsp * spr_dir > 0)
         {
             hsp -= (spr_dir * cd_accel_force);
@@ -241,7 +240,6 @@ if (cd_spin_meter > 0) && !(state == AR_STATE_DEAD && player_id.uhc_no_charging)
 //==============================================================================
 #define spawn_hitbox(atk, hnum, multihits, hit_self)
 {
-    //spawn hitbox at the correct position for next frame's disc position
     var hb = create_hitbox(atk, hnum, x, y);
     hb.uhc_parent_cd = self;
     hb.can_hit_self = hit_self;
