@@ -102,9 +102,33 @@ switch (state)
         image_index += 0.25;
     } break;
 //=====================================================
+    case AR_STATE_USTRONG:
+    {
+        //Update
+        if (vsp < 0)
+        {
+            do_gravity();
+            if (0 == state_timer % 5)
+            {
+                spawn_hitbox(AT_FSTRONG, 2, true, false);
+            }
+        }
+        else
+        {
+            if (has_hit) //finisher
+            { spawn_hitbox(AT_FSTRONG, 3, false, false); }
+            set_state(AR_STATE_DSTRONG_AIR);
+        }
+        
+        //Animation
+        sprite_index = spr_article_cd_shoot;
+        image_index += 0.5;
+    } break;
+//=====================================================
     case AR_STATE_DSTRONG_AIR:
     {
         //Update
+        do_gravity();
         if (state_timer == 1)
         {
             spawn_hitbox(AT_DSTRONG_2, 1, false, false);

@@ -40,7 +40,7 @@ cd_grav_force  = 0.35;
 cd_frict_force = 0.07;
 cd_accel_force = 0.35;
 cd_roll_speed = 6;
-cd_fall_speed = 6;
+cd_fall_speed = 9;
 cd_dspecial_force = 0.75;
 cd_dspecial_speed = 24;
 

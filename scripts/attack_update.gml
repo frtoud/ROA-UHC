@@ -61,6 +61,16 @@ switch (attack)
         }
     } break;
 //==========================================================
+    case AT_USTRONG:
+    {
+        if (window == 3 && window_timer == 1)
+        {
+            throw_blade(12, 65, uhc_ustrong_throwspeed_horz + 0.5* hsp, 
+                                uhc_ustrong_throwspeed_base + (strong_charge/60.0) * 
+                               (uhc_ustrong_throwspeed_max - uhc_ustrong_throwspeed_base), AT_USTRONG);
+        }
+    } break;
+//==========================================================
     case AT_DSTRONG_2:
     {
         if (window == 2 && window_timer == 1)
