@@ -191,6 +191,7 @@ uhc_ustrong_throwspeed_horz = -1;
 
 uhc_cd_spin_drain_base = 0.04;
 uhc_cd_spin_drain_idle = 0.10;
+uhc_cd_spin_charge_rate = 1;
 uhc_cd_spin_max = 100;
 
 uhc_fspecial_charge_max = 480; // 8s * 60

@@ -104,7 +104,19 @@ switch (state)
                                                 : (window == 3 ? vfx_flash_medium
                                                                : vfx_flash_large ));
                 }
-            }
+            } break;
+//===============================================================
+            case AT_DSPECIAL:
+            {
+                if (image_index == 1 && !uhc_has_cd_blade)
+                { 
+                    image_index = 0; //bladeless frame
+                }
+                else if (window == 2)
+                {
+                    //sfx & animspeed control based on charge here
+                }
+            } break;
 //===============================================================
             case AT_TAUNT:
             {
@@ -156,6 +168,7 @@ switch (state)
                 }
             } break;
 //===============================================================
+            default: break;
         }
     } break;
     default: break;

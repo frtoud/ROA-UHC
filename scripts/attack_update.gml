@@ -114,7 +114,34 @@ switch (attack)
             hitstop = 0;
             hitpause = false;
         }
-    }
+    } break;
+//==========================================================
+    case AT_DSPECIAL:
+    {
+        can_shield = (window > 1);
+        
+        if (window == 1 && window_timer == 6)
+        {
+            if (!uhc_has_cd_blade)
+            {
+                //"create" new blade
+                uhc_current_cd.buffered_state = 0; //Set to DEAD
+                uhc_has_cd_blade = true;
+            }
+        }
+        else if (window == 2)
+        {
+            if (uhc_current_cd.cd_spin_meter >= uhc_cd_spin_max)
+            {
+                window = 3;
+                window_timer = 0;
+            }
+            else
+            {
+                uhc_current_cd.cd_spin_meter += uhc_cd_spin_charge_rate;
+            }
+        }
+    } break;
 //==========================================================
     case AT_TAUNT:
     {
@@ -190,20 +217,6 @@ if (attack == AT_USPECIAL){
     }
 }
 
-if (attack == AT_DSPECIAL){
-    if (window == 2 && !was_parried){
-        can_jump = true;
-        if (window_timer == 1)
-        {
-            if (uhc_has_cd_blade)
-            { uhc_current_cd.cd_spin_meter = uhc_cd_spin_max; }
-            else
-            { uhc_current_cd.buffered_state = AT_DSPECIAL; }
-        }
-    }
-    can_fast_fall = false;
-    can_move = false
-}
 
 //==============================================================================
 // Blade costs
