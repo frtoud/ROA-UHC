@@ -115,6 +115,19 @@ switch (state)
                 else if (window == 2)
                 {
                     //sfx & animspeed control based on charge here
+                    if (window_timer == 5)
+                    {
+                        var pitch = 0.01 * 
+                            ease_linear(80, 200, floor(uhc_current_cd.cd_spin_meter), uhc_cd_spin_max);
+                        sound_play(sfx_dspecial_reload, false, noone, 1, pitch);
+                    }
+                    
+                    var animspeed = 0.01 *
+                        ease_linear(10, 50, floor(uhc_current_cd.cd_spin_meter), uhc_cd_spin_max);
+                    uhc_anim_dspecial_image_timer += animspeed;
+                    
+                    image_index = floor(uhc_anim_dspecial_image_timer % 4) +
+                    get_window_value(AT_DSPECIAL, 2, AG_WINDOW_ANIM_FRAME_START);
                 }
             } break;
 //===============================================================

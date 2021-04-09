@@ -136,8 +136,10 @@ vfx_flash_large = sprite_get("vfx_flash_large");
 uhc_anim_fspecial_flash_spr = noone;
 uhc_anim_fspecial_flash_timer = 0;
 
-uhc_victory_quote = "Thx 4 watchign dont forget to rate 5 stars :)";
+uhc_anim_dspecial_image_timer = 0;
+sfx_dspecial_reload = sound_get("sfx_reload");
 
+uhc_victory_quote = "Thx 4 watchign dont forget to rate 5 stars :)";
 uhc_handled_victory_quote = false;
 
 uhc_taunt_videos[31] = noone; //preinitialized to a reasonable amount

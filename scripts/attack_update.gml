@@ -122,6 +122,7 @@ switch (attack)
         
         if (window == 1 && window_timer == 6)
         {
+            uhc_anim_dspecial_image_timer = 0;
             if (!uhc_has_cd_blade)
             {
                 //"create" new blade

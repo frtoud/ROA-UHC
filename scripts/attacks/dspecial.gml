@@ -10,7 +10,7 @@ set_window_value(AT_DSPECIAL, 1, AG_WINDOW_ANIM_FRAME_START, 1); //frame zero is
 
 set_window_value(AT_DSPECIAL, 2, AG_WINDOW_TYPE, 9); //looping
 set_window_value(AT_DSPECIAL, 2, AG_WINDOW_LENGTH, 16);
-set_window_value(AT_DSPECIAL, 2, AG_WINDOW_ANIM_FRAMES, 4);
+set_window_value(AT_DSPECIAL, 2, AG_WINDOW_ANIM_FRAMES, 4); //controlled by animation.gml
 set_window_value(AT_DSPECIAL, 2, AG_WINDOW_ANIM_FRAME_START, 4);
 
 set_window_value(AT_DSPECIAL, 3, AG_WINDOW_TYPE, 1);
@@ -18,7 +18,7 @@ set_window_value(AT_DSPECIAL, 3, AG_WINDOW_LENGTH, 16);
 set_window_value(AT_DSPECIAL, 3, AG_WINDOW_ANIM_FRAMES, 3);
 set_window_value(AT_DSPECIAL, 3, AG_WINDOW_ANIM_FRAME_START, 8);
 set_window_value(AT_DSPECIAL, 3, AG_WINDOW_HAS_SFX, 1);
-set_window_value(AT_DSPECIAL, 3, AG_WINDOW_SFX, asset_get("sfx_kragg_rock_land"));
+set_window_value(AT_DSPECIAL, 3, AG_WINDOW_SFX, sound_get("sfx_reload_done"));
 
 
 set_num_hitboxes(AT_DSPECIAL, 0);
