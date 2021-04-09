@@ -75,7 +75,7 @@ if (!uhc_handled_victory_quote)
 #define try_get_quote(char_url)
 {
     var quote = "";
-    switch (url)
+    switch (char_url)
     {
         //=================================================================
         // Hi!
@@ -94,6 +94,9 @@ if (!uhc_handled_victory_quote)
            break;
         case "2318304706": // Geno
            quote = "https://www.latlmes.com/ opinion/free-snes-emulator -no-survey-1"; 
+           break;
+        case "2177081326": // Nico Nico
+           quote = "i would have lovd to tem up with u!! lets hang out more sometime!"; 
            break;
         //=================================================================
         // Bonus

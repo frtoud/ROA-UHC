@@ -209,20 +209,30 @@ if (uhc_taunt_collect_videos)
     
     with (oPlayer) 
     if ("url" in self) && !array_exists(url, collected_urls)
-    && ("uhc_taunt_videos" in self) && is_array(uhc_taunt_videos)
     {
         collected_urls[array_length(collected_urls)] = url;
-        for (var i = 0; i < array_length(uhc_taunt_videos); i++)
+        
+        var videos_to_collect = noone;
+        if ("uhc_taunt_videos" in self && is_array(uhc_taunt_videos))
+        { videos_to_collect = uhc_taunt_videos; }
+        else with (other) 
+        { videos_to_collect = try_get_builtin_video(other.url); }
+        
+        if (videos_to_collect != noone)
         {
-            vid = uhc_taunt_videos[i];
-            with (other) 
+            for (var i = 0; i < array_length(videos_to_collect); i++)
             {
-                //Send vid to Hypercam
-                if (vid != noone) && ("uhc_taunt_videos" in self)
-                && ("sprite" in vid) && ("song" in vid) && ("fps" in vid)
+                vid = videos_to_collect[i];
+                with (other)
                 {
-                    uhc_taunt_videos[uhc_taunt_num_videos] = vid;
-                    uhc_taunt_num_videos++;
+                    //Send vid to Hypercam
+                    if (vid != noone) && ("uhc_taunt_videos" in self)
+                    && ("sprite" in vid) && ("song" in vid) && ("fps" in vid)
+                    {
+                        vid.num = uhc_taunt_num_videos;
+                        uhc_taunt_videos[uhc_taunt_num_videos] = vid;
+                        uhc_taunt_num_videos++;
+                    }
                 }
             }
         }
@@ -236,3 +246,29 @@ if (uhc_taunt_collect_videos)
     { if (value == array[i]) return true; }
     return false;
 }   
+//==============================================================
+#define try_get_builtin_video(char_url)
+{
+    var videos = noone;
+    switch (char_url)
+    {
+        //=================================================================
+        // Hi!
+        // If you see your own mod URL in here, feel free to copy/edit
+        // the video files into your own mod!
+        // declare an array called "uhc_taunt_videos" in init.gml like so:
+        //    uhc_taunt_videos[i] = { sprite:A, song:B, fps:C };
+        // This will override the built in behavior!
+        //=================================================================
+        // KFAD
+        //=================================================================
+        case "2177081326": // Nico Nico
+           sprite_change_offset("video_fukkireta", 11, 8);
+           videos[0] = { sprite:sprite_get("video_fukkireta"),   
+                         song:sound_get("video_fukkireta"),   
+                         fps:13 };
+           break;
+    }
+    
+    return videos;
+}
