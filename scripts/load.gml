@@ -37,7 +37,7 @@ sprite_change_offset_bladed("waveland", 19, 26);
 sprite_change_offset_bladed("dattack", 20, 24);
  sprite_change_offset("ftilt", 32, 62);
 sprite_change_offset_bladed("dtilt", 20, 20);
- sprite_change_offset("utilt", 64, 94);
+ sprite_change_offset("utilt", 32, 47, true);
 sprite_change_offset_bladed("nair", 21, 31);
  sprite_change_offset("fair", 26, 44, true);
  sprite_change_offset("bair", 44, 25, true);
@@ -46,7 +46,7 @@ sprite_change_offset_bladed("nair", 21, 31);
 
 sprite_change_offset("fstrong", 17, 24, true);
 sprite_change_offset("ustrong", 16, 64, true);
- sprite_change_offset("dstrong", 64, 94);
+ sprite_change_offset("dstrong", 32, 47, true);
 sprite_change_offset("fstrong_air", 17, 24);
 sprite_change_offset("ustrong_air", 19, 64);
 sprite_change_offset("dstrong_air", 19, 29, true);
