@@ -74,12 +74,16 @@ if (!uhc_handled_victory_quote)
 //==============================================================
 #define try_get_quote(char_url)
 {
+    //=========================================================
+    // Approximate maximum line:
+    // "aaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaa";
+    //=========================================================
     var quote = "";
     switch (char_url)
     {
         //=================================================================
         // Hi!
-        // If you see your own mod URL in here, feel free to copy/edit
+        // If you see your mod's URL in here, feel free to copy/edit
         // the victory quotes into your own mod with:
         //    uhc_victory_quote = "Helo yutub";
         // This will override the built in behavior!

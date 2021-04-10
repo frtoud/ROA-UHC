@@ -254,7 +254,7 @@ if (uhc_taunt_collect_videos)
     {
         //=================================================================
         // Hi!
-        // If you see your own mod URL in here, feel free to copy/edit
+        // If you see your mod's URL in here, feel free to copy/edit
         // the video files into your own mod!
         // declare an array called "uhc_taunt_videos" in init.gml like so:
         //    uhc_taunt_videos[i] = { sprite:A, song:B, fps:C };
@@ -267,6 +267,16 @@ if (uhc_taunt_collect_videos)
            videos[0] = { sprite:sprite_get("video_fukkireta"),   
                          song:sound_get("video_fukkireta"),   
                          fps:13 };
+           break;
+        //=================================================================
+        // Bonus
+        //=================================================================
+        case "1933111975": // Trummel & Alto
+        case "2282173822": // Trummel & Alto 2
+           sprite_change_offset("video_sax", 11, 8);
+           videos[0] = { sprite:sprite_get("video_sax"),   
+                         song:sound_get("video_sax"),   
+                         fps:18 };
            break;
     }
     
