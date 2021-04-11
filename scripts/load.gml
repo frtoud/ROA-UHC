@@ -26,7 +26,7 @@ sprite_change_offset_bladed("doublejump_back", 19, 31);
 sprite_change_offset_bladed("land", 19, 26);
 sprite_change_offset_bladed("landinglag", 19, 26);
 
- sprite_change_offset("parry", 32, 62);
+sprite_change_offset_bladed("parry", 15, 23);
  sprite_change_offset("roll_forward", 32, 62);
  sprite_change_offset("roll_backward", 32, 62);
 sprite_change_offset_bladed("airdodge", 22, 26);

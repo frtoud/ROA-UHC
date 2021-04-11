@@ -1,5 +1,14 @@
 //post_draw.gml
 
+var scale = 1 + small_sprites;
+//===================================================
+//force-show parry frame without shading
+if (state == PS_PARRY && image_index == dodge_startup_frames)
+{
+    shader_start();
+    draw_sprite_ext(sprite_index, image_index, x, y, spr_dir*scale, scale, 0, c_white, 1);
+    shader_end();
+}
 //===================================================
 // Drawing bladed sprites
 draw_blade(sprite_index, image_index, x, y);
@@ -17,7 +26,7 @@ if (state == PS_AIR_DODGE && window == 1)
 {
     shader_start();
     draw_sprite_ext(sprite_index, 1, uhc_anim_last_dodge.posx, uhc_anim_last_dodge.posy, 
-                    spr_dir * 2, 2, spr_angle, c_white, 1);
+                    spr_dir * scale, scale, spr_angle, c_white, 1);
     shader_end();
     draw_blade(sprite_index, 1, uhc_anim_last_dodge.posx, uhc_anim_last_dodge.posy);
     draw_buffering(uhc_anim_last_dodge.posx, uhc_anim_last_dodge.posy);
@@ -53,8 +62,9 @@ if (uhc_taunt_current_video != noone)
     if (uhc_has_cd_blade && ds_map_exists(uhc_blade_spr_map, spr_id))
     {
        shader_start();
+       var scale = 1 + small_sprites;
        draw_sprite_ext(ds_map_find_value(uhc_blade_spr_map, spr_id),
-                       img_id, posx, posy, spr_dir * 2, 2, spr_angle, c_white, 1);
+                       img_id, posx, posy, spr_dir * scale, scale, spr_angle, c_white, 1);
        shader_end(); 
     }
 }
