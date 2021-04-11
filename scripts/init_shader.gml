@@ -70,7 +70,16 @@ if ("uhc_anim_blade_spin" in self)
 //Blinker light
 if ("uhc_anim_blinker_shading" in self)
 {
-    set_character_color_shading( 4, uhc_anim_blinker_shading);
+    var black_color = c_dkgray;
+    var blink_color = make_color_rgb(get_color_profile_slot_r(current_color, 4),
+                                     get_color_profile_slot_g(current_color, 4),
+                                     get_color_profile_slot_b(current_color, 4));
+
+    var final_color = merge_color(black_color, blink_color, uhc_anim_blinker_shading);
+    //must only affect shading of Hypercam's main sprite
+    set_character_color_slot( 4, color_get_red(final_color), 
+                                 color_get_green(final_color), 
+                                 color_get_blue(final_color));
 }
 
 //===================================================

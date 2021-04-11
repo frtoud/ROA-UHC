@@ -12,9 +12,9 @@ if (uhc_has_cd_blade)
 //Blinker light animation
 
 var must_blink = false;
-uhc_anim_blinker_shading = 8.0; //higher values mean faded towards black
 
-if (move_cooldown[AT_FSPECIAL] == uhc_fspecial_cooldown) { must_blink = true; }
+if (move_cooldown[AT_FSPECIAL] == uhc_fspecial_cooldown) 
+{ must_blink = true; }
 else if (move_cooldown[AT_FSPECIAL] == 0)
 {
     if (uhc_fspecial_charge_current >= uhc_fspecial_charge_max)
@@ -28,10 +28,9 @@ else if (move_cooldown[AT_FSPECIAL] == 0)
 }
 
 if (must_blink) { uhc_anim_blink_timer = uhc_anim_blink_timer_max; }
-var blink_pulse = ease_sineOut(80, 0, floor(uhc_anim_blink_timer), 
-                                      uhc_anim_blink_timer_max) / 10.0;
 
-uhc_anim_blinker_shading = min(uhc_anim_blinker_shading, blink_pulse);
+uhc_anim_blinker_shading = ease_sineOut(0, 100, floor(uhc_anim_blink_timer), 
+                                        uhc_anim_blink_timer_max) / 100.0;
 
 if (uhc_anim_blink_timer > 0) { uhc_anim_blink_timer--; }
 
