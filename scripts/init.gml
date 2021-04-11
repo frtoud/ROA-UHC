@@ -104,7 +104,7 @@ AG_NUM_HITBOXES_BLADED = 70; // Number of hitboxes when holding a blade
 AG_WINDOW_SPIN_COST = 70;    // CD Charge cost of using the move when reaching this window
 HG_SPIN_COST = 70;           // CD Charge cost of hitting with this hitbox
 
-// Scaling bonuses applied on top of their respective values depending on CD CHarge:
+// Scaling bonuses applied on top of their respective values depending on CD Charge:
 HG_SPIN_DAMAGE_BONUS = 71;            // HG_DAMAGE
 HG_SPIN_HITPAUSE_BONUS = 72;          // HG_BASE_HITPAUSE
 HG_SPIN_KNOCKBACK_BONUS = 73;         // HG_BASE_KNOCKBACK
