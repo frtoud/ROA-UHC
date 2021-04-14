@@ -144,6 +144,8 @@ uhc_anim_rewind =
     sprite: sprite_get("vfx_rewind")
 };
 
+vfx_hud_bar = sprite_get("hud_bar");
+vfx_hud_icons = sprite_get("hud_icons");
 
 uhc_anim_fspecial_flash_spr = noone;
 uhc_anim_fspecial_flash_timer = 0;
@@ -212,6 +214,8 @@ uhc_fspecial_charge_max = 480; // 8s * 60
 uhc_fspecial_charge_half = 240; // 4s * 60
 uhc_fspecial_cooldown = 60; // 1s * 60
 
+uhc_nspecial_charges_max = 5; // 1s * 60
+
 //=================================================
 //Custom variables initialized here
 uhc_current_cd = noone;
@@ -222,6 +226,8 @@ uhc_no_charging = false; //prevents CD blade drain and FSPECIAL charge
 
 uhc_dattack_can_exit = false;
 uhc_fspecial_charge_current = 0;
+
+uhc_nspecial_charges = 3;
 
 //=========================================================================
 #define add_uhc_video(video_index, video_filename, video_fps)

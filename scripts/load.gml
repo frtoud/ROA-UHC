@@ -75,6 +75,8 @@ sprite_change_offset("vfx_flash_small", 0, 24);
 sprite_change_offset("vfx_flash_medium", 0, 53);
 sprite_change_offset("vfx_flash_large", 0, 107);
 
+sprite_change_offset("hud_icons", 3, -1);
+
 // See init::add_uhc_video() for the generalized version
 // sprite_change_offset("video_blocked", 11, 8);
 
