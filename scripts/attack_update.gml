@@ -65,7 +65,7 @@ switch (attack)
     {
         if (window == 3 && window_timer == 1)
         {
-            throw_blade(12, 65, uhc_ustrong_throwspeed_horz + 0.5* hsp, 
+            throw_blade(12, 65, uhc_ustrong_throwspeed_horz + 0.5* hsp * spr_dir, 
                                 uhc_ustrong_throwspeed_base + (strong_charge/60.0) * 
                                (uhc_ustrong_throwspeed_max - uhc_ustrong_throwspeed_base), AT_USTRONG);
         }
@@ -141,6 +141,16 @@ switch (attack)
             {
                 uhc_current_cd.cd_spin_meter += uhc_cd_spin_charge_rate;
             }
+        }
+    } break;
+    case AT_JAB:
+    {
+        if (window == 2 && window_timer == 1)
+        {
+            if (uhc_has_cd_blade)
+            { uhc_current_cd.cd_spin_meter = uhc_cd_spin_max; }
+            else
+            { uhc_current_cd.buffered_state = AT_DSPECIAL; }
         }
     } break;
 //==========================================================
