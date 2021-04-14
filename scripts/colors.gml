@@ -39,7 +39,7 @@ set_color_profile_slot_range(3,  5, 10, 25);
 //232: 34: 34 -   0: 85: 90
 //211:  0:  0 -   0:100: 82
 set_color_profile_slot(0, 4, 255,  25,  25); //Blinker light (Red)
-set_color_profile_slot_range(4,  1, 12, 20);
+set_color_profile_slot_range(4,  1, 12, 50);
 
 //==============================================================
 //Technical shades

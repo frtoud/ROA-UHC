@@ -133,6 +133,18 @@ vfx_flash_small = sprite_get("vfx_flash_small");
 vfx_flash_medium = sprite_get("vfx_flash_medium");
 vfx_flash_large = sprite_get("vfx_flash_large");
 
+uhc_anim_rewind = 
+{
+    active: false,
+    top_split:  0,
+    bot_split:  0,
+    top_offset: 0,
+    mid_offset: 0,
+    bot_offset: 0,
+    sprite: sprite_get("vfx_rewind")
+};
+
+
 uhc_anim_fspecial_flash_spr = noone;
 uhc_anim_fspecial_flash_timer = 0;
 

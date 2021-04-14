@@ -40,6 +40,25 @@ if (uhc_anim_blink_timer > 0) { uhc_anim_blink_timer--; }
 if (uhc_anim_fspecial_flash_timer > 0) { uhc_anim_fspecial_flash_timer--; }
 else { uhc_anim_fspecial_flash_spr = noone; }
 
+//==========================================================================
+// Rewind effect
+if (state == PS_ATTACK_AIR || state == PS_ATTACK_GROUND)
+ && (attack == AT_DSPECIAL && window == 2)
+{
+    var spr_height = sprite_get_height(uhc_anim_rewind.sprite);
+    var intensity = 0.01 * ease_cubeIn(0, 10, floor(uhc_current_cd.cd_spin_meter), uhc_cd_spin_max);
+    
+    uhc_anim_rewind.active = true;
+    uhc_anim_rewind.top_split = random_func(0, floor(spr_height/2), true) + 5;
+    uhc_anim_rewind.bot_split = random_func(1, floor(spr_height/3), true) + uhc_anim_rewind.top_split;
+    uhc_anim_rewind.top_offset = intensity * (random_func(2, 100, true) - 50);
+    uhc_anim_rewind.mid_offset = intensity * (random_func(3, 100, true) - 50);
+    uhc_anim_rewind.bot_offset = intensity * (random_func(4, 100, true) - 50);
+}
+else
+{
+    uhc_anim_rewind.active = false;
+}
 //===============================================================
 init_shader();
 
@@ -117,7 +136,7 @@ switch (state)
                     if (window_timer == 5)
                     {
                         var pitch = 0.01 * 
-                            ease_linear(80, 200, floor(uhc_current_cd.cd_spin_meter), uhc_cd_spin_max);
+                            ease_linear(80, 240, floor(uhc_current_cd.cd_spin_meter), uhc_cd_spin_max);
                         sound_play(sfx_dspecial_reload, false, noone, 1, pitch);
                     }
                     
