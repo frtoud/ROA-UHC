@@ -35,7 +35,7 @@ sprite_change_offset_bladed("waveland", 19, 26);
 
  sprite_change_offset("jab", 32, 47, true);
 sprite_change_offset_bladed("dattack", 20, 24);
- sprite_change_offset("ftilt", 32, 62);
+ sprite_change_offset("ftilt", 18, 33, true);
 sprite_change_offset_bladed("dtilt", 20, 20);
  sprite_change_offset("utilt", 32, 47, true);
 sprite_change_offset_bladed("nair", 21, 31);
