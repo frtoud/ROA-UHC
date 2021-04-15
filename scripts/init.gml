@@ -159,16 +159,15 @@ uhc_handled_victory_quote = false;
 uhc_taunt_videos[31] = noone; //preinitialized to a reasonable amount
 uhc_taunt_collect_videos = true;
 var i = 0;
-//Must stay first
-add_uhc_video(i, "video_blocked",  1 ); i++;
-
-add_uhc_video(i, "video_dream",    1 ); i++;
-add_uhc_video(i, "video_nyan",    10 ); i++;
-add_uhc_video(i, "video_rick",     8 ); i++;
-add_uhc_video(i, "video_unreal",  15 ); i++;
-add_uhc_video(i, "video_love",    16 ); i++;
+add_uhc_video(i, "video_blocked",  1, 1); i++;
+add_uhc_video(i, "video_dream",    1, 0); i++;
+add_uhc_video(i, "video_nyan",    10, 0); i++;
+add_uhc_video(i, "video_rick",     8, 0); i++;
+add_uhc_video(i, "video_unreal",  15, 0); i++;
+add_uhc_video(i, "video_love",    16, 0); i++;
 uhc_taunt_num_videos = i;
 
+uhc_taunt_current_video_index = 0;
 uhc_taunt_current_video = noone;
 uhc_taunt_timer = 0;
 uhc_taunt_opening_timer = 0;
@@ -235,7 +234,7 @@ uhc_fspecial_charge_current = 0;
 uhc_nspecial_charges = 3;
 
 //=========================================================================
-#define add_uhc_video(video_index, video_filename, video_fps)
+#define add_uhc_video(video_index, video_filename, video_fps, video_special)
 {
     //cheating: this is preferrably done in load.gml, but I'm lazy.
     sprite_change_offset(video_filename, 11, 8);
@@ -243,6 +242,6 @@ uhc_nspecial_charges = 3;
     uhc_taunt_videos[video_index] = { sprite:sprite_get(video_filename),   
                                       song:sound_get(video_filename),   
                                       fps:video_fps,
-                                      num:video_index
+                                      special:video_special
                                     };
 }

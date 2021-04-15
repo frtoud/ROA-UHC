@@ -172,14 +172,18 @@ switch (state)
                  
                 if (window_timer == 4)
                 {
-                    if (window == 2) //Click to start
+                    if (window == 1) //startup: shuffle
+                    {
+                        
+                    }
+                    else if (window == 2) //Click to start
                     {
                         var video_number = 0;
                         //Switching channels
                         if (uhc_taunt_current_video != noone)
                         {
                             sound_stop(uhc_taunt_current_video.song);
-                            video_number = (uhc_taunt_current_video.num + 1) % uhc_taunt_num_videos;
+                            video_number = (uhc_taunt_current_video_index + 1) % uhc_taunt_num_videos;
                         }
                         else
                         {
@@ -187,9 +191,12 @@ switch (state)
                         }
 
                         uhc_taunt_current_video = uhc_taunt_videos[video_number];
+                        uhc_taunt_current_video_index = video_number;
                         uhc_taunt_timer = 0;
                         uhc_taunt_is_opening = true;
-                        uhc_taunt_buffering_timer = (video_number != 0) ? 20 + random_func(0, 40, true) : 0;
+                        //special == 1: no buffering
+                        uhc_taunt_buffering_timer = (uhc_taunt_current_video.special == 1) ? 0 
+                                                    : 20 + random_func(0, 40, true);
                     }
                     else if (window == 6) //Click to end
                     {
@@ -247,7 +254,7 @@ if (uhc_taunt_collect_videos)
                     if (vid != noone) && ("uhc_taunt_videos" in self)
                     && ("sprite" in vid) && ("song" in vid) && ("fps" in vid)
                     {
-                        vid.num = uhc_taunt_num_videos;
+                        if ("special" not in vid) { vid.special = 0; }
                         uhc_taunt_videos[uhc_taunt_num_videos] = vid;
                         uhc_taunt_num_videos++;
                     }
@@ -285,6 +292,10 @@ if (uhc_taunt_collect_videos)
            videos[0] = { sprite:sprite_get("video_fukkireta"),   
                          song:sound_get("video_fukkireta"),   
                          fps:13 };
+           sprite_change_offset("video_caramel", 11, 8);
+           videos[1] = { sprite:sprite_get("video_caramel"),   
+                         song:sound_get("video_caramel"),   
+                         fps:10 };
            break;
         //=================================================================
         // Bonus
@@ -296,6 +307,39 @@ if (uhc_taunt_collect_videos)
                          song:sound_get("video_sax"),   
                          fps:18 };
            break;
+        //=================================================================
+        // Base cast
+        //=================================================================
+        case CH_ZETTERBURN:
+        case CH_FORSBURN:
+        case CH_CLAIREN:
+           sprite_change_offset("video_sparta", 11, 8);
+           videos[0] = { sprite:sprite_get("video_sparta"),   
+                         song:sound_get("video_sparta"),   
+                         fps:5 };
+           break;
+        case CH_WRASTOR:
+        case CH_ABSA:
+        case CH_ELLIANA:
+           sprite_change_offset("video_numa", 11, 8);
+           videos[0] = { sprite:sprite_get("video_numa"),   
+                         song:sound_get("video_numa"),   
+                         fps:7 };
+           break;
+        case CH_SHOVEL_KNIGHT:
+           sprite_change_offset("video_rs", 11, 8);
+           videos[0] = { sprite:sprite_get("video_rs"),   
+                         song:sound_get("video_rs"),   
+                         fps:1 };
+           break;
+        case CH_ETALUS: 
+        case CH_RANNO:
+        case CH_ORCANE:
+        case CH_KRAGG: 
+        case CH_MAYPUL:
+        case CH_SYLVANOS:
+        case CH_ORI:
+        default: break;
     }
     
     return videos;
