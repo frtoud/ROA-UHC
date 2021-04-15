@@ -54,9 +54,10 @@ if (uhc_has_cd_blade)
 }
 else
 {
-   if (uhc_current_cd.state == AT_DSPECIAL) { play_icon = ICON_BACK + 1; }
+   if (uhc_current_cd.state == AT_DSPECIAL_2) { play_icon = ICON_BACK + 1; }
    else if (uhc_current_cd.state == 1) { play_icon = ICON_PAUSE + 1; } //idle
    else if (uhc_current_cd.state != 0) { play_icon = ICON_PLAY + 1; } //attacking
+   else if (uhc_current_cd.buffered_state != -1) { play_icon = ICON_PLAY + 1; } //about to attack
    else { play_icon = ICON_PAUSE; } //dead
 }
 draw_sprite_ext(vfx_hud_icons, play_icon, temp_x + play_pos_x, temp_y + bar_y, 2, 2, 0, c_white, 1);

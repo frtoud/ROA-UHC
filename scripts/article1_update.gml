@@ -9,7 +9,7 @@
 #macro AR_STATE_USTRONG      AT_USTRONG
 #macro AR_STATE_DSTRONG      AT_DSTRONG
 #macro AR_STATE_DSTRONG_AIR  AT_DSTRONG_2
-#macro AR_STATE_DSPECIAL     AT_DSPECIAL
+#macro AR_STATE_DSPECIAL     AT_DSPECIAL_2
 //=====================================================
 
 // no logic/timers affected if we're currently in hitstop

@@ -1,16 +1,4 @@
 //article1_init.gml -- CD
-//=====================================================
-#macro AR_STATE_BUFFER      -1 
-#macro AR_STATE_DEAD         0 
-#macro AR_STATE_IDLE         1
-#macro AR_STATE_BOUNCE       2
-#macro AR_STATE_FSTRONG      AT_FSTRONG
-#macro AR_STATE_FSTRONG_ROLL 4
-#macro AR_STATE_USTRONG      AT_USTRONG
-#macro AR_STATE_DSTRONG      AT_DSTRONG
-#macro AR_STATE_DSTRONG_SPIN AT_DSTRONG_2
-#macro AR_STATE_DSPECIAL     AT_DSPECIAL
-//=====================================================
 
 //Rendering
 spr_article_cd_mask = sprite_get("article_cd_mask");
@@ -52,8 +40,8 @@ cd_spin_meter = floor(player_id.uhc_cd_spin_max / 2); //current charge of blade
 cd_saved_spin_meter = cd_spin_meter; //charge of blade at the beginning of current move (for hitboxes)
 //=====================================================
 //start in the invisible state
-buffered_state = AR_STATE_BUFFER;
-state = AR_STATE_DEAD;
+buffered_state = -1; //AR_STATE_BUFFER
+state = 0; //AR_STATE_DEAD
 state_timer = 0;
 visible = false;
 
