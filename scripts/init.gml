@@ -205,16 +205,19 @@ uhc_ustrong_throwspeed_base = -9;
 uhc_ustrong_throwspeed_max = -13;
 uhc_ustrong_throwspeed_horz = -1;
 
+uhc_dair_boost = 3;
+uhc_dair_boost_final = 7;
+
 uhc_cd_spin_drain_base = 0.04;
 uhc_cd_spin_drain_idle = 0.10;
 uhc_cd_spin_charge_rate = 1;
 uhc_cd_spin_max = 100;
 
+uhc_nspecial_charges_max = 5;
+
 uhc_fspecial_charge_max = 480; // 8s * 60
 uhc_fspecial_charge_half = 240; // 4s * 60
 uhc_fspecial_cooldown = 60; // 1s * 60
-
-uhc_nspecial_charges_max = 5; // 1s * 60
 
 //=================================================
 //Custom variables initialized here
@@ -225,6 +228,8 @@ uhc_update_blade_status = false;
 uhc_no_charging = false; //prevents CD blade drain and FSPECIAL charge
 
 uhc_dattack_can_exit = false;
+uhc_dair_window_bounced = 0;
+
 uhc_fspecial_charge_current = 0;
 
 uhc_nspecial_charges = 3;

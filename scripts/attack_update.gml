@@ -79,6 +79,27 @@ switch (attack)
         }
     } break;
 //==========================================================
+    case AT_DAIR:
+    {
+        if (window == 1 && window_timer == 1)
+        {
+            uhc_dair_window_bounced = 0;
+        }
+        else if (window <= 4)
+        {
+            if (!hitpause && has_hit && window > uhc_dair_window_bounced)
+            {
+                uhc_dair_window_bounced = window;
+                vsp = -(window == 4 ? uhc_dair_boost_final : uhc_dair_boost);
+            }
+            else if (window_timer == get_window_value(AT_DAIR, window, AG_WINDOW_LENGTH) - 1)
+            {
+                //reset has_hit
+                has_hit = false;
+            }
+        }
+    } break;
+//==========================================================
     case AT_FSPECIAL:
     {
         if (window <= 4)
