@@ -94,8 +94,11 @@ switch (attack)
             }
             else if (window_timer == get_window_value(AT_DAIR, window, AG_WINDOW_LENGTH) - 1)
             {
-                //reset has_hit
-                has_hit = false;
+                
+                if (window == 4)//reset has_hit to an accurate value
+                { has_hit = (uhc_dair_window_bounced > 0); }
+                else//reset has_hit for future windows
+                { has_hit = false; }
             }
         }
     } break;
