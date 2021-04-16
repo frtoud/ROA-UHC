@@ -9,7 +9,8 @@ if (!uhc_has_cd_blade)
     else if (attack == AT_DSTRONG) { attack = AT_DTILT; }
 }
 //Aerials to Strongs conversions
-else if (strong_down)
+else if (up_strong_pressed || down_strong_pressed
+    || left_strong_pressed || right_strong_pressed)
 {
     if (attack == AT_BAIR) { attack = AT_FSTRONG; spr_dir *= -1; }
     else if (attack == AT_FAIR || attack == AT_NAIR) { attack = AT_FSTRONG; }
