@@ -204,14 +204,12 @@ switch (attack)
             }
         }
     } break;
-    case AT_JAB:
+//==========================================================
+    case AT_DSPECIAL_2:
     {
         if (window == 2 && window_timer == 1)
         {
-            if (uhc_has_cd_blade)
-            { uhc_current_cd.cd_spin_meter = uhc_cd_spin_max; }
-            else
-            { uhc_current_cd.buffered_state = AT_DSPECIAL; }
+            uhc_current_cd.buffered_state = AT_DSPECIAL_2;
         }
     } break;
 //==========================================================
