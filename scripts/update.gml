@@ -23,3 +23,12 @@ if (uhc_fspecial_charge_current < uhc_fspecial_charge_max)
 {
     uhc_fspecial_charge_current++;
 }
+
+//=====================================================
+// If this was true (from previous frame) and you were sent to hitstun, lose charge
+if (uhc_nspecial_is_charging) && (state_cat == SC_HITSTUN)
+{
+    uhc_nspecial_charges = 0;
+}
+uhc_nspecial_is_charging = (state == PS_ATTACK_AIR || state == PS_ATTACK_GROUND)
+                            && ((attack == AT_NSPECIAL) && window < 3);

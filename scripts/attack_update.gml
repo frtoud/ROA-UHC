@@ -103,6 +103,43 @@ switch (attack)
         }
     } break;
 //==========================================================
+    case AT_NSPECIAL:
+    {
+        if (window == 1 && special_down)
+        && (window_timer == (get_window_value(AT_NSPECIAL, 1, AG_WINDOW_LENGTH) - 1))
+        {
+            window = 2;
+            window_timer = 0;
+        }
+        else if (window == 2)
+        {
+            can_jump = true;
+            can_shield = true;
+            if (!special_down)
+            {
+                window = 3;
+                window_timer = 0;
+            }
+            else if (uhc_nspecial_charges < uhc_nspecial_charges_max)
+                 && (window_timer == (get_window_value(AT_NSPECIAL, 2, AG_WINDOW_LENGTH) - 1))
+            {
+                sound_play(asset_get("sfx_coin_collect"));
+                uhc_nspecial_charges++;
+            }
+        }
+        else if (window == 3)
+        {
+            if (window_timer == 1)
+            {
+                //set grid data
+                set_num_hitboxes(AT_NSPECIAL, 1 + uhc_nspecial_charges);
+                
+                //consumes charge
+                uhc_nspecial_charges = 0;
+            }
+        }
+    } break;
+//==========================================================
     case AT_FSPECIAL:
     {
         if (window <= 4)
@@ -201,15 +238,6 @@ switch (attack)
     default:
     break;
 //==========================================================
-}
-
-if (attack == AT_NSPECIAL){
-    if (window == 3){
-        if (special_pressed){
-            window = 1;
-            window_timer = 0;
-        }
-    }
 }
 
 if (attack == AT_USPECIAL){

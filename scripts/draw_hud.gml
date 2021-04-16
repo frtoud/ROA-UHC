@@ -36,9 +36,9 @@ draw_sprite_ext(vfx_hud_icons, ICON_MARKER, temp_x + bar_start_x + 2 + marker_po
 // Rating status
 var star_x = 128;
 var star_y = -10;
-for (var i = 0; i < uhc_nspecial_charges_max; i++)
+for (var i = 0; i <= uhc_nspecial_charges_max; i++)
 {
-    draw_sprite_ext(vfx_hud_icons, ICON_STAR + (uhc_nspecial_charges > i), 
+    draw_sprite_ext(vfx_hud_icons, ICON_STAR + (uhc_nspecial_charges >= i), 
                     temp_x + star_x + i*18, temp_y + star_y, 2, 2, 0, c_white, 1);
 }
 

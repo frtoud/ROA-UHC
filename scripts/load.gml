@@ -51,7 +51,7 @@ sprite_change_offset("fstrong_air", 17, 24);
 sprite_change_offset("ustrong_air", 19, 64);
 sprite_change_offset("dstrong_air", 19, 29, true);
 
- sprite_change_offset("nspecial", 64, 94);
+ sprite_change_offset("nspecial", 20, 21, true);
 sprite_change_offset_bladed("fspecial", 17, 23);
 sprite_change_offset_bladed("fspecial_air", 20, 27);
  sprite_change_offset("uspecial", 64, 94);
@@ -61,7 +61,7 @@ sprite_change_offset_bladed("taunt", 22, 22);
 
  sprite_change_offset("plat", 32, 47);
 
- sprite_change_offset("nspecial_proj", 64, 94);
+ sprite_change_offset("proj_star", 9, 11);
 
 sprite_change_offset("article_cd_idle", 19, 19);
 sprite_change_offset("article_cd_shoot", 19, 19);

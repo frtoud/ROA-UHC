@@ -212,7 +212,7 @@ uhc_cd_spin_drain_idle = 0.10;
 uhc_cd_spin_charge_rate = 1;
 uhc_cd_spin_max = 100;
 
-uhc_nspecial_charges_max = 5;
+uhc_nspecial_charges_max = 4;
 
 uhc_fspecial_charge_max = 480; // 8s * 60
 uhc_fspecial_charge_half = 240; // 4s * 60
@@ -231,7 +231,8 @@ uhc_dair_window_bounced = 0;
 
 uhc_fspecial_charge_current = 0;
 
-uhc_nspecial_charges = 3;
+uhc_nspecial_charges = 0;
+uhc_nspecial_is_charging = false;
 
 //=========================================================================
 #define add_uhc_video(video_index, video_filename, video_fps, video_special)

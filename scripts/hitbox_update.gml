@@ -1,5 +1,11 @@
 //hitbox_update
 
+//=====================================================
+// NSPECIAL broken on landing
+if (!free && attack == AT_NSPECIAL)
+{
+    destroyed = true;
+}
 
 //=====================================================
 // CD Article hitboxes only
