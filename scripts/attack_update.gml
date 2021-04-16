@@ -92,12 +92,12 @@ switch (attack)
                 uhc_dair_window_bounced = window;
                 vsp = -(window == 4 ? uhc_dair_boost_final : uhc_dair_boost);
             }
-            else if (window_timer == get_window_value(AT_DAIR, window, AG_WINDOW_LENGTH) - 1)
+            else if (window_timer == get_window_value(AT_DAIR, window, AG_WINDOW_LENGTH))
             {
                 
-                if (window == 4)//reset has_hit to an accurate value
+                if (window == 4) //reset has_hit to an accurate value
                 { has_hit = (uhc_dair_window_bounced > 0); }
-                else//reset has_hit for future windows
+                else //reset has_hit for future windows
                 { has_hit = false; }
             }
         }
