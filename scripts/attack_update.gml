@@ -211,7 +211,16 @@ switch (attack)
         uhc_current_cd.pre_dspecial_immunity = 3;
         if (window == 2 && window_timer == 1)
         {
-            uhc_current_cd.buffered_state = AT_DSPECIAL_2;
+            if (!uhc_has_cd_blade)
+            {
+                uhc_current_cd.buffered_state = AT_DSPECIAL_2;
+            }
+            else
+            {
+                //accidentally caught the blade before starting the rewind
+                //quietly move to AT_DSPECIAL
+                attack = AT_DSPECIAL;
+            }
         }
     } break;
 //==========================================================
