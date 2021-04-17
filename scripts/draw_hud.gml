@@ -30,7 +30,10 @@ shader_start();
 var bar_width = 164 - 6;
 var bar_start_x = 22;
 var marker_pos = max(0, 1.0 - uhc_current_cd.cd_spin_meter/uhc_cd_spin_max) * (bar_width - 4);
-draw_sprite_stretched(vfx_hud_icons, ICON_BAR, temp_x + bar_start_x, temp_y + bar_y + 2, marker_pos, 18);
+if (uhc_has_cd_blade || uhc_current_cd.state != 0) //AR_STATE_DEAD
+{
+   draw_sprite_stretched(vfx_hud_icons, ICON_BAR, temp_x + bar_start_x, temp_y + bar_y + 2, marker_pos, 18);
+}
 draw_sprite_ext(vfx_hud_icons, ICON_MARKER, temp_x + bar_start_x + 2 + marker_pos, temp_y + bar_y, 2, 2, 0, c_white, 1);
 
 // Rating status

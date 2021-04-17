@@ -9,7 +9,8 @@ if (!uhc_has_cd_blade)
     else if (attack == AT_DSTRONG) { attack = AT_DTILT; }
     
     //Rewind-Recall variant
-    else if (attack == AT_DSPECIAL) { attack = AT_DSPECIAL_2; }
+    else if (attack == AT_DSPECIAL && uhc_current_cd.state != 0) //AR_STATE_DEAD
+    { attack = AT_DSPECIAL_2; }
 }
 //Aerials to Strongs conversions
 else if (up_strong_pressed || down_strong_pressed

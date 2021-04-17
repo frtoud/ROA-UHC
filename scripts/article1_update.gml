@@ -44,6 +44,12 @@ switch (state)
         do_friction();
         try_pickup();
         
+        //Dying
+        if !(pre_dspecial_immunity > 0) && (cd_spin_meter == 0)
+        {
+            buffered_state = AR_STATE_DEAD;
+        }
+        
         //Animation
         sprite_index = spr_article_cd_idle;
         image_index += 0.8;
@@ -188,13 +194,25 @@ switch (state)
 state_timer++;
 
 // Charge drain
-if (cd_spin_meter > 0) && !(state == AR_STATE_DEAD && player_id.uhc_no_charging)
+if (cd_spin_meter > 0) && !(state == AR_STATE_DEAD && 
+                            (player_id.uhc_no_charging || !player_id.uhc_has_cd_blade) )
 {
     cd_spin_meter -= (state == AR_STATE_IDLE) ? player_id.uhc_cd_spin_drain_idle
                                               : player_id.uhc_cd_spin_drain_base;
     cd_spin_meter = clamp(cd_spin_meter, 0, player_id.uhc_cd_spin_max);
 }
 
+//immunity to bottom blast zone for a couple of frames 
+if (pre_dspecial_immunity > 0)
+{
+   //when activating AT_DSPECIAL_2 while CD is still alive, needs to be allowed to call back
+   pre_dspecial_immunity--;
+}
+else if (y > room_height)
+{
+    //fell off the stage 
+    buffered_state = AR_STATE_DEAD;
+}
 
 //=====================================================
 #define set_state(new_state)

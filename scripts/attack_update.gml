@@ -187,7 +187,8 @@ switch (attack)
             if (!uhc_has_cd_blade)
             {
                 //"create" new blade
-                uhc_current_cd.buffered_state = 0; //Set to DEAD
+                uhc_current_cd.buffered_state = 0; //Set to AR_STATE_DEAD
+                uhc_current_cd.cd_spin_meter = 0; //Set to Zero
                 uhc_has_cd_blade = true;
             }
         }
@@ -207,6 +208,7 @@ switch (attack)
 //==========================================================
     case AT_DSPECIAL_2:
     {
+        uhc_current_cd.pre_dspecial_immunity = 3;
         if (window == 2 && window_timer == 1)
         {
             uhc_current_cd.buffered_state = AT_DSPECIAL_2;
