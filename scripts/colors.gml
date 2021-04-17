@@ -77,6 +77,13 @@ set_color_profile_slot(1, 2,  75, 205, 230); //CD
 set_color_profile_slot(1, 3, 210, 170,  10); //Paper
 set_color_profile_slot(1, 4, 255,  25,  25); //Blinker
 
+// Nope
+set_color_profile_slot(2, 0, 143,  28,  23); //Body
+set_color_profile_slot(2, 1,  50,  60,  60); //Lens
+set_color_profile_slot(2, 2,  36,  36,  36); //CD
+set_color_profile_slot(2, 3, 200, 187, 187); //Paper
+set_color_profile_slot(2, 4, 255,  25,  25); //Blinker
+
 // Nice
 set_color_profile_slot(3, 0, 110,  50,  35); //Body
 set_color_profile_slot(3, 1, 120, 150, 115); //Lens
@@ -122,7 +129,7 @@ set_color_profile_slot(10, 4,  25, 255, 255); //Blinker
 // Motherload/Halo
 set_color_profile_slot(12, 0,  88,  94,  75); //Body
 set_color_profile_slot(12, 1, 196, 175,  96); //Lens
-set_color_profile_slot(12, 2,  45,  45,  45); //CD
+set_color_profile_slot(12, 2,  88,  94,  75); //CD
 set_color_profile_slot(12, 3,   0,   0,   0); //Paper
 set_color_profile_slot(12, 4, 255,  25,  25); //Blinker 
 
