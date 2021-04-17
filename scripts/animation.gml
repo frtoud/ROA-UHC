@@ -174,7 +174,16 @@ switch (state)
                 {
                     if (window == 1) //startup: shuffle
                     {
-                        
+                        for (var i = (uhc_taunt_num_videos - 1); i >= 0; i--)
+                        {
+                            var swapwith = random_func(i % 24, i + 1, true);
+                            if (swapwith != i)
+                            {
+                                var temp = uhc_taunt_videos[i];
+                                uhc_taunt_videos[i] = uhc_taunt_videos[swapwith];
+                                uhc_taunt_videos[swapwith] = temp;
+                            }
+                        }
                     }
                     else if (window == 2) //Click to start
                     {
