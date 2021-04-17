@@ -8,7 +8,7 @@ if ("hsp" in self) //prevents error in workshop menu
 }
 
 sprite_change_offset_bladed("idle", 19, 27);
- sprite_change_offset("hurt", 32, 62);
+sprite_change_offset_bladed("hurt", 15, 23);
 sprite_change_offset_bladed("crouch", 20, 22);
 sprite_change_offset_bladed("walk", 18, 25);
 sprite_change_offset_bladed("walkturn", 17, 24);
