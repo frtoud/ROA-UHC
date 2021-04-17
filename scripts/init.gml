@@ -213,6 +213,7 @@ uhc_cd_spin_charge_rate = 1;
 uhc_cd_spin_max = 100;
 
 uhc_nspecial_charges_max = 4;
+uhc_nspecial_speed = 12;
 
 uhc_fspecial_charge_max = 480; // 8s * 60
 uhc_fspecial_charge_half = 240; // 4s * 60

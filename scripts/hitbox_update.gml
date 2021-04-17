@@ -2,9 +2,10 @@
 
 //=====================================================
 // NSPECIAL broken on landing
-if (!free && attack == AT_NSPECIAL)
+if (attack == AT_NSPECIAL)
 {
-    destroyed = true;
+    proj_angle -= 15;
+    if (!free) { destroyed = true; }
 }
 
 //=====================================================

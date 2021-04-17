@@ -16,7 +16,7 @@ set_window_value(AT_NSPECIAL, 2, AG_WINDOW_ANIM_FRAMES, 1);
 set_window_value(AT_NSPECIAL, 2, AG_WINDOW_ANIM_FRAME_START, 0);
 
 set_window_value(AT_NSPECIAL, 3, AG_WINDOW_TYPE, 1);
-set_window_value(AT_NSPECIAL, 3, AG_WINDOW_LENGTH, 16);
+set_window_value(AT_NSPECIAL, 3, AG_WINDOW_LENGTH, 28);
 set_window_value(AT_NSPECIAL, 3, AG_WINDOW_ANIM_FRAMES, 1);
 set_window_value(AT_NSPECIAL, 3, AG_WINDOW_ANIM_FRAME_START, 1);
 set_window_value(AT_NSPECIAL, 3, AG_WINDOW_HAS_SFX, 1);
@@ -31,7 +31,7 @@ for (var i = 1; i <= 5; i++)
     set_hitbox_value(AT_NSPECIAL, i, HG_HITBOX_TYPE, 2);
     set_hitbox_value(AT_NSPECIAL, i, HG_WINDOW, 3);
     set_hitbox_value(AT_NSPECIAL, i, HG_WINDOW_CREATION_FRAME, 2*(i-1));
-    set_hitbox_value(AT_NSPECIAL, i, HG_LIFETIME, 300);
+    set_hitbox_value(AT_NSPECIAL, i, HG_LIFETIME, 40);
     set_hitbox_value(AT_NSPECIAL, i, HG_HITBOX_X, -15);
     set_hitbox_value(AT_NSPECIAL, i, HG_HITBOX_Y, -15);
     set_hitbox_value(AT_NSPECIAL, i, HG_WIDTH, 16);
@@ -40,9 +40,12 @@ for (var i = 1; i <= 5; i++)
     set_hitbox_value(AT_NSPECIAL, i, HG_PROJECTILE_GROUND_BEHAVIOR, 0);
     set_hitbox_value(AT_NSPECIAL, i, HG_PROJECTILE_WALL_BEHAVIOR, 0);
     set_hitbox_value(AT_NSPECIAL, i, HG_DAMAGE, 3);
-    set_hitbox_value(AT_NSPECIAL, i, HG_ANGLE, 50);
+    set_hitbox_value(AT_NSPECIAL, i, HG_BASE_KNOCKBACK, 7);
+    set_hitbox_value(AT_NSPECIAL, i, HG_BASE_HITPAUSE, 2);
+    set_hitbox_value(AT_NSPECIAL, i, HG_ANGLE, 75);
     set_hitbox_value(AT_NSPECIAL, i, HG_VISUAL_EFFECT_Y_OFFSET, -16);
+    set_hitbox_value(AT_NSPECIAL, i, HG_HIT_SFX, asset_get("sfx_blow_weak1"));
     set_hitbox_value(AT_NSPECIAL, i, HG_PROJECTILE_SPRITE, sprite_get("proj_star"));
     set_hitbox_value(AT_NSPECIAL, i, HG_PROJECTILE_MASK, -1);
-    set_hitbox_value(AT_NSPECIAL, i, HG_PROJECTILE_HSPEED, 16);
+    set_hitbox_value(AT_NSPECIAL, i, HG_PROJECTILE_HSPEED, uhc_nspecial_speed);
 }

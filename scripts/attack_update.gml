@@ -134,6 +134,31 @@ switch (attack)
                 //set grid data
                 set_num_hitboxes(AT_NSPECIAL, 1 + uhc_nspecial_charges);
                 
+                for (var i = 0; i <= uhc_nspecial_charges; i++)
+                {
+                    var temp_angle = 0;
+                    //upwards spread
+                    if (!joy_pad_idle) && (joy_dir >= 45 && joy_dir <= 135)
+                    {
+                        temp_angle = i * 5;
+                    }
+                    //downwards spread
+                    else if (!joy_pad_idle) && (joy_dir >= 225 && joy_dir <= 315)
+                    {
+                        temp_angle = i * -5;
+                    }
+                    //very slight spread around center
+                    else
+                    {
+                        temp_angle = uhc_nspecial_charges - 2*i;
+                    }
+                    
+                    set_hitbox_value(AT_NSPECIAL, i+1, HG_PROJECTILE_HSPEED, 
+                                     lengthdir_x(uhc_nspecial_speed, temp_angle));
+                    set_hitbox_value(AT_NSPECIAL, i+1, HG_PROJECTILE_VSPEED,
+                                     lengthdir_y(uhc_nspecial_speed, temp_angle));
+                }
+                
                 //consumes charge
                 uhc_nspecial_charges = 0;
             }
