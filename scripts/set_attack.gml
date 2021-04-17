@@ -10,7 +10,10 @@ if (!uhc_has_cd_blade)
     
     //Rewind-Recall variant
     else if (attack == AT_DSPECIAL && uhc_current_cd.state != 0) //AR_STATE_DEAD
-    { attack = AT_DSPECIAL_2; }
+    { 
+        uhc_current_cd.pre_dspecial_immunity = 3;
+        attack = AT_DSPECIAL_2; 
+    }
 }
 //Aerials to Strongs conversions
 else if (up_strong_pressed || down_strong_pressed
