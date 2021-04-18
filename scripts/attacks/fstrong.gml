@@ -44,6 +44,7 @@ set_hitbox_value(AT_FSTRONG, 1, HG_BASE_HITPAUSE, 5);
 set_hitbox_value(AT_FSTRONG, 1, HG_SPIN_DAMAGE_BONUS, 1.25);
 set_hitbox_value(AT_FSTRONG, 1, HG_HIT_SFX, asset_get("sfx_blow_weak2"));
 
+// Multihit
 set_hitbox_value(AT_FSTRONG, 2, HG_HITBOX_TYPE, 2);
 set_hitbox_value(AT_FSTRONG, 2, HG_WINDOW, 3);
 set_hitbox_value(AT_FSTRONG, 2, HG_LIFETIME, 4);
@@ -54,6 +55,9 @@ set_hitbox_value(AT_FSTRONG, 2, HG_PROJECTILE_ENEMY_BEHAVIOR, 1);
 set_hitbox_value(AT_FSTRONG, 2, HG_PROJECTILE_GROUND_BEHAVIOR, 1);
 set_hitbox_value(AT_FSTRONG, 2, HG_PROJECTILE_WALL_BEHAVIOR, 1);
 set_hitbox_value(AT_FSTRONG, 2, HG_PROJECTILE_UNBASHABLE, 1);
+set_hitbox_value(AT_FSTRONG, 2, HG_PROJECTILE_DOES_NOT_REFLECT, 1);
+set_hitbox_value(AT_FSTRONG, 2, HG_PROJECTILE_IS_TRANSCENDENT, 1);
+set_hitbox_value(AT_FSTRONG, 2, HG_PROJECTILE_PLASMA_SAFE, 1);
 set_hitbox_value(AT_FSTRONG, 2, HG_ANGLE, 25);
 set_hitbox_value(AT_FSTRONG, 2, HG_DAMAGE, 1);
 set_hitbox_value(AT_FSTRONG, 2, HG_TECHABLE, 3);
@@ -64,6 +68,7 @@ set_hitbox_value(AT_FSTRONG, 2, HG_HIT_SFX, asset_get("sfx_blow_weak2"));
 set_hitbox_value(AT_FSTRONG, 2, HG_PROJECTILE_SPRITE, asset_get("empty_sprite"));
 set_hitbox_value(AT_FSTRONG, 2, HG_PROJECTILE_MASK, -1);
 
+//Finisher
 set_hitbox_value(AT_FSTRONG, 3, HG_HITBOX_TYPE, 2);
 set_hitbox_value(AT_FSTRONG, 3, HG_WINDOW, 3);
 set_hitbox_value(AT_FSTRONG, 3, HG_LIFETIME, 2);
@@ -74,6 +79,9 @@ set_hitbox_value(AT_FSTRONG, 3, HG_PROJECTILE_ENEMY_BEHAVIOR, 1);
 set_hitbox_value(AT_FSTRONG, 3, HG_PROJECTILE_GROUND_BEHAVIOR, 1);
 set_hitbox_value(AT_FSTRONG, 3, HG_PROJECTILE_WALL_BEHAVIOR, 1);
 set_hitbox_value(AT_FSTRONG, 3, HG_PROJECTILE_UNBASHABLE, 1);
+set_hitbox_value(AT_FSTRONG, 3, HG_PROJECTILE_DOES_NOT_REFLECT, 1);
+set_hitbox_value(AT_FSTRONG, 3, HG_PROJECTILE_IS_TRANSCENDENT, 1);
+set_hitbox_value(AT_FSTRONG, 3, HG_PROJECTILE_PLASMA_SAFE, 1);
 set_hitbox_value(AT_FSTRONG, 3, HG_ANGLE, 55);
 set_hitbox_value(AT_FSTRONG, 3, HG_DAMAGE, 6);
 set_hitbox_value(AT_FSTRONG, 3, HG_HIT_LOCKOUT, 3);
@@ -86,6 +94,7 @@ set_hitbox_value(AT_FSTRONG, 3, HG_HIT_SFX, asset_get("sfx_blow_heavy2"));
 set_hitbox_value(AT_FSTRONG, 3, HG_PROJECTILE_SPRITE, asset_get("empty_sprite"));
 set_hitbox_value(AT_FSTRONG, 3, HG_PROJECTILE_MASK, -1);
 
+//returning
 set_hitbox_value(AT_FSTRONG, 4, HG_HITBOX_TYPE, 2);
 set_hitbox_value(AT_FSTRONG, 4, HG_WINDOW, 3);
 set_hitbox_value(AT_FSTRONG, 4, HG_LIFETIME, 24);
@@ -96,6 +105,9 @@ set_hitbox_value(AT_FSTRONG, 4, HG_PROJECTILE_ENEMY_BEHAVIOR, 1);
 set_hitbox_value(AT_FSTRONG, 4, HG_PROJECTILE_GROUND_BEHAVIOR, 1);
 set_hitbox_value(AT_FSTRONG, 4, HG_PROJECTILE_WALL_BEHAVIOR, 1);
 set_hitbox_value(AT_FSTRONG, 4, HG_PROJECTILE_UNBASHABLE, 1);
+set_hitbox_value(AT_FSTRONG, 4, HG_PROJECTILE_DOES_NOT_REFLECT, 1);
+set_hitbox_value(AT_FSTRONG, 4, HG_PROJECTILE_IS_TRANSCENDENT, 1);
+set_hitbox_value(AT_FSTRONG, 4, HG_PROJECTILE_PLASMA_SAFE, 1);
 set_hitbox_value(AT_FSTRONG, 4, HG_ANGLE, 110);
 set_hitbox_value(AT_FSTRONG, 4, HG_DAMAGE, 6);
 set_hitbox_value(AT_FSTRONG, 4, HG_BASE_KNOCKBACK, 6);
