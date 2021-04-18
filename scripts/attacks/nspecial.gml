@@ -30,7 +30,7 @@ for (var i = 1; i <= 5; i++)
 {
     set_hitbox_value(AT_NSPECIAL, i, HG_HITBOX_TYPE, 2);
     set_hitbox_value(AT_NSPECIAL, i, HG_WINDOW, 3);
-    set_hitbox_value(AT_NSPECIAL, i, HG_WINDOW_CREATION_FRAME, 2*(i-1));
+    set_hitbox_value(AT_NSPECIAL, i, HG_WINDOW_CREATION_FRAME, 1 + 2*(i-1));
     set_hitbox_value(AT_NSPECIAL, i, HG_LIFETIME, 40);
     set_hitbox_value(AT_NSPECIAL, i, HG_HITBOX_X, -15);
     set_hitbox_value(AT_NSPECIAL, i, HG_HITBOX_Y, -15);
