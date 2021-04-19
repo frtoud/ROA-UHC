@@ -32,7 +32,7 @@ sprite_change_offset_bladed("parry", 15, 23);
  sprite_change_offset("roll_backward", 16, 31);
 sprite_change_offset_bladed("airdodge", 22, 26);
 sprite_change_offset_bladed("waveland", 19, 26);
- sprite_change_offset("tech", 32, 62);
+sprite_change_offset_bladed("tech", 18, 25);
 
  sprite_change_offset("jab", 32, 47, true);
 sprite_change_offset_bladed("dattack", 20, 24);
