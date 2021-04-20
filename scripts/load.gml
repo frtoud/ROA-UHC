@@ -23,7 +23,7 @@ sprite_change_offset_bladed("jump", 21, 31);
 sprite_change_offset_bladed("doublejump", 19, 30);
 sprite_change_offset_bladed("doublejump_back", 19, 31);
  sprite_change_offset("walljump", 16, 31);
- sprite_change_offset("pratfall", 32, 62);
+sprite_change_offset_bladed("pratfall", 15, 30);
 sprite_change_offset_bladed("land", 19, 26);
 sprite_change_offset_bladed("landinglag", 19, 26);
 
@@ -55,14 +55,14 @@ sprite_change_offset("dstrong_air", 19, 29, true);
  sprite_change_offset("nspecial", 20, 21, true);
 sprite_change_offset_bladed("fspecial", 17, 23);
 sprite_change_offset_bladed("fspecial_air", 20, 27);
- sprite_change_offset("uspecial", 64, 94);
+sprite_change_offset_bladed("uspecial", 19, 30);
 sprite_change_offset("dspecial", 15, 32);
 sprite_change_offset("dspecial_air", 16, 33);
 sprite_change_offset_bladed("taunt", 22, 22);
 
  sprite_change_offset("plat", 32, 47);
 
- sprite_change_offset("proj_star", 9, 11);
+sprite_change_offset("proj_star", 9, 11);
 
 sprite_change_offset("article_cd_idle", 19, 19);
 sprite_change_offset("article_cd_shoot", 19, 19);

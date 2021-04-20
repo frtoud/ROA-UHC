@@ -149,6 +149,19 @@ switch (state)
                 }
             } break;
 //===============================================================
+            case AT_USPECIAL:
+            {
+                if (image_index == 0 && free)
+                { 
+                    image_index = 1; //air frame
+                }
+                else if (window == 2 && window_timer == get_window_value(AT_USPECIAL, 2, AG_WINDOW_LENGTH) - 1)
+                {
+                    uhc_anim_last_dodge.posx = x;
+                    uhc_anim_last_dodge.posy = y;
+                }
+            } break;
+//===============================================================
             case AT_TAUNT:
             {
                 //Timers

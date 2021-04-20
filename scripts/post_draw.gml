@@ -13,7 +13,7 @@ if (state == PS_PARRY && image_index == dodge_startup_frames)
 // Drawing bladed sprites
 draw_blade(sprite_index, image_index, x, y);
 //===================================================
-//Buffering
+// Strong buffering
 if (state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR)
   && (window == get_attack_value(attack, AG_STRONG_CHARGE_WINDOW))
   && (strong_charge > 0)
@@ -23,12 +23,14 @@ if (state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR)
 //===================================================
 //Dodge effects
 if (state == PS_AIR_DODGE && window == 1)
+|| (state == PS_ATTACK_AIR && attack == AT_USPECIAL && window == 3)
 {
+    var img_index = (state == PS_AIR_DODGE) ? 1 : (random_func(0, 2, true) + 3);
     shader_start();
-    draw_sprite_ext(sprite_index, 1, uhc_anim_last_dodge.posx, uhc_anim_last_dodge.posy, 
+    draw_sprite_ext(sprite_index, img_index, uhc_anim_last_dodge.posx, uhc_anim_last_dodge.posy, 
                     spr_dir * scale, scale, spr_angle, c_white, 1);
     shader_end();
-    draw_blade(sprite_index, 1, uhc_anim_last_dodge.posx, uhc_anim_last_dodge.posy);
+    draw_blade(sprite_index, img_index, uhc_anim_last_dodge.posx, uhc_anim_last_dodge.posy);
     draw_buffering(uhc_anim_last_dodge.posx, uhc_anim_last_dodge.posy);
 }
 //===================================================
