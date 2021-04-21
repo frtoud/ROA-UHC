@@ -11,6 +11,10 @@ if (uhc_update_blade_status)
     uhc_update_blade_status = false;
 }
 
+//==========================================================
+//prevents spin cost from not being applied when CD is thrown
+uhc_spin_cost_throw_bypass = false;
+
 switch (attack)
 {
 //==========================================================
@@ -333,9 +337,13 @@ switch (attack)
 
 //==============================================================================
 // Blade costs
-if (uhc_has_cd_blade && window_timer == 1 && !hitpause)
+if (uhc_has_cd_blade || spin_cost_throw_bypass) 
+&& (window_timer == 1 && !hitpause)
+
 {
     var window_cost = get_window_value(attack, window, AG_WINDOW_SPIN_COST);
+    //throwing the CD means we've just swapped it for the other_cd
+    var cd_id = spin_cost_throw_bypass ? uhc_current_cd : uhc_other_cd;
     uhc_current_cd.cd_spin_meter = 
        clamp(uhc_current_cd.cd_spin_meter - window_cost, 0, uhc_cd_spin_max);
 }
@@ -358,6 +366,9 @@ if (uhc_has_cd_blade && window_timer == 1 && !hitpause)
     var temp_cd = uhc_current_cd;
     uhc_current_cd = uhc_other_cd;
     uhc_other_cd = temp_cd;
+
+    //just thrown CD, need to apply costs inconditionally
+    uhc_spin_cost_throw_bypass = true;
 }
 //==============================================================================
 #define adjust_bladed_attack_grid()

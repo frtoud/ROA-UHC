@@ -245,6 +245,7 @@ uhc_current_cd = noone;
 uhc_other_cd = noone;
 uhc_has_cd_blade = true;
 uhc_update_blade_status = false;
+uhc_spin_cost_throw_bypass = false; //allows spin cost to apply if CD is thrown
 uhc_no_charging = false; //prevents CD blade drain and FSPECIAL charge
 
 uhc_dattack_can_exit = false;
