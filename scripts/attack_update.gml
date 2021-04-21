@@ -337,13 +337,13 @@ switch (attack)
 
 //==============================================================================
 // Blade costs
-if (uhc_has_cd_blade || spin_cost_throw_bypass) 
+if (uhc_has_cd_blade || uhc_spin_cost_throw_bypass) 
 && (window_timer == 1 && !hitpause)
 
 {
     var window_cost = get_window_value(attack, window, AG_WINDOW_SPIN_COST);
     //throwing the CD means we've just swapped it for the other_cd
-    var cd_id = spin_cost_throw_bypass ? uhc_current_cd : uhc_other_cd;
+    var cd_id = uhc_spin_cost_throw_bypass ? uhc_current_cd : uhc_other_cd;
     uhc_current_cd.cd_spin_meter = 
        clamp(uhc_current_cd.cd_spin_meter - window_cost, 0, uhc_cd_spin_max);
 }
