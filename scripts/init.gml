@@ -121,6 +121,17 @@ uhc_anim_blinker_shading = 0.0; //0 is black, 1 is fully bright
 //airdodge buffering effect
 uhc_anim_last_dodge = { posx:0, posy:0 };
 
+for (var k = 0; k < 8; k++)
+{
+   var spr_string = "vfx_glitch" + string(k);
+   vfx_glitches_array[k] = hit_fx_create(sprite_get(spr_string), 4);
+   sprite_change_offset(spr_string, 12, 10);
+}
+vfx_glitch = vfx_glitches_array[0];
+uhc_anim_rand_x = 0;
+uhc_anim_rand_y = 0;
+
+//Backflips
 uhc_anim_back_flipping = false;
 uhc_anim_backflip_spr = sprite_get("doublejump_back");
 

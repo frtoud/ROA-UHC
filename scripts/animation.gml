@@ -1,6 +1,12 @@
 //animation.gml
 
 //===============================================================
+//Precalculated effects for buffering 
+uhc_anim_rand_x = random_func(0, 100, true) / 100.0;
+uhc_anim_rand_y = random_func(1, 100, true) / 100.0;
+vfx_glitch = vfx_glitches_array[random_func(2, array_length(vfx_glitches_array), true)];
+
+//===============================================================
 //Blade spin animation
 if (uhc_has_cd_blade)
 {
@@ -160,6 +166,12 @@ switch (state)
                     uhc_anim_last_dodge.posx = x;
                     uhc_anim_last_dodge.posy = y;
                 }
+                else if (window == 3)
+                {
+                    spawn_twinkle(vfx_glitch, x, y - (char_height/2), 15);
+                    spawn_twinkle(vfx_glitch, uhc_anim_last_dodge.posx, 
+                                              uhc_anim_last_dodge.posy - (char_height/2), 80);
+                }
             } break;
 //===============================================================
             case AT_TAUNT:
@@ -286,6 +298,15 @@ if (uhc_taunt_collect_videos)
     }
 }
 
+//==============================================================
+#define spawn_twinkle(vfx, pos_x, pos_y, radius)
+{
+    //thank u nozumi :D
+    var kx = pos_x - (radius / 2) + uhc_anim_rand_x * radius;
+    var ky = pos_y - (radius / 2) + uhc_anim_rand_y * radius;
+    var k = spawn_hit_fx(kx, ky, vfx);
+    k.depth = depth - 1;
+}   
 //==============================================================
 #define array_exists(value, array)
 {
