@@ -255,6 +255,9 @@ uhc_fspecial_charge_current = 0;
 uhc_nspecial_charges = 0;
 uhc_nspecial_is_charging = false;
 
+uhc_uspecial_hitbox = noone;
+uhc_uspecial_start_pos = { x:0, y:0 };
+
 //=========================================================================
 #define add_uhc_video(video_index, video_filename, video_fps, video_special)
 {

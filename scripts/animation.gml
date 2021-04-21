@@ -161,11 +161,6 @@ switch (state)
                 { 
                     image_index = 1; //air frame
                 }
-                else if (window == 2 && window_timer == get_window_value(AT_USPECIAL, 2, AG_WINDOW_LENGTH) - 1)
-                {
-                    uhc_anim_last_dodge.posx = x;
-                    uhc_anim_last_dodge.posy = y;
-                }
                 else if (window == 3)
                 {
                     spawn_twinkle(vfx_glitch, x, y - (char_height/2), 15);

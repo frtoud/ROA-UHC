@@ -255,19 +255,55 @@ switch (attack)
         can_fast_fall = false;
         
         //moving around
-        if (window == 3)
+        if (window == 2 && window_timer == get_window_value(AT_USPECIAL, 2, AG_WINDOW_LENGTH) - 1)
+        {
+            uhc_uspecial_start_pos.x = x;
+            uhc_uspecial_start_pos.y = y;
+            //sync with this for animation
+            uhc_anim_last_dodge.posx = x;
+            uhc_anim_last_dodge.posy = y;
+        }
+        else if (window == 3)
         {
             var uspecial_speed = joy_pad_idle ? uhc_uspecial_speed 
                                               : uhc_uspecial_speed_fast;
             hsp = lengthdir_x(uspecial_speed, joy_dir);
             vsp = lengthdir_y(uspecial_speed, joy_dir);
         }
+        var attack_stopped = false;
         //autocancel if landing
         if (!free && window > 2)
         {
             set_state(window == 3 ? PS_WAVELAND : PS_LANDING_LAG);
+            attack_stopped = true;
+        }
+        else if (window == 4 && window_timer == 1)
+        {
+            attack_stopped = true;
         }
         //ejecting victims when its done
+        if (attack_stopped)
+        {
+            if (instance_exists(uhc_uspecial_hitbox)) 
+               { uhc_uspecial_hitbox.destroyed = true; }
+            
+            reset_hitbox_value(AT_USPECIAL, 3, HG_ANGLE);
+            var travel_angle = point_direction(uhc_uspecial_start_pos.x, 
+                                               uhc_uspecial_start_pos.y, x, y);
+            set_hitbox_value(AT_USPECIAL, 3, HG_ANGLE, travel_angle);
+            
+            with (oPlayer) if (self != other && being_buffered_by == other)
+            {
+                //for each victim...
+                var victim = self;
+                being_buffered_by = noone;
+                with (other)//...back to Hypercam
+                {
+                    var hitbox = create_hitbox(AT_USPECIAL, 3, victim.x, victim.y - victim.char_height/2);
+                    hitbox.spr_dir = 1;
+                }
+            }
+        }
     } break;
 //==========================================================
     case AT_TAUNT:
