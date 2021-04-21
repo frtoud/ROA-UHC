@@ -278,7 +278,7 @@ switch (attack)
         //autocancel if landing
         if (!free && window > 2)
         {
-            set_state(PS_PRATLAND);
+            set_state(PS_PRATFALL);
             attack_stopped = true;
         }
         else if (window == 4 && window_timer == 1)
