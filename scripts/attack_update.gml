@@ -255,7 +255,7 @@ switch (attack)
 //==========================================================
     case AT_USPECIAL:
     {
-        can_move = window == 5;
+        can_move = (window == 5);
         can_fast_fall = false;
         
         //moving around
@@ -278,7 +278,7 @@ switch (attack)
         //autocancel if landing
         if (!free && window > 2)
         {
-            set_state(window == 3 ? PS_WAVELAND : PS_LANDING_LAG);
+            set_state(PS_PRATLAND);
             attack_stopped = true;
         }
         else if (window == 4 && window_timer == 1)
