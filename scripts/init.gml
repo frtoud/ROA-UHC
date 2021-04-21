@@ -124,15 +124,24 @@ uhc_anim_last_dodge = { posx:0, posy:0 };
 uhc_anim_back_flipping = false;
 uhc_anim_backflip_spr = sprite_get("doublejump_back");
 
+//Interface
 vfx_label = sprite_get("vfx_label");
+vfx_hud_bar = sprite_get("hud_bar");
+vfx_hud_icons = sprite_get("hud_icons");
+
 vfx_buffering = sprite_get("vfx_buffering");
 vfx_mini_buffering = sprite_get("vfx_mini_buffering");
 
+//FSPECIAL flash
 vfx_flash_charge = sprite_get("vfx_flash_charge");
 vfx_flash_small = sprite_get("vfx_flash_small");
 vfx_flash_medium = sprite_get("vfx_flash_medium");
 vfx_flash_large = sprite_get("vfx_flash_large");
 
+uhc_anim_fspecial_flash_spr = noone;
+uhc_anim_fspecial_flash_timer = 0;
+
+//DSPECIAL Rewind
 uhc_anim_rewind = 
 {
     active: false,
@@ -144,18 +153,15 @@ uhc_anim_rewind =
     sprite: sprite_get("vfx_rewind")
 };
 
-vfx_hud_bar = sprite_get("hud_bar");
-vfx_hud_icons = sprite_get("hud_icons");
-
-uhc_anim_fspecial_flash_spr = noone;
-uhc_anim_fspecial_flash_timer = 0;
-
 uhc_anim_dspecial_image_timer = 0;
 sfx_dspecial_reload = sound_get("sfx_reload");
 
+//Quote
 uhc_victory_quote = "Thx 4 watchign dont forget to rate 5 stars :)";
 uhc_handled_victory_quote = false;
 
+//=================================================
+// Taunt video
 uhc_taunt_videos[31] = noone; //preinitialized to a reasonable amount
 uhc_taunt_collect_videos = true;
 var i = 0;
