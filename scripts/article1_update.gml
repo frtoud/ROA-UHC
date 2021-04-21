@@ -83,11 +83,7 @@ switch (state)
     case AR_STATE_FSTRONG_ROLL:
     {
         //Update
-        if (state_timer == 1)
-        {
-            spawn_hitbox(AT_FSTRONG, 4, false, false);
-        }
-        else if (state_timer > 30)
+        if (state_timer > 30)
         {
             set_state(AR_STATE_IDLE);
         }
@@ -134,9 +130,16 @@ switch (state)
     {
         //Update
         do_gravity();
-        if (state_timer == 1)
+        
+        if (state_timer <= 1)
+        {
+            state_timer = 1;
+            has_dstrong_hitbox = false;
+        }
+        if (vsp > cd_dstrong_air_min_speed_for_hitbox) && (!has_dstrong_hitbox)
         {
             spawn_hitbox(AT_DSTRONG_2, 1, false, false);
+            has_dstrong_hitbox = true;
         }
         else if (!free || has_hit)
         {

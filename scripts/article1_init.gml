@@ -31,6 +31,7 @@ cd_roll_speed = 6;
 cd_fall_speed = 9;
 cd_dspecial_force = 0.75;
 cd_dspecial_speed = 24;
+cd_dstrong_air_min_speed_for_hitbox = 5.5;
 
 cd_multihit_speed_bonus = 0.75;
 
@@ -48,4 +49,4 @@ visible = false;
 has_hit = false; //if a cd-hitbox connected on this move
 pickup_cooldown = 0; //prevents Hypercam from grabbing this CD
 pre_dspecial_immunity = 0; //prevents CD from dying while AT_DSPECIAL_2 is in progress
-
+has_dstrong_hitbox = false; //checks if air DSTRONG spawned already
