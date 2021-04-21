@@ -219,6 +219,9 @@ uhc_fspecial_charge_max = 480; // 8s * 60
 uhc_fspecial_charge_half = 240; // 4s * 60
 uhc_fspecial_cooldown = 60; // 1s * 60
 
+uhc_uspecial_speed = 3;
+uhc_uspecial_speed_fast = 7;
+
 //=================================================
 //Custom variables initialized here
 uhc_current_cd = noone;

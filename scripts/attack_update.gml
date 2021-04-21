@@ -251,9 +251,22 @@ switch (attack)
 //==========================================================
     case AT_USPECIAL:
     {
-        //TODO: Kete
-        //bufferring afterimage
+        can_move = window == 5;
+        can_fast_fall = false;
+        
         //moving around
+        if (window == 3)
+        {
+            var uspecial_speed = joy_pad_idle ? uhc_uspecial_speed 
+                                              : uhc_uspecial_speed_fast;
+            hsp = lengthdir_x(uspecial_speed, joy_dir);
+            vsp = lengthdir_y(uspecial_speed, joy_dir);
+        }
+        //autocancel if landing
+        if (!free && window > 2)
+        {
+            set_state(window == 3 ? PS_WAVELAND : PS_LANDING_LAG);
+        }
         //ejecting victims when its done
     } break;
 //==========================================================
