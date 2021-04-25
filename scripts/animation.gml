@@ -68,14 +68,18 @@ else
 //===============================================================
 init_shader();
 
+//needs to be reset if not in Jab
+draw_y = 0;
+
 switch (state)
 {
-    case PS_IDLE:
-    {
-        
-    } break;
     case PS_WALK:
     {
+        if (uhc_anim_jabwalk_timer != 0)
+        {
+            state_timer = uhc_anim_jabwalk_timer;
+            uhc_anim_jabwalk_timer = 0;
+        }
         //walk sound (synced with 8 frames walk, 0.2 anim speed)
         if ((state_timer % 20) == 15)
         {
@@ -112,6 +116,48 @@ switch (state)
     {
         switch (attack)
         {
+//===============================================================
+            case AT_JAB:
+            {
+                if (window == 1 && window_timer == 1)
+                { uhc_looping_attack_can_exit = false; }
+                else if (window >= 7)
+                {
+                    if (hsp != 0)
+                    {
+                        var max_time_for_walk_loop = 8/walk_anim_speed;
+                        
+                        uhc_anim_jabwalk_timer += (sign(hsp) * spr_dir);
+                        if (uhc_anim_jabwalk_timer < 0) 
+                        {uhc_anim_jabwalk_timer += max_time_for_walk_loop; }
+                        
+                        uhc_anim_jabwalk_frame = (uhc_anim_jabwalk_timer * walk_anim_speed) % 8;
+                        
+                        //walk sound (synced with 8 frames walk, 0.2 anim speed)
+                        if ((uhc_anim_jabwalk_timer % 20) == 15)
+                        {
+                            sound_play(asset_get("sfx_may_arc_five"), false, noone, 0.2, 3);
+                        }
+        
+                        image_index += 10; //use legless sprites
+                        
+                        //bobbing
+                        switch floor(uhc_anim_jabwalk_frame)
+                        {
+                            case 0: case 4: draw_y = -2;
+                            break;
+                            case 2: case 6: draw_y = +2;
+                            break;
+                            default: draw_y = 0;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        uhc_anim_jabwalk_timer = 0;
+                    }
+                }
+            } break;
 //===============================================================
             case AT_FSPECIAL:
             {

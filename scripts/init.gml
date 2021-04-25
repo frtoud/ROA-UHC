@@ -131,6 +131,11 @@ vfx_glitch = vfx_glitches_array[0];
 uhc_anim_rand_x = 0;
 uhc_anim_rand_y = 0;
 
+//Jabwalk
+uhc_anim_jabwalk_timer = 0;
+uhc_anim_jabwalk_frame = 0;
+uhc_anim_jabwalk_legs_spr = sprite_get("jab_legs");
+
 //Backflips
 uhc_anim_back_flipping = false;
 uhc_anim_backflip_spr = sprite_get("doublejump_back");
@@ -248,7 +253,8 @@ uhc_update_blade_status = false;
 uhc_spin_cost_throw_bypass = false; //allows spin cost to apply if CD is thrown
 uhc_no_charging = false; //prevents CD blade drain and FSPECIAL charge
 
-uhc_dattack_can_exit = false;
+uhc_looping_attack_can_exit = false; //used with jab, dattack
+
 uhc_dair_window_bounced = 0;
 
 uhc_fspecial_charge_current = 0;

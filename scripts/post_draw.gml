@@ -13,6 +13,16 @@ if (state == PS_PARRY && image_index == dodge_startup_frames)
 // Drawing bladed sprites
 draw_blade(sprite_index, image_index, x, y);
 //===================================================
+// Jab-walk
+if (state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR)
+  && (window >= 7 && hsp != 0)
+{
+    shader_start();
+    draw_sprite_ext(uhc_anim_jabwalk_legs_spr, uhc_anim_jabwalk_frame, 
+                    x, y, spr_dir * scale, scale, 0, c_white, 1);
+    shader_end();
+}
+//===================================================
 // Strong buffering
 if (state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR)
   && (window == get_attack_value(attack, AG_STRONG_CHARGE_WINDOW))

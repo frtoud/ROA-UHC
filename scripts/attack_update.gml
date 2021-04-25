@@ -18,18 +18,19 @@ uhc_spin_cost_throw_bypass = false;
 switch (attack)
 {
 //==========================================================
-    case AT_DATTACK:
+    case AT_JAB:
     {
-        hsp = clamp(hsp, -dash_speed, dash_speed);
-        
         if (window == 1 && window_timer == 1)
-        { uhc_dattack_can_exit = false; }
+        { uhc_looping_attack_can_exit = false; }
         
-        if (window == 3)
+        if (window == 5 && window_timer == 1 && !uhc_has_cd_blade)
+        { window = 8; } //skip to finisher
+        
+        if (window == 7)
         {
-            if (window_timer >= 8)
+            if (window_timer >= 16)
             {
-                uhc_dattack_can_exit = true;
+                uhc_looping_attack_can_exit = true;
             }
             
             if ((window_timer % 6) == 1 && !hitpause)
@@ -40,7 +41,51 @@ switch (attack)
                 create_hitbox(AT_DATTACK, 4, 0, 0);
             }
             
-            if (!attack_down && uhc_dattack_can_exit) 
+            if (!attack_down && uhc_looping_attack_can_exit) 
+            { 
+                window = 8;
+                window_timer = 0;
+                destroy_hitboxes();
+            }
+        }
+        
+        //Jab-walking
+        if (window >= 7 && !joy_pad_idle)
+        {
+            var walk_dir = right_down - left_down;
+            hsp = clamp(hsp + walk_dir * walk_accel, -walk_speed, walk_speed);
+            
+            if (window == 9 && window_timer > 6 && walk_dir != spr_dir)
+            {
+                set_state(PS_WALK_TURN);
+            }
+        }
+        
+    } break;
+//==========================================================
+    case AT_DATTACK:
+    {
+        hsp = clamp(hsp, -dash_speed, dash_speed);
+        
+        if (window == 1 && window_timer == 1)
+        { uhc_looping_attack_can_exit = false; }
+        
+        if (window == 3)
+        {
+            if (window_timer >= 8)
+            {
+                uhc_looping_attack_can_exit = true;
+            }
+            
+            if ((window_timer % 6) == 1 && !hitpause)
+            && (uhc_has_cd_blade && uhc_current_cd.cd_spin_meter > 0)
+            {
+                //Looping hitbox as long as you hold
+                sound_play(asset_get("sfx_swipe_weak1"));
+                create_hitbox(AT_DATTACK, 4, 0, 0);
+            }
+            
+            if (!attack_down && uhc_looping_attack_can_exit) 
             { 
                 window = 4;
                 window_timer = 0;
