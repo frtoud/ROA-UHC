@@ -50,7 +50,7 @@ if (uhc_anim_fspecial_flash_spr != noone)
     var frame = 4 - min(4, (uhc_anim_fspecial_flash_timer) / 2);
     shader_start();
     draw_sprite_ext(uhc_anim_fspecial_flash_spr, frame, 
-                    x + (spr_dir * 18), y - 28, spr_dir * 2, 2, 0, c_white, 1);
+                    x + (spr_dir * 18), y - 28, spr_dir * scale, scale, 0, c_white, 1);
     shader_end();
 }
 //===================================================
@@ -76,7 +76,7 @@ if (uhc_taunt_current_video != noone)
        shader_start();
        var scale = 1 + small_sprites;
        draw_sprite_ext(ds_map_find_value(uhc_blade_spr_map, spr_id),
-                       img_id, posx, posy, spr_dir * scale, scale, spr_angle, c_white, 1);
+                       img_id, posx+draw_x, posy+draw_y, spr_dir * scale, scale, spr_angle, c_white, 1);
        shader_end(); 
     }
 }
