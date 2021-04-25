@@ -123,7 +123,7 @@ switch (state)
                 { uhc_looping_attack_can_exit = false; }
                 else if (window >= 7)
                 {
-                    if (hsp != 0)
+                    if (left_down xor right_down)
                     {
                         var max_time_for_walk_loop = 8/walk_anim_speed;
                         
