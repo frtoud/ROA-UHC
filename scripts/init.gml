@@ -102,6 +102,7 @@ bubble_y = 8;
 //Custom Frame Data indices
 AG_NUM_HITBOXES_BLADED = 70; // Number of hitboxes when holding a blade
 AG_WINDOW_SPIN_COST = 70;    // CD Charge cost of using the move when reaching this window
+AG_WINDOW_LENGTH_BLADED = 71;// Length of window if holding blade
 HG_SPIN_COST = 70;           // CD Charge cost of hitting with this hitbox
 
 // Scaling bonuses applied on top of their respective values depending on CD Charge:

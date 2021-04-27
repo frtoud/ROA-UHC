@@ -420,6 +420,7 @@ if (uhc_has_cd_blade || uhc_spin_cost_throw_bypass)
 //==============================================================================
 #define adjust_bladed_attack_grid()
 {
+    //Hitbox bonuses
     if (uhc_has_cd_blade)
     {
         //activate blade hitboxes
@@ -444,6 +445,19 @@ if (uhc_has_cd_blade || uhc_spin_cost_throw_bypass)
     {
         //reset to number of non-bladed hitboxes
         reset_num_hitboxes(attack);
+    }
+    
+    //Window bonuses
+    for (var w = 1; w <= get_attack_value(attack, AG_NUM_WINDOWS); w++)
+    {
+        reset_window_value(attack, w, AG_WINDOW_LENGTH);
+        if (uhc_has_cd_blade)
+        && (0 < get_window_value(attack, w, AG_WINDOW_LENGTH_BLADED))
+        { 
+            set_window_value(attack, w, AG_WINDOW_LENGTH,
+                             get_window_value(attack, w, AG_WINDOW_LENGTH_BLADED));
+        }
+        
     }
 }
 
