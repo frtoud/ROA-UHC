@@ -22,5 +22,14 @@ if ("uhc_parent_cd" in self)
     {
         //force hitbox active as long as the article is falling
         hitbox_timer = 0;
+        
+        //stops being a spike after some time
+        if (hbox_num == 1) && (uhc_parent_cd.state_timer > 
+                               uhc_parent_cd.cd_dstrong_air_spiking_time)
+        {
+            // causes the CD to spawn the second hitbox
+            uhc_parent_cd.has_dstrong_hitbox = false;
+            destroyed = true;
+        }
     }
 }

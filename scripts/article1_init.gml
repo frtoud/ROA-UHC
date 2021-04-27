@@ -32,6 +32,7 @@ cd_fall_speed = 9;
 cd_dspecial_force = 0.75;
 cd_dspecial_speed = 24;
 cd_dstrong_air_min_speed_for_hitbox = 5.5;
+cd_dstrong_air_spiking_time = 10;
 
 cd_multihit_speed_bonus = 0.75;
 

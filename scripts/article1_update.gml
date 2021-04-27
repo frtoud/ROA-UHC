@@ -138,7 +138,7 @@ switch (state)
         }
         if (vsp > cd_dstrong_air_min_speed_for_hitbox) && (!has_dstrong_hitbox)
         {
-            spawn_hitbox(AT_DSTRONG_2, 1, false, false);
+            spawn_hitbox(AT_DSTRONG_2, (state_timer < cd_dstrong_air_spiking_time) ? 1: 2, false, false);
             has_dstrong_hitbox = true;
         }
         else if (!free || has_hit)
