@@ -28,7 +28,7 @@ switch (attack)
         
         if (window == 7)
         {
-            if (window_timer >= 8)
+            if (window_timer >= 4)
             {
                 uhc_looping_attack_can_exit = true;
             }
@@ -52,6 +52,8 @@ switch (attack)
         //Jab-walking
         if (window >= 7 && !joy_pad_idle)
         {
+            off_edge = true;
+            
             var walk_dir = right_down - left_down;
             hsp = clamp(hsp + walk_dir * walk_accel, -walk_speed, walk_speed);
             
