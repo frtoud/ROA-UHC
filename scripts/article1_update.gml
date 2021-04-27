@@ -271,7 +271,10 @@ else if (y > room_height)
     with (player_id)
     {
         if (0 < get_hitbox_value(atk, hnum, HG_SPIN_DAMAGE_BONUS))
-        { hb.damage += charge_percent * get_hitbox_value(atk, hnum, HG_SPIN_DAMAGE_BONUS); }
+        { 
+            hb.damage += charge_percent * get_hitbox_value(atk, hnum, HG_SPIN_DAMAGE_BONUS); 
+            hb.damage = floor(hb.damage);
+        }
         if (0 < get_hitbox_value(atk, hnum, HG_SPIN_HITPAUSE_BONUS))
         { hb.hitpause += charge_percent * get_hitbox_value(atk, hnum, HG_SPIN_HITPAUSE_BONUS); }
         if (0 < get_hitbox_value(atk, hnum, HG_SPIN_KNOCKBACK_BONUS))
