@@ -114,6 +114,8 @@ switch (state)
     case PS_ATTACK_AIR:
     case PS_ATTACK_GROUND:
     {
+        play_lastframe_sfx();
+
         switch (attack)
         {
 //===============================================================
@@ -335,6 +337,28 @@ if (uhc_taunt_collect_videos)
                     }
                 }
             }
+        }
+    }
+}
+
+//==============================================================
+// purpose: if AG_WINDOW_SFX_FRAME is negative, play SFX on the X-to-last frame of this window
+// eg. Set AG_WINDOW_SFX_FRAME to -1 for it to apply to the last frame of a window
+// Feel free to "borrow" this as much as you want
+// DISCLAIMER: modifying this function void the "call me if it breaks" warantee.
+//==============================================================
+#define play_lastframe_sfx()
+{
+    if (!hitpause) && (0 != get_window_value( attack, window, AG_WINDOW_HAS_SFX))
+                   && (0 != get_window_value( attack, window, AG_WINDOW_SFX))
+    {
+        var window_length = get_window_value( attack, window, AG_WINDOW_LENGTH);
+        var sfx_frame = get_window_value( attack, window, AG_WINDOW_SFX_FRAME);
+        
+        // (sfx_frame < 0) is implied, since (window_timer < window_length)
+        if (window_timer == (window_length + sfx_frame))
+        {
+            sound_play( get_window_value( attack, window, AG_WINDOW_SFX));
         }
     }
 }
