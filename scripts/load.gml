@@ -37,7 +37,7 @@ sprite_change_offset_bladed("tech", 18, 25);
 sprite_change_offset_bladed("jab", 19, 25);
 sprite_change_offset("jab_legs", 19, 25);
 sprite_change_offset_bladed("dattack", 20, 24);
- sprite_change_offset("ftilt", 18, 33, true);
+sprite_change_offset_bladed("ftilt", 21, 32);
 sprite_change_offset_bladed("dtilt", 20, 20);
  sprite_change_offset("utilt", 32, 47, true);
 sprite_change_offset_bladed("nair", 21, 31);
