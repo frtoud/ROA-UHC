@@ -55,3 +55,7 @@ has_hit = false; //if a cd-hitbox connected on this move
 pickup_cooldown = 0; //prevents Hypercam from grabbing this CD
 pre_dspecial_immunity = 0; //prevents CD from dying while AT_DSPECIAL_2 is in progress
 has_dstrong_hitbox = false; //checks if air DSTRONG spawned already
+
+//=====================================================
+// animation variables
+cd_anim_blade_spin = 0; //animation speed for the blade when held

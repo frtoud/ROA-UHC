@@ -7,14 +7,6 @@ uhc_anim_rand_y = random_func(1, 100, true) / 100.0;
 vfx_glitch = vfx_glitches_array[random_func(2, array_length(vfx_glitches_array), true)];
 
 //===============================================================
-//Blade spin animation
-if (uhc_has_cd_blade)
-{
-    var spin_speed = 0.5 * (uhc_current_cd.cd_spin_meter / uhc_cd_spin_max);
-    uhc_anim_blade_spin = (3 + uhc_anim_blade_spin - spin_speed) % 3;
-}
-
-//===============================================================
 //Blinker light animation
 
 var must_blink = false;
@@ -40,9 +32,10 @@ uhc_anim_blinker_shading = ease_cubeInOut(0, 100, floor(uhc_anim_blink_timer),
 
 if (uhc_anim_blink_timer > 0) { uhc_anim_blink_timer--; }
 
+init_shader();
+
 //===============================================================
 //Flash animation
-
 if (uhc_anim_fspecial_flash_timer > 0) { uhc_anim_fspecial_flash_timer--; }
 else { uhc_anim_fspecial_flash_spr = noone; }
 
@@ -66,7 +59,6 @@ else
     uhc_anim_rewind.active = false;
 }
 //===============================================================
-init_shader();
 
 //needs to be reset if not in Jab
 draw_y = 0;

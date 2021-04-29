@@ -34,7 +34,13 @@ switch (state)
 //=====================================================
     case AR_STATE_HELD:
     {
+        //Update
         hsp = 0; vsp = 0;
+        
+        //Animation
+        var spin_speed = 0.5 * (cd_spin_meter / uhc_cd_spin_max);
+        cd_anim_blade_spin = (3 + cd_anim_blade_spin - spin_speed) % 3;
+        
     } break;
 //=====================================================
     case AR_STATE_DYING:
@@ -201,6 +207,7 @@ switch (state)
 
 state_timer++;
 
+//=====================================================
 // Charge drain
 if (cd_spin_meter > 0) && !(state == AR_STATE_HELD && 
                             (player_id.uhc_no_charging || !player_id.uhc_has_cd_blade) )
@@ -210,6 +217,7 @@ if (cd_spin_meter > 0) && !(state == AR_STATE_HELD &&
     cd_spin_meter = clamp(cd_spin_meter, 0, player_id.uhc_cd_spin_max);
 }
 
+//=====================================================
 //immunity to bottom blast zone for a couple of frames 
 if (state != AR_STATE_HELD)
 {
@@ -225,7 +233,7 @@ else if (y > room_height)
     }
 }
 
-//=====================================================
+//==============================================================================
 #define set_state(new_state)
 {
     state = new_state;

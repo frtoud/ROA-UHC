@@ -73,11 +73,22 @@ if (uhc_taunt_current_video != noone)
 {
     if (uhc_has_cd_blade && ds_map_exists(uhc_blade_spr_map, spr_id))
     {
-       shader_start();
-       var scale = 1 + small_sprites;
-       draw_sprite_ext(ds_map_find_value(uhc_blade_spr_map, spr_id),
-                       img_id, posx+draw_x, posy+draw_y, spr_dir * scale, scale, spr_angle, c_white, 1);
-       shader_end(); 
+        var cd_id = uhc_current_cd;
+        var scale = 1 + small_sprites;
+        posx += draw_x;
+        posy += draw_y;
+        
+        with (cd_id.player_id)
+        {
+            //individual CDs animate their spin. this value is sent to the CD's true owner.
+            uhc_anim_blade_spin = cd_id.cd_anim_blade_spin;
+            
+            init_shader();
+            shader_start();
+            draw_sprite_ext(ds_map_find_value(other.uhc_blade_spr_map, spr_id), img_id, 
+                            posx, posy, other.spr_dir * scale, scale, other.spr_angle, c_white, 1);
+            shader_end(); 
+        }
     }
 }
 #define draw_buffering(posx, posy)
