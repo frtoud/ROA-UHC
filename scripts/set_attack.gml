@@ -9,7 +9,7 @@ if (!uhc_has_cd_blade)
     else if (attack == AT_DSTRONG) { attack = AT_DTILT; }
     
     //Rewind-Recall variant
-    else if (attack == AT_DSPECIAL && uhc_current_cd.state != 0) //AR_STATE_DEAD
+    else if (attack == AT_DSPECIAL && instance_exists(uhc_current_cd))
     { 
         uhc_current_cd.pre_dspecial_immunity = 3;
         attack = AT_DSPECIAL_2; 

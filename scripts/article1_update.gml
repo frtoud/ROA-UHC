@@ -1,11 +1,11 @@
 //article1_update.gml -- CD
 //=====================================================
 #macro AR_STATE_BUFFER      -1 
-#macro AR_STATE_DEAD         0 
+#macro AR_STATE_HELD         0 
 #macro AR_STATE_IDLE         1
-#macro AR_STATE_BOUNCE       2
+#macro AR_STATE_DYING        2
+#macro AR_STATE_ROLL         3
 #macro AR_STATE_FSTRONG      AT_FSTRONG
-#macro AR_STATE_FSTRONG_ROLL 4
 #macro AR_STATE_USTRONG      AT_USTRONG
 #macro AR_STATE_DSTRONG      AT_DSTRONG
 #macro AR_STATE_DSTRONG_AIR  AT_DSTRONG_2
@@ -26,15 +26,20 @@ if (buffered_state != AR_STATE_BUFFER)
 //=====================================================
 
 //General logic
-visible = (state != AR_STATE_DEAD);
+visible = (state != AR_STATE_HELD);
 ignores_walls = (state == AR_STATE_DSPECIAL);
 
 switch (state)
 {
 //=====================================================
-    case AR_STATE_DEAD:
+    case AR_STATE_HELD:
     {
-        x = 0; y = 0; hsp = 0; vsp = 0;
+        hsp = 0; vsp = 0;
+    } break;
+//=====================================================
+    case AR_STATE_DYING:
+    {
+        instance_destroy(self); exit;
     } break;
 //=====================================================
     case AR_STATE_IDLE:
@@ -47,7 +52,7 @@ switch (state)
         //Dying
         if !(pre_dspecial_immunity > 0) && (cd_spin_meter == 0)
         {
-            buffered_state = AR_STATE_DEAD;
+            buffered_state = AR_STATE_DYING;
         }
         
         //Animation
@@ -71,7 +76,7 @@ switch (state)
         {
             if (has_hit) //finisher
             { spawn_hitbox(AT_FSTRONG, 3, false, false); }
-            set_state(AR_STATE_FSTRONG_ROLL);
+            set_state(AR_STATE_ROLL);
         }
         
         //Animation
@@ -80,7 +85,7 @@ switch (state)
         
     } break;
 //=====================================================
-    case AR_STATE_FSTRONG_ROLL:
+    case AR_STATE_ROLL:
     {
         //Update
         if (state_timer > 30)
@@ -173,7 +178,7 @@ switch (state)
         vsp = lengthdir_y(total_speed, lookat_angle);
         
         try_pickup();
-        if (state == AR_STATE_DEAD)
+        if (state == AR_STATE_HELD)
         {
             //blade was caught!
             //Activate DSPECIAL 2
@@ -197,7 +202,7 @@ switch (state)
 state_timer++;
 
 // Charge drain
-if (cd_spin_meter > 0) && !(state == AR_STATE_DEAD && 
+if (cd_spin_meter > 0) && !(state == AR_STATE_HELD && 
                             (player_id.uhc_no_charging || !player_id.uhc_has_cd_blade) )
 {
     cd_spin_meter -= (state == AR_STATE_IDLE) ? player_id.uhc_cd_spin_drain_idle
@@ -206,6 +211,8 @@ if (cd_spin_meter > 0) && !(state == AR_STATE_DEAD &&
 }
 
 //immunity to bottom blast zone for a couple of frames 
+if (state != AR_STATE_HELD)
+{
 if (pre_dspecial_immunity > 0)
 {
    //when activating AT_DSPECIAL_2 while CD is still alive, needs to be allowed to call back
@@ -214,7 +221,8 @@ if (pre_dspecial_immunity > 0)
 else if (y > room_height)
 {
     //fell off the stage 
-    buffered_state = AR_STATE_DEAD;
+        buffered_state = AR_STATE_DYING;
+    }
 }
 
 //=====================================================
@@ -245,17 +253,15 @@ else if (y > room_height)
     }
     else if (place_meeting(x, y, player_id))
     {
-        state = AR_STATE_DEAD;
+        state = AR_STATE_HELD;
         player_id.uhc_has_cd_blade = true;
         player_id.uhc_update_blade_status = true;
         sound_play(asset_get("sfx_coin_collect"));
         
         if (self != player_id.uhc_current_cd)
         {
-            player_id.uhc_other_cd = player_id.uhc_current_cd;
             player_id.uhc_current_cd = self;
         }
-        
     }
 }
 //==============================================================================

@@ -247,9 +247,10 @@ uhc_uspecial_speed_fast = 7;
 
 //=================================================
 //Custom variables initialized here
-uhc_current_cd = noone;
-uhc_other_cd = noone;
 uhc_has_cd_blade = true;
+uhc_current_cd = noone; //CD held or last CD held
+uhc_recalling_cd = noone; // target CD of current DSPECIAL
+
 uhc_update_blade_status = false;
 uhc_spin_cost_throw_bypass = false; //allows spin cost to apply if CD is thrown
 uhc_no_charging = false; //prevents CD blade drain and FSPECIAL charge

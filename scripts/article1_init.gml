@@ -12,6 +12,8 @@ mask_index = spr_article_cd_mask;
 spr_dir = 1;
 uses_shader = true;
 
+visible = false;
+
 //=====================================================
 //Standard Physics
 hitstop = 0;
@@ -37,15 +39,17 @@ cd_dstrong_air_spiking_time = 10;
 cd_multihit_speed_bonus = 0.75;
 
 //=====================================================
-// gameplay relevant
-cd_spin_meter = floor(player_id.uhc_cd_spin_max / 2); //current charge of blade
-cd_saved_spin_meter = cd_spin_meter; //charge of blade at the beginning of current move (for hitboxes)
-//=====================================================
-//start in the invisible state
+// state variables
 buffered_state = -1; //AR_STATE_BUFFER
-state = 0; //AR_STATE_DEAD
+state = 0; //AR_STATE_HOLD
 state_timer = 0;
-visible = false;
+
+//=====================================================
+// gameplay relevant flags
+uhc_cd_spin_max = player_id.uhc_cd_spin_max; //forward this constant
+
+cd_spin_meter = floor(uhc_cd_spin_max / 2); //current charge of blade
+cd_saved_spin_meter = cd_spin_meter; //charge of blade at the beginning of current move (for hitboxes)
 
 has_hit = false; //if a cd-hitbox connected on this move
 pickup_cooldown = 0; //prevents Hypercam from grabbing this CD

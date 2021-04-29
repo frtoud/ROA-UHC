@@ -3,6 +3,7 @@ if (attack == AT_NSPECIAL || attack == AT_FSPECIAL || attack == AT_DSPECIAL || a
     trigger_b_reverse();
 }
 
+//==========================================================
 // Sync grid data with blade & charge
 // always done at least once at the start of a move
 if (uhc_update_blade_status) 
@@ -262,8 +263,8 @@ switch (attack)
             uhc_anim_dspecial_image_timer = 0;
             if (!uhc_has_cd_blade)
             {
-                //"create" new blade
-                uhc_current_cd.buffered_state = 0; //Set to AR_STATE_DEAD
+                //create new blade
+                uhc_current_cd = instance_create(x, y, "obj_article1");
                 uhc_current_cd.cd_spin_meter = 0; //Set to Zero
                 uhc_has_cd_blade = true;
             }
@@ -389,8 +390,6 @@ if (uhc_has_cd_blade || uhc_spin_cost_throw_bypass)
 
 {
     var window_cost = get_window_value(attack, window, AG_WINDOW_SPIN_COST);
-    //throwing the CD means we've just swapped it for the other_cd
-    var cd_id = uhc_spin_cost_throw_bypass ? uhc_current_cd : uhc_other_cd;
     uhc_current_cd.cd_spin_meter = 
        clamp(uhc_current_cd.cd_spin_meter - window_cost, 0, uhc_cd_spin_max);
 }
@@ -408,13 +407,8 @@ if (uhc_has_cd_blade || uhc_spin_cost_throw_bypass)
     
     //Set specific attack as the CD state
     uhc_current_cd.buffered_state = cd_atk;
-    
-    //swapping CD indexes
-    var temp_cd = uhc_current_cd;
-    uhc_current_cd = uhc_other_cd;
-    uhc_other_cd = temp_cd;
 
-    //just thrown CD, need to apply costs inconditionally
+    //just thrown a CD, need to apply costs inconditionally
     uhc_spin_cost_throw_bypass = true;
 }
 //==============================================================================

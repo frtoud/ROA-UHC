@@ -12,6 +12,11 @@ if (attack == AT_NSPECIAL)
 // CD Article hitboxes only
 if ("uhc_parent_cd" in self)
 {
+    if !instance_exists(uhc_parent_cd)
+    {
+        destroyed = true; exit;
+    }
+    
     //set hitbox at the correct position for next frame's disc position
     x = uhc_parent_cd.x + uhc_parent_cd.hsp;
     y = uhc_parent_cd.y + uhc_parent_cd.vsp;
