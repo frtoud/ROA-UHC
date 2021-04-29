@@ -221,14 +221,14 @@ if (cd_spin_meter > 0) && !(state == AR_STATE_HELD &&
 //immunity to bottom blast zone for a couple of frames 
 if (state != AR_STATE_HELD)
 {
-if (pre_dspecial_immunity > 0)
-{
-   //when activating AT_DSPECIAL_2 while CD is still alive, needs to be allowed to call back
-   pre_dspecial_immunity--;
-}
-else if (y > room_height)
-{
-    //fell off the stage 
+    if (pre_dspecial_immunity > 0)
+    {
+       //when activating AT_DSPECIAL_2 while CD is still alive, needs to be allowed to call back
+       pre_dspecial_immunity--;
+    }
+    else if (y > room_height)
+    {
+        //fell off the stage 
         buffered_state = AR_STATE_DYING;
     }
 }
@@ -259,16 +259,36 @@ else if (y > room_height)
     {
         pickup_cooldown--;
     }
-    else if (place_meeting(x, y, player_id))
+    else
     {
-        state = AR_STATE_HELD;
-        player_id.uhc_has_cd_blade = true;
-        player_id.uhc_update_blade_status = true;
-        sound_play(asset_get("sfx_coin_collect"));
-        
-        if (self != player_id.uhc_current_cd)
+        //priority to original owner
+        var found_player_id = instance_place(x, y, player_id);
+        if (found_player_id == noone)
         {
-            player_id.uhc_current_cd = self;
+            with (oPlayer) if (other.player_id.url == url)
+                           && (!uhc_has_cd_blade)
+                           && place_meeting(x, y, other)
+            {
+                found_player_id = self; //found another Hypercam!
+                break;
+            }
+        }
+        if (found_player_id != noone)
+        {
+            set_state(AR_STATE_HELD);
+            found_player_id.uhc_has_cd_blade = true;
+            found_player_id.uhc_update_blade_status = true;
+            sound_play(asset_get("sfx_coin_collect"));
+            
+            if (found_player_id != current_owner_id)
+            {
+                //unlink from previous owner if needed
+                if (current_owner_id.uhc_current_cd == self)
+                { current_owner_id.uhc_current_cd = noone; }
+                
+                found_player_id.uhc_current_cd = self;
+                current_owner_id = found_player_id;
+            }
         }
     }
 }

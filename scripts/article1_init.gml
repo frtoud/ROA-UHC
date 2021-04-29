@@ -45,6 +45,11 @@ state = 0; //AR_STATE_HOLD
 state_timer = 0;
 
 //=====================================================
+// current holder
+player_id = player_id; //to not confuse with below
+current_owner_id = player_id; //whoever is currently holding the blade
+
+//=====================================================
 // gameplay relevant flags
 uhc_cd_spin_max = player_id.uhc_cd_spin_max; //forward this constant
 
