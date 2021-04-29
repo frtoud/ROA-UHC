@@ -27,14 +27,26 @@ if (!uhc_handled_victory_quote)
         {
             var priority = "1";
             var uhc_quote = uhc_victory_quote;
+            var held_cd_color = get_player_color(player);
+            
             if (get_match_setting(SET_RUNES))
             {
                 priority = "2";
                 uhc_quote = "thank u 4 watching my king for a day speedrun, sucribe for more content :)";
             }
+            else if (uhc_has_cd_blade && uhc_current_cd.player_id != self)
+            {
+                priority = "2";
+                uhc_quote = "thx for sharing ur mixtap :D";
+                held_cd_color = get_player_color(uhc_current_cd.player_id.player);
+            }
             //else... >:]
             
             assembled_string += string(player) + priority + uhc_quote + "¤";
+            
+            //smuggle info into colorgrid about which CD you're holding
+            set_color_profile_slot(player, 6, held_cd_color, 0, 0);
+            
         }
         else if ("uhc_victory_quote" in self)
         {

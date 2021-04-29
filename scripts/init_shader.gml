@@ -186,6 +186,13 @@ if (object_index == asset_get("draw_result_screen")
         draw_win_quote(quote_current_pos_x+135, quote_pos_y+15, 
                        uhc_victory_quote);
     }
+
+    //held CD is different than your own; adjusts color of portrait!
+    var held_color = floor(get_color_profile_slot_r(player, 6));
+    var tempR = get_color_profile_slot_r(held_color, 2);
+    var tempG = get_color_profile_slot_g(held_color, 2);
+    var tempB = get_color_profile_slot_b(held_color, 2);
+    set_character_color_slot( 2, tempR, tempG, tempB);
 }
 
 //debug version
