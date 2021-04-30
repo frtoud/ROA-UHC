@@ -85,114 +85,56 @@ if ("uhc_anim_blinker_shading" in self)
 //===================================================
 // Result Screen drawing
 // Note: draws behind portrait and result boxes.
-if (object_index == asset_get("draw_result_screen") 
-&& (winner == player)) //...only do this when Hypercam's the one in front
+if (object_index == asset_get("draw_result_screen"))
 {
-    //Determine quote
-    if ("uhc_victory_quote" not in self)
+        
+    if ("uhc_initialized_victory_screen" not in self)
     {
-        var quotes_array = [];
-        var quotes_priority = [];
-        var quotes_order = [];
-        var quotes_teams = [];
-        for (var p = 1; p <= 4; p++)
-        { 
-            //defaults for a player not present
-            quotes_priority[p] = 0; 
-            quotes_array[p] = "";
-        }  
-        with asset_get("result_screen_box")
-        {
-            quotes_order[player] = y;
-            quotes_teams[player] = get_player_team(player);
-        }
-        //Must recover array of text and select best target
-        var data_pos = string_pos("uhc{", keyboard_string) + 4; //size of "uhc{"
+        uhc_initialized_victory_screen = true;
+        //defaults to prevent errors
+        uhc_held_cd_color_array = [-1, -1, -1, -1, -1];
+        uhc_victory_quote = "win qoute machine broke :(";
         
-        //crop out anything before the point of interest
-        var temp_string = string_copy(keyboard_string, data_pos, 
-                                       string_length(keyboard_string) - data_pos);
-                                       
-        var end_pos = string_pos("}", temp_string); //end of data "}"
-        //crop out string of interest
-        temp_string = string_copy(temp_string, 0, end_pos);
-        
-        end_pos = string_pos("¤", temp_string);
-        while (end_pos != 0)
-        {
-            var pl = real(string_char_at(temp_string, 1));
-            var pr = real(string_char_at(temp_string, 2));
-            quotes_array[pl] = string_copy(temp_string, 3, end_pos - 3);
-            quotes_priority[pl] = pr;
-            
-            //shift to next position
-            temp_string = string_delete(temp_string, 1, end_pos);
-            end_pos = string_pos("¤", temp_string);
-        } //repeat
-        
-        // Best match:
-        // - Self if priority >= 2
-        // - not on your team
-        // - highest priority
-        // - highest ranking
-        var best_player = player;
-        if !(quotes_priority[player] >= 2)
-        {
-            for (var p = 1; p <= 4; p++) if is_player_on(p)
-            {
-                var best_is_on_team = (quotes_teams[best_player] == quotes_teams[player]);
-                var not_on_team = (quotes_teams[p] != quotes_teams[player]);
-                var higher_ranking = (quotes_order[p] < quotes_order[best_player]);
-                var higher_priority = (quotes_priority[p] > quotes_priority[best_player]);
-                var same_priority = (quotes_priority[p] == quotes_priority[best_player]);
-                
-                if (best_is_on_team && not_on_team)
-                || (not_on_team && higher_priority)
-                || (not_on_team && same_priority && higher_ranking)
-                {
-                    best_player = p;
-                }
-            }
-        }
-        
-        uhc_victory_quote = quotes_array[best_player];
-        if (string_length(uhc_victory_quote) < 1)
-           uhc_victory_quote = get_random_quote();
+        //magic happens in there
+        get_victory_screen_data();
+    }
+    //held CD could be different than your own; adjusts color of portrait!
+    var held_cd_color = uhc_held_cd_color_array[player];
+    if (held_cd_color != -1)
+    {
+        var tempR = get_color_profile_slot_r(held_cd_color, 2);
+        var tempG = get_color_profile_slot_g(held_cd_color, 2);
+        var tempB = get_color_profile_slot_b(held_cd_color, 2);
+        set_character_color_slot( 2, tempR, tempG, tempB);
     }
     
-    var quote_pos_y =  50;
-    var quote_pos_x = -20;
-    var hide_pos_x = -1200;
-    var quote_time = 240;
-    
-    //Animate panel
-    if ("quote_current_pos_x" not in self) 
-    { quote_current_pos_x = hide_pos_x; }
-    else
+    if (winner == player) //...only do the following with the frontmost Hypercam
     {
+        //panel constants
+        var quote_pos_y =    50;
+        var quote_pos_x =   -20;
+        var hide_pos_x  = -1200;
+        var quote_time  =   240;
+        //Animate panel
+        if ("uhc_quote_current_pos_x" not in self)
+        { uhc_quote_current_pos_x = hide_pos_x; }
+        
         //Must check with timing or if result boxes are open
         var diff = ((results_timer > quote_time && !someone_pressed) ? 
-                     quote_pos_x : hide_pos_x) - quote_current_pos_x;
+                     quote_pos_x : hide_pos_x) - uhc_quote_current_pos_x;
         
-        quote_current_pos_x += sign(diff) 
-                             * max(min(abs(diff), 5), abs(diff) * 0.15);
+        uhc_quote_current_pos_x += sign(diff) 
+                                 * max(min(abs(diff), 5), abs(diff) * 0.15);
+        
+        //Draw panel
+        if (uhc_quote_current_pos_x > hide_pos_x)
+        {
+            draw_sprite(sprite_get("victory_quote_bg"), 0, 
+                        uhc_quote_current_pos_x, quote_pos_y);
+            draw_win_quote(uhc_quote_current_pos_x+135, quote_pos_y+15, 
+                           uhc_victory_quote);
+        }
     }
-    
-    //Draw panel
-    if (quote_current_pos_x > hide_pos_x)
-    {
-        draw_sprite(sprite_get("victory_quote_bg"), 0, 
-                    quote_current_pos_x, quote_pos_y);
-        draw_win_quote(quote_current_pos_x+135, quote_pos_y+15, 
-                       uhc_victory_quote);
-    }
-
-    //held CD is different than your own; adjusts color of portrait!
-    var held_color = floor(get_color_profile_slot_r(player, 6));
-    var tempR = get_color_profile_slot_r(held_color, 2);
-    var tempG = get_color_profile_slot_g(held_color, 2);
-    var tempB = get_color_profile_slot_b(held_color, 2);
-    set_character_color_slot( 2, tempR, tempG, tempB);
 }
 
 //debug version
@@ -204,25 +146,6 @@ if (object_index == asset_get("draw_result_screen")
              //quote = "https://www.latlmes.com/ opinion/free-snes-emulator -no-survey-1"; 
                        "lmaoooooo haahahhashahh he said it he said tit im piickle woodmaaaan!!!!11!!");
     }
-    */
-//=================================================
-// Runs inconditionally; but only once per box
-// deletes the smuggled ds_list and sends the contents to the winner display object
-// See unload.gml: why doesnt this work?
-/*
-else if (object_index == asset_get("result_screen_box"))
-{
-    //var list = get_color_profile_slot_r(0, 8);
-    if (ds_list_valid(list))
-    {
-        with (asset_get("draw_result_screen"))
-        {
-            uhc_victory_quotes = ds_list_to_array(list);
-        }
-        ds_list_clear(list);
-        ds_list_destroy(list); //Memory leak prevented
-    }
-}
 */
 
 //====================================================
@@ -241,8 +164,8 @@ else if (object_index == asset_get("result_screen_box"))
     {
         if (i != 4) //ignore middle
         {
-            var t_x = floor(i/3 - 1) * text_scale;
-            var t_y = floor(i%3 - 1) * text_scale;
+            var t_x = floor(i / 3 - 1) * text_scale;
+            var t_y = floor(i % 3 - 1) * text_scale;
             draw_text_ext_transformed_color
             (posx + t_x, posy + t_y, quote, line_spacing, max_line_length, 
              half_scale, half_scale, 0, c_black, c_black, c_black, c_black, 1);
@@ -261,6 +184,75 @@ else if (object_index == asset_get("result_screen_box"))
     quotes[3] = "sorry for bad english '^^";
     quotes[2] = "suscribe 4 more fightign combo vids";
     quotes[1] = "Helo yutube an welcome 2 my battle tuotrial";
-    quotes[0] = "Thx 4 watchign dont forget to rate 5 stars :)";
+    quotes[0] = "Thx 4 watchign dont forget to rate n subcribe";
     return quotes[(current_time) % array_length(quotes)];
+}
+
+//====================================================
+#define get_victory_screen_data()
+{
+    var data_array = noone;
+    //relies on unload.gml sending over a persistent hitbox with said data
+    with (asset_get("pHitBox")) if ("uhc_victory_screen_array" in self)
+    {
+        data_array = uhc_victory_screen_array;
+        break;
+    }
+    
+    if (data_array == noone) return; // no data :(
+    
+    //hypercams are maybe holding another blade than their own
+    for (var p = 1; p <= 4; p++)
+    {
+        uhc_held_cd_color_array[p] = data_array[p].held_cd_color;
+    }
+    
+    //special case: winner is holding another Hypercam's CD
+    if (data_array[winner].held_cd_color != -1)
+    {
+        data_array[winner].priority = 2;
+        data_array[winner].quote = "thx for sharing ur mixtap :D";
+    }
+    
+    //determine who's 2nd, 3rd and 4th by position of their boxes
+    with asset_get("result_screen_box")
+    {
+        data_array[player].order = y;
+    }
+    
+    // Best match:
+    // - Self if priority >= 2
+    // - not on your team
+    // - highest priority
+    // - highest ranking
+    
+    var best_player = winner;
+    var winning_team = data_array[winner].team;
+    var best_is_on_team = true;
+    
+    if !(data_array[winner].priority >= 2)
+    {
+        for (var p = 1; p <= 4; p++) if is_player_on(p)
+        {
+            var best = data_array[best_player];
+            var curr = data_array[p];
+            
+            var not_on_team = (curr.team != winning_team);
+            var higher_ranking = (curr.order < best.order);
+            var higher_priority = (curr.priority > best.priority);
+            var same_priority = (curr.priority == best.priority);
+            
+            if (best_is_on_team && not_on_team)
+            || (not_on_team && higher_priority)
+            || (not_on_team && same_priority && higher_ranking)
+            {
+                best_player = p;
+                best_is_on_team = (best.team == winning_team);
+            }
+        }
+    }
+    
+    uhc_victory_quote = data_array[best_player].quote;
+    if (string_length(uhc_victory_quote) < 1)
+    { uhc_victory_quote = get_random_quote(); }
 }

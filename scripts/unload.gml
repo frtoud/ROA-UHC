@@ -15,72 +15,71 @@ if (uhc_taunt_current_video != noone)
 //Sending win quotes to result screen
 if (!uhc_handled_victory_quote)
 {
-    // Naive solution: cram into keyboard_string
-    // interpreted as a string buffer, limit of 1024 chars
-    // format: uhc:{<playernumber><priority><string data>¤}
-    var assembled_string = "uhc{";
+    //default values
+    var transfer_array = [];
+    for (var p = 1; p <= 4; p++)
+    { 
+        transfer_array[p] = 
+        {
+            order: 99999,
+            team: get_player_team(p),
+            priority: 0, 
+            quote:"", 
+            held_cd_color:-1
+        }
+    }
     
-    with (oPlayer) 
+    with (oPlayer) if (player <= 4)
     {
+        var data = transfer_array[player];
         if (url == other.url) // Hypercam-specific
         //&& (test all player teams?)
         {
-            var priority = "1";
-            var uhc_quote = uhc_victory_quote;
-            var held_cd_color = get_player_color(player);
+            //playtest mode breaks this, somehow
+            var temp_holding_blade = (uhc_has_cd_blade) && instance_exists(uhc_current_cd);
+            
+            //only one Hypercam has to handle this for everyone: notify them.
+            uhc_handled_victory_quote = true;
+            
+            data.priority = 1;
+            data.quote = uhc_victory_quote;
             
             if (get_match_setting(SET_RUNES))
             {
-                priority = "2";
-                uhc_quote = "thank u 4 watching my king for a day speedrun, sucribe for more content :)";
-            }
-            else if (uhc_has_cd_blade && uhc_current_cd.player_id != self)
-            {
-                priority = "2";
-                uhc_quote = "thx for sharing ur mixtap :D";
-                held_cd_color = get_player_color(uhc_current_cd.player_id.player);
+                data.priority = 2;
+                data.quote = "thank u 4 watching my king for a day speedrun, sucribe for more content :)";
             }
             //else... >:]
             
-            assembled_string += string(player) + priority + uhc_quote + "¤";
-            
-            //smuggle info into colorgrid about which CD you're holding
-            set_color_profile_slot(player, 6, held_cd_color, 0, 0);
-            
+            //blade color
+            if (temp_holding_blade) && (uhc_current_cd.player_id != self)
+            { data.held_cd_color = get_player_color(uhc_current_cd.player_id.player); }
         }
         else if ("uhc_victory_quote" in self)
         {
-            var priority = "1";
-            assembled_string += string(player) + priority + uhc_victory_quote + "¤";
+            data.priority = 1;
+            data.quote = uhc_victory_quote;
         }
         else
         {
             var builtin_quote = try_get_quote(url);
             if (string_length(builtin_quote) > 0)
-            { assembled_string += string(player) + "1" + builtin_quote + "¤"; }
+            {
+                data.priority = 1;
+                data.quote = builtin_quote;
+            }
         }
-        uhc_handled_victory_quote = true; //only one Hypercam has to handle this for everyone
+        
+        transfer_array[player] = data;
     }
     
-    keyboard_string = assembled_string + "}"
-                    // Hi.
-                    // This is a bit of a hack; smuggling a set of values in this keyboard_string...
-                    // So I am copying over the previous keyboard_string in case you use it too.
-                    // (whatever still fits in the 1024 limit)
-                    // I would ask that you do the same, in case both our mods fight together!
-                    + string_copy(keyboard_string, 0, 
-                                  min(string_length(keyboard_string), 
-                                      1020 - string_length(assembled_string)));
-
-    // Ideal solution... not sure why GML panics...?
-    // Sneak this list to victory screen; which will decide which quote to pick
-    // WARNING: this depends on init_shader.gml to clean it up later & avoid a blatant memory leak
-    /*
-    var list = ds_list_create();
-    ds_list_set(list, 0, "Hoi");
-    set_color_profile_slot(0, 8, list, 0, 0); //Can't input: not a number?
-    sprite_change_offset("victory_quote_bg", list+0, 0); //Can't do arithmetic on a ds_list index?
-    */
+    //Hackiest of hacks: smuggle into victory screen using a persistent hitbox!
+    var smuggler = instance_create(0, 0, "pHitBox");
+    smuggler.persistent = true; //survive room end
+    smuggler.type = 2;
+    smuggler.length = 60; //will destroy itself automatically after one second.
+    
+    smuggler.uhc_victory_screen_array = transfer_array;
 }
 
 //==============================================================
