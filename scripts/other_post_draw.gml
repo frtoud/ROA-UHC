@@ -1,4 +1,5 @@
 //other_post_draw.gml
+if ("other_player_id" not in self) exit;
 
 //===================================================
 // Strong buffering
