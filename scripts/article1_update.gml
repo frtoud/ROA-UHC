@@ -179,7 +179,7 @@ switch (state)
             total_speed = cd_dspecial_speed;
         }
         var lookat_angle = point_direction(x, y, 
-                      player_id.x, player_id.y - 20);
+                      current_owner_id.x, current_owner_id.y - 20);
         hsp = lengthdir_x(total_speed, lookat_angle);
         vsp = lengthdir_y(total_speed, lookat_angle);
         
@@ -210,7 +210,7 @@ state_timer++;
 //=====================================================
 // Charge drain
 if (cd_spin_meter > 0) && !(state == AR_STATE_HELD && 
-                            (player_id.uhc_no_charging || !player_id.uhc_has_cd_blade) )
+                            (current_owner_id.uhc_no_charging || !current_owner_id.uhc_has_cd_blade) )
 {
     cd_spin_meter -= (state == AR_STATE_IDLE) ? player_id.uhc_cd_spin_drain_idle
                                               : player_id.uhc_cd_spin_drain_base;
@@ -254,48 +254,57 @@ if (state != AR_STATE_HELD)
 
 //==============================================================================
 #define try_pickup()
-{
-    if (pickup_cooldown > 0)
+{   
+    var found_player_id = noone;
+    
+    with (oPlayer) if (other.player_id.url == url)
+                   && (!uhc_has_cd_blade)
+                   && (state_cat != SC_HITSTUN)
+                   //&& (uhc_pickup_cooldown == 0)
+                   && place_meeting(x, y, other)
     {
-        pickup_cooldown--;
-    }
-    else
-    {
-        //priority to original owner
-        var found_player_id = instance_place(x, y, player_id);
-        if (found_player_id == noone)
+        if (other.current_owner_id == self)
         {
-            with (oPlayer) if (other.player_id.url == url)
-                           && (!uhc_has_cd_blade)
-                           && place_meeting(x, y, other)
-            {
-                found_player_id = self; //found another Hypercam!
-                break;
-            }
+            //priority to most recent thrower
+            found_player_id = self;
+            break; //can stop looking
         }
-        if (found_player_id != noone)
+        else if (found_player_id == noone)
         {
-            set_state(AR_STATE_HELD);
-            found_player_id.uhc_has_cd_blade = true;
-            found_player_id.uhc_update_blade_status = true;
-            sound_play(asset_get("sfx_coin_collect"));
+            //found another Hypercam!
+            found_player_id = self;
+        }
+        else if !(found_player_id != other.player_id) && 
+         ( (found_player_id.player > self.player) || (other.player_id == self) )
+        {
+            //priority to initial owner (or port priority)
+            found_player_id = self;
+        }
+    }
+    
+    if (found_player_id != noone)
+    {
+        set_state(AR_STATE_HELD);
+        found_player_id.uhc_has_cd_blade = true;
+        found_player_id.uhc_update_blade_status = true;
+        sound_play(asset_get("sfx_coin_collect"));
+        
+        if (found_player_id != current_owner_id)
+        {
+            //unlink from previous owner if needed
+            if (current_owner_id.uhc_current_cd == self)
+            { current_owner_id.uhc_current_cd = noone; }
             
-            if (found_player_id != current_owner_id)
-            {
-                //unlink from previous owner if needed
-                if (current_owner_id.uhc_current_cd == self)
-                { current_owner_id.uhc_current_cd = noone; }
-                
-                found_player_id.uhc_current_cd = self;
-                current_owner_id = found_player_id;
-            }
+            found_player_id.uhc_current_cd = self;
+            current_owner_id = found_player_id;
         }
     }
 }
 //==============================================================================
 #define spawn_hitbox(atk, hnum, multihits, hit_self)
 {
-    var hb = create_hitbox(atk, hnum, x, y);
+    var hb = noone;
+    with (current_owner_id) { hb = create_hitbox(atk, hnum, other.x, other.y); }
     hb.uhc_parent_cd = self;
     hb.can_hit_self = hit_self;
     hb.multihits = multihits;
