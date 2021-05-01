@@ -305,6 +305,7 @@ if (state != AR_STATE_HELD)
 {
     var hb = noone;
     with (current_owner_id) { hb = create_hitbox(atk, hnum, other.x, other.y); }
+    hb.spr_dir = spr_dir;
     hb.uhc_parent_cd = self;
     hb.can_hit_self = hit_self;
     hb.multihits = multihits;
