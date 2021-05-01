@@ -33,7 +33,8 @@ if (current_color == ALT_AIR)
 
 //===================================================
 // Monochrome aesthetics
-if (current_color == ALT_TANK) || (current_color == ALT_GAMEBOY)
+if (current_color == ALT_TANK) 
+|| (current_color == ALT_GAMEBOY)
 {
     set_character_color_shading( 0, 0.0 );  
     set_character_color_shading( 3, 0.0 );
@@ -53,16 +54,17 @@ else
 //CD Spinning shenanigans
 if ("uhc_anim_blade_spin" in self)
 {
-    var tempR = get_color_profile_slot_r(current_color, 2);
-    var tempG = get_color_profile_slot_g(current_color, 2);
-    var tempB = get_color_profile_slot_b(current_color, 2);
+    //can be holding a CD from another player
+    var tempR = get_color_profile_slot_r(uhc_anim_blade_color, 2);
+    var tempG = get_color_profile_slot_g(uhc_anim_blade_color, 2);
+    var tempB = get_color_profile_slot_b(uhc_anim_blade_color, 2);
+    set_article_color_slot( 2, tempR, tempG, tempB);
     
     var flashing_sector = (floor(uhc_anim_blade_spin % 3)) + 5;
     
     for (var i = 5; i < 8; i++)
     {
         set_character_color_shading( i, (i == flashing_sector ? 1.0 : 0.0));
-        set_character_color_slot( i, tempR, tempG, tempB);
         set_article_color_slot( i, tempR, tempG, tempB);
     }
 }
@@ -87,7 +89,6 @@ if ("uhc_anim_blinker_shading" in self)
 // Note: draws behind portrait and result boxes.
 if (object_index == asset_get("draw_result_screen"))
 {
-        
     if ("uhc_initialized_victory_screen" not in self)
     {
         uhc_initialized_victory_screen = true;
@@ -98,6 +99,7 @@ if (object_index == asset_get("draw_result_screen"))
         //magic happens in there
         get_victory_screen_data();
     }
+        
     //held CD could be different than your own; adjusts color of portrait!
     var held_cd_color = uhc_held_cd_color_array[player];
     if (held_cd_color != -1)

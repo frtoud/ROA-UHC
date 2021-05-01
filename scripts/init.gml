@@ -114,6 +114,8 @@ HG_SPIN_KNOCKBACK_SCALING_BONUS = 74; // HG_KNOCKBACK_SCALING
 //=================================================
 //Custom vfx & sprites
 uhc_anim_blade_spin = 0;
+uhc_anim_current_color = get_player_color(player);
+uhc_anim_blade_color = uhc_anim_current_color;
 
 uhc_anim_blink_timer = 0;
 uhc_anim_blink_timer_max = 16;

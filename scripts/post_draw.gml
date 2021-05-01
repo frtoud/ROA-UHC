@@ -78,17 +78,19 @@ if (uhc_taunt_current_video != noone)
         posx += draw_x;
         posy += draw_y;
         
-        with (cd_id.player_id)
-        {
-            //individual CDs animate their spin. this value is sent to the CD's true owner.
-            uhc_anim_blade_spin = cd_id.cd_anim_blade_spin;
-            
-            init_shader();
-            shader_start();
-            draw_sprite_ext(ds_map_find_value(other.uhc_blade_spr_map, spr_id), img_id, 
-                            posx, posy, other.spr_dir * scale, scale, other.spr_angle, c_white, 1);
-            shader_end(); 
-        }
+        //individual CDs animate their spin.
+        uhc_anim_blade_spin = uhc_current_cd.cd_anim_blade_spin;
+        uhc_anim_blade_color = uhc_current_cd.cd_anim_color;
+        init_shader();
+        
+        shader_start();
+        draw_sprite_ext(ds_map_find_value(other.uhc_blade_spr_map, spr_id), img_id, 
+                        posx, posy, spr_dir * scale, scale, spr_angle, c_white, 1);
+        shader_end(); 
+        
+        //restore this for the article's own redering
+        uhc_anim_blade_color = uhc_anim_current_color;
+        init_shader();
     }
 }
 #define draw_buffering(posx, posy)

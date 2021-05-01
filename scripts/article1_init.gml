@@ -64,3 +64,4 @@ has_dstrong_hitbox = false; //checks if air DSTRONG spawned already
 //=====================================================
 // animation variables
 cd_anim_blade_spin = 0; //animation speed for the blade when held
+cd_anim_color = get_player_color(player_id.player) //color of CD
