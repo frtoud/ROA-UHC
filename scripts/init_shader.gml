@@ -1,10 +1,10 @@
 //init_shader.gml
 //Update this if color.gml changes
 #macro ALT_AIR      1
+#macro ALT_WALLE    5
 #macro ALT_GAMEBOY  7
 #macro ALT_R2       9
 #macro ALT_ROB      10
-#macro ALT_WALLE    13
 #macro ALT_EVIL     14
 #macro ALT_TANK     15
 

@@ -91,12 +91,19 @@ set_color_profile_slot(3, 2,  25,  90,  25); //CD
 set_color_profile_slot(3, 3, 200, 150,   0); //Paper
 set_color_profile_slot(3, 4, 255,  25,  25); //Blinker
 
-// Terebii Chan
-set_color_profile_slot(4, 0, 190, 190, 190); //Body
-set_color_profile_slot(4, 1, 140, 140, 140); //Lens
-set_color_profile_slot(4, 2, 230, 170, 170); //CD
-set_color_profile_slot(4, 3, 230, 170, 170); //Paper
-set_color_profile_slot(4, 4, 255,  25,  25); //Blinker
+// Motherload/Halo
+set_color_profile_slot(4, 0,  88,  94,  75); //Body
+set_color_profile_slot(4, 1, 196, 175,  96); //Lens
+set_color_profile_slot(4, 2,  88,  94,  75); //CD
+set_color_profile_slot(4, 3,   0,   0,   0); //Paper
+set_color_profile_slot(4, 4, 255,  25,  25); //Blinker 
+
+// Wall-E
+set_color_profile_slot(5, 0, 173, 120,  30); //Body -- needs shading x2.0
+set_color_profile_slot(5, 1,  88,  96,  96); //Lens
+set_color_profile_slot(5, 2, 150, 148, 128); //CD
+set_color_profile_slot(5, 3,  82,  80,  72); //Paper
+set_color_profile_slot(5, 4, 255,  25,  25); //Blinker 
 
 // Abyss
 set_color_profile_slot(6, 0,  80,  48,  75); //Body
@@ -126,19 +133,12 @@ set_color_profile_slot(10, 2, 153,  70,  66); //CD
 set_color_profile_slot(10, 3, 122,  45,  45); //Paper
 set_color_profile_slot(10, 4,  25, 255, 255); //Blinker 
 
-// Motherload/Halo
-set_color_profile_slot(12, 0,  88,  94,  75); //Body
-set_color_profile_slot(12, 1, 196, 175,  96); //Lens
-set_color_profile_slot(12, 2,  88,  94,  75); //CD
-set_color_profile_slot(12, 3,   0,   0,   0); //Paper
-set_color_profile_slot(12, 4, 255,  25,  25); //Blinker 
-
-// Wall-E
-set_color_profile_slot(13, 0, 173, 120,  30); //Body -- needs shading x2.0
-set_color_profile_slot(13, 1,  88,  96,  96); //Lens
-set_color_profile_slot(13, 2, 150, 148, 128); //CD
-set_color_profile_slot(13, 3,  82,  80,  72); //Paper
-set_color_profile_slot(13, 4, 255,  25,  25); //Blinker 
+// Terebii Chan
+set_color_profile_slot(13, 0, 190, 190, 190); //Body
+set_color_profile_slot(13, 1, 140, 140, 140); //Lens
+set_color_profile_slot(13, 2, 230, 170, 170); //CD
+set_color_profile_slot(13, 3, 230, 170, 170); //Paper
+set_color_profile_slot(13, 4, 255,  25,  25); //Blinker
 
 // Unrestrained
 set_color_profile_slot(14, 0,  40,  40,  40); //Body -- needs shading x0.5
