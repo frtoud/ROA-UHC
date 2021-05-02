@@ -176,7 +176,12 @@ uhc_anim_rewind =
 
 uhc_anim_buffer_timer = 0;
 uhc_anim_dspecial_image_timer = 0;
+
 sfx_dspecial_reload = sound_get("sfx_reload");
+sfx_dspecial_reload_done = sound_get("sfx_reload_done");
+sfx_cd_death = sound_get("sfx_cd_death");
+sfx_cd_missing = sound_get("sfx_cd_missing");
+sfx_cd_respawn = sound_get("sfx_cd_respawn");
 
 //Quote
 uhc_victory_quote = "Thx 4 watchign dont forget to rate 5 stars :)";

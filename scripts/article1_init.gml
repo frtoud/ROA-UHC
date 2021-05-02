@@ -14,6 +14,9 @@ uses_shader = true;
 
 visible = false;
 
+//death sound
+sfx_cd_death = player_id.sfx_cd_death;
+
 //=====================================================
 //Standard Physics
 hitstop = 0;

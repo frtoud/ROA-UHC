@@ -24,10 +24,13 @@ if (uhc_fspecial_charge_current < uhc_fspecial_charge_max)
 //=====================================================
 // Blade respawn cooldown
 uhc_cd_can_respawn = uhc_cd_respawn_timer >= uhc_cd_respawn_timer_max;
-if (!uhc_cd_can_respawn && !uhc_no_charging)
-&& !instance_exists(uhc_current_cd)
+if (!uhc_cd_can_respawn && !uhc_no_charging) && !instance_exists(uhc_current_cd)
 {
-    uhc_cd_respawn_timer++
+    uhc_cd_respawn_timer++;
+    if (uhc_cd_respawn_timer >= uhc_cd_respawn_timer_max)
+    {
+        sound_play(sfx_cd_respawn);
+    }
 }
 
 //=====================================================

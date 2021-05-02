@@ -45,7 +45,9 @@ switch (state)
 //=====================================================
     case AR_STATE_DYING:
     {
-        instance_destroy(self); exit;
+        sound_play(sfx_cd_death);
+        instance_destroy(self); 
+        exit;
     } break;
 //=====================================================
     case AR_STATE_IDLE:
@@ -201,7 +203,7 @@ switch (state)
                                
     } break;
 //=====================================================
-    default: state = AR_STATE_IDLE;
+    default: set_state(AR_STATE_IDLE);
     break;
 }
 
@@ -229,7 +231,7 @@ if (state != AR_STATE_HELD)
     else if (y > room_height)
     {
         //fell off the stage 
-        buffered_state = AR_STATE_DYING;
+        set_state(AR_STATE_DYING);
     }
 }
 
