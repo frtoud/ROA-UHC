@@ -13,7 +13,7 @@
 //=====================================================
 
 // no logic/timers affected if we're currently in hitstop
-if (hitstop) exit;
+if (hitpause) exit;
 
 //=====================================================
 //applying buffered state
