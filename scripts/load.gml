@@ -46,12 +46,12 @@ sprite_change_offset_bladed("nair", 21, 31);
  sprite_change_offset("uair", 32, 47, true);
  sprite_change_offset("dair", 18, 27, true);
 
-sprite_change_offset("fstrong", 17, 24, true);
-sprite_change_offset("ustrong", 16, 64, true);
+sprite_change_offset_bladed("fstrong", 17, 24);
+sprite_change_offset_bladed("ustrong", 16, 64);
  sprite_change_offset("dstrong", 32, 47, true);
-sprite_change_offset("fstrong_air", 17, 24);
-sprite_change_offset("ustrong_air", 19, 64);
-sprite_change_offset("dstrong_air", 19, 29, true);
+sprite_change_offset_bladed("fstrong_air", 17, 24);
+sprite_change_offset_bladed("ustrong_air", 19, 64);
+sprite_change_offset_bladed("dstrong_air", 19, 29);
 
  sprite_change_offset("nspecial", 20, 21, true);
 sprite_change_offset_bladed("fspecial", 17, 23);
