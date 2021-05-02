@@ -59,6 +59,13 @@ else
     uhc_anim_rewind.active = false;
 }
 //===============================================================
+// HUD blade respawn buffer effect
+if (uhc_cd_can_respawn || random_func(3, 60, true) == 0)
+{
+    uhc_anim_buffer_timer = uhc_cd_respawn_timer;
+}
+
+//===============================================================
 // Reset at the beginning of each move/state
 // Used by Strongs so that throws can show smears
 if (uhc_anim_blade_force_draw && state_timer == 0)

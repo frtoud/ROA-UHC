@@ -174,6 +174,7 @@ uhc_anim_rewind =
     sprite: sprite_get("vfx_rewind")
 };
 
+uhc_anim_buffer_timer = 0;
 uhc_anim_dspecial_image_timer = 0;
 sfx_dspecial_reload = sound_get("sfx_reload");
 
@@ -238,6 +239,7 @@ uhc_cd_spin_drain_base = 0.04;
 uhc_cd_spin_drain_idle = 0.10;
 uhc_cd_spin_charge_rate = 1;
 uhc_cd_spin_max = 100;
+uhc_cd_respawn_timer_max = 240;
 
 uhc_nspecial_charges_max = 4;
 uhc_nspecial_speed = 12;
@@ -254,6 +256,8 @@ uhc_uspecial_speed_fast = 7;
 uhc_has_cd_blade = true;
 uhc_current_cd = instance_create(x, y, "obj_article1"); //CD held (or last CD held)
 uhc_recalling_cd = noone; // target CD of current DSPECIAL
+
+uhc_cd_respawn_timer = 0;
 
 uhc_update_blade_status = false;
 uhc_spin_cost_throw_bypass = false; //allows spin cost to apply if CD is thrown

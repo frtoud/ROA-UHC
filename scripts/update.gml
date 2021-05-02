@@ -22,6 +22,15 @@ if (uhc_fspecial_charge_current < uhc_fspecial_charge_max)
 }
 
 //=====================================================
+// Blade respawn cooldown
+uhc_cd_can_respawn = uhc_cd_respawn_timer >= uhc_cd_respawn_timer_max;
+if (!uhc_cd_can_respawn && !uhc_no_charging)
+&& !instance_exists(uhc_current_cd)
+{
+    uhc_cd_respawn_timer++
+}
+
+//=====================================================
 // If this was true (from previous frame) and you were sent to hitstun, lose charge
 if (uhc_nspecial_is_charging) && (state_cat == SC_HITSTUN)
 {

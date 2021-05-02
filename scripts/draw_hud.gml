@@ -9,15 +9,17 @@ if (get_player_color(player) != 14) //Except Unrestrained Alt
 }
 //===================================================
 // HUD meters
-#macro ICON_BAR    0
-#macro ICON_MARKER 1
+#macro ICON_BAR     0
+#macro ICON_MARKER  1
 // Red variants: +1
-#macro ICON_BACK   2
-#macro ICON_PAUSE  4
-#macro ICON_PLAY   6
-#macro ICON_STAR   8
+#macro ICON_BACK    2
+#macro ICON_PAUSE   4
+#macro ICON_PLAY    6
+#macro ICON_STAR    8
 // Base, +1, +2
-#macro ICON_SOUND 10
+#macro ICON_SOUND  10
+// Base, up to +7
+#macro ICON_BUFFER 13
 
 // Main bar
 var bar_x = -8;
@@ -27,17 +29,19 @@ shader_start();
 
 // Charge status
 //note: video plays forwards as CD unwinds, uncharged = fully red
-var bar_width = 164 - 6;
+var bar_width = 164;
 var bar_start_x = 22;
 if (uhc_has_cd_blade || instance_exists(uhc_current_cd))
 {
-   var marker_pos = max(0, 1.0 - uhc_current_cd.cd_spin_meter/uhc_cd_spin_max) * (bar_width - 4);
-   draw_sprite_stretched(vfx_hud_icons, ICON_BAR, temp_x + bar_start_x, temp_y + bar_y + 2, marker_pos, 18);
-   draw_sprite_ext(vfx_hud_icons, ICON_MARKER, temp_x + bar_start_x + 2 + marker_pos, temp_y + bar_y, 2, 2, 0, c_white, 1);
+    var marker_pos = max(0, 1.0 - uhc_current_cd.cd_spin_meter/uhc_cd_spin_max) * (bar_width - 10);
+    draw_sprite_stretched(vfx_hud_icons, ICON_BAR, temp_x + bar_start_x, temp_y + bar_y + 2, marker_pos, 18);
+    draw_sprite_ext(vfx_hud_icons, ICON_MARKER, temp_x + bar_start_x + 2 + marker_pos, temp_y + bar_y, 2, 2, 0, c_white, 1);
 }
 else
 {
-    //TODO: buffering meter
+    var marker_pos = ((uhc_anim_buffer_timer/uhc_cd_respawn_timer_max) ) * (bar_width);
+    draw_sprite_stretched_ext(vfx_hud_icons, ICON_BAR, temp_x + bar_start_x, temp_y + bar_y + 2, marker_pos, 18, c_gray, 1);
+    draw_sprite_ext(vfx_hud_icons, ICON_MARKER, temp_x + bar_start_x + 2, temp_y + bar_y, 2, 2, 0, c_white, 1);
 }
 
 // Rating status
@@ -50,7 +54,6 @@ for (var i = 0; i <= uhc_nspecial_charges_max; i++)
 }
 
 // Blade status
-//TODO: try handling status priority for double blade control better
 var play_pos_x = 2;
 var play_icon = ICON_PLAY;
 if (uhc_has_cd_blade)
@@ -67,14 +70,14 @@ else if (instance_exists(uhc_current_cd))
    else if (uhc_current_cd.buffered_state != -1) { play_icon = ICON_PLAY + 1; } //about to attack
    else { play_icon = ICON_PAUSE; } //dead
 }
-else
+else if (!uhc_cd_can_respawn)
 {
-    //TODO: buffering icon
+    play_icon = ICON_BUFFER + floor(get_gameplay_time() / 4) % 8;
 }
 draw_sprite_ext(vfx_hud_icons, play_icon, temp_x + play_pos_x, temp_y + bar_y, 2, 2, 0, c_white, 1);
 
 // Flash status
-var sound_pos_x = bar_width + bar_start_x + 18;
+var sound_pos_x = bar_width + bar_start_x + 12;
 var sound_icon = ICON_SOUND;
 if (uhc_fspecial_charge_current >= uhc_fspecial_charge_max) 
 { sound_icon += 2;}

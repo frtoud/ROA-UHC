@@ -267,6 +267,8 @@ switch (attack)
                 uhc_current_cd = instance_create(x, y, "obj_article1");
                 uhc_current_cd.cd_spin_meter = 0; //Set to Zero
                 uhc_has_cd_blade = true;
+                
+                uhc_cd_respawn_timer = 0;
             }
         }
         else if (window == 2)
