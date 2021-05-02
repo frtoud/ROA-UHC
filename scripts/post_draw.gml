@@ -71,7 +71,7 @@ if (uhc_taunt_current_video != noone)
 //===================================================
 #define draw_blade(spr_id, img_id, posx, posy)
 {
-    if (uhc_has_cd_blade || uhc_anim_blade_force_draw)
+    if (uhc_has_cd_blade || (uhc_anim_blade_force_draw && instance_exists(uhc_current_cd) ))
     && ds_map_exists(uhc_blade_spr_map, spr_id)
     {
         var cd_id = uhc_current_cd;
