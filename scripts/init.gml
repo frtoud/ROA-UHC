@@ -117,6 +117,8 @@ uhc_anim_blade_spin = 0;
 uhc_anim_current_color = get_player_color(player);
 uhc_anim_blade_color = uhc_anim_current_color;
 
+uhc_anim_blade_force_draw = false; //strongs need to draw a CD that was just thrown
+
 uhc_anim_blink_timer = 0;
 uhc_anim_blink_timer_max = 16;
 uhc_anim_blinker_shading = 0.0; //0 is black, 1 is fully bright

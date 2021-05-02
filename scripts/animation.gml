@@ -59,7 +59,12 @@ else
     uhc_anim_rewind.active = false;
 }
 //===============================================================
+// Reset at the beginning of each move/state
+// Used by Strongs so that throws can show smears
+if (uhc_anim_blade_force_draw && state_timer == 0)
+{ uhc_anim_blade_force_draw = false; }
 
+//===============================================================
 //needs to be reset if not in Jab
 draw_y = 0;
 
@@ -150,6 +155,18 @@ switch (state)
                     {
                         uhc_anim_jabwalk_timer = 0;
                     }
+                }
+            } break;
+//===============================================================
+            case AT_FSTRONG:
+            case AT_USTRONG:
+            case AT_DSTRONG:
+            case AT_DSTRONG_2:
+            {
+                if (window == 1 && window_timer == 1)
+                {
+                    //strongs need smears after having thrown the disc.
+                    uhc_anim_blade_force_draw = uhc_has_cd_blade;
                 }
             } break;
 //===============================================================
