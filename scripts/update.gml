@@ -4,6 +4,7 @@
 // if holding a CD; restore if its missing.
 if (uhc_has_cd_blade && !instance_exists(uhc_current_cd))
 { 
+    print("hey dude not cool i was hodling tht >:[")
     uhc_current_cd = instance_create(x, y, "obj_article1"); 
 }
 
