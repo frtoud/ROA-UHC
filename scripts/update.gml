@@ -41,7 +41,10 @@ if (uhc_pickup_cooldown > 0)
 //=====================================================
 // Recalling logic
 if (uhc_has_cd_blade) 
-{ uhc_recalling_cd = noone; }
+{ 
+    uhc_recalling_cd = noone; 
+    uhc_dspecial_is_recalling = false;
+}
 //Todo: other cases where recalling CD needs to be stopped midmove
 //death? hitstun? caught something else? parried?
 

@@ -336,6 +336,8 @@ switch (attack)
                 
                 uhc_recalling_cd.buffered_state = AT_DSPECIAL;
                 uhc_recalling_cd.current_owner_id = self;
+                
+                uhc_dspecial_is_recalling = true;
             }
             else //!?
             {

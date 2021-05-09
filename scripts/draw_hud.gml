@@ -21,6 +21,8 @@ if (get_player_color(player) != 14) //Except Unrestrained Alt
 // Base, up to +7
 #macro ICON_BUFFER 13
 
+// uhc_recalling_cd takes precedence if it exists
+var tracked_cd = uhc_dspecial_is_recalling ? uhc_recalling_cd : uhc_current_cd;
 // Main bar
 var bar_x = -8;
 var bar_y = -24;
@@ -31,9 +33,9 @@ shader_start();
 //note: video plays forwards as CD unwinds, uncharged = fully red
 var bar_width = 164;
 var bar_start_x = 22;
-if (uhc_has_cd_blade || instance_exists(uhc_current_cd))
+if (uhc_has_cd_blade || instance_exists(tracked_cd))
 {
-    var marker_pos = max(0, 1.0 - uhc_current_cd.cd_spin_meter/uhc_cd_spin_max) * (bar_width - 10);
+    var marker_pos = max(0, 1.0 - tracked_cd.cd_spin_meter/uhc_cd_spin_max) * (bar_width - 10);
     draw_sprite_stretched(vfx_hud_icons, ICON_BAR, temp_x + bar_start_x, temp_y + bar_y + 2, marker_pos, 18);
     draw_sprite_ext(vfx_hud_icons, ICON_MARKER, temp_x + bar_start_x + 2 + marker_pos, temp_y + bar_y, 2, 2, 0, c_white, 1);
 }
@@ -62,12 +64,12 @@ if (uhc_has_cd_blade)
    else if (uhc_no_charging) { play_icon = ICON_PAUSE; }
    else { play_icon = ICON_PLAY; }
 }
-else if (instance_exists(uhc_current_cd))
+else if (instance_exists(tracked_cd))
 {
-   if (uhc_current_cd.state == AT_DSPECIAL_2) { play_icon = ICON_BACK + 1; }
-   else if (uhc_current_cd.state == 1) { play_icon = ICON_PAUSE + 1; } //idle
-   else if (uhc_current_cd.state != 0) { play_icon = ICON_PLAY + 1; } //attacking
-   else if (uhc_current_cd.buffered_state != -1) { play_icon = ICON_PLAY + 1; } //about to attack
+   if (tracked_cd.state == AT_DSPECIAL) { play_icon = ICON_BACK + 1; }
+   else if (tracked_cd.state == 1) { play_icon = ICON_PAUSE + 1; } //idle
+   else if (tracked_cd.state != 0) { play_icon = ICON_PLAY + 1; } //attacking
+   else if (tracked_cd.buffered_state != -1) { play_icon = ICON_PLAY + 1; } //about to attack
    else { play_icon = ICON_PAUSE; } //dead
 }
 else if (!uhc_cd_can_respawn)

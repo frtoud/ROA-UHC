@@ -262,6 +262,7 @@ uhc_has_cd_blade = true;
 uhc_current_cd = instance_create(x, y, "obj_article1"); //CD held (or last CD held)
 uhc_pickup_cooldown = 0;
 
+uhc_dspecial_is_recalling = false;
 uhc_recalling_cd = noone; // target CD of current DSPECIAL
 
 uhc_cd_respawn_timer = 0;
