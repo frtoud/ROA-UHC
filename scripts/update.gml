@@ -3,14 +3,14 @@
 //=====================================================
 // if holding a CD; restore if its missing.
 if (uhc_has_cd_blade && !instance_exists(uhc_current_cd))
-{ 
+{
     print("hey dude not cool i was hodling tht >:[")
     uhc_current_cd = instance_create(x, y, "obj_article1"); 
 }
 
 //=====================================================
 //All states that don't count for charges
-uhc_no_charging = (state == PS_RESPAWN) || (state == PS_SPAWN)
+uhc_no_charging = (state == PS_RESPAWN) || (state == PS_SPAWN) || (state == PS_DEAD)
                || (state == PS_ATTACK_GROUND && attack == AT_TAUNT);
 
 //=====================================================
@@ -46,10 +46,11 @@ if (uhc_dspecial_is_recalling)
     move_cooldown[AT_DSPECIAL] = 2;
     
     //Todo: other cases where recalling CD needs to be stopped midmove
-    //death? parried?
+    //parried?
     
     if (state_cat == SC_HITSTUN) || (uhc_has_cd_blade)
     || !instance_exists(uhc_recalling_cd)
+    || (state == PS_DEAD || state == PS_RESPAWN)
     {
         if (instance_exists(uhc_recalling_cd) 
         && uhc_recalling_cd.state == AT_DSPECIAL)
