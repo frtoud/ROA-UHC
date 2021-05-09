@@ -50,7 +50,7 @@ state_timer = 0;
 //=====================================================
 // current holder
 player_id = player_id; //to not confuse with below
-current_owner_id = player_id; //whoever is currently holding the blade
+current_owner_id = player_id; //whoever is currently using the blade
 
 //=====================================================
 // gameplay relevant flags
@@ -60,9 +60,12 @@ cd_spin_meter = floor(uhc_cd_spin_max / 2); //current charge of blade
 cd_saved_spin_meter = cd_spin_meter; //charge of blade at the beginning of current move (for hitboxes)
 
 has_hit = false; //if a cd-hitbox connected on this move
-pickup_cooldown = 0; //prevents Hypercam from grabbing this CD
-pre_dspecial_immunity = 0; //prevents CD from dying while AT_DSPECIAL_2 is in progress
+pickup_priority = 0; //time where only current_owner_id can grab this CD
 has_dstrong_hitbox = false; //checks if air DSTRONG spawned already
+
+pre_dspecial_immunity = 0; //prevents CD from dying while AT_DSPECIAL_2 is in progress
+can_recall = false; //if true, CD is available to be recalled
+can_priority_recall = false; //if true, can be recalled (but only by current_owner_id)
 
 //=====================================================
 // animation variables

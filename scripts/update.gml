@@ -12,7 +12,7 @@ if (uhc_has_cd_blade && !instance_exists(uhc_current_cd))
 //All states that don't count for charges
 uhc_no_charging = (state == PS_RESPAWN) || (state == PS_SPAWN)
                || (state == PS_ATTACK_GROUND && attack == AT_TAUNT);
-                  
+
 //=====================================================
 //FSPECIAL recharge
 if (uhc_fspecial_charge_current < uhc_fspecial_charge_max)
@@ -32,6 +32,18 @@ if (!uhc_cd_can_respawn && !uhc_no_charging) && !instance_exists(uhc_current_cd)
         sound_play(sfx_cd_respawn);
     }
 }
+
+//=====================================================
+//Blade pickup cooldown
+if (uhc_pickup_cooldown > 0)
+{ uhc_pickup_cooldown--; }
+
+//=====================================================
+// Recalling logic
+if (uhc_has_cd_blade) 
+{ uhc_recalling_cd = noone; }
+//Todo: other cases where recalling CD needs to be stopped midmove
+//death? hitstun? caught something else? parried?
 
 //=====================================================
 // If this was true (from previous frame) and you were sent to hitstun, lose charge

@@ -256,49 +256,113 @@ switch (attack)
 //==========================================================
     case AT_DSPECIAL:
     {
-        can_shield = (window > 1);
+        can_shield = (window == 4);
         
-        if (window == 1 && window_timer == 6)
+        if (window == 1)
         {
-            uhc_anim_dspecial_image_timer = 0;
-            if (!uhc_has_cd_blade)
+            //try finding a target for CD recall
+            if (uhc_has_cd_blade) { uhc_recalling_cd = noone; }
+            else
             {
-                //create new blade
-                uhc_current_cd = instance_create(x, y, "obj_article1");
-                uhc_current_cd.cd_spin_meter = 0; //Set to Zero
-                uhc_has_cd_blade = true;
-                
-                uhc_cd_respawn_timer = 0;
+                var target_cd = noone;
+                with (obj_article1) if (other.url == player_id.url) //CDs only
+                 && (can_recall || (can_priority_recall && current_owner_id == other))
+                {
+                    if (target_cd == noone) //better than nothing
+                    {
+                        target_cd = self;
+                    }
+                    if (other.uhc_current_cd == self)
+                    {
+                        target_cd = self;
+                        break; //best match, can stop looking
+                    }
+                    else 
+                    {
+                        var is_closer = distance_to_object(other) < 
+                                        point_distance(target_cd.x, target_cd.y, other.x, other.y);
+                                        
+                        //closest "last thrown" CD (that is not uhc_current_cd)
+                        if ((other == current_owner_id)
+                        &&  (other != target_cd.current_owner_id || is_closer))
+                        // or closest CD in general if a "last thrown" was not found
+                        ||  (other != target_cd.current_owner_id && is_closer)
+                        {
+                            found_target_cd = self;
+                        }
+                    }
+                }
+                uhc_recalling_cd = target_cd;
+                //CD is not allowed to die before recall happens
+                if (uhc_recalling_cd != noone)
+                { uhc_recalling_cd.pre_dspecial_immunity = 3; }
+            }
+            
+            if (window_timer == 1)
+            {
+                uhc_anim_dspecial_image_timer = 0;
+            }
+            else if (window_timer == get_window_value(AT_DSPECIAL, 1, AG_WINDOW_LENGTH))
+            {
+                if (uhc_recalling_cd != noone)
+                {
+                    //handled separately
+                    set_window_value(AT_DSPECIAL, 2, AG_WINDOW_HAS_SFX, false);
+                }
+                else if (uhc_has_cd_blade || uhc_cd_can_respawn)
+                {
+                    window = 3;
+                    window_timer = 0;
+                }
+                else //No CD, no Target
+                {
+                    set_window_value(AT_DSPECIAL, 2, AG_WINDOW_HAS_SFX, true);
+                }
             }
         }
-        else if (window == 2)
+        else if (window == 2 && window_timer == 1 && !hitpause)
+             && (uhc_recalling_cd != noone)
+        {
+            if (instance_exists(uhc_recalling_cd))
+            {
+                sound_play(sfx_dspecial_reload);
+                //this only becomes the "current CD" once it is caught
+                //but it's already stolen from the previous hypercam
+                if (uhc_recalling_cd.current_owner_id != self)
+                && (uhc_recalling_cd.current_owner_id.uhc_current_cd == uhc_recalling_cd)
+                {
+                    uhc_recalling_cd.current_owner_id.uhc_current_cd = noone;
+                }
+                
+                uhc_recalling_cd.buffered_state = AT_DSPECIAL;
+                uhc_recalling_cd.current_owner_id = self;
+            }
+            else //!?
+            {
+                sound_play(sfx_cd_missing);
+                uhc_recalling_cd = noone;
+            }
+        }
+        else if (window == 3 && !uhc_has_cd_blade)
+        {
+            //create new blade
+            sound_play(asset_get("sfx_coin_collect"));
+            uhc_current_cd = instance_create(x, y, "obj_article1");
+            uhc_current_cd.cd_spin_meter = 0; //Set to Zero
+            uhc_has_cd_blade = true;
+            
+            uhc_cd_respawn_timer = 0;
+        }
+        else if (window == 4)
         {
             if (uhc_current_cd.cd_spin_meter >= uhc_cd_spin_max)
             {
-                window = 3;
+                window = 5;
                 window_timer = 0;
             }
             else
             {
                 uhc_current_cd.cd_spin_meter += uhc_cd_spin_charge_rate;
-            }
-        }
-    } break;
-//==========================================================
-    case AT_DSPECIAL_2:
-    {
-        uhc_current_cd.pre_dspecial_immunity = 3;
-        if (window == 2 && window_timer == 1)
-        {
-            if (!uhc_has_cd_blade)
-            {
-                uhc_current_cd.buffered_state = AT_DSPECIAL_2;
-            }
-            else
-            {
-                //accidentally caught the blade before starting the rewind
-                //quietly move to AT_DSPECIAL
-                attack = AT_DSPECIAL;
             }
         }
     } break;

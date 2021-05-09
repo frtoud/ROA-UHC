@@ -7,13 +7,6 @@ if (!uhc_has_cd_blade)
     if (attack == AT_FSTRONG) { attack = AT_FTILT; }
     else if (attack == AT_USTRONG) { attack = AT_UTILT; }
     else if (attack == AT_DSTRONG) { attack = AT_DTILT; }
-    
-    //Rewind-Recall variant
-    else if (attack == AT_DSPECIAL && instance_exists(uhc_current_cd))
-    { 
-        uhc_current_cd.pre_dspecial_immunity = 3;
-        attack = AT_DSPECIAL_2; 
-    }
 }
 //Aerials to Strongs conversions
 else if (up_strong_pressed || down_strong_pressed

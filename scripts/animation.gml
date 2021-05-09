@@ -42,7 +42,7 @@ else { uhc_anim_fspecial_flash_spr = noone; }
 //==========================================================================
 // Rewind effect
 if (state == PS_ATTACK_AIR || state == PS_ATTACK_GROUND)
- && (attack == AT_DSPECIAL && window == 2)
+ && (attack == AT_DSPECIAL && window == 4)
 {
     var spr_height = sprite_get_height(uhc_anim_rewind.sprite);
     var intensity = 0.01 * ease_cubeIn(0, 10, floor(uhc_current_cd.cd_spin_meter), uhc_cd_spin_max);
@@ -196,11 +196,16 @@ switch (state)
 //===============================================================
             case AT_DSPECIAL:
             {
-                if (image_index == 1 && !uhc_has_cd_blade)
+                if (image_index == 0 && !uhc_has_cd_blade)
                 { 
-                    image_index = 0; //bladeless frame
+                    image_index = 1; //Pre-recall frame
                 }
-                else if (window == 2)
+                else if (window == 2 && window_timer == 1)
+                {
+                    //Tha¬KS !n 4d>@n¢£ ~M'
+                    reset_window_value(AT_DSPECIAL, 2, AG_WINDOW_HAS_SFX);
+                }
+                else if (window == 4)
                 {
                     //sfx & animspeed control based on charge here
                     if (window_timer == 5)
@@ -215,7 +220,7 @@ switch (state)
                     uhc_anim_dspecial_image_timer += animspeed;
                     
                     image_index = floor(uhc_anim_dspecial_image_timer % 4) +
-                    get_window_value(AT_DSPECIAL, 2, AG_WINDOW_ANIM_FRAME_START);
+                    get_window_value(AT_DSPECIAL, 4, AG_WINDOW_ANIM_FRAME_START);
                 }
             } break;
 //===============================================================

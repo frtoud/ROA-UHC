@@ -1,7 +1,7 @@
 //article1_update.gml -- CD
 //=====================================================
 #macro AR_STATE_BUFFER      -1 
-#macro AR_STATE_HELD         0 
+#macro AR_STATE_HELD         0
 #macro AR_STATE_IDLE         1
 #macro AR_STATE_DYING        2
 #macro AR_STATE_ROLL         3
@@ -9,7 +9,7 @@
 #macro AR_STATE_USTRONG      AT_USTRONG
 #macro AR_STATE_DSTRONG      AT_DSTRONG
 #macro AR_STATE_DSTRONG_AIR  AT_DSTRONG_2
-#macro AR_STATE_DSPECIAL     AT_DSPECIAL_2
+#macro AR_STATE_DSPECIAL     AT_DSPECIAL
 //=====================================================
 
 // no logic/timers affected if we're currently in hitstop
@@ -29,6 +29,9 @@ if (buffered_state != AR_STATE_BUFFER)
 visible = (state != AR_STATE_HELD);
 ignores_walls = (state == AR_STATE_DSPECIAL);
 
+can_recall = false;
+can_priority_recall = false;
+
 switch (state)
 {
 //=====================================================
@@ -46,8 +49,7 @@ switch (state)
     case AR_STATE_DYING:
     {
         sound_play(sfx_cd_death);
-        instance_destroy(self); 
-        exit;
+        instance_destroy(self); exit;
     } break;
 //=====================================================
     case AR_STATE_IDLE:
@@ -60,8 +62,11 @@ switch (state)
         //Dying
         if !(pre_dspecial_immunity > 0) && (cd_spin_meter == 0)
         {
-            buffered_state = AR_STATE_DYING;
+            set_state(AR_STATE_DYING);
         }
+        
+        //recall availability
+        can_recall = true;
         
         //Animation
         sprite_index = spr_article_cd_idle;
@@ -87,6 +92,9 @@ switch (state)
             set_state(AR_STATE_ROLL);
         }
         
+        //recall availability
+        can_priority_recall = true;
+        
         //Animation
         sprite_index = spr_article_cd_shoot;
         image_index += 0.5;
@@ -111,6 +119,9 @@ switch (state)
         do_gravity();
         try_pickup();
         
+        //recall availability
+        can_priority_recall = true;
+        
         //Animation
         sprite_index = spr_article_cd_shoot;
         image_index += 0.25;
@@ -133,6 +144,9 @@ switch (state)
             { spawn_hitbox(AT_FSTRONG, 3, false, false); }
             set_state(AR_STATE_DSTRONG_AIR);
         }
+        
+        //recall availability
+        can_priority_recall = true;
         
         //Animation
         sprite_index = spr_article_cd_shoot;
@@ -162,6 +176,9 @@ switch (state)
             hsp = spr_dir * -1;
         }
         
+        //recall availability
+        can_priority_recall = (vsp <= cd_fall_speed || state_timer > 20);
+        
         //Animation
         sprite_index = spr_article_cd_shoot;
         image_index += 0.25;
@@ -185,11 +202,13 @@ switch (state)
         hsp = lengthdir_x(total_speed, lookat_angle);
         vsp = lengthdir_y(total_speed, lookat_angle);
         
+        pickup_priority = max(pickup_priority, 3);
         try_pickup();
+        
         if (state == AR_STATE_HELD)
         {
-            //blade was caught!
-            //Activate DSPECIAL 2
+            //blade was just caught
+            //Activate DSPECIAL 2?
         }
         else if (0 == state_timer % 5)
         {
@@ -235,6 +254,14 @@ if (state != AR_STATE_HELD)
     }
 }
 
+//=====================================================
+//Recalling status update in case states were changed this frame
+if (state == AR_STATE_DYING || state == AR_STATE_HELD)
+{
+    can_recall = false;
+    can_priority_recall = false;
+}
+
 //==============================================================================
 #define set_state(new_state)
 {
@@ -246,7 +273,11 @@ if (state != AR_STATE_HELD)
 //==============================================================================
 #define do_gravity()
 {
-    if (free && vsp < cd_fall_speed) vsp += cd_grav_force;
+    if (free && vsp < cd_fall_speed) 
+    {
+        vsp += cd_grav_force;
+        if (vsp > cd_fall_speed) vsp = cd_fall_speed;
+    }
 }
 //==============================================================================
 #define do_friction()
@@ -256,13 +287,18 @@ if (state != AR_STATE_HELD)
 
 //==============================================================================
 #define try_pickup()
-{   
+{
     var found_player_id = noone;
+    var any_owner = (pickup_priority <= 0);
+    
+    if (pickup_priority > 0)
+    { pickup_priority--; }
     
     with (oPlayer) if (other.player_id.url == url)
+                   && (any_owner || (other.current_owner_id == self))
                    && (!uhc_has_cd_blade)
                    && (state_cat != SC_HITSTUN)
-                   //&& (uhc_pickup_cooldown == 0)
+                   && (uhc_pickup_cooldown == 0)
                    && place_meeting(x, y, other)
     {
         if (other.current_owner_id == self)
@@ -296,10 +332,9 @@ if (state != AR_STATE_HELD)
             //unlink from previous owner if needed
             if (current_owner_id.uhc_current_cd == self)
             { current_owner_id.uhc_current_cd = noone; }
-            
-            found_player_id.uhc_current_cd = self;
             current_owner_id = found_player_id;
         }
+        current_owner_id.uhc_current_cd = self;
     }
 }
 //==============================================================================

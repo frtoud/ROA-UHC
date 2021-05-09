@@ -244,7 +244,7 @@ uhc_cd_spin_drain_base = 0.04;
 uhc_cd_spin_drain_idle = 0.10;
 uhc_cd_spin_charge_rate = 1;
 uhc_cd_spin_max = 100;
-uhc_cd_respawn_timer_max = 240;
+uhc_cd_respawn_timer_max = 300;
 
 uhc_nspecial_charges_max = 4;
 uhc_nspecial_speed = 12;
@@ -260,6 +260,8 @@ uhc_uspecial_speed_fast = 7;
 //Custom variables initialized here
 uhc_has_cd_blade = true;
 uhc_current_cd = instance_create(x, y, "obj_article1"); //CD held (or last CD held)
+uhc_pickup_cooldown = 0;
+
 uhc_recalling_cd = noone; // target CD of current DSPECIAL
 
 uhc_cd_respawn_timer = 0;

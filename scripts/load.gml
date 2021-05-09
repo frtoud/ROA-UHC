@@ -57,8 +57,8 @@ sprite_change_offset_bladed("dstrong_air", 19, 29);
 sprite_change_offset_bladed("fspecial", 17, 23);
 sprite_change_offset_bladed("fspecial_air", 20, 27);
 sprite_change_offset_bladed("uspecial", 19, 30);
-sprite_change_offset("dspecial", 15, 32);
-sprite_change_offset("dspecial_air", 16, 33);
+sprite_change_offset_bladed("dspecial", 19, 49);
+sprite_change_offset_bladed("dspecial_air", 19, 50);
 sprite_change_offset_bladed("taunt", 22, 22);
 
  sprite_change_offset("plat", 32, 47);
