@@ -471,6 +471,7 @@ if (uhc_has_cd_blade || uhc_spin_cost_throw_bypass)
     uhc_current_cd.spr_dir = spr_dir;
     
     uhc_has_cd_blade = false;
+    uhc_pickup_cooldown = uhc_pickup_cooldown_max;
     
     //Set specific attack as the CD state
     uhc_current_cd.buffered_state = cd_atk;
