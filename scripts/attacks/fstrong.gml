@@ -64,7 +64,6 @@ set_hitbox_value(AT_FSTRONG, 2, HG_TECHABLE, 3);
 set_hitbox_value(AT_FSTRONG, 2, HG_BASE_KNOCKBACK, 2);
 set_hitbox_value(AT_FSTRONG, 2, HG_BASE_HITPAUSE, 5);
 set_hitbox_value(AT_FSTRONG, 2, HG_SPIN_COST, 1);
-set_hitbox_value(AT_FSTRONG, 2, HG_SPIN_DAMAGE_BONUS, 2.25);
 set_hitbox_value(AT_FSTRONG, 2, HG_HIT_SFX, asset_get("sfx_blow_weak2"));
 set_hitbox_value(AT_FSTRONG, 2, HG_PROJECTILE_SPRITE, asset_get("empty_sprite"));
 set_hitbox_value(AT_FSTRONG, 2, HG_PROJECTILE_MASK, -1);
