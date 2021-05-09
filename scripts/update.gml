@@ -40,13 +40,26 @@ if (uhc_pickup_cooldown > 0)
 
 //=====================================================
 // Recalling logic
-if (uhc_has_cd_blade) 
-{ 
-    uhc_recalling_cd = noone; 
-    uhc_dspecial_is_recalling = false;
+if (uhc_dspecial_is_recalling) 
+{
+    //prevent move spam during recall
+    move_cooldown[AT_DSPECIAL] = 2;
+    
+    //Todo: other cases where recalling CD needs to be stopped midmove
+    //death? parried?
+    
+    if (state_cat == SC_HITSTUN) || (uhc_has_cd_blade)
+    || !instance_exists(uhc_recalling_cd)
+    {
+        if (instance_exists(uhc_recalling_cd) 
+        && uhc_recalling_cd != uhc_current_cd)
+        {
+            uhc_recalling_cd.buffered_state = 1;  //Idle 
+        }
+        uhc_recalling_cd = noone; 
+        uhc_dspecial_is_recalling = false;
+    }
 }
-//Todo: other cases where recalling CD needs to be stopped midmove
-//death? hitstun? caught something else? parried?
 
 //=====================================================
 // If this was true (from previous frame) and you were sent to hitstun, lose charge

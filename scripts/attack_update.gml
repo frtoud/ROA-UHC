@@ -282,7 +282,7 @@ switch (attack)
                         var is_closer = distance_to_object(other) < 
                                         point_distance(target_cd.x, target_cd.y, other.x, other.y);
                                         
-                    //closest "last thrown" CD 
+                        //closest "last thrown" CD 
                         if ((other == current_owner_id)
                         &&  (other != target_cd.current_owner_id || is_closer))
                         // or closest CD in general if a "last thrown" was not found
@@ -315,6 +315,8 @@ switch (attack)
                 }
                 else //No CD, no Target
                 {
+                    //prevent spam
+                    move_cooldown[AT_DSPECIAL] = 60;
                     set_window_value(AT_DSPECIAL, 2, AG_WINDOW_HAS_SFX, true);
                 }
             }
