@@ -52,7 +52,7 @@ if (uhc_dspecial_is_recalling)
     || !instance_exists(uhc_recalling_cd)
     {
         if (instance_exists(uhc_recalling_cd) 
-        && uhc_recalling_cd != uhc_current_cd)
+        && uhc_recalling_cd.state == AT_DSPECIAL)
         {
             uhc_recalling_cd.buffered_state = 1;  //Idle 
         }
