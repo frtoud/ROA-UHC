@@ -268,21 +268,21 @@ switch (attack)
                 with (obj_article1) if (other.url == player_id.url) //CDs only
                  && (can_recall || (can_priority_recall && current_owner_id == other))
                 {
-                    if (target_cd == noone) //better than nothing
-                    {
-                        target_cd = self;
-                    }
                     if (other.uhc_current_cd == self)
                     {
                         target_cd = self;
                         break; //best match, can stop looking
                     }
-                    else 
+                    if (target_cd == noone) //better than nothing
                     {
+                        target_cd = self;
+                        continue;
+                    }
+                    
                         var is_closer = distance_to_object(other) < 
                                         point_distance(target_cd.x, target_cd.y, other.x, other.y);
                                         
-                        //closest "last thrown" CD (that is not uhc_current_cd)
+                    //closest "last thrown" CD 
                         if ((other == current_owner_id)
                         &&  (other != target_cd.current_owner_id || is_closer))
                         // or closest CD in general if a "last thrown" was not found
@@ -291,7 +291,6 @@ switch (attack)
                             found_target_cd = self;
                         }
                     }
-                }
                 uhc_recalling_cd = target_cd;
                 //CD is not allowed to die before recall happens
                 if (uhc_recalling_cd != noone)
