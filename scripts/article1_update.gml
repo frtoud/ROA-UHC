@@ -294,7 +294,7 @@ if (state == AR_STATE_DYING || state == AR_STATE_HELD)
     if (pickup_priority > 0)
     { pickup_priority--; }
     
-    with (oPlayer) if (other.player_id.url == url)
+    with (oPlayer) if ("url" in self && other.player_id.url == url)
                    && (any_owner || (other.current_owner_id == self))
                    && (!uhc_has_cd_blade)
                    && (state_cat != SC_HITSTUN)

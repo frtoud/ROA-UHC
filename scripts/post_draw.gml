@@ -89,7 +89,7 @@ if (uhc_taunt_current_video != noone)
                         posx, posy, spr_dir * scale, scale, spr_angle, c_white, 1);
         shader_end(); 
         
-        //restore this for the article's own redering
+        //restore this for the article's own rendering
         uhc_anim_blade_color = uhc_anim_current_color;
         init_shader();
     }
