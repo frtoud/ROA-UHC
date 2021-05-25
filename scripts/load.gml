@@ -48,7 +48,7 @@ sprite_change_offset_bladed("nair", 21, 31);
 
 sprite_change_offset_bladed("fstrong", 17, 24);
 sprite_change_offset_bladed("ustrong", 16, 64);
- sprite_change_offset("dstrong", 32, 47, true);
+sprite_change_offset_bladed("dstrong", 32, 24);
 sprite_change_offset_bladed("fstrong_air", 17, 24);
 sprite_change_offset_bladed("ustrong_air", 19, 64);
 sprite_change_offset_bladed("dstrong_air", 19, 29);
