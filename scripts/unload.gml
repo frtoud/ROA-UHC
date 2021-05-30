@@ -125,8 +125,25 @@ if (!uhc_handled_victory_quote)
         case CH_ZETTERBURN: 
            quote = "Thx 4 wathcing Lion King streaming 240p suscribe for mre movies"; 
            break;
+        case CH_FORSBURN:
+           quote = "gta san adreas walkthru #51 final mission vs big smoke"; 
+           break;
         case CH_CLAIREN: 
            quote = "future gen. consels wii2 ps4 xbox720?"; 
+           break;
+
+        case CH_WRASTOR:
+           quote = "u got sent rigt into the danger zone xd"; 
+           break;
+        case CH_ABSA:
+           quote = "finger eleven - paralyser (special goat remix thx 4 wathing"; 
+           break;
+        case CH_ELLIANA:
+           quote = "tf2 2008 in 2012+ download (no steam)"; 
+           break;
+
+        case CH_ORCANE:
+           quote = "i dont remeber this pokemon??? pls comment if you know whos that"; 
            break;
         case CH_ETALUS: 
            quote = "Club Pengun lets play (part 4 final boss & endig)"; 
@@ -134,22 +151,24 @@ if (!uhc_handled_victory_quote)
         case CH_RANNO:
            quote = "Frogger's adventire (gcn) title theme & ending"; 
            break;
+
         case CH_KRAGG: 
            quote = "How 2 get mincraft free no virus 100% workign 2011"; 
            break;
         case CH_MAYPUL:
            quote = "ending theme: badgerbadgerbadgre remix by weebl"; 
            break;
+        case CH_SYLVANOS:
+           quote = "THIS VIDEO CONTAINS SNOOP DOGG"; 
+           break;
+
         case CH_ORI:
            quote = "How 2 get double NP in neopets (Updated 2008)"; 
            break;
-        case CH_FORSBURN:
-        case CH_ORCANE:
-        case CH_SYLVANOS:
-        case CH_WRASTOR:
-        case CH_ABSA:
-        case CH_ELLIANA:
         case CH_SHOVEL_KNIGHT:
+           quote = "duck tales was better on nes anyway"; 
+           break;
+
         default: break;
     }
     return quote;
