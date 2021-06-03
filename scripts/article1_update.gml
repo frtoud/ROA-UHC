@@ -69,8 +69,16 @@ switch (state)
         can_recall = true;
         
         //Animation
-        sprite_index = spr_article_cd_idle;
-        image_index += 0.8;
+        var spin_percent = (cd_spin_meter / uhc_cd_spin_max);
+        
+        if (free || spin_percent > 0.6)
+        { sprite_index = spr_article_cd_idle_fast; }
+        else if (spin_percent > 0.2)
+        { sprite_index = spr_article_cd_idle_half; }
+        else
+        { sprite_index = spr_article_cd_idle_slow; }
+        
+        image_index += 0.25 + 0.5 * spin_percent;
         
     } break;
 //=====================================================
@@ -151,6 +159,80 @@ switch (state)
         //Animation
         sprite_index = spr_article_cd_shoot;
         image_index += 0.5;
+    } break;
+//=====================================================
+    case AR_STATE_DSTRONG:
+    {
+        //Update
+        if (state_timer <= 1)
+        {
+            //start the rolling
+            state_timer = 1;
+            dstrong_angular_timer = 0;
+            dstrong_angular_timer_prev = -1;
+            dstrong_need_gravity = true;
+        }
+        else
+        {
+            //increment rotation
+            dstrong_angular_timer_prev = dstrong_angular_timer;
+            dstrong_angular_timer = (dstrong_angular_timer + cd_dstrong_rotation_speed
+                                                           + dstrong_remaining_laps * 1.5);
+            if (dstrong_angular_timer >= 360)
+            {
+                dstrong_angular_timer -= 360;
+                dstrong_angular_timer_prev -= 360; //can be negative; actually helps logic!
+            }
+        }
+        
+        //angular timer of CD dictates how CD behaves
+        hsp = -spr_dir * lengthdir_x(cd_dstrong_ground_speed, dstrong_angular_timer);
+        //  0: +HSP, start of lap, creates hitbox
+        // 90: 0HSP
+        //180: -HSP, second hitbox
+        //270: 0HSP
+        //360: lap complete, roll back from zero
+        if (dstrong_angular_timer_prev < 0 && state_timer > 1)
+        {
+            dstrong_remaining_laps--;
+        }
+        else if (dstrong_angular_timer >=  90 && dstrong_angular_timer_prev <  90)
+             || (dstrong_angular_timer >= 270 && dstrong_angular_timer_prev < 270)
+        {
+            dstrong_need_gravity = free;
+        }
+        
+        if (hit_wall)
+        {
+            if (free)
+            {
+                //bumps into solids, so drop down
+                set_state(AR_STATE_IDLE);
+                vsp = -6;
+                hsp = sign(hsp) * -1;
+            }
+            else
+            {
+                //bumps into solids, so adjust trajectory
+                dstrong_angular_timer = (hsp * spr_dir > 0) ? 270 : 90;
+                dstrong_angular_timer_prev = dstrong_angular_timer - 1;
+                dstrong_remaining_laps--;
+                hsp = 0;
+            }
+        }
+        
+        if (dstrong_need_gravity) do_gravity();
+        
+        if (dstrong_remaining_laps <= 0)
+        {
+            set_state(AR_STATE_IDLE);
+            hsp *= 0.5;
+        }
+        
+        //Animation
+        sprite_index = spr_article_cd_dstrong;
+        image_index = 0.5 + (dstrong_angular_timer - 90)/360.0 * 12;
+        depth = player_id.depth + lengthdir_x(8, dstrong_angular_timer);
     } break;
 //=====================================================
     case AR_STATE_DSTRONG_AIR:

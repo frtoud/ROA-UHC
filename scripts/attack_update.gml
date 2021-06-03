@@ -123,6 +123,15 @@ switch (attack)
         }
     } break;
 //==========================================================
+    case AT_DSTRONG:
+    {
+        if (window == 3 && window_timer == 1)
+        {
+            throw_blade(16, 20, -uhc_dstrong_throwspeed, 0, AT_DSTRONG);
+            uhc_current_cd.dstrong_remaining_laps = 2 + floor(2 * (strong_charge/60.0));
+        }
+    } break;
+//==========================================================
     case AT_DSTRONG_2:
     {
         if (window == 2 && window_timer == 1)

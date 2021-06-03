@@ -65,7 +65,10 @@ sprite_change_offset_bladed("taunt", 22, 22);
 
 sprite_change_offset("proj_star", 9, 11);
 
-sprite_change_offset("article_cd_idle", 19, 19);
+sprite_change_offset("article_cd_idle", 19, 18);
+sprite_change_offset("article_cd_idle2", 17, 16);
+sprite_change_offset("article_cd_idle3", 19, 10);
+sprite_change_offset("article_cd_dstrong", 37, 16);
 sprite_change_offset("article_cd_shoot", 19, 19);
 sprite_change_offset("article_cd_mask", 19, 19);
 sprite_change_collision_mask("article_cd_mask", false, 0, noone, noone, noone, noone, 1);

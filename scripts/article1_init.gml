@@ -2,11 +2,15 @@
 
 //Rendering
 spr_article_cd_mask = sprite_get("article_cd_mask");
-spr_article_cd_idle = sprite_get("article_cd_idle");
+spr_article_cd_idle_fast = sprite_get("article_cd_idle");
+spr_article_cd_idle_half = sprite_get("article_cd_idle2");
+spr_article_cd_idle_slow = sprite_get("article_cd_idle3");
+
 spr_article_cd_roll = sprite_get("article_cd_roll");
 spr_article_cd_shoot = sprite_get("article_cd_shoot");
+spr_article_cd_dstrong = sprite_get("article_cd_dstrong");
 
-sprite_index = spr_article_cd_idle;
+sprite_index = spr_article_cd_idle_fast;
 image_index = 0;
 mask_index = spr_article_cd_mask;
 spr_dir = 1;
@@ -39,6 +43,9 @@ cd_dspecial_speed = 24;
 cd_dstrong_air_min_speed_for_hitbox = 5.5;
 cd_dstrong_air_spiking_time = 10;
 
+cd_dstrong_ground_speed = 1.2 * player_id.uhc_dstrong_throwspeed;
+cd_dstrong_rotation_speed = 8; //degrees per frame
+
 cd_multihit_speed_bonus = 0.75;
 
 //=====================================================
@@ -66,6 +73,11 @@ has_dstrong_hitbox = false; //checks if air DSTRONG spawned already
 pre_dspecial_immunity = 0; //prevents CD from dying while AT_DSPECIAL_2 is in progress
 can_recall = false; //if true, CD is available to be recalled
 can_priority_recall = false; //if true, can be recalled (but only by current_owner_id)
+
+dstrong_remaining_laps = 0;
+dstrong_need_gravity = false;
+dstrong_angular_timer = 0;
+dstrong_angular_timer_prev = 0;
 
 //=====================================================
 // animation variables
