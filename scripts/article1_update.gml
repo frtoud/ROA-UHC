@@ -171,13 +171,21 @@ switch (state)
             dstrong_angular_timer = 0;
             dstrong_angular_timer_prev = -1;
             dstrong_need_gravity = true;
+
+            dstrong_remaining_laps = floor(lerp(cd_dstrong_ground_min_laps, 
+                                                cd_dstrong_ground_max_laps, 
+                                                dstrong_charge_percent));
+            dstrong_current_speed = lerp(cd_dstrong_ground_min_speed, 
+                                         cd_dstrong_ground_max_speed, 
+                                         dstrong_charge_percent);
         }
         else
         {
             //increment rotation
             dstrong_angular_timer_prev = dstrong_angular_timer;
-            dstrong_angular_timer = (dstrong_angular_timer + cd_dstrong_rotation_speed
-                                                           + dstrong_remaining_laps * 1.5);
+            dstrong_angular_timer = (dstrong_angular_timer 
+                                   + cd_dstrong_rotation_speed_base
+                                   + dstrong_remaining_laps * cd_dstrong_rotation_speed_bonus);
             if (dstrong_angular_timer >= 360)
             {
                 dstrong_angular_timer -= 360;
@@ -186,7 +194,7 @@ switch (state)
         }
         
         //angular timer of CD dictates how CD behaves
-        hsp = -spr_dir * lengthdir_x(cd_dstrong_ground_speed, dstrong_angular_timer);
+        hsp = -spr_dir * lengthdir_x(dstrong_current_speed, dstrong_angular_timer);
         //  0: +HSP, start of lap, creates hitbox
         // 90: 0HSP
         //180: -HSP, second hitbox

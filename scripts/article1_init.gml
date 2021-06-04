@@ -43,8 +43,12 @@ cd_dspecial_speed = 24;
 cd_dstrong_air_min_speed_for_hitbox = 5.5;
 cd_dstrong_air_spiking_time = 10;
 
-cd_dstrong_ground_speed = 1.2 * player_id.uhc_dstrong_throwspeed;
-cd_dstrong_rotation_speed = 8; //degrees per frame
+cd_dstrong_ground_min_speed = 12;
+cd_dstrong_ground_max_speed = 16;
+cd_dstrong_rotation_speed_base = 10; //degrees per frame
+cd_dstrong_rotation_speed_bonus = 2; //per lap
+cd_dstrong_ground_min_laps = 2;
+cd_dstrong_ground_max_laps = 5;
 
 cd_multihit_speed_bonus = 0.75;
 
@@ -74,6 +78,8 @@ pre_dspecial_immunity = 0; //prevents CD from dying while AT_DSPECIAL_2 is in pr
 can_recall = false; //if true, CD is available to be recalled
 can_priority_recall = false; //if true, can be recalled (but only by current_owner_id)
 
+dstrong_charge_percent = 0; // matched (strong_charge / 60), % of charge when thrown by AT_DSTRONG
+dstrong_current_speed = cd_dstrong_ground_min_speed;
 dstrong_remaining_laps = 0;
 dstrong_need_gravity = false;
 dstrong_angular_timer = 0;
