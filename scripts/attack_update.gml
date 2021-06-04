@@ -377,6 +377,10 @@ switch (attack)
                 uhc_current_cd.cd_spin_meter += uhc_cd_spin_charge_rate;
             }
         }
+        else if (window == 6)
+        {
+            iasa_script();
+        }
     } break;
 //==========================================================
     case AT_USPECIAL:

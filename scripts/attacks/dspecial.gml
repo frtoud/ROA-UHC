@@ -43,9 +43,8 @@ set_window_value(AT_DSPECIAL, 5, AG_WINDOW_GOTO, 9); //ends move
 //Blade caught (secret window)
 set_window_value(AT_DSPECIAL, 6, AG_WINDOW_TYPE, 1);
 set_window_value(AT_DSPECIAL, 6, AG_WINDOW_LENGTH, 12);
-set_window_value(AT_DSPECIAL, 6, AG_WINDOW_ANIM_FRAMES, 3);
-set_window_value(AT_DSPECIAL, 6, AG_WINDOW_ANIM_FRAME_START, 11);
-set_window_value(AT_DSPECIAL, 6, AG_WINDOW_HAS_SFX, 1);
-set_window_value(AT_DSPECIAL, 6, AG_WINDOW_SFX, sound_get("sfx_reload_done"));
+set_window_value(AT_DSPECIAL, 6, AG_WINDOW_ANIM_FRAMES, 2);
+set_window_value(AT_DSPECIAL, 6, AG_WINDOW_ANIM_FRAME_START, 12);
+set_window_value(AT_DSPECIAL, 6, AG_WINDOW_HAS_CUSTOM_FRICTION, true); //zero friction >:]
 
 set_num_hitboxes(AT_DSPECIAL, 0);

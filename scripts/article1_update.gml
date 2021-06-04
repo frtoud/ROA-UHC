@@ -415,7 +415,7 @@ if (state == AR_STATE_DYING || state == AR_STATE_HELD)
         set_state(AR_STATE_HELD);
         found_player_id.uhc_has_cd_blade = true;
         found_player_id.uhc_update_blade_status = true;
-        sound_play(asset_get("sfx_coin_collect"));
+        sound_play(sfx_cd_catch);
         
         if (found_player_id != current_owner_id)
         {
@@ -425,6 +425,16 @@ if (state == AR_STATE_DYING || state == AR_STATE_HELD)
             current_owner_id = found_player_id;
         }
         current_owner_id.uhc_current_cd = self;
+        
+        with (current_owner_id)
+        {
+            //TODO: filter down more precisely the states that are allowed to cancel into crownslide?
+            if (state_cat != SC_HITSTUN)
+            {
+                set_attack(AT_DSPECIAL);
+                window = 6;
+            }
+        }
     }
 }
 //==============================================================================

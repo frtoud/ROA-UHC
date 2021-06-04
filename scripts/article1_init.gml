@@ -20,6 +20,7 @@ visible = false;
 
 //death sound
 sfx_cd_death = player_id.sfx_cd_death;
+sfx_cd_catch = player_id.sfx_cd_catch;
 
 //=====================================================
 //Standard Physics
