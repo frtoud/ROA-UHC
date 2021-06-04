@@ -85,6 +85,7 @@ dstrong_remaining_laps = 0;
 dstrong_need_gravity = false;
 dstrong_angular_timer = 0;
 dstrong_angular_timer_prev = 0;
+dstrong_hitbox = noone;
 
 //=====================================================
 // animation variables

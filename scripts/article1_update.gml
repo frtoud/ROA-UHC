@@ -211,6 +211,32 @@ switch (state)
             dstrong_need_gravity = free;
         }
         
+        var hitbox_num_needed = (dstrong_angular_timer < 90 && dstrong_angular_timer >= 0) ? 2 : 
+                              ( (dstrong_angular_timer < 270 && dstrong_angular_timer >= 180) ? 3 : 0);
+        
+        if (instance_exists(dstrong_hitbox))
+        {
+            if (hitbox_num_needed == 0)
+            {
+                dstrong_hitbox.destroyed = true;
+                dstrong_hitbox = noone;
+            }
+            else if (dstrong_hitbox.hbox_num != hitbox_num_needed)
+            {
+                dstrong_hitbox.destroyed = true;
+                dstrong_hitbox = spawn_hitbox(AT_DSTRONG, hitbox_num_needed, false, false);
+            }
+            else
+            {
+                dstrong_hitbox.hitbox_timer = 0;
+            }
+        }
+        else if (hitbox_num_needed != 0)
+        {
+            dstrong_hitbox = spawn_hitbox(AT_DSTRONG, hitbox_num_needed, false, false);
+        }
+        
+        
         if (hit_wall)
         {
             if (free)
@@ -219,6 +245,12 @@ switch (state)
                 set_state(AR_STATE_IDLE);
                 vsp = -6;
                 hsp = sign(hsp) * -1;
+                
+                if (instance_exists(dstrong_hitbox))
+                {
+                    dstrong_hitbox.destroyed = true;
+                    dstrong_hitbox = noone;
+                }
             }
             else
             {
@@ -234,8 +266,17 @@ switch (state)
         
         if (dstrong_remaining_laps <= 0)
         {
+            if (has_hit) //finisher
+            { spawn_hitbox(AT_DSTRONG, 4, false, false); }
+            
             set_state(AR_STATE_IDLE);
             hsp *= 0.5;
+            
+            if (instance_exists(dstrong_hitbox))
+            {
+                dstrong_hitbox.destroyed = true;
+                dstrong_hitbox = noone;
+            }
         }
         
         //Animation
