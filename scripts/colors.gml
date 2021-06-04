@@ -133,6 +133,13 @@ set_color_profile_slot(10, 2, 153,  70,  66); //CD
 set_color_profile_slot(10, 3, 122,  45,  45); //Paper
 set_color_profile_slot(10, 4,  25, 255, 255); //Blinker 
 
+// Jet Set Radiooo
+set_color_profile_slot(11, 0,   5, 120,  55 ); //Body
+set_color_profile_slot(11, 1, 120, 205,  40 ); //Lens
+set_color_profile_slot(11, 2, 200, 195, 180 ); //CD
+set_color_profile_slot(11, 3, 240, 220,   0 ); //Strip
+set_color_profile_slot(11, 4, 120, 205,  40 ); //Blinker
+
 // Terebii Chan
 set_color_profile_slot(13, 0, 190, 190, 190); //Body
 set_color_profile_slot(13, 1, 140, 140, 140); //Lens
