@@ -58,6 +58,7 @@ switch (state)
         do_gravity();
         do_friction();
         try_pickup();
+        if (state != AR_STATE_IDLE) break;
         
         //Dying
         if !(pre_dspecial_immunity > 0) && (cd_spin_meter == 0)
