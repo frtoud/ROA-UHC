@@ -333,7 +333,8 @@ switch (attack)
         else if (window == 2 && window_timer == 1 && !hitpause)
              && (uhc_recalling_cd != noone)
         {
-            if (instance_exists(uhc_recalling_cd))
+            if (instance_exists(uhc_recalling_cd)
+            && (uhc_recalling_cd.can_recall || uhc_recalling_cd.can_priority_recall))
             {
                 sound_play(sfx_dspecial_reload);
                 //this only becomes the "current CD" once it is caught
