@@ -29,7 +29,7 @@ sprite_change_offset_bladed("landinglag", 19, 26);
 
 sprite_change_offset_bladed("parry", 15, 23);
 sprite_change_offset_bladed("roll_forward", 18, 27);
- sprite_change_offset("roll_backward", 16, 31);
+sprite_change_offset_bladed("roll_backward", 18, 27);
 sprite_change_offset_bladed("airdodge", 22, 26);
 sprite_change_offset_bladed("waveland", 19, 26);
 sprite_change_offset_bladed("tech", 18, 25);
