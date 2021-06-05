@@ -211,29 +211,34 @@ switch (state)
             dstrong_need_gravity = free;
         }
         
-        var hitbox_num_needed = (dstrong_angular_timer < 90 && dstrong_angular_timer >= 0) ? 2 : 
-                              ( (dstrong_angular_timer < 270 && dstrong_angular_timer >= 180) ? 3 : 0);
+        var hitbox_num_needed = (dstrong_angular_timer < 90 && dstrong_angular_timer >= 20) || 
+                                (dstrong_angular_timer < 270 && dstrong_angular_timer >= 200);
         
-        if (instance_exists(dstrong_hitbox))
+        if (hitbox_num_needed)
         {
-            if (hitbox_num_needed == 0)
+            if (!instance_exists(dstrong_hitbox))
+            {
+                dstrong_hitbox = spawn_hitbox(AT_DSTRONG, 2, false, false);
+            }
+            
+            //calculate angle towards projected next hit
+            //lengthdir_y is not an error: angle 0 is "directly behind" and so needs sine
+            var launch_x = -lengthdir_y(dstrong_current_speed/2, dstrong_angular_timer+2)
+                launch_x = (launch_x < 0) ? min(launch_x, -3) : max(launch_x, 3)
+            var launch_y = -max(2, abs(launch_x/2)); //to compensate 10 frames of gravity
+            
+            dstrong_hitbox.kb_value = point_distance(0, 0, launch_x, launch_y);
+            dstrong_hitbox.kb_angle = point_direction(0, 0, launch_x, launch_y);
+            
+            dstrong_hitbox.hitbox_timer = 0;
+            }
+            else
+            {
+            if (instance_exists(dstrong_hitbox))
             {
                 dstrong_hitbox.destroyed = true;
                 dstrong_hitbox = noone;
             }
-            else if (dstrong_hitbox.hbox_num != hitbox_num_needed)
-            {
-                dstrong_hitbox.destroyed = true;
-                dstrong_hitbox = spawn_hitbox(AT_DSTRONG, hitbox_num_needed, false, false);
-            }
-            else
-            {
-                dstrong_hitbox.hitbox_timer = 0;
-            }
-        }
-        else if (hitbox_num_needed != 0)
-        {
-            dstrong_hitbox = spawn_hitbox(AT_DSTRONG, hitbox_num_needed, false, false);
         }
         
         
@@ -267,7 +272,7 @@ switch (state)
         if (dstrong_remaining_laps <= 0)
         {
             if (has_hit) //finisher
-            { spawn_hitbox(AT_DSTRONG, 4, false, false); }
+            { spawn_hitbox(AT_DSTRONG, 3, false, false); }
             
             set_state(AR_STATE_IDLE);
             hsp *= 0.5;
