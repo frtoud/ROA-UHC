@@ -231,9 +231,9 @@ switch (state)
             dstrong_hitbox.kb_angle = point_direction(0, 0, launch_x, launch_y);
             
             dstrong_hitbox.hitbox_timer = 0;
-            }
-            else
-            {
+        }
+        else
+        {
             if (instance_exists(dstrong_hitbox))
             {
                 dstrong_hitbox.destroyed = true;
@@ -475,8 +475,10 @@ if (state == AR_STATE_DYING || state == AR_STATE_HELD)
         
         with (current_owner_id)
         {
-            //TODO: filter down more precisely the states that are allowed to cancel into crownslide?
-            if (state_cat != SC_HITSTUN)
+        // "Crownslide": catch blade to remove friction for 12 frames
+            if (state_cat == SC_GROUND_NEUTRAL || state_cat == SC_AIR_NEUTRAL)
+            || (state == PS_LAND || state == PS_WAVELAND || state == PS_WALK_TURN 
+            ||  state == PS_DASH_START || state == PS_DASH || state == PS_DASH_TURN || state == PS_DASH_STOP)
             {
                 set_attack(AT_DSPECIAL);
                 window = 6;
