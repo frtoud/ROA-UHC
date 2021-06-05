@@ -268,6 +268,7 @@ uhc_dspecial_is_recalling = false;
 uhc_recalling_cd = noone; // target CD of current DSPECIAL
 
 uhc_cd_respawn_timer = 0;
+uhc_cd_can_respawn = false;
 
 uhc_update_blade_status = false;
 uhc_spin_cost_throw_bypass = false; //allows spin cost to apply if CD is thrown
