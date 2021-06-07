@@ -366,7 +366,7 @@ if (uhc_taunt_collect_videos)
 // purpose: if AG_WINDOW_SFX_FRAME is negative, play SFX on the X-to-last frame of this window
 // eg. Set AG_WINDOW_SFX_FRAME to -1 for it to apply to the last frame of a window
 // Feel free to "borrow" this as much as you want
-// DISCLAIMER: modifying this function void the "call me if it breaks" warantee.
+// DISCLAIMER: modifying this function void the "call me if it breaks" warrantee.
 //==============================================================
 #define play_lastframe_sfx()
 {
@@ -464,10 +464,21 @@ if (uhc_taunt_collect_videos)
         case CH_ETALUS: 
         case CH_RANNO:
         case CH_ORCANE:
+           sprite_change_offset("video_lime", 11, 8);
+           videos[0] = { sprite:sprite_get("video_lime"),   
+                         song:sound_get("video_lime"),   
+                         fps:12 };
+           break;
         case CH_KRAGG: 
         case CH_MAYPUL:
         case CH_SYLVANOS:
+           sprite_change_offset("video_darude", 11, 8);
+           videos[0] = { sprite:sprite_get("video_darude"),   
+                         song:sound_get("video_darude"),   
+                         fps:1 };
+           break;
         case CH_ORI:
+           //couldn't think of one :(
         default: break;
     }
     
