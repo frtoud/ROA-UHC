@@ -388,6 +388,7 @@ switch (attack)
     {
         can_move = (window == 5);
         can_fast_fall = false;
+        can_wall_jump = (window > 2);
         
         //moving around
         if (window == 2 && window_timer == get_window_value(AT_USPECIAL, 2, AG_WINDOW_LENGTH) - 1)
