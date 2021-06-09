@@ -44,6 +44,7 @@ sprite_change_offset_bladed("nair", 21, 31);
  sprite_change_offset("fair", 26, 44, true);
  sprite_change_offset("bair", 44, 25, true);
 sprite_change_offset_bladed("uair", 18, 48);
+sprite_change_offset_bladed("dair", 20, 31);
 
 sprite_change_offset_bladed("fstrong", 17, 24);
 sprite_change_offset_bladed("ustrong", 16, 64);
