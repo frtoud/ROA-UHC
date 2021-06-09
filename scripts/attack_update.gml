@@ -443,9 +443,6 @@ switch (attack)
 //==========================================================
     case AT_TAUNT:
     {
-        if (window >= 2 && window <= 6)
-        { suppress_stage_music(0, 0.01); }
-
         if (window == 4)
         {
             if (taunt_pressed || special_pressed 
