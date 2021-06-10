@@ -105,7 +105,7 @@ switch (state)
         
         if (uhc_anim_back_flipping)
         { sprite_index = uhc_anim_backflip_spr; }
-    }
+    } break;
     case PS_AIR_DODGE:
     {
         if (window == 0)
@@ -113,6 +113,13 @@ switch (state)
             //beginning of dodge
             uhc_anim_last_dodge.posx = x;
             uhc_anim_last_dodge.posy = y;
+        }
+    } break;
+    case PS_WALL_JUMP:
+    {
+        if (state_timer < 4)
+        { 
+            image_index = 0;
         }
     } break;
     case PS_ATTACK_AIR:

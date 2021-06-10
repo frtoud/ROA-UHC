@@ -22,7 +22,7 @@ sprite_change_offset_bladed("jumpstart", 17, 24);
 sprite_change_offset_bladed("jump", 21, 31);
 sprite_change_offset_bladed("doublejump", 19, 30);
 sprite_change_offset_bladed("doublejump_back", 19, 31);
- sprite_change_offset("walljump", 16, 31);
+sprite_change_offset_bladed("walljump", 24, 27);
 sprite_change_offset_bladed("pratfall", 15, 30);
 sprite_change_offset_bladed("land", 19, 26);
 sprite_change_offset_bladed("landinglag", 19, 26);
