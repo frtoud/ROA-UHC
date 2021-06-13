@@ -48,3 +48,26 @@ set_window_value(AT_DSPECIAL, 6, AG_WINDOW_ANIM_FRAME_START, 12);
 set_window_value(AT_DSPECIAL, 6, AG_WINDOW_HAS_CUSTOM_FRICTION, true); //zero friction >:]
 
 set_num_hitboxes(AT_DSPECIAL, 0);
+
+// Recall Multihit
+set_hitbox_value(AT_DSPECIAL, 1, HG_HITBOX_TYPE, 2);
+set_hitbox_value(AT_DSPECIAL, 1, HG_LIFETIME, 4);
+set_hitbox_value(AT_DSPECIAL, 1, HG_WIDTH, 40);
+set_hitbox_value(AT_DSPECIAL, 1, HG_HEIGHT, 40);
+set_hitbox_value(AT_DSPECIAL, 1, HG_PRIORITY, 3);
+set_hitbox_value(AT_DSPECIAL, 1, HG_PROJECTILE_ENEMY_BEHAVIOR, 1);
+set_hitbox_value(AT_DSPECIAL, 1, HG_PROJECTILE_GROUND_BEHAVIOR, 1);
+set_hitbox_value(AT_DSPECIAL, 1, HG_PROJECTILE_WALL_BEHAVIOR, 1);
+set_hitbox_value(AT_DSPECIAL, 1, HG_PROJECTILE_UNBASHABLE, 1);
+set_hitbox_value(AT_DSPECIAL, 1, HG_PROJECTILE_DOES_NOT_REFLECT, 1);
+set_hitbox_value(AT_DSPECIAL, 1, HG_PROJECTILE_IS_TRANSCENDENT, 1);
+set_hitbox_value(AT_DSPECIAL, 1, HG_PROJECTILE_PLASMA_SAFE, 1);
+set_hitbox_value(AT_DSPECIAL, 1, HG_ANGLE, 25);
+set_hitbox_value(AT_DSPECIAL, 1, HG_DAMAGE, 1);
+set_hitbox_value(AT_DSPECIAL, 1, HG_TECHABLE, 3);
+set_hitbox_value(AT_DSPECIAL, 1, HG_BASE_KNOCKBACK, 2);
+set_hitbox_value(AT_DSPECIAL, 1, HG_BASE_HITPAUSE, 5);
+set_hitbox_value(AT_DSPECIAL, 1, HG_SPIN_COST, 1);
+set_hitbox_value(AT_DSPECIAL, 1, HG_HIT_SFX, asset_get("sfx_blow_weak2"));
+set_hitbox_value(AT_DSPECIAL, 1, HG_PROJECTILE_SPRITE, asset_get("empty_sprite"));
+set_hitbox_value(AT_DSPECIAL, 1, HG_PROJECTILE_MASK, -1);

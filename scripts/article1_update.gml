@@ -144,13 +144,13 @@ switch (state)
             do_gravity();
             if (0 == state_timer % 5)
             {
-                spawn_hitbox(AT_FSTRONG, 2, true, false);
+                spawn_hitbox(AT_USTRONG, 2, true, false);
             }
         }
         else
         {
             if (has_hit) //finisher
-            { spawn_hitbox(AT_FSTRONG, 3, false, false); }
+            { spawn_hitbox(AT_USTRONG, 3, false, false); }
             set_state(AR_STATE_DSTRONG_AIR);
         }
         
@@ -349,7 +349,7 @@ switch (state)
         }
         else if (0 == state_timer % 5)
         {
-            spawn_hitbox(AT_FSTRONG, 2, true, false);
+            spawn_hitbox(AT_DSPECIAL, 1, true, false);
         }
         
         //Animation
