@@ -26,7 +26,7 @@ if ("uhc_parent_cd" in my_hitboxID)
     if (cd_id.hitstop < my_hitboxID.hitpause)
     { cd_id.hitstop = my_hitboxID.hitpause; }
     
-    if (my_hitboxID.multihits)
+    if (my_hitboxID.hit_flipper == ANGLE_FLIPPER_CD_MULTIHIT)
     { 
         //can't get too much bonus from speed
         var diff_mult = 0.05;

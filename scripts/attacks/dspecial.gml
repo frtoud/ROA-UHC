@@ -63,6 +63,7 @@ set_hitbox_value(AT_DSPECIAL, 1, HG_PROJECTILE_DOES_NOT_REFLECT, 1);
 set_hitbox_value(AT_DSPECIAL, 1, HG_PROJECTILE_IS_TRANSCENDENT, 1);
 set_hitbox_value(AT_DSPECIAL, 1, HG_PROJECTILE_PLASMA_SAFE, 1);
 set_hitbox_value(AT_DSPECIAL, 1, HG_ANGLE, 25);
+set_hitbox_value(AT_DSPECIAL, 1, HG_ANGLE_FLIPPER, ANGLE_FLIPPER_CD_MULTIHIT);
 set_hitbox_value(AT_DSPECIAL, 1, HG_DAMAGE, 1);
 set_hitbox_value(AT_DSPECIAL, 1, HG_TECHABLE, 3);
 set_hitbox_value(AT_DSPECIAL, 1, HG_BASE_KNOCKBACK, 2);

@@ -111,6 +111,9 @@ HG_SPIN_HITPAUSE_BONUS = 72;          // HG_BASE_HITPAUSE
 HG_SPIN_KNOCKBACK_BONUS = 73;         // HG_BASE_KNOCKBACK
 HG_SPIN_KNOCKBACK_SCALING_BONUS = 74; // HG_KNOCKBACK_SCALING 
 
+// Custom Angle Flipper values
+ANGLE_FLIPPER_CD_MULTIHIT = 55; //simulate "pull towards center" angle flipper; but considers speed of cd
+
 //=================================================
 //Custom vfx & sprites
 uhc_anim_blade_spin = 0;

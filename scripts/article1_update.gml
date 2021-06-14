@@ -91,13 +91,13 @@ switch (state)
             hsp -= (spr_dir * cd_accel_force);
             if (0 == state_timer % 5)
             {
-                spawn_hitbox(AT_FSTRONG, 2, true, false);
+                spawn_hitbox(AT_FSTRONG, 2);
             }
         }
         else
         {
             if (has_hit) //finisher
-            { spawn_hitbox(AT_FSTRONG, 3, false, false); }
+            { spawn_hitbox(AT_FSTRONG, 3); }
             set_state(AR_STATE_ROLL);
         }
         
@@ -144,13 +144,13 @@ switch (state)
             do_gravity();
             if (0 == state_timer % 5)
             {
-                spawn_hitbox(AT_USTRONG, 2, true, false);
+                spawn_hitbox(AT_USTRONG, 2);
             }
         }
         else
         {
             if (has_hit) //finisher
-            { spawn_hitbox(AT_USTRONG, 3, false, false); }
+            { spawn_hitbox(AT_USTRONG, 3); }
             set_state(AR_STATE_DSTRONG_AIR);
         }
         
@@ -218,7 +218,7 @@ switch (state)
         {
             if (!instance_exists(dstrong_hitbox))
             {
-                dstrong_hitbox = spawn_hitbox(AT_DSTRONG, 2, false, false);
+                dstrong_hitbox = spawn_hitbox(AT_DSTRONG, 2);
             }
             
             //calculate angle towards projected next hit
@@ -240,7 +240,6 @@ switch (state)
                 dstrong_hitbox = noone;
             }
         }
-        
         
         if (hit_wall)
         {
@@ -272,7 +271,7 @@ switch (state)
         if (dstrong_remaining_laps <= 0)
         {
             if (has_hit) //finisher
-            { spawn_hitbox(AT_DSTRONG, 3, false, false); }
+            { spawn_hitbox(AT_DSTRONG, 3); }
             
             set_state(AR_STATE_IDLE);
             hsp *= 0.5;
@@ -302,7 +301,7 @@ switch (state)
         }
         if (vsp > cd_dstrong_air_min_speed_for_hitbox) && (!has_dstrong_hitbox)
         {
-            spawn_hitbox(AT_DSTRONG_2, (state_timer < cd_dstrong_air_spiking_time) ? 1: 2, false, false);
+            spawn_hitbox(AT_DSTRONG_2, (state_timer < cd_dstrong_air_spiking_time) ? 1: 2);
             has_dstrong_hitbox = true;
         }
         else if (!free || has_hit)
@@ -349,7 +348,7 @@ switch (state)
         }
         else if (0 == state_timer % 5)
         {
-            spawn_hitbox(AT_DSPECIAL, 1, true, false);
+            spawn_hitbox(AT_DSPECIAL, 1);
         }
         
         //Animation
@@ -487,14 +486,12 @@ if (state == AR_STATE_DYING || state == AR_STATE_HELD)
     }
 }
 //==============================================================================
-#define spawn_hitbox(atk, hnum, multihits, hit_self)
+#define spawn_hitbox(atk, hnum)
 {
     var hb = noone;
     with (current_owner_id) { hb = create_hitbox(atk, hnum, other.x, other.y); }
     hb.spr_dir = spr_dir;
     hb.uhc_parent_cd = self;
-    hb.can_hit_self = hit_self;
-    hb.multihits = multihits;
     
     //apply buffs (should have the same effects as attack_update's adjust_blade_attack_grid)
     var charge_percent = cd_saved_spin_meter / player_id.uhc_cd_spin_max;
