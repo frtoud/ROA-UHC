@@ -85,6 +85,15 @@ switch (state)
 //=====================================================
     case AR_STATE_FSTRONG:
     {
+        if (was_parried)
+        {
+            was_parried = false;
+            
+            //flip direction
+            spr_dir *= -1;
+            hsp *= -1.5; //slight boost
+        }
+        
         //Update
         if (hsp * spr_dir > 0)
         {
@@ -393,9 +402,18 @@ if (state != AR_STATE_HELD)
 //=====================================================
 //Recalling status update in case states were changed this frame
 if (state == AR_STATE_DYING || state == AR_STATE_HELD)
+|| (last_parried_by_player != 0) //cannot recall if reflected
 {
     can_recall = false;
     can_priority_recall = false;
+}
+
+//=====================================================
+//Parry/Reflection logic reset
+was_parried = false;
+if ( state == AR_STATE_HELD || state == AR_STATE_IDLE || state == AR_STATE_DYING)
+{
+    last_parried_by_player = 0;
 }
 
 //==============================================================================
@@ -492,6 +510,13 @@ if (state == AR_STATE_DYING || state == AR_STATE_HELD)
     with (current_owner_id) { hb = create_hitbox(atk, hnum, other.x, other.y); }
     hb.spr_dir = spr_dir;
     hb.uhc_parent_cd = self;
+    
+    if (last_parried_by_player != 0)
+    {
+        hb.can_hit_self = true;
+        for (var p = 0; p < array_length(hb.can_hit); p++)
+        { hb.can_hit[p] = (p != last_parried_by_player); }
+    }
     
     //apply buffs (should have the same effects as attack_update's adjust_blade_attack_grid)
     var charge_percent = cd_saved_spin_meter / player_id.uhc_cd_spin_max;

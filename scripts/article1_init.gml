@@ -75,6 +75,9 @@ has_hit = false; //if a cd-hitbox connected on this move
 pickup_priority = 0; //time where only current_owner_id can grab this CD
 has_dstrong_hitbox = false; //checks if air DSTRONG spawned already
 
+was_parried = false; // if the CD was just parried
+last_parried_by_player = 0; // which player needs to not be hit by the CD (0 meaning owner)
+
 pre_dspecial_immunity = 0; //prevents CD from dying while AT_DSPECIAL_2 is in progress
 can_recall = false; //if true, CD is available to be recalled
 can_priority_recall = false; //if true, can be recalled (but only by current_owner_id)
