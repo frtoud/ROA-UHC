@@ -122,6 +122,14 @@ switch (state)
             image_index = 0;
         }
     } break;
+    case PS_PRATLAND:
+    {
+        if (!was_parried)
+        {
+            sprite_index = uhc_pratland_spr;
+            image_index = floor(image_number * (state_timer/prat_land_time));
+        }
+    } break;
     case PS_ATTACK_AIR:
     case PS_ATTACK_GROUND:
     {

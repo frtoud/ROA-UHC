@@ -148,6 +148,8 @@ uhc_anim_jabwalk_legs_spr = sprite_get("jab_legs");
 uhc_anim_back_flipping = false;
 uhc_anim_backflip_spr = sprite_get("doublejump_back");
 
+uhc_pratland_spr = sprite_get("pratland");
+
 //Interface
 vfx_label = sprite_get("vfx_label");
 vfx_hud_bar = sprite_get("hud_bar");
