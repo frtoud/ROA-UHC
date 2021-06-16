@@ -209,6 +209,11 @@ switch (state)
                 dstrong_angular_timer_prev -= 360; //can be negative; actually helps logic!
             }
         }
+        if (!instance_exists(dstrong_hitbox))
+        {
+            dstrong_hitbox = spawn_hitbox(AT_DSTRONG, 2);
+        }
+        
         
         //angular timer of CD dictates how CD behaves
         hsp = -spr_dir * lengthdir_x(dstrong_current_speed, dstrong_angular_timer);
@@ -225,37 +230,19 @@ switch (state)
              || (dstrong_angular_timer >= 270 && dstrong_angular_timer_prev < 270)
         {
             dstrong_need_gravity = free;
+            for (var p = 0; p < array_length(dstrong_hitbox.can_hit); p++)
+            { dstrong_hitbox.can_hit[p] = (p != last_parried_by_player); }
         }
+        //calculate angle towards projected next hit
+        //lengthdir_y is not an error: angle 0 is "directly behind" and so needs sine
+        var launch_x = -lengthdir_y(dstrong_current_speed/2, dstrong_angular_timer+5)
+            launch_x = (launch_x < 0) ? min(launch_x, -3) : max(launch_x, 3)
+        var launch_y = -max(2, abs(launch_x/3)); //to compensate 10 frames of gravity
         
-        var hitbox_num_needed = (dstrong_angular_timer < 90 && dstrong_angular_timer >= 20) || 
-                                (dstrong_angular_timer < 270 && dstrong_angular_timer >= 200);
+        dstrong_hitbox.kb_value = point_distance(0, 0, launch_x, launch_y);
+        dstrong_hitbox.kb_angle = point_direction(0, 0, launch_x, launch_y);
         
-        if (hitbox_num_needed)
-        {
-            if (!instance_exists(dstrong_hitbox))
-            {
-                dstrong_hitbox = spawn_hitbox(AT_DSTRONG, 2);
-            }
-            
-            //calculate angle towards projected next hit
-            //lengthdir_y is not an error: angle 0 is "directly behind" and so needs sine
-            var launch_x = -lengthdir_y(dstrong_current_speed/2, dstrong_angular_timer+2)
-                launch_x = (launch_x < 0) ? min(launch_x, -3) : max(launch_x, 3)
-            var launch_y = -max(2, abs(launch_x/2)); //to compensate 10 frames of gravity
-            
-            dstrong_hitbox.kb_value = point_distance(0, 0, launch_x, launch_y);
-            dstrong_hitbox.kb_angle = point_direction(0, 0, launch_x, launch_y);
-            
-            dstrong_hitbox.hitbox_timer = 0;
-        }
-        else
-        {
-            if (instance_exists(dstrong_hitbox))
-            {
-                dstrong_hitbox.destroyed = true;
-                dstrong_hitbox = noone;
-            }
-        }
+        dstrong_hitbox.hitbox_timer = 0;
         
         if (hit_wall)
         {
