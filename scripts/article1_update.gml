@@ -320,12 +320,12 @@ switch (state)
             spawn_hitbox(AT_DSTRONG_2, (state_timer < cd_dstrong_air_spiking_time) ? 1: 2);
             has_dstrong_hitbox = true;
         }
-        else if (!free || has_hit)
+        else if (!free || has_hit || was_parried)
         {
-            if (!has_hit) { sound_play(asset_get("sfx_blow_weak1")); }
+            if !(has_hit || was_parried) { sound_play(asset_get("sfx_blow_weak1")); }
             set_state(AR_STATE_IDLE);
             vsp = -6;
-            hsp = spr_dir * -1;
+            hsp = spr_dir * (was_parried ? 1 : -1);
         }
         
         //recall availability
