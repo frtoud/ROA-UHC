@@ -214,6 +214,14 @@ switch (state)
             dstrong_hitbox = spawn_hitbox(AT_DSTRONG, 2);
         }
         
+        if (was_parried)
+        {
+            dstrong_hitbox.can_hit_self = true;
+            spr_dir *= -1;
+            dstrong_angular_timer = 360 - dstrong_angular_timer;
+            dstrong_angular_timer_prev = dstrong_angular_timer - 1;
+        }
+        dstrong_hitbox.spr_dir = spr_dir;
         
         //angular timer of CD dictates how CD behaves
         hsp = -spr_dir * lengthdir_x(dstrong_current_speed, dstrong_angular_timer);
