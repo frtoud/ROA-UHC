@@ -62,8 +62,15 @@ switch (state)
         
         //Dying
         if !(pre_dspecial_immunity > 0) && (cd_spin_meter == 0)
+        && !(free) && (state_timer > 1)
         {
-            set_state(AR_STATE_DYING);
+            death_timer++;
+            if (death_timer > death_timer_max)
+            { set_state(AR_STATE_DYING); }
+        }
+        else
+        {
+            death_timer = 0;
         }
         
         //recall availability
