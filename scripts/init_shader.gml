@@ -5,6 +5,9 @@
 #macro ALT_GAMEBOY  7
 #macro ALT_R2       9
 #macro ALT_ROB      10
+#macro ALT_JSR      11
+#macro ALT_NICO     12
+#macro ALT_PAI      13
 #macro ALT_EVIL     14
 #macro ALT_TANK     15
 
@@ -23,10 +26,14 @@ if (current_color == ALT_AIR)
 || (current_color == ALT_R2) 
 || (current_color == ALT_ROB) 
 || (current_color == ALT_WALLE) 
+|| (current_color == ALT_NICO) 
+|| (current_color == ALT_PAI) 
 { 
     set_character_color_shading( 0, 2.0 );
 }
 if (current_color == ALT_AIR) 
+|| (current_color == ALT_JSR) 
+|| (current_color == ALT_PAI) 
 { 
     set_character_color_shading( 1, 2.0 );
 }

@@ -141,10 +141,17 @@ set_color_profile_slot(11, 3, 240, 220,   0 ); //Strip
 set_color_profile_slot(11, 4, 120, 205,  40 ); //Blinker
 
 // Terebii Chan
-set_color_profile_slot(13, 0, 190, 190, 190); //Body
-set_color_profile_slot(13, 1, 140, 140, 140); //Lens
-set_color_profile_slot(13, 2, 230, 170, 170); //CD
-set_color_profile_slot(13, 3, 230, 170, 170); //Paper
+set_color_profile_slot(12, 0, 190, 190, 190); //Body
+set_color_profile_slot(12, 1, 140, 140, 140); //Lens
+set_color_profile_slot(12, 2, 230, 170, 170); //CD
+set_color_profile_slot(12, 3, 230, 170, 170); //Paper
+set_color_profile_slot(12, 4, 255,  25,  25); //Blinker
+
+// Sponsored by Verizion
+set_color_profile_slot(13, 0, 185, 128,   0); //Body
+set_color_profile_slot(13, 1,  85, 200, 205); //Lens
+set_color_profile_slot(13, 2, 100,  60,  45); //CD
+set_color_profile_slot(13, 3,  70, 220, 225); //Paper
 set_color_profile_slot(13, 4, 255,  25,  25); //Blinker
 
 // Unrestrained
