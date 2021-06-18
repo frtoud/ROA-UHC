@@ -158,7 +158,13 @@ switch (state)
         if (vsp < 0)
         {
             do_gravity();
-            if (0 == state_timer % 5)
+            if (was_parried)
+            {
+                was_parried = false;
+                vsp = max(abs(vsp), cd_dstrong_air_min_speed_for_hitbox);
+                set_state(AR_STATE_DSTRONG_AIR);
+            }
+            else if (0 == state_timer % 5)
             {
                 spawn_hitbox(AT_USTRONG, 2);
             }
@@ -356,6 +362,13 @@ switch (state)
         {
             //blade was just caught
             //Activate DSPECIAL 2?
+        }
+        else if (was_parried)
+        {
+            was_parried = false;
+            set_state(AR_STATE_IDLE);
+            vsp = -6;
+            hsp = sign(hsp);
         }
         else if (0 == state_timer % 5)
         {
