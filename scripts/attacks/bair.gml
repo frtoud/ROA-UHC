@@ -5,7 +5,7 @@ set_attack_value(AT_BAIR, AG_HAS_LANDING_LAG, 1);
 set_attack_value(AT_BAIR, AG_LANDING_LAG, 4);
 set_attack_value(AT_BAIR, AG_HURTBOX_SPRITE, sprite_get("bair_hurt"));
 
-set_window_value(AT_BAIR, 1, AG_WINDOW_TYPE, 1);
+set_window_value(AT_BAIR, 1, AG_WINDOW_TYPE, 0);
 set_window_value(AT_BAIR, 1, AG_WINDOW_LENGTH, 6);
 set_window_value(AT_BAIR, 1, AG_WINDOW_LENGTH_BLADED, 10);
 set_window_value(AT_BAIR, 1, AG_WINDOW_ANIM_FRAMES, 1);
@@ -14,13 +14,13 @@ set_window_value(AT_BAIR, 1, AG_WINDOW_HAS_SFX, 1);
 set_window_value(AT_BAIR, 1, AG_WINDOW_SFX, asset_get("sfx_swipe_weak2"));
 set_window_value(AT_BAIR, 1, AG_WINDOW_SFX_FRAME, -1);
 
-set_window_value(AT_BAIR, 2, AG_WINDOW_TYPE, 1);
+set_window_value(AT_BAIR, 2, AG_WINDOW_TYPE, 0);
 set_window_value(AT_BAIR, 2, AG_WINDOW_LENGTH, 5);
 set_window_value(AT_BAIR, 2, AG_WINDOW_ANIM_FRAMES, 1);
 set_window_value(AT_BAIR, 2, AG_WINDOW_ANIM_FRAME_START, 1);
 set_window_value(AT_BAIR, 2, AG_WINDOW_SPIN_COST, 3);
 
-set_window_value(AT_BAIR, 3, AG_WINDOW_TYPE, 1);
+set_window_value(AT_BAIR, 3, AG_WINDOW_TYPE, 0);
 set_window_value(AT_BAIR, 3, AG_WINDOW_LENGTH, 4);
 set_window_value(AT_BAIR, 3, AG_WINDOW_ANIM_FRAMES, 1);
 set_window_value(AT_BAIR, 3, AG_WINDOW_ANIM_FRAME_START, 1);
@@ -29,12 +29,12 @@ set_window_value(AT_BAIR, 3, AG_WINDOW_HAS_SFX, 1);
 set_window_value(AT_BAIR, 3, AG_WINDOW_SFX, asset_get("sfx_swipe_weak1"));
 set_window_value(AT_BAIR, 3, AG_WINDOW_SFX_FRAME, 3);
 
-set_window_value(AT_BAIR, 4, AG_WINDOW_TYPE, 1);
+set_window_value(AT_BAIR, 4, AG_WINDOW_TYPE, 0);
 set_window_value(AT_BAIR, 4, AG_WINDOW_LENGTH, 5);
 set_window_value(AT_BAIR, 4, AG_WINDOW_ANIM_FRAMES, 1);
 set_window_value(AT_BAIR, 4, AG_WINDOW_ANIM_FRAME_START, 2);
 
-set_window_value(AT_BAIR, 5, AG_WINDOW_TYPE, 1);
+set_window_value(AT_BAIR, 5, AG_WINDOW_TYPE, 0);
 set_window_value(AT_BAIR, 5, AG_WINDOW_LENGTH, 8);
 set_window_value(AT_BAIR, 5, AG_WINDOW_LENGTH_BLADED, 12);
 set_window_value(AT_BAIR, 5, AG_WINDOW_ANIM_FRAMES, 1);
