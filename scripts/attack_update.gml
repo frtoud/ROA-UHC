@@ -75,6 +75,8 @@ switch (attack)
         
         if (window == 3)
         {
+            hsp = sign(hsp) * dash_speed;
+            
             if (window_timer >= 8)
             {
                 uhc_looping_attack_can_exit = true;

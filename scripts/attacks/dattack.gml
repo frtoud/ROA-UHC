@@ -24,8 +24,6 @@ set_window_value(AT_DATTACK, 3, AG_WINDOW_TYPE, 9); //looping
 set_window_value(AT_DATTACK, 3, AG_WINDOW_LENGTH, 12);
 set_window_value(AT_DATTACK, 3, AG_WINDOW_ANIM_FRAMES, 4);
 set_window_value(AT_DATTACK, 3, AG_WINDOW_ANIM_FRAME_START, 4);
-set_window_value(AT_DATTACK, 3, AG_WINDOW_HSPEED, dash_speed);
-set_window_value(AT_DATTACK, 3, AG_WINDOW_HSPEED_TYPE, 1);
 set_window_value(AT_DATTACK, 3, AG_WINDOW_SPIN_COST, 2);
 
 set_window_value(AT_DATTACK, 4, AG_WINDOW_TYPE, 0);
