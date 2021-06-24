@@ -179,6 +179,11 @@ switch (state)
                     }
                 }
             } break;
+//==========================================================
+            case AT_UTILT:
+            {
+                hud_offset = uhc_has_cd_blade ? 80 : 45;
+            } break;
 //===============================================================
             case AT_FSTRONG:
             case AT_USTRONG:

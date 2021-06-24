@@ -3,7 +3,7 @@ crouchbox_spr = asset_get("ex_guy_crouch_box");
 air_hurtbox_spr = -1;
 hitstun_hurtbox_spr = -1;
 
-char_height = 52;
+char_height = 42;
 idle_anim_speed = .125;
 crouch_anim_speed = 0;
 walk_anim_speed = .2;
