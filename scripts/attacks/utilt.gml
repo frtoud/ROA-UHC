@@ -35,8 +35,7 @@ set_hitbox_value(AT_UTILT, 1, HG_DAMAGE, 1);
 set_hitbox_value(AT_UTILT, 1, HG_ANGLE, 85);
 set_hitbox_value(AT_UTILT, 1, HG_ANGLE_FLIPPER, 4);
 set_hitbox_value(AT_UTILT, 1, HG_BASE_KNOCKBACK, 6);
-set_hitbox_value(AT_UTILT, 1, HG_BASE_HITPAUSE, 2);
-set_hitbox_value(AT_UTILT, 1, HG_HITPAUSE_SCALING, .1);
+set_hitbox_value(AT_UTILT, 1, HG_BASE_HITPAUSE, 1);
 set_hitbox_value(AT_UTILT, 1, HG_HIT_SFX, asset_get("sfx_blow_weak2"));
 set_hitbox_value(AT_UTILT, 1, HG_HITBOX_GROUP, 1);
 //Blade
@@ -52,8 +51,7 @@ set_hitbox_value(AT_UTILT, 4, HG_DAMAGE, 2);
 set_hitbox_value(AT_UTILT, 4, HG_ANGLE, 85);
 set_hitbox_value(AT_UTILT, 4, HG_ANGLE_FLIPPER, 4);
 set_hitbox_value(AT_UTILT, 4, HG_BASE_KNOCKBACK, 5);
-set_hitbox_value(AT_UTILT, 4, HG_BASE_HITPAUSE, 3);
-set_hitbox_value(AT_UTILT, 4, HG_HITPAUSE_SCALING, .2);
+set_hitbox_value(AT_UTILT, 4, HG_BASE_HITPAUSE, 2);
 set_hitbox_value(AT_UTILT, 4, HG_HIT_SFX, asset_get("sfx_blow_medium2"));
 set_hitbox_value(AT_UTILT, 4, HG_HITBOX_GROUP, 1);
 
