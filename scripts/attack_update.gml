@@ -290,18 +290,18 @@ switch (attack)
                         continue;
                     }
                     
-                        var is_closer = distance_to_object(other) < 
-                                        point_distance(target_cd.x, target_cd.y, other.x, other.y);
-                                        
-                        //closest "last thrown" CD 
-                        if ((other == current_owner_id)
-                        &&  (other != target_cd.current_owner_id || is_closer))
-                        // or closest CD in general if a "last thrown" was not found
-                        ||  (other != target_cd.current_owner_id && is_closer)
-                        {
-                            found_target_cd = self;
-                        }
+                    var is_closer = distance_to_object(other) < 
+                                    point_distance(target_cd.x, target_cd.y, other.x, other.y);
+                                    
+                    //closest "last thrown" CD 
+                    if ((other == current_owner_id)
+                    &&  (other != target_cd.current_owner_id || is_closer))
+                    // or closest CD in general if a "last thrown" was not found
+                    ||  (other != target_cd.current_owner_id && is_closer)
+                    {
+                        found_target_cd = self;
                     }
+                }
                 uhc_recalling_cd = target_cd;
                 //CD is not allowed to die before recall happens
                 if (uhc_recalling_cd != noone)
