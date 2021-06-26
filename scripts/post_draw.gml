@@ -53,6 +53,20 @@ if (uhc_anim_fspecial_flash_spr != noone)
                     x + (spr_dir * 18), y - 28, spr_dir * scale, scale, 0, c_white, 1);
     shader_end();
 }
+
+//===================================================
+//Respawn effects using HUD meters
+#macro ICON_BAR     0
+#macro ICON_MARKER  1
+if (state == PS_RESPAWN || respawn_taunt)
+{
+    var load_pos = (uhc_anim_platform_buffer_timer)/uhc_anim_platform_timer_max * 100;
+    draw_sprite_stretched_ext(vfx_hud_icons, ICON_BAR, x-48, y + 2, load_pos, 18, c_gray, 1);
+    draw_sprite_ext(vfx_hud_icons, ICON_MARKER, x-48, y, 2, 2, 0, c_white, 1);
+    
+    draw_buffering(x, y);
+}
+
 //===================================================
 // Taunt Video
 if (uhc_taunt_current_video != noone)
@@ -80,7 +94,7 @@ if (uhc_taunt_current_video != noone)
         posy += draw_y;
         
         //individual CDs animate their spin.
-        uhc_anim_blade_spin = uhc_current_cd.cd_anim_blade_spin;
+        uhc_anim_blade_spin = (state == PS_RESPAWN || respawn_taunt) ? 1 : uhc_current_cd.cd_anim_blade_spin;
         uhc_anim_blade_color = uhc_current_cd.cd_anim_color;
         init_shader();
         

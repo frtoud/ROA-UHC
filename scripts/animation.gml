@@ -65,6 +65,19 @@ if (uhc_cd_can_respawn || random_func(3, 60, true) == 0)
     uhc_anim_buffer_timer = uhc_cd_respawn_timer;
 }
 
+//similar pattern for Hypercam's own respawn
+if (state == PS_RESPAWN && state_timer == 1)
+{
+    uhc_anim_platform_timer = 1;
+    uhc_anim_platform_buffer_timer = uhc_anim_platform_timer_min;
+}
+else if (random_func(4, 20, true) == 0)
+{
+    uhc_anim_platform_buffer_timer = clamp(uhc_anim_platform_timer - uhc_anim_platform_timer_min, 
+                                           0, uhc_anim_platform_timer_max);
+}
+uhc_anim_platform_timer++;
+
 //===============================================================
 // Reset at the beginning of each move/state
 // Used by Strongs so that throws can show smears
@@ -322,11 +335,31 @@ switch (state)
                         uhc_taunt_is_opening = false;
                     }
                 }
+
+                //Respawn taunt special behavior
+                if (respawn_taunt)
+                {
+                    if (uhc_taunt_buffering_timer > 1) uhc_taunt_buffering_timer++;
+                    switch (image_index)
+                    {
+                        case 0: case 1: case 2: 
+                           image_index = 2; break;
+                        case 3: case 4: case 5: case 6:
+                           image_index = 4; break;
+                        default: 
+                           image_index = 10; break;
+                    }
+                }
+
             } break;
 //===============================================================
             default: break;
         }
     } break;
+    case PS_RESPAWN:
+    {
+        image_index = 0;
+    }break;
     default: break;
 }
 

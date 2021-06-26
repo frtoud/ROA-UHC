@@ -181,6 +181,10 @@ uhc_anim_rewind =
 
 uhc_anim_buffer_timer = 0;
 uhc_anim_dspecial_image_timer = 0;
+uhc_anim_platform_timer = 0;
+uhc_anim_platform_timer_min =  90; //start of platform visibility
+uhc_anim_platform_timer_max = 300 - uhc_anim_platform_timer_min; //time until platform despawns
+uhc_anim_platform_buffer_timer = 0;
 
 sfx_dspecial_reload = sound_get("sfx_reload");
 sfx_dspecial_reload_done = sound_get("sfx_reload_done");
