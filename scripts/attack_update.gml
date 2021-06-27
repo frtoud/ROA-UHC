@@ -47,6 +47,7 @@ switch (attack)
                 window = 8;
                 window_timer = 0;
                 destroy_hitboxes();
+                uhc_update_blade_status = true;
             }
         }
         
