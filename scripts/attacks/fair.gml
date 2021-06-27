@@ -108,7 +108,7 @@ set_hitbox_value(AT_FAIR, 4, HG_PRIORITY, 8);
 set_hitbox_value(AT_FAIR, 4, HG_DAMAGE, 6);
 set_hitbox_value(AT_FAIR, 4, HG_SPIN_COST, 5);
 set_hitbox_value(AT_FAIR, 4, HG_SPIN_DAMAGE_BONUS, 4.5);
-set_hitbox_value(AT_FAIR, 4, HG_SPIN_HITPAUSE_BONUS, 4);
+set_hitbox_value(AT_FAIR, 4, HG_SPIN_HITPAUSE_BONUS, 8);
 set_hitbox_value(AT_FAIR, 4, HG_SPIN_KNOCKBACK_SCALING_BONUS, .4);
 set_hitbox_value(AT_FAIR, 4, HG_ANGLE, 30);
 set_hitbox_value(AT_FAIR, 4, HG_BASE_KNOCKBACK, 5);
