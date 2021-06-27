@@ -548,6 +548,10 @@ if ( state == AR_STATE_HELD || state == AR_STATE_IDLE || state == AR_STATE_DYING
         { hb.kb_value += charge_percent * get_hitbox_value(atk, hnum, HG_SPIN_KNOCKBACK_BONUS); }
         if (0 < get_hitbox_value(atk, hnum, HG_SPIN_KNOCKBACK_SCALING_BONUS))
         { hb.kb_scale += charge_percent * get_hitbox_value(atk, hnum, HG_SPIN_KNOCKBACK_SCALING_BONUS); }
+        
+        //SFX
+        if (0 < get_hitbox_value(atk, hnum, HG_SPIN_SFX) && charge_percent > uhc_spin_sfx_threshold)
+        { hb.sound_effect = get_hitbox_value(atk, hnum, HG_SPIN_SFX); }
     }
     
     return hb;

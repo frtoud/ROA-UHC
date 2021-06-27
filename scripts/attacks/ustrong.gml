@@ -43,7 +43,7 @@ set_hitbox_value(AT_USTRONG, 1, HG_BASE_KNOCKBACK, 14);
 set_hitbox_value(AT_USTRONG, 1, HG_BASE_HITPAUSE, 5);
 set_hitbox_value(AT_USTRONG, 1, HG_HITPAUSE_SCALING, .5);
 set_hitbox_value(AT_USTRONG, 1, HG_SPIN_DAMAGE_BONUS, 1.25);
-set_hitbox_value(AT_USTRONG, 1, HG_HIT_SFX, asset_get("sfx_blow_weak2"));
+set_hitbox_value(AT_USTRONG, 1, HG_HIT_SFX, sound_get("sfx_ssbu_slash1"));
 
 // Multihit
 set_hitbox_value(AT_USTRONG, 2, HG_HITBOX_TYPE, 2);
@@ -65,7 +65,7 @@ set_hitbox_value(AT_USTRONG, 2, HG_TECHABLE, 3);
 set_hitbox_value(AT_USTRONG, 2, HG_BASE_KNOCKBACK, 2);
 set_hitbox_value(AT_USTRONG, 2, HG_BASE_HITPAUSE, 5);
 set_hitbox_value(AT_USTRONG, 2, HG_SPIN_COST, 1);
-set_hitbox_value(AT_USTRONG, 2, HG_HIT_SFX, asset_get("sfx_blow_weak2"));
+set_hitbox_value(AT_USTRONG, 2, HG_HIT_SFX, sound_get("sfx_ssbu_slash1b"));
 set_hitbox_value(AT_USTRONG, 2, HG_PROJECTILE_SPRITE, asset_get("empty_sprite"));
 set_hitbox_value(AT_USTRONG, 2, HG_PROJECTILE_MASK, -1);
 
@@ -91,6 +91,6 @@ set_hitbox_value(AT_USTRONG, 3, HG_BASE_HITPAUSE, 8);
 set_hitbox_value(AT_USTRONG, 3, HG_HITPAUSE_SCALING, 0.6);
 set_hitbox_value(AT_USTRONG, 3, HG_SPIN_COST, 8);
 set_hitbox_value(AT_USTRONG, 3, HG_SPIN_DAMAGE_BONUS, 4.2);
-set_hitbox_value(AT_USTRONG, 3, HG_HIT_SFX, asset_get("sfx_blow_heavy2"));
+set_hitbox_value(AT_USTRONG, 3, HG_HIT_SFX, sound_get("sfx_ssbu_slash3"));
 set_hitbox_value(AT_USTRONG, 3, HG_PROJECTILE_SPRITE, asset_get("empty_sprite"));
 set_hitbox_value(AT_USTRONG, 3, HG_PROJECTILE_MASK, -1);

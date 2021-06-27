@@ -42,7 +42,7 @@ set_hitbox_value(AT_DSTRONG, 1, HG_ANGLE, 160);
 set_hitbox_value(AT_DSTRONG, 1, HG_BASE_KNOCKBACK, 5);
 set_hitbox_value(AT_DSTRONG, 1, HG_BASE_HITPAUSE, 4);
 set_hitbox_value(AT_DSTRONG, 1, HG_VISUAL_EFFECT_X_OFFSET, 10);
-set_hitbox_value(AT_DSTRONG, 1, HG_HIT_SFX, asset_get("sfx_blow_weak1"));
+set_hitbox_value(AT_DSTRONG, 1, HG_HIT_SFX, sound_get("sfx_ssbu_slash1b"));
 
 //Spinning hit(s)
 set_hitbox_value(AT_DSTRONG, 2, HG_HITBOX_TYPE, 2);
@@ -64,7 +64,7 @@ set_hitbox_value(AT_DSTRONG, 2, HG_EXTRA_HITPAUSE, 2);
 set_hitbox_value(AT_DSTRONG, 2, HG_TECHABLE, 3);
 set_hitbox_value(AT_DSTRONG, 2, HG_HITSTUN_MULTIPLIER, 2);
 set_hitbox_value(AT_DSTRONG, 2, HG_SPIN_COST, 1);
-set_hitbox_value(AT_DSTRONG, 2, HG_HIT_SFX, asset_get("sfx_blow_weak1"));
+set_hitbox_value(AT_DSTRONG, 2, HG_HIT_SFX, sound_get("sfx_ssbu_slash1"));
 set_hitbox_value(AT_DSTRONG, 2, HG_PROJECTILE_SPRITE, asset_get("empty_sprite"));
 set_hitbox_value(AT_DSTRONG, 2, HG_PROJECTILE_MASK, -1);
 set_hitbox_value(AT_DSTRONG, 2, HG_PROJECTILE_DESTROY_EFFECT, 1);
@@ -93,6 +93,6 @@ set_hitbox_value(AT_DSTRONG, 3, HG_KNOCKBACK_SCALING, 0.8);
 set_hitbox_value(AT_DSTRONG, 3, HG_BASE_HITPAUSE, 5);
 set_hitbox_value(AT_DSTRONG, 3, HG_HITPAUSE_SCALING, 0.3);
 set_hitbox_value(AT_DSTRONG, 3, HG_VISUAL_EFFECT, 0);
-set_hitbox_value(AT_DSTRONG, 3, HG_HIT_SFX, asset_get("sfx_blow_heavy2"));
+set_hitbox_value(AT_DSTRONG, 3, HG_HIT_SFX, sound_get("sfx_ssbu_slash3"));
 set_hitbox_value(AT_DSTRONG, 3, HG_PROJECTILE_SPRITE, asset_get("empty_sprite"));
 set_hitbox_value(AT_DSTRONG, 3, HG_PROJECTILE_MASK, -1);

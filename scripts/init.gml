@@ -109,7 +109,11 @@ HG_SPIN_COST = 70;           // CD Charge cost of hitting with this hitbox
 HG_SPIN_DAMAGE_BONUS = 71;            // HG_DAMAGE
 HG_SPIN_HITPAUSE_BONUS = 72;          // HG_BASE_HITPAUSE
 HG_SPIN_KNOCKBACK_BONUS = 73;         // HG_BASE_KNOCKBACK
-HG_SPIN_KNOCKBACK_SCALING_BONUS = 74; // HG_KNOCKBACK_SCALING 
+HG_SPIN_KNOCKBACK_SCALING_BONUS = 74; // HG_KNOCKBACK_SCALING
+// sound effect adjustment for high spin moves
+HG_SPIN_SFX = 75;                     // HG_HIT_SFX 
+uhc_spin_sfx_threshold = 0.40; //above 40% spin, you get the new sounds
+uhc_spin_sfx_high_threshold = 0.80; //above 80% spin, some moves get even more sounds
 
 // Custom Angle Flipper values
 ANGLE_FLIPPER_CD_MULTIHIT = 55; //simulate "pull towards center" angle flipper; but considers speed of cd

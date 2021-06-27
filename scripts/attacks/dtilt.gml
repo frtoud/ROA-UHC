@@ -67,3 +67,4 @@ set_hitbox_value(AT_DTILT, 2, HG_SPIN_KNOCKBACK_SCALING_BONUS, .5);
 set_hitbox_value(AT_DTILT, 2, HG_VISUAL_EFFECT_X_OFFSET, 30);
 set_hitbox_value(AT_DTILT, 2, HG_VISUAL_EFFECT_Y_OFFSET, 10);
 set_hitbox_value(AT_DTILT, 2, HG_HIT_SFX, asset_get("sfx_blow_medium2"));
+set_hitbox_value(AT_DTILT, 2, HG_SPIN_SFX, sound_get("sfx_ssbu_slash2"));

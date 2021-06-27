@@ -517,6 +517,18 @@ if (uhc_has_cd_blade || uhc_spin_cost_throw_bypass)
                 apply_spin_bonus(charge_percent, attack, hb, HG_BASE_KNOCKBACK, HG_SPIN_KNOCKBACK_BONUS);
                 apply_spin_bonus(charge_percent, attack, hb, HG_KNOCKBACK_SCALING, HG_SPIN_KNOCKBACK_SCALING_BONUS);
             }
+            
+            //SFX "bonus"
+            if (get_hitbox_value(attack, hb, HG_SPIN_SFX) > 0)
+            {
+                if (attack == AT_FAIR || attack == AT_BAIR)
+                && (charge_percent > uhc_spin_sfx_high_threshold)
+                { set_hitbox_value(attack, hb, HG_HIT_SFX, sound_get("sfx_tf2_sawblade")); }
+                else if (charge_percent > uhc_spin_sfx_threshold)
+                { set_hitbox_value(attack, hb, HG_HIT_SFX, get_hitbox_value(attack, hb, HG_SPIN_SFX)); }
+                else
+                { reset_hitbox_value(attack, hb, HG_HIT_SFX); }
+            }
         }
     }
     else
@@ -535,7 +547,6 @@ if (uhc_has_cd_blade || uhc_spin_cost_throw_bypass)
             set_window_value(attack, w, AG_WINDOW_LENGTH,
                              get_window_value(attack, w, AG_WINDOW_LENGTH_BLADED));
         }
-        
     }
 }
 

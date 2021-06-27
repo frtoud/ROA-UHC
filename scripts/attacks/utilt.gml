@@ -52,7 +52,8 @@ set_hitbox_value(AT_UTILT, 4, HG_ANGLE, 85);
 set_hitbox_value(AT_UTILT, 4, HG_ANGLE_FLIPPER, 4);
 set_hitbox_value(AT_UTILT, 4, HG_BASE_KNOCKBACK, 5);
 set_hitbox_value(AT_UTILT, 4, HG_BASE_HITPAUSE, 2);
-set_hitbox_value(AT_UTILT, 4, HG_HIT_SFX, asset_get("sfx_blow_medium2"));
+set_hitbox_value(AT_UTILT, 4, HG_HIT_SFX, asset_get("sfx_blow_weak1"));
+set_hitbox_value(AT_UTILT, 4, HG_SPIN_SFX, sound_get("sfx_ssbu_slash1"));
 set_hitbox_value(AT_UTILT, 4, HG_HITBOX_GROUP, 1);
 
 
@@ -108,5 +109,6 @@ set_hitbox_value(AT_UTILT, 6, HG_BASE_KNOCKBACK, 7);
 set_hitbox_value(AT_UTILT, 6, HG_KNOCKBACK_SCALING, 0.4);
 set_hitbox_value(AT_UTILT, 6, HG_BASE_HITPAUSE, 7);
 set_hitbox_value(AT_UTILT, 6, HG_HITPAUSE_SCALING, .35);
-set_hitbox_value(AT_UTILT, 6, HG_HIT_SFX, asset_get("sfx_blow_medium2"));
+set_hitbox_value(AT_UTILT, 6, HG_HIT_SFX, asset_get("sfx_blow_weak1"));
+set_hitbox_value(AT_UTILT, 6, HG_SPIN_SFX, sound_get("sfx_ssbu_slash1b"));
 set_hitbox_value(AT_UTILT, 6, HG_HITBOX_GROUP, 3);

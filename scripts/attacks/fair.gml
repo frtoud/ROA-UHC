@@ -70,7 +70,8 @@ set_hitbox_value(AT_FAIR, 3, HG_BASE_HITPAUSE, 8);
 set_hitbox_value(AT_FAIR, 3, HG_HITPAUSE_SCALING, .8);
 set_hitbox_value(AT_FAIR, 3, HG_VISUAL_EFFECT_X_OFFSET, 32);
 set_hitbox_value(AT_FAIR, 3, HG_VISUAL_EFFECT_Y_OFFSET, -10);
-set_hitbox_value(AT_FAIR, 3, HG_HIT_SFX, asset_get("sfx_blow_heavy1"));
+set_hitbox_value(AT_FAIR, 3, HG_HIT_SFX, asset_get("sfx_blow_heavy2"));
+set_hitbox_value(AT_FAIR, 3, HG_SPIN_SFX, sound_get("sfx_ssbu_slash2"));
 
 //======================================================
 //Late Hit
@@ -116,5 +117,6 @@ set_hitbox_value(AT_FAIR, 4, HG_BASE_HITPAUSE, 6);
 set_hitbox_value(AT_FAIR, 4, HG_HITPAUSE_SCALING, .4);
 set_hitbox_value(AT_FAIR, 4, HG_VISUAL_EFFECT_X_OFFSET, 32);
 set_hitbox_value(AT_FAIR, 4, HG_VISUAL_EFFECT_Y_OFFSET, -10);
-set_hitbox_value(AT_FAIR, 4, HG_HIT_SFX, asset_get("sfx_blow_heavy1"));
+set_hitbox_value(AT_FAIR, 4, HG_HIT_SFX, asset_get("sfx_blow_heavy2"));
+set_hitbox_value(AT_FAIR, 4, HG_SPIN_SFX, sound_get("sfx_ssbu_slash2"));
 set_hitbox_value(AT_FAIR, 4, HG_ANGLE_FLIPPER, 3);

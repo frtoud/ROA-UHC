@@ -80,6 +80,7 @@ set_hitbox_value(AT_DATTACK, 3, HG_BASE_HITPAUSE, 6);
 set_hitbox_value(AT_DATTACK, 3, HG_VISUAL_EFFECT_X_OFFSET, 8);
 set_hitbox_value(AT_DATTACK, 3, HG_VISUAL_EFFECT_Y_OFFSET, 8);
 set_hitbox_value(AT_DATTACK, 3, HG_HIT_SFX, asset_get("sfx_blow_weak2"));
+set_hitbox_value(AT_DATTACK, 3, HG_SPIN_SFX, sound_get("sfx_ssbu_slash1"));
 
 //Infinite (spawned manually)
 set_hitbox_value(AT_DATTACK, 4, HG_HITBOX_TYPE, 1);
@@ -98,5 +99,5 @@ set_hitbox_value(AT_DATTACK, 4, HG_KNOCKBACK_SCALING, .1);
 set_hitbox_value(AT_DATTACK, 4, HG_BASE_HITPAUSE, 3);
 set_hitbox_value(AT_DATTACK, 4, HG_VISUAL_EFFECT_X_OFFSET, 8);
 set_hitbox_value(AT_DATTACK, 4, HG_VISUAL_EFFECT_Y_OFFSET, 8);
-set_hitbox_value(AT_DATTACK, 4, HG_HIT_SFX, asset_get("sfx_blow_weak2"));
+set_hitbox_value(AT_DATTACK, 4, HG_HIT_SFX, sound_get("sfx_ssbu_slash1b"));
 set_hitbox_value(AT_DATTACK, 4, HG_HITBOX_GROUP, -1);
