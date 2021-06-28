@@ -43,7 +43,6 @@ for (var i = 1; i <= 5; i++)
     set_hitbox_value(AT_NSPECIAL, i, HG_BASE_KNOCKBACK, 7);
     set_hitbox_value(AT_NSPECIAL, i, HG_BASE_HITPAUSE, 2);
     set_hitbox_value(AT_NSPECIAL, i, HG_ANGLE, 75);
-    set_hitbox_value(AT_NSPECIAL, i, HG_VISUAL_EFFECT_Y_OFFSET, -16);
     set_hitbox_value(AT_NSPECIAL, i, HG_HIT_SFX, asset_get("sfx_blow_weak1"));
     set_hitbox_value(AT_NSPECIAL, i, HG_PROJECTILE_SPRITE, sprite_get("proj_star"));
     set_hitbox_value(AT_NSPECIAL, i, HG_PROJECTILE_MASK, -1);
