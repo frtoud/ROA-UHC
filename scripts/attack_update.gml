@@ -410,8 +410,16 @@ switch (attack)
             vsp = lengthdir_y(uspecial_speed, joy_dir);
         }
         var attack_stopped = false;
+        var need_ejector = true;
         //autocancel if landing
-        if (!free && window > 2)
+        if (shield_pressed && window == 3)
+        {
+            window = 4; 
+            window_timer = 1;
+            attack_stopped = true;
+            need_ejector = false;
+        }
+        else if (!free && window > 2)
         {
             set_state(PS_PRATFALL);
             attack_stopped = true;
@@ -436,7 +444,7 @@ switch (attack)
                 //for each victim...
                 var victim = self;
                 being_buffered_by = noone;
-                with (other)//...back to Hypercam
+                with (other) if (need_ejector)//...back to Hypercam
                 {
                     var hitbox = create_hitbox(AT_USPECIAL, 3, victim.x, victim.y - victim.char_height/2);
                     hitbox.spr_dir = 1;
