@@ -212,7 +212,7 @@ switch (state)
 //===============================================================
             case AT_FSPECIAL:
             {
-                if (window == 1 && window_timer == 7)
+                if (window == 1 && window_timer == 1)
                 {
                     uhc_anim_fspecial_flash_timer = 8;
                     uhc_anim_fspecial_flash_spr = vfx_flash_charge;
