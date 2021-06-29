@@ -268,8 +268,6 @@ switch (attack)
 //==========================================================
     case AT_DSPECIAL:
     {
-        can_shield = (window == 4);
-        
         if (window == 1)
         {
             //try finding a target for CD recall
@@ -372,6 +370,7 @@ switch (attack)
         else if (window == 4)
         {
             if (uhc_current_cd.cd_spin_meter >= uhc_cd_spin_max)
+            || (shield_pressed)
             {
                 window = 5;
                 window_timer = 0;
