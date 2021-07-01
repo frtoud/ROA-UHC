@@ -9,9 +9,11 @@ if (state == PS_PARRY && image_index == dodge_startup_frames)
     draw_sprite_ext(sprite_index, image_index, x, y, spr_dir*scale, scale, 0, c_white, 1);
     shader_end();
 }
+
 //===================================================
 // Drawing bladed sprites
 draw_blade(sprite_index, image_index, x, y);
+
 //===================================================
 // Jab-walk
 if (state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR)
@@ -22,6 +24,7 @@ if (state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR)
                     x, y, spr_dir * scale, scale, 0, c_white, 1);
     shader_end();
 }
+
 //===================================================
 // Strong buffering
 if (state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR)
@@ -30,6 +33,7 @@ if (state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR)
 {
     draw_buffering(x, y);
 }
+
 //===================================================
 //Dodge effects
 if (state == PS_AIR_DODGE && window == 1)
@@ -43,6 +47,29 @@ if (state == PS_AIR_DODGE && window == 1)
     draw_blade(sprite_index, img_index, uhc_anim_last_dodge.posx, uhc_anim_last_dodge.posy);
     draw_buffering(uhc_anim_last_dodge.posx, uhc_anim_last_dodge.posy);
 }
+
+//===================================================
+//NSPECIAL: charge, arm and smear
+if (state == PS_ATTACK_AIR || state == PS_ATTACK_GROUND) && (attack == AT_NSPECIAL)
+{
+    shader_start();
+    if (!uhc_has_cd_blade)
+    {
+        draw_sprite_ext(uhc_anim_nspecial_arm, image_index, x, y, 
+                        spr_dir * scale, scale, spr_angle, c_white, 1);
+    }
+    if (window == 2)
+    {
+
+    }
+    else if (window == 3)
+    {
+        var spr_index = free ? uhc_anim_nspecial_smear_air : uhc_anim_nspecial_smear;
+        draw_sprite_ext(spr_index, image_index, x, y, spr_dir * scale, scale, spr_angle, c_white, 1);
+    }
+    shader_end();
+}
+
 //===================================================
 // FSPECIAL Flash
 if (uhc_anim_fspecial_flash_spr != noone)

@@ -210,6 +210,15 @@ switch (state)
                 }
             } break;
 //===============================================================
+            case AT_NSPECIAL:
+            {
+                if (window == 2)
+                {
+                    image_index = uhc_nspecial_charges
+                                + get_window_value(AT_NSPECIAL, 2, AG_WINDOW_ANIM_FRAME_START);
+                }
+            } break;
+//===============================================================
             case AT_FSPECIAL:
             {
                 if (window == 1 && window_timer == 1)

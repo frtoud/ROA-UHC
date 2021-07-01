@@ -54,7 +54,11 @@ sprite_change_offset_bladed("fstrong_air", 17, 24);
 sprite_change_offset_bladed("ustrong_air", 19, 64);
 sprite_change_offset_bladed("dstrong_air", 19, 29);
 
- sprite_change_offset("nspecial", 20, 21, true);
+sprite_change_offset_bladed("nspecial", 24, 24);
+sprite_change_offset_bladed("nspecial_air", 24, 30);
+sprite_change_offset("nspecial_arm", 8, 13);
+sprite_change_offset("nspecial_smear", 19, 16);
+sprite_change_offset("nspecial_air_smear", 21, 16);
 sprite_change_offset_bladed("fspecial", 17, 23);
 sprite_change_offset_bladed("fspecial_air", 20, 27);
 sprite_change_offset_bladed("uspecial", 19, 30);

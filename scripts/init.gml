@@ -162,6 +162,11 @@ vfx_hud_icons = sprite_get("hud_icons");
 vfx_buffering = sprite_get("vfx_buffering");
 vfx_mini_buffering = sprite_get("vfx_mini_buffering");
 
+//NSPECIAL 
+uhc_anim_nspecial_arm = sprite_get("nspecial_arm");
+uhc_anim_nspecial_smear = sprite_get("nspecial_smear");
+uhc_anim_nspecial_smear_air = sprite_get("nspecial_air_smear");
+
 //FSPECIAL flash
 vfx_flash_charge = sprite_get("vfx_flash_charge");
 vfx_flash_small = sprite_get("vfx_flash_small");
