@@ -261,8 +261,8 @@ uhc_ustrong_throwspeed_horz = -1;
 uhc_dair_boost = 3;
 uhc_dair_boost_final = 7;
 
-uhc_cd_spin_drain_base = 0.04;
-uhc_cd_spin_drain_idle = 0.10;
+uhc_cd_spin_drain_base = 0.035;
+uhc_cd_spin_drain_idle = 0.065;
 uhc_cd_spin_charge_rate = 1;
 uhc_cd_spin_max = 100;
 uhc_cd_respawn_timer_max = 300;

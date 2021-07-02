@@ -79,7 +79,7 @@ was_parried = false; // if the CD was just parried
 last_parried_by_player = 0; // which player needs to not be hit by the CD (0 meaning owner)
 
 death_timer = 0;
-death_timer_max = 30; //time it takes before a CD dies for good
+death_timer_max = 90; //time it takes before a CD dies for good
 death_anim_timer_max = 30; //time it takes for the death animation
 pre_dspecial_immunity = 0; //prevents CD from dying while AT_DSPECIAL_2 is in progress
 can_recall = false; //if true, CD is available to be recalled
