@@ -60,7 +60,43 @@ if (state == PS_ATTACK_AIR || state == PS_ATTACK_GROUND) && (attack == AT_NSPECI
     }
     if (window == 2)
     {
-
+        var staroffset_x = x - (spr_dir * 28);
+        var staroffset_y = y - 20;
+        var starx = 0;
+        var stary = 0;
+        var star_sprite = sprite_get("vfx_star_trail");
+        var star_angle = (get_gameplay_time() * 10) % 360;
+        var star_spin_length = 10;
+        switch (uhc_nspecial_charges)
+        {
+            case 4:
+                starx = staroffset_x + lengthdir_x(star_spin_length, star_angle + 90);
+                stary = staroffset_y + lengthdir_y(star_spin_length, star_angle + 90);
+                draw_sprite_ext(star_sprite, 2, starx, stary, 
+                                1, 1, 0, c_white, 1);
+            case 3:
+                starx = staroffset_x + lengthdir_y(star_spin_length, star_angle - 90);
+                stary = staroffset_y + lengthdir_x(star_spin_length, star_angle - 90);
+                draw_sprite_ext(star_sprite, 2, starx, stary, 
+                                1, 1, 0, c_white, 1);
+            case 2:
+                starx = staroffset_x + lengthdir_y(star_spin_length, star_angle + 180);
+                stary = staroffset_y + lengthdir_y(star_spin_length, star_angle + 180);
+                draw_sprite_ext(star_sprite, 2, starx, stary, 
+                                1, 1, 0, c_white, 1);
+            case 1:
+                starx = staroffset_x - lengthdir_x(star_spin_length, star_angle);
+                stary = staroffset_y + lengthdir_x(star_spin_length, star_angle);
+                draw_sprite_ext(star_sprite, 2, starx, stary, 
+                                1, 1, 0, c_white, 1);
+            case 0:
+            default:
+                starx = staroffset_x;
+                stary = staroffset_y;
+                draw_sprite_ext(star_sprite, 0, starx, stary, 
+                                1, 1, star_angle, c_white, 1);
+            break;
+        }
     }
     else if (window == 3)
     {

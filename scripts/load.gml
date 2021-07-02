@@ -66,9 +66,10 @@ sprite_change_offset_bladed("dspecial", 19, 49);
 sprite_change_offset_bladed("dspecial_air", 19, 50);
 sprite_change_offset_bladed("taunt", 22, 22);
 
- sprite_change_offset("plat", 30, 0);
+sprite_change_offset("plat", 30, 0);
 
 sprite_change_offset("proj_star", 9, 11);
+sprite_change_offset("vfx_star_trail", 9, 11);
 
 sprite_change_offset("article_cd_idle", 19, 18);
 sprite_change_offset("article_cd_idle2", 17, 16);

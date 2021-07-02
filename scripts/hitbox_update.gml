@@ -6,6 +6,11 @@ if (attack == AT_NSPECIAL)
 {
     proj_angle -= 15;
     if (!free) { destroyed = true; }
+    else 
+    {
+        var hfx = spawn_hit_fx(x, y, orig_player_id.vfx_star_trail);
+        hfx.draw_angle = proj_angle;
+    }
 }
 
 //=====================================================

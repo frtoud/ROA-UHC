@@ -187,8 +187,10 @@ switch (attack)
             else if (uhc_nspecial_charges < uhc_nspecial_charges_max)
                  && (window_timer == (get_window_value(AT_NSPECIAL, 2, AG_WINDOW_LENGTH) - 1))
             {
-                sound_play(asset_get("sfx_coin_collect"));
                 uhc_nspecial_charges++;
+                sound_play((uhc_nspecial_charges == uhc_nspecial_charges_max ? 
+                            asset_get("mfx_star") : asset_get("mfx_player_ready")), 
+                            false, noone, 1, 0.75 + (0.15 * uhc_nspecial_charges));
             }
         }
         else if (window == 3)
