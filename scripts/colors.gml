@@ -119,6 +119,13 @@ set_color_profile_slot(7, 2,  96, 122,  82); //CD
 set_color_profile_slot(7, 3, 211, 226, 154); //Paper
 set_color_profile_slot(7, 4, 211, 226, 154); //Blinker 
 
+// Kodak
+set_color_profile_slot(8, 0, 196, 156,  20); //Body
+set_color_profile_slot(8, 1,  45,  45,  45); //Lens
+set_color_profile_slot(8, 2,  15,  15,  15); //CD
+set_color_profile_slot(8, 3, 190,  25,   5); //Paper
+set_color_profile_slot(8, 4, 255,  25,  25); //Blinker
+
 // Astrodroid
 set_color_profile_slot(9, 0, 200, 200, 200); //Body -- needs shading x2.0
 set_color_profile_slot(9, 1,  45,  45,  45); //Lens
