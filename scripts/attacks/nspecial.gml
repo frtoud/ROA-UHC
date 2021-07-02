@@ -12,7 +12,7 @@ set_window_value(AT_NSPECIAL, 1, AG_WINDOW_GOTO, 3);
 
 //Loops to charge using attack_update.gml
 set_window_value(AT_NSPECIAL, 2, AG_WINDOW_TYPE, 9); //Looping
-set_window_value(AT_NSPECIAL, 2, AG_WINDOW_LENGTH, 24);
+set_window_value(AT_NSPECIAL, 2, AG_WINDOW_LENGTH, 20);
 set_window_value(AT_NSPECIAL, 2, AG_WINDOW_ANIM_FRAMES, 5); //controlled manually
 set_window_value(AT_NSPECIAL, 2, AG_WINDOW_ANIM_FRAME_START, 2);
 
@@ -31,8 +31,8 @@ for (var i = 1; i <= 5; i++)
 {
     set_hitbox_value(AT_NSPECIAL, i, HG_HITBOX_TYPE, 2);
     set_hitbox_value(AT_NSPECIAL, i, HG_WINDOW, 3);
-    set_hitbox_value(AT_NSPECIAL, i, HG_WINDOW_CREATION_FRAME, 1 + 2*(i-1));
-    set_hitbox_value(AT_NSPECIAL, i, HG_LIFETIME, 40);
+    set_hitbox_value(AT_NSPECIAL, i, HG_WINDOW_CREATION_FRAME, 5 + 1*(i-1));
+    set_hitbox_value(AT_NSPECIAL, i, HG_LIFETIME, 45);
     set_hitbox_value(AT_NSPECIAL, i, HG_HITBOX_X, -15);
     set_hitbox_value(AT_NSPECIAL, i, HG_HITBOX_Y, -15);
     set_hitbox_value(AT_NSPECIAL, i, HG_WIDTH, 16);
@@ -47,5 +47,6 @@ for (var i = 1; i <= 5; i++)
     set_hitbox_value(AT_NSPECIAL, i, HG_HIT_SFX, asset_get("sfx_blow_weak1"));
     set_hitbox_value(AT_NSPECIAL, i, HG_PROJECTILE_SPRITE, sprite_get("proj_star"));
     set_hitbox_value(AT_NSPECIAL, i, HG_PROJECTILE_MASK, -1);
+    set_hitbox_value(AT_NSPECIAL, i, HG_PROJECTILE_DESTROY_EFFECT, 15);
     set_hitbox_value(AT_NSPECIAL, i, HG_PROJECTILE_HSPEED, uhc_nspecial_speed);
 }
