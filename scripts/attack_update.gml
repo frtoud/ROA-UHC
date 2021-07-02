@@ -258,13 +258,6 @@ switch (attack)
                 uhc_fspecial_charge_current = 0;
             }
         }
-        else if (window == 4) && (hitpause)
-        {
-            //Hitpause dictates the length of the plasma stun
-            //but the point is to not have hitpause on hypercam
-            hitstop = 0;
-            hitpause = false;
-        }
     } break;
 //==========================================================
     case AT_DSPECIAL:
