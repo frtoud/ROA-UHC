@@ -47,29 +47,50 @@ set_window_value(AT_DSPECIAL, 6, AG_WINDOW_ANIM_FRAMES, 2);
 set_window_value(AT_DSPECIAL, 6, AG_WINDOW_ANIM_FRAME_START, 12);
 set_window_value(AT_DSPECIAL, 6, AG_WINDOW_HAS_CUSTOM_FRICTION, true); //zero friction >:]
 
-set_num_hitboxes(AT_DSPECIAL, 0);
+set_num_hitboxes(AT_DSPECIAL, 1);
 
-// Recall Multihit
-set_hitbox_value(AT_DSPECIAL, 1, HG_HITBOX_TYPE, 2);
-set_hitbox_value(AT_DSPECIAL, 1, HG_LIFETIME, 4);
-set_hitbox_value(AT_DSPECIAL, 1, HG_WIDTH, 40);
+// Rewind hits
+set_hitbox_value(AT_DSPECIAL, 1, HG_HITBOX_TYPE, 1);
+set_hitbox_value(AT_DSPECIAL, 1, HG_WINDOW, 5);
+set_hitbox_value(AT_DSPECIAL, 1, HG_LIFETIME, 2);
+set_hitbox_value(AT_DSPECIAL, 1, HG_WIDTH, 30);
 set_hitbox_value(AT_DSPECIAL, 1, HG_HEIGHT, 40);
+set_hitbox_value(AT_DSPECIAL, 1, HG_HITBOX_X, 25);
+set_hitbox_value(AT_DSPECIAL, 1, HG_HITBOX_Y, -32);
 set_hitbox_value(AT_DSPECIAL, 1, HG_PRIORITY, 3);
-set_hitbox_value(AT_DSPECIAL, 1, HG_PROJECTILE_ENEMY_BEHAVIOR, 1);
-set_hitbox_value(AT_DSPECIAL, 1, HG_PROJECTILE_GROUND_BEHAVIOR, 1);
-set_hitbox_value(AT_DSPECIAL, 1, HG_PROJECTILE_WALL_BEHAVIOR, 1);
-set_hitbox_value(AT_DSPECIAL, 1, HG_PROJECTILE_UNBASHABLE, 1);
-set_hitbox_value(AT_DSPECIAL, 1, HG_PROJECTILE_DOES_NOT_REFLECT, 1);
-set_hitbox_value(AT_DSPECIAL, 1, HG_PROJECTILE_IS_TRANSCENDENT, 1);
-set_hitbox_value(AT_DSPECIAL, 1, HG_PROJECTILE_PLASMA_SAFE, 1);
-set_hitbox_value(AT_DSPECIAL, 1, HG_ANGLE, 25);
-set_hitbox_value(AT_DSPECIAL, 1, HG_ANGLE_FLIPPER, ANGLE_FLIPPER_CD_MULTIHIT);
+set_hitbox_value(AT_DSPECIAL, 1, HG_ANGLE, 60);
+set_hitbox_value(AT_DSPECIAL, 1, HG_ANGLE_FLIPPER, 3);
 set_hitbox_value(AT_DSPECIAL, 1, HG_DAMAGE, 1);
-set_hitbox_value(AT_DSPECIAL, 1, HG_TECHABLE, 3);
-set_hitbox_value(AT_DSPECIAL, 1, HG_BASE_KNOCKBACK, 2);
-set_hitbox_value(AT_DSPECIAL, 1, HG_BASE_HITPAUSE, 3);
-set_hitbox_value(AT_DSPECIAL, 1, HG_SPIN_COST, 1);
+set_hitbox_value(AT_DSPECIAL, 1, HG_BASE_KNOCKBACK, 4);
+set_hitbox_value(AT_DSPECIAL, 1, HG_BASE_HITPAUSE, 0);
+set_hitbox_value(AT_DSPECIAL, 1, HG_EXTRA_HITPAUSE, 4);
+set_hitbox_value(AT_DSPECIAL, 1, HG_HIT_LOCKOUT, 6);
 set_hitbox_value(AT_DSPECIAL, 1, HG_VISUAL_EFFECT, 302);
 set_hitbox_value(AT_DSPECIAL, 1, HG_HIT_SFX, sound_get("sfx_ssbu_slash1"));
-set_hitbox_value(AT_DSPECIAL, 1, HG_PROJECTILE_SPRITE, asset_get("empty_sprite"));
-set_hitbox_value(AT_DSPECIAL, 1, HG_PROJECTILE_MASK, -1);
+set_hitbox_value(AT_DSPECIAL, 1, HG_HITBOX_GROUP, -1);
+
+
+// Recall Multihit
+set_hitbox_value(AT_DSPECIAL, 2, HG_HITBOX_TYPE, 2);
+set_hitbox_value(AT_DSPECIAL, 2, HG_LIFETIME, 4);
+set_hitbox_value(AT_DSPECIAL, 2, HG_WIDTH, 40);
+set_hitbox_value(AT_DSPECIAL, 2, HG_HEIGHT, 40);
+set_hitbox_value(AT_DSPECIAL, 2, HG_PRIORITY, 3);
+set_hitbox_value(AT_DSPECIAL, 2, HG_PROJECTILE_ENEMY_BEHAVIOR, 1);
+set_hitbox_value(AT_DSPECIAL, 2, HG_PROJECTILE_GROUND_BEHAVIOR, 1);
+set_hitbox_value(AT_DSPECIAL, 2, HG_PROJECTILE_WALL_BEHAVIOR, 1);
+set_hitbox_value(AT_DSPECIAL, 2, HG_PROJECTILE_UNBASHABLE, 1);
+set_hitbox_value(AT_DSPECIAL, 2, HG_PROJECTILE_DOES_NOT_REFLECT, 1);
+set_hitbox_value(AT_DSPECIAL, 2, HG_PROJECTILE_IS_TRANSCENDENT, 1);
+set_hitbox_value(AT_DSPECIAL, 2, HG_PROJECTILE_PLASMA_SAFE, 1);
+set_hitbox_value(AT_DSPECIAL, 2, HG_ANGLE, 25);
+set_hitbox_value(AT_DSPECIAL, 2, HG_ANGLE_FLIPPER, ANGLE_FLIPPER_CD_MULTIHIT);
+set_hitbox_value(AT_DSPECIAL, 2, HG_DAMAGE, 1);
+set_hitbox_value(AT_DSPECIAL, 2, HG_TECHABLE, 3);
+set_hitbox_value(AT_DSPECIAL, 2, HG_BASE_KNOCKBACK, 2);
+set_hitbox_value(AT_DSPECIAL, 2, HG_BASE_HITPAUSE, 3);
+set_hitbox_value(AT_DSPECIAL, 2, HG_SPIN_COST, 1);
+set_hitbox_value(AT_DSPECIAL, 2, HG_VISUAL_EFFECT, 302);
+set_hitbox_value(AT_DSPECIAL, 2, HG_HIT_SFX, sound_get("sfx_ssbu_slash1"));
+set_hitbox_value(AT_DSPECIAL, 2, HG_PROJECTILE_SPRITE, asset_get("empty_sprite"));
+set_hitbox_value(AT_DSPECIAL, 2, HG_PROJECTILE_MASK, -1);

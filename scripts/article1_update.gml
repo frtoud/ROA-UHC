@@ -372,7 +372,7 @@ switch (state)
         }
         else if (0 == state_timer % 5)
         {
-            spawn_hitbox(AT_DSPECIAL, 1);
+            spawn_hitbox(AT_DSPECIAL, 2);
         }
         
         //Animation

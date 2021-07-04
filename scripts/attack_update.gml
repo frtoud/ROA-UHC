@@ -372,6 +372,12 @@ switch (attack)
             else
             {
                 uhc_current_cd.cd_spin_meter += uhc_cd_spin_charge_rate;
+                if (window_timer % 6 == 0)
+                {
+                    create_hitbox(AT_DSPECIAL, 1, 
+                                  get_hitbox_value(AT_DSPECIAL, 1, HG_HITBOX_X),
+                                  get_hitbox_value(AT_DSPECIAL, 1, HG_HITBOX_Y));
+                }
             }
         }
         else if (window == 6)
