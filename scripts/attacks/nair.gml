@@ -40,13 +40,13 @@ set_hitbox_value(AT_NAIR, 1, HG_WIDTH, 48);
 set_hitbox_value(AT_NAIR, 1, HG_HEIGHT, 30);
 set_hitbox_value(AT_NAIR, 1, HG_PRIORITY, 5);
 set_hitbox_value(AT_NAIR, 1, HG_DAMAGE, 7);
-set_hitbox_value(AT_NAIR, 1, HG_ANGLE, 25);
+set_hitbox_value(AT_NAIR, 1, HG_ANGLE, 30);
 set_hitbox_value(AT_NAIR, 1, HG_BASE_KNOCKBACK, 6);
 set_hitbox_value(AT_NAIR, 1, HG_KNOCKBACK_SCALING, 0.85);
-set_hitbox_value(AT_NAIR, 1, HG_BASE_HITPAUSE, 6);
-set_hitbox_value(AT_NAIR, 1, HG_HITPAUSE_SCALING, .2);
+set_hitbox_value(AT_NAIR, 1, HG_BASE_HITPAUSE, 9);
+set_hitbox_value(AT_NAIR, 1, HG_HITPAUSE_SCALING, .6);
 set_hitbox_value(AT_NAIR, 1, HG_VISUAL_EFFECT, 303);
-set_hitbox_value(AT_NAIR, 1, HG_HIT_SFX, asset_get("sfx_blow_medium2"));
+set_hitbox_value(AT_NAIR, 1, HG_HIT_SFX, asset_get("sfx_blow_heavy2"));
 
 set_hitbox_value(AT_NAIR, 2, HG_HITBOX_TYPE, 1);
 set_hitbox_value(AT_NAIR, 2, HG_WINDOW, 2);
