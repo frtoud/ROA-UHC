@@ -263,6 +263,7 @@ uhc_dair_boost_final = 7;
 
 uhc_cd_spin_drain_base = 0.035;
 uhc_cd_spin_drain_idle = 0.065;
+uhc_cd_spin_drain_clairen = 0.65;
 uhc_cd_spin_charge_rate = 1;
 uhc_cd_spin_max = 100;
 uhc_cd_respawn_timer_max = 300;

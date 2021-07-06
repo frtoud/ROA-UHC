@@ -399,6 +399,23 @@ if (cd_spin_meter > 0) && !(state == AR_STATE_HELD &&
 }
 
 //=====================================================
+// Clairen field: weakens charge, prevents recall, stops attacks
+if (state != AR_STATE_HELD && is_in_clairen_field())
+{
+    cd_spin_meter -= player_id.uhc_cd_spin_drain_clairen;
+    cd_spin_meter = clamp(cd_spin_meter, 0, player_id.uhc_cd_spin_max);
+
+    if (state != AR_STATE_IDLE && state != AR_STATE_DYING)
+    {
+        sound_play(asset_get("sfx_clairen_hit_med"));
+        set_state(AR_STATE_IDLE);
+    }
+    
+    can_recall = false;
+    can_priority_recall = false;
+}
+
+//=====================================================
 //immunity to bottom blast zone for a couple of frames 
 if (state != AR_STATE_HELD)
 {
@@ -453,7 +470,12 @@ if ( state == AR_STATE_HELD || state == AR_STATE_IDLE || state == AR_STATE_DYING
 {
     if (!free) hsp *= (1 - cd_frict_force);
 }
-
+//==============================================================================
+// call to check if the article is in clairen's no-fun-zone.
+#define is_in_clairen_field()
+{
+    return place_meeting(x, y, asset_get("plasma_field_obj"));
+}
 //==============================================================================
 #define try_pickup()
 {
