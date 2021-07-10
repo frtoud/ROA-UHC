@@ -145,7 +145,7 @@ switch (attack)
 //==========================================================
     case AT_DAIR:
     {
-        if (window == 1 && window_timer == 1)
+        if (window == 1 && window_timer <= 1)
         {
             uhc_dair_window_bounced = 0;
         }
@@ -155,6 +155,7 @@ switch (attack)
             {
                 uhc_dair_window_bounced = window;
                 vsp = -(window == 4 ? uhc_dair_boost_final : uhc_dair_boost);
+                hsp = 0;
             }
             else if (window_timer == get_window_value(AT_DAIR, window, AG_WINDOW_LENGTH))
             {
@@ -163,6 +164,11 @@ switch (attack)
                 { has_hit = (uhc_dair_window_bounced > 0); }
                 else //reset has_hit for future windows
                 { has_hit = false; }
+            }
+            
+            if (window < 4 && uhc_dair_window_bounced != 0)
+            {
+                hsp *= 0.15;
             }
         }
     } break;
