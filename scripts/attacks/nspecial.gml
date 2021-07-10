@@ -24,6 +24,15 @@ set_window_value(AT_NSPECIAL, 3, AG_WINDOW_HAS_SFX, 1);
 set_window_value(AT_NSPECIAL, 3, AG_WINDOW_SFX, asset_get("sfx_swipe_weak1"));
 set_window_value(AT_NSPECIAL, 3, AG_WINDOW_SFX_FRAME, 4);
 
+//charge-cancel window
+set_window_value(AT_NSPECIAL, 4, AG_WINDOW_TYPE, 1);
+set_window_value(AT_NSPECIAL, 4, AG_WINDOW_LENGTH, 8);
+set_window_value(AT_NSPECIAL, 4, AG_WINDOW_ANIM_FRAMES, -2); //not a typo >:]
+set_window_value(AT_NSPECIAL, 4, AG_WINDOW_ANIM_FRAME_START, 2);
+set_window_value(AT_NSPECIAL, 4, AG_WINDOW_HAS_SFX, 1);
+set_window_value(AT_NSPECIAL, 4, AG_WINDOW_SFX, asset_get("mfx_unstar"));
+set_window_value(AT_NSPECIAL, 4, AG_WINDOW_SFX_FRAME, 1);
+
 set_num_hitboxes(AT_NSPECIAL, 1);
 
 //projectiles are pretty much identical

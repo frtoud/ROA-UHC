@@ -184,8 +184,16 @@ switch (attack)
         else if (window == 2)
         {
             can_jump = true;
-            can_shield = true;
-            if (!special_down)
+            if (shield_pressed)
+            {
+                window = 4;
+                window_timer = 0;
+                if (!free && (right_down - left_down) != 0)
+                {
+                    set_state((right_down - left_down)*spr_dir > 0 ? PS_ROLL_FORWARD : PS_ROLL_BACKWARD);
+                }
+            }
+            else if (!special_down)
             {
                 window = 3;
                 window_timer = 0;
@@ -201,7 +209,7 @@ switch (attack)
         }
         else if (window == 3)
         {
-            if (window_timer == 1)
+            if (window_timer == 1 && !hitpause)
             {
                 //set grid data
                 set_num_hitboxes(AT_NSPECIAL, 1 + uhc_nspecial_charges);
