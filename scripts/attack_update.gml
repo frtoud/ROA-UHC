@@ -211,6 +211,9 @@ switch (attack)
         {
             if (window_timer == 1 && !hitpause)
             {
+                //vsp boost
+                if (free) vsp = min(vsp, 0) - 3 - 0.5 *uhc_nspecial_charges;
+                
                 //set grid data
                 set_num_hitboxes(AT_NSPECIAL, 1 + uhc_nspecial_charges);
                 
