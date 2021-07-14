@@ -70,6 +70,7 @@ sprite_change_offset("plat", 30, 0);
 
 sprite_change_offset("proj_star", 9, 11);
 sprite_change_offset("vfx_star_trail", 9, 11);
+sprite_change_offset("vfx_star_destroy", 33, 35);
 
 sprite_change_offset("article_cd_idle", 19, 18);
 sprite_change_offset("article_cd_idle2", 17, 16);

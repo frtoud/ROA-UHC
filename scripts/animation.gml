@@ -217,6 +217,12 @@ switch (state)
                     image_index = uhc_nspecial_charges
                                 + get_window_value(AT_NSPECIAL, 2, AG_WINDOW_ANIM_FRAME_START);
                 }
+                else if (window == 4 && window_timer == 0)
+                {
+                    var k = spawn_hit_fx(x + spr_dir*-30, y -16, vfx_star_destroy);
+                    k.depth = depth - 1;
+                    
+                }
             } break;
 //===============================================================
             case AT_FSPECIAL:

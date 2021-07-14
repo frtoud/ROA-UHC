@@ -168,6 +168,7 @@ uhc_anim_nspecial_smear = sprite_get("nspecial_smear");
 uhc_anim_nspecial_smear_air = sprite_get("nspecial_air_smear");
 
 vfx_star_trail = hit_fx_create(sprite_get("vfx_star_trail"), 3);
+vfx_star_destroy = hit_fx_create(sprite_get("vfx_star_destroy"), 8);
 
 //FSPECIAL flash
 vfx_flash_charge = sprite_get("vfx_flash_charge");

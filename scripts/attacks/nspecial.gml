@@ -56,6 +56,6 @@ for (var i = 1; i <= 5; i++)
     set_hitbox_value(AT_NSPECIAL, i, HG_HIT_SFX, asset_get("sfx_blow_weak1"));
     set_hitbox_value(AT_NSPECIAL, i, HG_PROJECTILE_SPRITE, sprite_get("proj_star"));
     set_hitbox_value(AT_NSPECIAL, i, HG_PROJECTILE_MASK, -1);
-    set_hitbox_value(AT_NSPECIAL, i, HG_PROJECTILE_DESTROY_EFFECT, 15);
+    set_hitbox_value(AT_NSPECIAL, i, HG_PROJECTILE_DESTROY_EFFECT, vfx_star_destroy);
     set_hitbox_value(AT_NSPECIAL, i, HG_PROJECTILE_HSPEED, uhc_nspecial_speed);
 }
