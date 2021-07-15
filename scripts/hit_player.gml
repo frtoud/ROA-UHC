@@ -45,6 +45,14 @@ if ("uhc_parent_cd" in my_hitboxID)
 }
 
 //=====================================================
+// BAIR grablike nudge effect
+if (my_hitboxID.attack == AT_BAIR) && (my_hitboxID.hbox_num == 1 || my_hitboxID.hbox_num == 3)
+{
+    hit_player_obj.uhc_bair_last_pseudograbbed_by = self;
+    hit_player_obj.uhc_bair_last_pseudograb_time = get_gameplay_time();
+}
+
+//=====================================================
 // USPECIAL buffering trap effect
 if (my_hitboxID.attack == AT_USPECIAL && my_hitboxID.hbox_num == 2)
 {

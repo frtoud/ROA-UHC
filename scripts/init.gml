@@ -259,6 +259,9 @@ uhc_ustrong_throwspeed_base = -9;
 uhc_ustrong_throwspeed_max = -13;
 uhc_ustrong_throwspeed_horz = -1;
 
+uhc_bair_pseudograb_length = 12;   //frames when hit until grab stops taking effect (includes hitpause)
+uhc_bair_pseudograb_factor = 0.08; //strength of interpolation pulling to target position
+
 uhc_dair_boost = 3;
 uhc_dair_boost_final = 7;
 

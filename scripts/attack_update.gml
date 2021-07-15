@@ -173,6 +173,23 @@ switch (attack)
         }
     } break;
 //==========================================================
+    case AT_BAIR:
+    {
+        if (window == 2 || window == 3)
+        {
+            var current_time = get_gameplay_time();
+            var nudge_pos_x = x + spr_dir * get_hitbox_value(AT_BAIR, 2, HG_HITBOX_X);
+            var nudge_pos_y = y + get_hitbox_value(AT_BAIR, 2, HG_HITBOX_Y);
+            with (oPlayer) if (self != other) && (!hitpause)
+            && (uhc_bair_last_pseudograbbed_by == other)
+            && (uhc_bair_last_pseudograb_time + other.uhc_bair_pseudograb_length > current_time)
+            {
+                x = lerp(x, nudge_pos_x, other.uhc_bair_pseudograb_factor);
+                y = lerp(y, nudge_pos_y, other.uhc_bair_pseudograb_factor);
+            }
+        }
+    } break;
+//==========================================================
     case AT_NSPECIAL:
     {
         if (window == 1 && special_down)
