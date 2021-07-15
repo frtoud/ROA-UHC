@@ -543,6 +543,14 @@ switch (attack)
                     zetter.attack = AT_FSTRONG;
                     zetter.window = 6;
                     zetter.window_timer = 0;
+
+                    uhc_current_cd.cd_spin_meter = uhc_cd_spin_max;
+                    sound_stop(uhc_taunt_current_video.song);
+                    uhc_taunt_buffering_timer = 999999;
+                    sprite_change_offset("video_trailer", 11, 8);
+                    uhc_taunt_current_video = { sprite:sprite_get("video_trailer"),   
+                                                song:sound_get("video_blocked"),   
+                                                fps:1 };
                 }
             }
         }
