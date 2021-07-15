@@ -9,9 +9,9 @@ uhc_fspecial_charge_current = 0;
 
 if (instance_exists(uhc_uspecial_hitbox)) 
 { uhc_uspecial_hitbox.destroyed = true; }
-with (oPlayer) if (self != other && being_buffered_by == other)
+with (oPlayer) if (self != other && uhc_being_buffered_by == other)
 {
-    being_buffered_by = noone;
+    uhc_being_buffered_by = noone;
 }
 
 if (uhc_has_cd_blade)

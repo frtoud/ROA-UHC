@@ -455,11 +455,11 @@ switch (attack)
                                                uhc_uspecial_start_pos.y, x, y);
             set_hitbox_value(AT_USPECIAL, 3, HG_ANGLE, travel_angle);
             
-            with (oPlayer) if (self != other && being_buffered_by == other)
+            with (oPlayer) if (self != other && uhc_being_buffered_by == other)
             {
                 //for each victim...
                 var victim = self;
-                being_buffered_by = noone;
+                uhc_being_buffered_by = noone;
                 with (other) if (need_ejector)//...back to Hypercam
                 {
                     var hitbox = create_hitbox(AT_USPECIAL, 3, victim.x, victim.y - victim.char_height/2);

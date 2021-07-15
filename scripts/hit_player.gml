@@ -48,7 +48,7 @@ if ("uhc_parent_cd" in my_hitboxID)
 // USPECIAL buffering trap effect
 if (my_hitboxID.attack == AT_USPECIAL && my_hitboxID.hbox_num == 2)
 {
-    hit_player_obj.being_buffered_by = self;
+    hit_player_obj.uhc_being_buffered_by = self;
 }
 
 //=====================================================
