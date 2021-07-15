@@ -91,5 +91,6 @@ if (state == PS_SPAWN && shield_pressed)
 
 if (is_trailer_mode)
 {
+    uhc_anim_current_color = 1;
     uhc_current_cd.cd_anim_color = 1;
 }
