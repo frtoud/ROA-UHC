@@ -120,6 +120,8 @@ ANGLE_FLIPPER_CD_MULTIHIT = 55; //simulate "pull towards center" angle flipper; 
 
 //=================================================
 //Custom vfx & sprites
+is_trailer_mode = false;
+
 uhc_anim_blade_spin = 0;
 uhc_anim_current_color = get_player_color(player);
 uhc_anim_blade_color = uhc_anim_current_color;

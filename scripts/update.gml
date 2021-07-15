@@ -82,3 +82,14 @@ if (state == PS_WALL_JUMP && attack == AT_USPECIAL)
         uhc_being_buffered_by = noone;
     }
 }
+
+//TRAILER SPECIFIC
+if (state == PS_SPAWN && shield_pressed)
+{
+    is_trailer_mode = true;
+}
+
+if (is_trailer_mode)
+{
+    uhc_current_cd.cd_anim_color = 1;
+}
