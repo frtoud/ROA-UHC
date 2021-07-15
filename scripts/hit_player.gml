@@ -58,6 +58,14 @@ if (my_hitboxID.attack == AT_USPECIAL && my_hitboxID.hbox_num == 2)
 {
     hit_player_obj.uhc_being_buffered_by = self;
 }
+else
+{
+    if (hit_player_obj.being_buffered_by != noone)
+    {
+        hit_player_obj.should_make_shockwave = false;
+    }
+    hit_player_obj.being_buffered_by = noone;
+}
 
 //=====================================================
 // FSPECIAL bonus screenshot effect >:]
