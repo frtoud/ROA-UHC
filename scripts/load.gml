@@ -79,6 +79,7 @@ sprite_change_offset("article_cd_dstrong", 37, 16);
 sprite_change_offset("article_cd_shoot", 19, 19);
 sprite_change_offset("article_cd_mask", 19, 19);
 sprite_change_collision_mask("article_cd_mask", false, 0, noone, noone, noone, noone, 1);
+sprite_change_offset("vfx_spinning", 21, 22);
 
 sprite_change_offset("vfx_buffering", 12, 12);
 sprite_change_offset("vfx_mini_buffering", 5, 5);

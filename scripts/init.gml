@@ -191,6 +191,8 @@ uhc_anim_rewind =
     sprite: sprite_get("vfx_rewind")
 };
 
+vfx_spinning = hit_fx_create(sprite_get("vfx_spinning"), 4);
+
 uhc_anim_buffer_timer = 0;
 uhc_anim_dspecial_image_timer = 0;
 uhc_anim_platform_timer = 0;

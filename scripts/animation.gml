@@ -269,6 +269,13 @@ switch (state)
                     
                     image_index = floor(uhc_anim_dspecial_image_timer % 4) +
                     get_window_value(AT_DSPECIAL, 4, AG_WINDOW_ANIM_FRAME_START);
+
+                    if (uhc_anim_dspecial_image_timer % 4 < 0.75)
+                    {
+                        var hfx = spawn_hit_fx(x + 26 * spr_dir, y - 33, vfx_spinning);
+                        hfx.draw_angle = random_func( 7, 180, true);
+                        hfx.player_id = uhc_current_cd.player_id;
+                    }
                 }
             } break;
 //===============================================================

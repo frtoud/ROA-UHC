@@ -108,6 +108,8 @@ switch (state)
             if (0 == state_timer % 5)
             {
                 spawn_hitbox(AT_FSTRONG, 2);
+                var hfx = spawn_hit_fx( x, y, player_id.vfx_spinning);
+                hfx.draw_angle = random_func( 7, 180, true);
             }
         }
         else
@@ -167,6 +169,8 @@ switch (state)
             else if (0 == state_timer % 5)
             {
                 spawn_hitbox(AT_USTRONG, 2);
+                var hfx = spawn_hit_fx( x, y, player_id.vfx_spinning);
+                hfx.draw_angle = random_func( 7, 180, true);
             }
         }
         else
@@ -373,6 +377,8 @@ switch (state)
         else if (0 == state_timer % 5)
         {
             spawn_hitbox(AT_DSPECIAL, 2);
+            var hfx = spawn_hit_fx( x, y, player_id.vfx_spinning);
+            hfx.draw_angle = random_func( 7, 180, true);
         }
         
         //Animation
