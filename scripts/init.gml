@@ -253,6 +253,13 @@ uhc_unsafe_screenshot =
 vfx_screenshot_tab = sprite_get("vfx_screenshot");
 
 //=================================================
+//Rune flags
+uhc_rune_flags = 
+{
+    dual_disk_system: has_rune("O") //you read that right
+}
+
+//=================================================
 //Balancing variables
 uhc_fstrong_throwspeed_base = 8;
 uhc_fstrong_throwspeed_max = 12;
