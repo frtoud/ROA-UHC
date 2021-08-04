@@ -108,7 +108,7 @@ switch (state)
         //wheeled sprite when jumping from a dash
         image_index = (prev_state == PS_DASH 
                     || prev_state == PS_DASH_START
-                    || prev_state == PS_DASH_TURN) ? 1 : 0;
+                    || prev_state == PS_DASH_TURN) ? 0 : 1;
         
     } break;
     case PS_DOUBLE_JUMP:
