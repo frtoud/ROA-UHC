@@ -303,6 +303,8 @@ switch (state)
                 dstrong_hitbox = noone;
             }
         }
+        //recall availability
+        can_priority_recall = true;
         
         //Animation
         sprite_index = spr_article_cd_dstrong;
