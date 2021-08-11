@@ -26,7 +26,8 @@ set_window_value(AT_DSTRONG, 4, AG_WINDOW_LENGTH, 20);
 set_window_value(AT_DSTRONG, 4, AG_WINDOW_ANIM_FRAMES, 5);
 set_window_value(AT_DSTRONG, 4, AG_WINDOW_ANIM_FRAME_START, 4);
 
-set_num_hitboxes(AT_DSTRONG, 1);
+set_num_hitboxes(AT_DSTRONG, 0);
+set_attack_value(AT_DSTRONG, AG_NUM_HITBOXES_BLADED, 1);
 
 set_hitbox_value(AT_DSTRONG, 1, HG_PARENT_HITBOX, 1);
 set_hitbox_value(AT_DSTRONG, 1, HG_HITBOX_TYPE, 1);
