@@ -553,7 +553,10 @@ if (uhc_taunt_collect_videos)
                          fps:1 };
            break;
         case CH_ORI:
-           //couldn't think of one :(
+           sprite_change_offset("video_cat", 11, 8);
+           videos[0] = { sprite:sprite_get("video_cat"),   
+                         song:sound_get("video_cat"),   
+                         fps:10 };
         default: break;
     }
     
