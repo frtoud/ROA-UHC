@@ -313,6 +313,28 @@ uhc_nspecial_is_charging = false;
 uhc_uspecial_hitbox = noone;
 uhc_uspecial_start_pos = { x:0, y:0 };
 
+//=================================================
+// Compatibility Zone
+
+//Pokémon Stadium
+pkmn_stadium_front_img = sprite_get("cmp_stadium_front");
+pkmn_stadium_back_img = sprite_get("cmp_stadium_back");
+pkmn_stadium_name_override = "HyperCam";
+
+//Mt. Dedede Stadium
+arena_title = "Five-Star Freeware";
+arena_short_name = "HyperCam 2";
+
+//Hikaru
+Hikaru_Title = "Five-Star Freeware";
+
+//Agent N
+nname = "Unregistered HyperCam 2"
+ncode1 = "Outfitted with a deadly sawblade and throwing stars.";
+ncode2 = "Creator unknown; but deeply nostalgic.";
+ncode3 = "Pretends to be royalty and incessantly asks to subscribe.";
+
+
 //=========================================================================
 #define add_uhc_video(video_index, video_filename, video_fps, video_special)
 {
