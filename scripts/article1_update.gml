@@ -10,6 +10,8 @@
 #macro AR_STATE_DSTRONG      AT_DSTRONG
 #macro AR_STATE_DSTRONG_AIR  AT_DSTRONG_2
 #macro AR_STATE_DSPECIAL     AT_DSPECIAL
+#macro AR_STATE_BASHED       4
+#macro AR_STATE_BASH_THROW   5
 //=====================================================
 
 // no logic/timers affected if we're currently in hitstop
@@ -28,6 +30,8 @@ if (buffered_state != AR_STATE_BUFFER)
 //General logic
 visible = (state != AR_STATE_HELD);
 ignores_walls = (state == AR_STATE_DSPECIAL);
+
+unbashable = (state == AR_STATE_HELD && state == AR_STATE_DYING);
 
 can_recall = false;
 can_priority_recall = false;
@@ -391,6 +395,73 @@ switch (state)
                                
     } break;
 //=====================================================
+    case AR_STATE_BASHED:
+    {
+        //bashed CD functionally identical to a reflected CD:
+        // - Ori cant get hit by it
+        // - Hypercam cannot recall it
+        last_parried_by_player = bashed_id.player;
+        if (!getting_bashed)
+        {
+            set_state(AR_STATE_BASH_THROW);
+        }
+    } break;
+//=====================================================
+    case AR_STATE_BASH_THROW:
+    {
+        //See FSTRONG: similar logic, but omnidirectional
+        if (was_parried)
+        {
+            was_parried = false;
+            
+            //flip direction
+            spr_dir *= -1;
+            hsp *= -1.5; //slight boost
+            vsp *= -1.5; //slight boost
+        }
+        
+        //Update
+        var speed_val = point_distance(0, 0, hsp, vsp);
+        var speed_dir = point_direction(0, 0, hsp, vsp);
+        if (speed_val > cd_accel_force)
+        {
+            speed_val -= cd_accel_force;
+            hsp = lengthdir_x(speed_val, speed_dir);
+            vsp = lengthdir_y(speed_val, speed_dir);
+            if (0 == state_timer % 5)
+            {
+                spawn_hitbox(AT_FSTRONG, 2);
+                var hfx = spawn_hit_fx( x, y, player_id.vfx_spinning);
+                hfx.draw_angle = random_func( 7, 180, true);
+            }
+        }
+        else
+        {
+            if (has_hit) //finisher
+            { 
+                spawn_hitbox(AT_FSTRONG, 3);
+            }
+            set_state(AR_STATE_IDLE);
+
+            //with bounce 
+            if (has_hit || !free)
+            {
+                if !free { sound_play(asset_get("sfx_blow_weak1")); }
+            
+                vsp = -6;
+                hsp = spr_dir * (was_parried ? 1 : -1);
+            }
+        }
+        
+        //recall availability
+        can_priority_recall = false;
+        
+        //Animation
+        sprite_index = spr_article_cd_shoot;
+        image_index += 0.5;
+        
+    } break;
+//=====================================================
     default: set_state(AR_STATE_IDLE);
     break;
 }
@@ -455,6 +526,14 @@ was_parried = false;
 if ( state == AR_STATE_HELD || state == AR_STATE_IDLE || state == AR_STATE_DYING)
 {
     last_parried_by_player = 0;
+}
+
+//=====================================================
+//Ori bash detection
+if (getting_bashed && state != AR_STATE_BASHED)
+{
+    set_state(AR_STATE_BASHED);
+    destroy_cd_hitboxes();
 }
 
 //==============================================================================
@@ -586,4 +665,13 @@ if ( state == AR_STATE_HELD || state == AR_STATE_IDLE || state == AR_STATE_DYING
     }
     
     return hb;
+}
+//==============================================================================
+// call to check if the article is in clairen's no-fun-zone.
+#define destroy_cd_hitboxes()
+{
+    with (pHitBox) if ("uhc_parent_cd" in self) && (uhc_parent_cd = other)
+    {
+        destroyed = true;
+    }
 }

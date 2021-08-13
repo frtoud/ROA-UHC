@@ -12,6 +12,7 @@ spr_article_cd_dstrong = sprite_get("article_cd_dstrong");
 
 sprite_index = spr_article_cd_idle_fast;
 image_index = 0;
+image_speed = 0;
 mask_index = spr_article_cd_mask;
 spr_dir = 1;
 uses_shader = true;
@@ -97,3 +98,9 @@ dstrong_hitbox = noone;
 // animation variables
 cd_anim_blade_spin = 0; //animation speed for the blade when held
 cd_anim_color = get_player_color(player_id.player) //color of CD
+
+//=====================================================
+//Ori's compatibility
+unbashable = true;
+getting_bashed = false;
+bashed_id = noone;
