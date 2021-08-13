@@ -250,6 +250,7 @@ switch (state)
             dstrong_need_gravity = free;
             for (var p = 0; p < array_length(dstrong_hitbox.can_hit); p++)
             { dstrong_hitbox.can_hit[p] = (p != last_parried_by_player); }
+            dstrong_hitbox.stop_effect = false;
         }
         //calculate angle towards projected next hit
         //lengthdir_y is not an error: angle 0 is "directly behind" and so needs sine
