@@ -1,15 +1,31 @@
 //hitbox_update
 
 //=====================================================
-// NSPECIAL broken on landing
 if (attack == AT_NSPECIAL)
 {
-    proj_angle -= 15;
+    // NSPECIAL broken on landing
     if (!free) { destroyed = true; }
     else 
     {
+        proj_angle -= 15;
+
         var hfx = spawn_hit_fx(x, y, orig_player_id.vfx_star_trail);
         hfx.draw_angle = proj_angle;
+
+        if (star_was_parried)
+        {
+            can_hit_self = true;
+            hitbox_timer = 0;
+
+            if (!star_already_reflected)
+            {
+                hsp *= -1;
+                vsp *= -1;
+            }
+            
+            star_already_reflected = false;
+            star_was_parried = false;
+        }
     }
 }
 
