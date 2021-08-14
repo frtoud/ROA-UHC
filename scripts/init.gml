@@ -217,6 +217,7 @@ uhc_taunt_videos[31] = noone; //preinitialized to a reasonable amount
 uhc_taunt_collect_videos = true;
 var i = 0;
 add_uhc_video(i, "video_blocked",  0, 1); i++;
+uhc_taunt_blocked_video = uhc_taunt_videos[0]; //keep track of this one separately; might be useful
 add_uhc_video(i, "video_dream",    0, 0); i++;
 add_uhc_video(i, "video_nyan",    10, 0); i++;
 add_uhc_video(i, "video_rick",     8, 0); i++;
