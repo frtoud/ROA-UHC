@@ -96,6 +96,8 @@ sprite_change_offset("hud_icons", 3, -1);
 set_victory_theme(sound_get("victory"));
 set_victory_bg(sprite_get("victory"));
 
+sprite_change_offset("cmp_trial_grounds", 31, 0);
+
 //=================================================
 // DEFINES
 #define sprite_change_offset_bladed(_spr_name, _offset_x, _offset_y)

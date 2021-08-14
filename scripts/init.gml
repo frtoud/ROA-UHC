@@ -326,8 +326,16 @@ pkmn_stadium_name_override = "HyperCam";
 arena_title = "Five-Star Freeware";
 arena_short_name = "HyperCam 2";
 
+//Trial Grounds
+guiltySprite = sprite_get("cmp_trial_grounds");
+
 //Hikaru
 Hikaru_Title = "Five-Star Freeware";
+
+//Wall-E
+walle_taunt_sound = sound_get("cmp_walle");
+walle_taunt_type = 1;
+walle_taunt_playing = false;
 
 //Agent N
 nname = "Unregistered HyperCam 2"
