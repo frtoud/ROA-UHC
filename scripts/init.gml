@@ -280,7 +280,7 @@ uhc_cd_spin_drain_idle = 0.065;
 uhc_cd_spin_drain_clairen = 0.65;
 uhc_cd_spin_charge_rate = 1;
 uhc_cd_spin_max = 100;
-uhc_cd_respawn_timer_max = 300;
+uhc_cd_respawn_timer_max = uhc_rune_flags.dual_disk_system ? -1 : 300;
 uhc_pickup_cooldown_max = 30;
 
 uhc_nspecial_charges_max = 4;

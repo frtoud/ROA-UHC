@@ -308,6 +308,10 @@ switch (attack)
                 {
                     if (other.uhc_current_cd == self)
                     {
+                        if (other.uhc_rune_flags.dual_disk_system)
+                        {
+                            continue;
+                        }
                         target_cd = self;
                         break; //best match, can stop looking
                     }
