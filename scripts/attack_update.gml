@@ -501,58 +501,6 @@ switch (attack)
                 window_timer = 0;
                 uhc_taunt_reloop = taunt_pressed;
             }
-
-            //trailer only feature
-            if (shield_pressed)
-            {
-                var etalus = noone;
-                var zetter = noone;
-                with (oPlayer) if (self != other)
-                {
-                    if (url == CH_ZETTERBURN) zetter = self;
-                    else if (url == CH_ETALUS) etalus = self;
-                }
-
-                if (etalus != noone && zetter != noone)
-                {
-                    with (etalus) set_state(PS_HITSTUN);
-                    set_player_damage( etalus.player, 200 );
-                    etalus.being_buffered_by = self;
-                    etalus.hitpause = true;
-                    etalus.hitstop = 99999;
-                    etalus.hitstop_full = 99999;
-                    etalus.spr_dir = 1;
-                    etalus.vsp = 0;
-                    etalus.hsp = 0;
-                    etalus.hitstun_full = 9999;
-                    etalus.hitstun = 9999;
-                    etalus.x = 382;
-                    etalus.y = 486;
-
-                    with (zetter) set_state(PS_ATTACK_GROUND);
-                    set_player_damage( zetter.player, 200 );
-                    zetter.being_buffered_by = self;
-                    zetter.hitpause = true;
-                    zetter.hitstop = 99999;
-                    zetter.hitstop_full = 99999;
-                    zetter.spr_dir = -1;
-                    zetter.vsp = 0;
-                    zetter.hsp = 0;
-                    zetter.x = 456;
-                    zetter.y = 500;
-                    zetter.attack = AT_FSTRONG;
-                    zetter.window = 6;
-                    zetter.window_timer = 0;
-
-                    uhc_current_cd.cd_spin_meter = uhc_cd_spin_max;
-                    sound_stop(uhc_taunt_current_video.song);
-                    uhc_taunt_buffering_timer = 999999;
-                    sprite_change_offset("video_trailer", 11, 8);
-                    uhc_taunt_current_video = { sprite:sprite_get("video_trailer"),   
-                                                song:sound_get("video_blocked"),   
-                                                fps:1 };
-                }
-            }
         }
         else if (window == 6 && uhc_taunt_reloop)
         {
