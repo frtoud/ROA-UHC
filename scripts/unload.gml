@@ -51,13 +51,6 @@ if (!uhc_handled_victory_quote)
             }
             //else... >:]
             
-            if (is_trailer_mode)
-            {
-                data.priority = 7;
-                data.quote = "thanks 4 watching, dont forget to sucribe :)";
-                data.held_cd_color = 1;
-            } else
-
             //blade color
             if (temp_holding_blade) && (uhc_current_cd.player_id != self)
             { data.held_cd_color = get_player_color(uhc_current_cd.player_id.player); }

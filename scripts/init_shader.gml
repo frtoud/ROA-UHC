@@ -217,9 +217,9 @@ if (object_index == asset_get("draw_result_screen"))
     }
     
     //special case: winner is holding another Hypercam's CD
-    if (data_array[winner].held_cd_color != -1 && data_array[winner].priority < 5)
+    if (data_array[winner].held_cd_color != -1)
     {
-        data_array[winner].priority = 5;
+        data_array[winner].priority = 2;
         data_array[winner].quote = "thx for sharing ur mixtap :D";
     }
     
