@@ -59,7 +59,7 @@ set_hitbox_value(AT_DSPECIAL, 1, HG_HITBOX_X, 25);
 set_hitbox_value(AT_DSPECIAL, 1, HG_HITBOX_Y, -32);
 set_hitbox_value(AT_DSPECIAL, 1, HG_PRIORITY, 3);
 set_hitbox_value(AT_DSPECIAL, 1, HG_ANGLE, 60);
-set_hitbox_value(AT_DSPECIAL, 1, HG_ANGLE_FLIPPER, 3);
+set_hitbox_value(AT_DSPECIAL, 1, HG_ANGLE_FLIPPER, 3); //Horz-outward
 set_hitbox_value(AT_DSPECIAL, 1, HG_DAMAGE, 1);
 set_hitbox_value(AT_DSPECIAL, 1, HG_BASE_KNOCKBACK, 4);
 set_hitbox_value(AT_DSPECIAL, 1, HG_BASE_HITPAUSE, 0);

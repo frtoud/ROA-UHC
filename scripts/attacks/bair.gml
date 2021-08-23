@@ -55,7 +55,7 @@ set_hitbox_value(AT_BAIR, 1, HG_HEIGHT, 30);
 set_hitbox_value(AT_BAIR, 1, HG_PRIORITY, 2);
 set_hitbox_value(AT_BAIR, 1, HG_DAMAGE, 4);
 set_hitbox_value(AT_BAIR, 1, HG_ANGLE, 50);
-set_hitbox_value(AT_BAIR, 1, HG_ANGLE_FLIPPER, 4);
+set_hitbox_value(AT_BAIR, 1, HG_ANGLE_FLIPPER, 4); //Horz-inward
 set_hitbox_value(AT_BAIR, 1, HG_TECHABLE, 3);
 set_hitbox_value(AT_BAIR, 1, HG_BASE_KNOCKBACK, 3);
 set_hitbox_value(AT_BAIR, 1, HG_BASE_HITPAUSE, 3);
@@ -74,7 +74,7 @@ set_hitbox_value(AT_BAIR, 3, HG_HEIGHT, 32);
 set_hitbox_value(AT_BAIR, 3, HG_PRIORITY, 4);
 set_hitbox_value(AT_BAIR, 3, HG_DAMAGE, 4);
 set_hitbox_value(AT_BAIR, 3, HG_ANGLE, 55);
-set_hitbox_value(AT_BAIR, 3, HG_ANGLE_FLIPPER, 4);
+set_hitbox_value(AT_BAIR, 3, HG_ANGLE_FLIPPER, 4); //Horz-inward
 set_hitbox_value(AT_BAIR, 3, HG_TECHABLE, 3);
 set_hitbox_value(AT_BAIR, 3, HG_BASE_KNOCKBACK, 3);
 set_hitbox_value(AT_BAIR, 3, HG_BASE_HITPAUSE, 3);
