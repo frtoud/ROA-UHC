@@ -139,7 +139,7 @@ if (uhc_taunt_current_video != noone)
     var y_scale = ease_backOut(0, 20, uhc_taunt_opening_timer, uhc_taunt_opening_timer_max, 3) / 10.0;
     var vid_x = x +(spr_dir*44);
     var vid_y = y-28;
-    draw_sprite_ext(uhc_taunt_current_video.sprite, subimg, vid_x, vid_y, -2, y_scale, 0, c_white, alpha);
+    draw_sprite_ext(uhc_taunt_current_video.sprite, subimg, vid_x, vid_y, +2, y_scale, 0, c_white, alpha);
     //mini-bufferring
     if (uhc_taunt_buffering_timer > 0)
     { draw_sprite_ext(vfx_mini_buffering, (floor(get_gameplay_time()/4) % 16), vid_x, vid_y, 1, y_scale/2, 0, c_white, alpha); }
