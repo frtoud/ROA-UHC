@@ -106,7 +106,7 @@ set_color_profile_slot(5, 3,  82,  80,  72); //Paper
 set_color_profile_slot(5, 4, 255,  25,  25); //Blinker 
 
 // Abyss
-set_color_profile_slot(6, 0,  80,  48,  75); //Body
+set_color_profile_slot(6, 0,  80,  60,  95); //Body
 set_color_profile_slot(6, 1, 201,  63, 193); //Lens
 set_color_profile_slot(6, 2,  78,  23, 141); //CD
 set_color_profile_slot(6, 3, 201,  63, 193); //Paper

@@ -397,9 +397,9 @@ if (uhc_taunt_current_video != noone && state != PS_ATTACK_GROUND)
 
 //==============================================================
 //collect compat videos
-if (uhc_taunt_collect_videos)
+if (uhc_taunt_collect_videos && state == PS_ATTACK_GROUND && attack == AT_TAUNT)
 {
-    uhc_taunt_collect_videos = false; //collect once only
+    uhc_taunt_collect_videos = false; //collect once, only when starting to taunt
     
     var collected_urls = [];
     collected_urls[0] = url;
@@ -500,6 +500,10 @@ if (uhc_taunt_collect_videos)
            videos[1] = { sprite:sprite_get("video_caramel"),   
                          song:sound_get("video_caramel"),   
                          fps:10 };
+           sprite_change_offset("video_leek", 11, 8);
+           videos[2] = { sprite:sprite_get("video_leek"),   
+                         song:sound_get("video_leek"),   
+                         fps:7 };
            break;
         //=================================================================
         // Bonus
@@ -510,6 +514,13 @@ if (uhc_taunt_collect_videos)
            videos[0] = { sprite:sprite_get("video_sax"),   
                          song:sound_get("video_sax"),   
                          fps:18 };
+           break;
+        case "1890617624": //Ronald
+        case "2154720280": //Nolan
+           sprite_change_offset("video_lol", 11, 8);
+           videos[0] = { sprite:sprite_get("video_lol"),   
+                         song:sound_get("video_lol"),   
+                         fps:8 };
            break;
         //=================================================================
         // Base cast
