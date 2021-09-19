@@ -44,7 +44,20 @@ if (!uhc_handled_victory_quote)
             data.priority = 1;
             data.quote = uhc_victory_quote;
             
-            if (get_match_setting(SET_RUNES))
+            var on_team_with_niconico = false;
+            with (oPlayer) 
+            if ("url" in self && url == "2177081326")
+            && (get_player_team(player) == get_player_team(other.player))
+            {
+                on_team_with_niconico = true; break;
+            }
+
+            if (on_team_with_niconico)
+            {
+                data.priority = 3;
+                data.quote = "nobody mess with teh ultimate team of ultimae destiny!!!";
+            }
+            else if (get_match_setting(SET_RUNES))
             {
                 data.priority = 2;
                 data.quote = "thank u 4 watching my king for a day speedrun, sucribe for more content :)";
