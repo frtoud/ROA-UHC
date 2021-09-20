@@ -522,6 +522,12 @@ if (uhc_taunt_collect_videos && state == PS_ATTACK_GROUND && attack == AT_TAUNT)
                          song:sound_get("video_lol"),   
                          fps:8 };
            break;
+        case "2390163800": //SEGERAK
+           sprite_change_offset("video_brody", 11, 8);
+           videos[0] = { sprite:sprite_get("video_brody"),   
+                         song:sound_get("video_brody"),   
+                         fps:14 };
+           break;
         //=================================================================
         // Base cast
         //=================================================================
