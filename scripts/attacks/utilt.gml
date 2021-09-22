@@ -11,7 +11,6 @@ set_window_value(AT_UTILT, 1, AG_WINDOW_SFX, asset_get("sfx_buzzsaw_throw"));
 set_window_value(AT_UTILT, 1, AG_WINDOW_SFX_FRAME, -1);
 
 set_window_value(AT_UTILT, 2, AG_WINDOW_TYPE, 0);
-set_window_value(AT_UTILT, 2, AG_WINDOW_SPIN_COST, 1);
 set_window_value(AT_UTILT, 2, AG_WINDOW_LENGTH, 18);
 set_window_value(AT_UTILT, 2, AG_WINDOW_ANIM_FRAMES, 6);
 set_window_value(AT_UTILT, 2, AG_WINDOW_ANIM_FRAME_START, 2);
