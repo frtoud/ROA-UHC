@@ -268,13 +268,13 @@ uhc_bair_pseudograb_factor = 0.08; //strength of interpolation pulling to target
 uhc_dair_boost = 3;
 uhc_dair_boost_final = 7;
 
-uhc_cd_spin_drain_base = 0.035;
-uhc_cd_spin_drain_idle = 0.065;
-uhc_cd_spin_drain_clairen = 0.65;
-uhc_cd_spin_charge_rate = 1;
+uhc_cd_spin_drain_base = 0.035; //per frame
+uhc_cd_spin_drain_idle = 0.065; //per frame
+uhc_cd_spin_drain_clairen = 0.65; //per frame
+uhc_cd_spin_charge_rate = 1.35; //per frame
 uhc_cd_spin_max = 100;
-uhc_cd_respawn_timer_max = 300;
-uhc_pickup_cooldown_max = 30;
+uhc_cd_respawn_timer_max = 300; //# of frames
+uhc_pickup_cooldown_max = 30; //# of frames
 
 uhc_nspecial_charges_max = 4;
 uhc_nspecial_speed = 12;
