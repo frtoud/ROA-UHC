@@ -279,9 +279,9 @@ uhc_pickup_cooldown_max = 30;
 uhc_nspecial_charges_max = 4;
 uhc_nspecial_speed = 12;
 
-uhc_fspecial_charge_max = 480; // 8s * 60
-uhc_fspecial_charge_half = 240; // 4s * 60
-uhc_fspecial_cooldown = 60; // 1s * 60
+uhc_fspecial_charge_max = 15*60;
+uhc_fspecial_charge_half = 5*60;
+uhc_fspecial_cooldown = 1*60;
 
 uhc_uspecial_speed = 3;
 uhc_uspecial_speed_fast = 7;
