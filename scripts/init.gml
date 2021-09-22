@@ -13,14 +13,14 @@ pratfall_anim_speed = .25;
 walk_speed = 2.75;
 walk_accel = 1;
 walk_turn_time = 6;
-initial_dash_time = 14;
-initial_dash_speed = 8;
-dash_speed = 7.5;
+initial_dash_time = 12;
+initial_dash_speed = 7.2;
+dash_speed = 7;
 dash_turn_time = 10;
-dash_turn_accel = 1.4;
+dash_turn_accel = 1.5;
 dash_stop_time = 12;
 dash_stop_percent = .3; //the value to multiply your hsp by when going into idle from dash or dashstop
-ground_friction = .5;
+ground_friction = .7;
 moonwalk_accel = 1.4;
 
 jump_start_time = 5;
@@ -276,20 +276,20 @@ uhc_bair_pseudograb_factor = 0.08; //strength of interpolation pulling to target
 uhc_dair_boost = 3;
 uhc_dair_boost_final = 7;
 
-uhc_cd_spin_drain_base = 0.035;
-uhc_cd_spin_drain_idle = 0.065;
-uhc_cd_spin_drain_clairen = 0.65;
-uhc_cd_spin_charge_rate = 1;
+uhc_cd_spin_drain_base = 0.035; //per frame
+uhc_cd_spin_drain_idle = 0.065; //per frame
+uhc_cd_spin_drain_clairen = 0.65; //per frame
+uhc_cd_spin_charge_rate = 1.35; //per frame
 uhc_cd_spin_max = 100;
-uhc_cd_respawn_timer_max = uhc_rune_flags.dual_disk_system ? -1 : 300;
-uhc_pickup_cooldown_max = 30;
+uhc_cd_respawn_timer_max = uhc_rune_flags.dual_disk_system ? -1 : 300; //# of frames
+uhc_pickup_cooldown_max = 30; //# of frames
 
 uhc_nspecial_charges_max = 4;
 uhc_nspecial_speed = 12;
 
-uhc_fspecial_charge_max = 480; // 8s * 60
-uhc_fspecial_charge_half = 240; // 4s * 60
-uhc_fspecial_cooldown = 60; // 1s * 60
+uhc_fspecial_charge_max = 15*60;
+uhc_fspecial_charge_half = 5*60;
+uhc_fspecial_cooldown = 1*60;
 
 uhc_uspecial_speed = 3;
 uhc_uspecial_speed_fast = 7;
