@@ -120,7 +120,18 @@ switch (state)
         {
             if (has_hit) //finisher
             { spawn_hitbox(AT_FSTRONG, 3); }
-            set_state(AR_STATE_ROLL);
+            
+            if (hit_wall)
+            {
+                sound_play(asset_get("sfx_blow_weak1"));
+                vsp = -6;
+                hsp = -spr_dir;
+                set_state(AR_STATE_IDLE); 
+            }
+            else
+            {
+                set_state(AR_STATE_ROLL); 
+            }
         }
         
         //recall availability
@@ -135,8 +146,14 @@ switch (state)
     case AR_STATE_ROLL:
     {
         //Update
-        if (state_timer > 30)
+        if (state_timer > 30 || hit_wall)
         {
+            if (hit_wall)
+            {
+                sound_play(asset_get("sfx_blow_weak1"));
+                vsp = -6;
+                hsp = spr_dir;
+            }
             set_state(AR_STATE_IDLE);
         }
         else if (-hsp * spr_dir < cd_roll_speed)
@@ -269,6 +286,7 @@ switch (state)
         
         if (hit_wall)
         {
+            sound_play(asset_get("sfx_blow_weak1"));
             if (free)
             {
                 //bumps into solids, so drop down
@@ -444,9 +462,9 @@ switch (state)
             set_state(AR_STATE_IDLE);
 
             //with bounce 
-            if (has_hit || !free)
+            if (has_hit || !free || hit_wall)
             {
-                if !free { sound_play(asset_get("sfx_blow_weak1")); }
+                if (!has_hit) { sound_play(asset_get("sfx_blow_weak1")); }
             
                 vsp = -6;
                 hsp = spr_dir * (was_parried ? 1 : -1);
