@@ -402,7 +402,7 @@ switch (attack)
         else if (window == 4)
         {
             if (uhc_current_cd.cd_spin_meter >= uhc_cd_spin_max)
-            || (shield_pressed)
+            || (shield_pressed || attack_pressed || special_pressed || is_strong_pressed(DIR_ANY))
             {
                 window = 5;
                 window_timer = 0;
@@ -418,7 +418,8 @@ switch (attack)
                 }
             }
         }
-        else if (window == 6)
+        else if (window == 6) || 
+        (window == 5 && has_hit && window_timer >= get_window_value(AT_DSPECIAL, 5, AG_WINDOW_CANCEL_FRAME))
         {
             iasa_script();
         }

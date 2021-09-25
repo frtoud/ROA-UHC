@@ -12,7 +12,7 @@ set_window_value(AT_NSPECIAL, 1, AG_WINDOW_GOTO, 3);
 
 //Loops to charge using attack_update.gml
 set_window_value(AT_NSPECIAL, 2, AG_WINDOW_TYPE, 9); //Looping
-set_window_value(AT_NSPECIAL, 2, AG_WINDOW_LENGTH, 20);
+set_window_value(AT_NSPECIAL, 2, AG_WINDOW_LENGTH, 16);
 set_window_value(AT_NSPECIAL, 2, AG_WINDOW_ANIM_FRAMES, 5); //controlled manually
 set_window_value(AT_NSPECIAL, 2, AG_WINDOW_ANIM_FRAME_START, 2);
 
