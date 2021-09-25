@@ -120,7 +120,18 @@ switch (state)
         {
             if (has_hit) //finisher
             { spawn_hitbox(AT_FSTRONG, 3); }
-            set_state(AR_STATE_ROLL);
+            
+            if (hit_wall)
+            {
+                sound_play(asset_get("sfx_blow_weak1"));
+                vsp = -6;
+                hsp = -spr_dir;
+                set_state(AR_STATE_IDLE); 
+            }
+            else
+            {
+                set_state(AR_STATE_ROLL); 
+            }
         }
         
         //recall availability
@@ -135,8 +146,14 @@ switch (state)
     case AR_STATE_ROLL:
     {
         //Update
-        if (state_timer > 30)
+        if (state_timer > 30 || hit_wall)
         {
+            if (hit_wall)
+            {
+                sound_play(asset_get("sfx_blow_weak1"));
+                vsp = -6;
+                hsp = spr_dir;
+            }
             set_state(AR_STATE_IDLE);
         }
         else if (-hsp * spr_dir < cd_roll_speed)
@@ -147,7 +164,7 @@ switch (state)
         {
             hsp = -spr_dir * cd_roll_speed;
         }
-        do_gravity();
+        if (state_timer > cd_roll_grav_time) do_gravity();
         try_pickup();
         
         //recall availability
@@ -269,6 +286,7 @@ switch (state)
         
         if (hit_wall)
         {
+            sound_play(asset_get("sfx_blow_weak1"));
             if (free)
             {
                 //bumps into solids, so drop down
@@ -444,9 +462,9 @@ switch (state)
             set_state(AR_STATE_IDLE);
 
             //with bounce 
-            if (has_hit || !free)
+            if (has_hit || !free || hit_wall)
             {
-                if !free { sound_play(asset_get("sfx_blow_weak1")); }
+                if (!has_hit) { sound_play(asset_get("sfx_blow_weak1")); }
             
                 vsp = -6;
                 hsp = spr_dir * (was_parried ? 1 : -1);
@@ -467,6 +485,20 @@ switch (state)
 }
 
 state_timer++;
+
+//=====================================================
+//getting hit can interrupt the attack
+if (state == AR_STATE_FSTRONG) || (state == AR_STATE_USTRONG) 
+|| (state == AR_STATE_DSTRONG) || (state == AR_STATE_DSTRONG_AIR)
+|| (state == AR_STATE_DSPECIAL) || (state == AR_STATE_BASH_THROW)
+{
+    if (try_get_hit())
+    {
+        destroy_cd_hitboxes();
+        set_state(AR_STATE_IDLE);
+        sound_play(asset_get("sfx_shovel_hit_heavy1"), false, noone, 1, 1.2);
+    }
+}
 
 //=====================================================
 // Charge drain
@@ -520,6 +552,13 @@ if (state == AR_STATE_DYING || state == AR_STATE_HELD)
     can_priority_recall = false;
 }
 
+if (cd_stunned_timer > 0)
+{
+    cd_stunned_timer--;
+    can_recall = false;
+    can_priority_recall = false;
+}
+
 //=====================================================
 //Parry/Reflection logic reset
 was_parried = false;
@@ -556,7 +595,7 @@ if (getting_bashed && state != AR_STATE_BASHED)
 //==============================================================================
 #define do_friction()
 {
-    if (!free) hsp *= (1 - cd_frict_force);
+    hsp *= (1 - (free ? cd_air_frict_force : cd_frict_force));
 }
 //==============================================================================
 // call to check if the article is in clairen's no-fun-zone.
@@ -567,6 +606,8 @@ if (getting_bashed && state != AR_STATE_BASHED)
 //==============================================================================
 #define try_pickup()
 {
+    if (cd_stunned_timer > 0) return;
+
     var found_player_id = noone;
     var any_owner = (pickup_priority <= 0);
     
@@ -667,11 +708,112 @@ if (getting_bashed && state != AR_STATE_BASHED)
     return hb;
 }
 //==============================================================================
-// call to check if the article is in clairen's no-fun-zone.
 #define destroy_cd_hitboxes()
 {
-    with (pHitBox) if ("uhc_parent_cd" in self) && (uhc_parent_cd = other)
+    with (pHitBox) if ("uhc_parent_cd" in self) && (uhc_parent_cd == other)
     {
         destroyed = true;
     }
+}
+
+//==============================================================================
+// inspired by Supersonic's hit detection template (somewhat trimmed)
+// https://pastebin.com/zUXGn0QK thx 1138
+#define try_get_hit()
+{
+    var was_hit = false;
+
+    var team_attack = get_match_setting(SET_TEAMATTACK);
+    var cd_owner_id = current_owner_id;
+
+    var best_hitbox = noone;
+    var best_priority = 0.5;
+    var best_damage = 0.5;
+
+    with (pHitBox)
+    {
+        //only get hit by the best possible hitbox that could have damaged your current owner
+	    if (player != cd_owner_id.player || can_hit_self)
+        && ((hit_priority > best_priority) || (hit_priority == best_priority && damage > best_damage))
+	    && (other.can_be_hit[player] == 0) && (can_hit[cd_owner_id.player])
+        && (proj_break == 0 || "uhc_parent_cd" in self)
+	    && (get_player_team(cd_owner_id.player) != get_player_team(player) || team_attack)
+	    && collision_circle(other.x, other.y, other.cd_hittable_radius, self, true, false)
+        {
+            best_hitbox = self;
+            best_priority = hit_priority;
+            best_damage = damage;
+        }
+    }
+
+    if (instance_exists(best_hitbox))
+    {
+        was_hit = true;
+        var hb = best_hitbox;
+        //simulate getting hit
+        var kb_adj = 1.1;
+        var simulated_percent = 30;
+
+        // CD Knockback
+        var kb_val = max(cd_min_knockback, (hb.force_flinch) ? 0.3 : 
+                    hb.kb_value + (simulated_percent + hb.damage) * hb.kb_scale * kb_adj * 0.12);
+        var kb_dir = get_hitbox_angle(hb);
+
+        hsp = clamp(lengthdir_x(kb_val, kb_dir), -cd_max_kb_hsp, cd_max_kb_hsp);
+        vsp = clamp(lengthdir_y(kb_val, kb_dir), -cd_max_kb_vsp, 3);
+        if (hsp < 1 && hsp > -1) hsp = -1*spr_dir;
+        if (vsp < 1) vsp -= 2;
+
+        // CD "hitstun"
+        cd_stunned_timer = (hb.kb_value * 4 *((kb_adj - 1) * 0.6 + 1))
+                         + (hb.damage * 0.12 * hb.kb_scale * 4 * 0.65 * kb_adj) + 12;
+        
+        // CD hitpause
+        var desired_hitstop = min(20, floor(hb.hitpause + hb.damage * hb.hitpause_growth * 0.05));
+        hitstop = desired_hitstop;
+
+        with (hb)
+        {
+            //simulate having hit
+            has_hit = true;
+            sound_play(sound_effect);
+
+            spawn_hit_fx(floor( (x + other.x)/2), floor( (y + other.y)/2), hit_effect);
+            stop_effect = true; //prevents spawning of effect since it's already been done
+
+            if (type == 1) //melee
+            {
+                //simulate having hit
+                with (player_id)
+                {
+                    has_hit = true;
+
+                    //apply hitstop
+                    if (!hitpause)
+                    {
+                        old_vsp = vsp;
+                        old_hsp = hsp;
+                    }
+                    hitpause = true;
+                    if (hitstop < desired_hitstop)
+                    {
+                        hitstop = desired_hitstop;
+                        hitstop_full = desired_hitstop;
+                    }
+                }
+            }
+            else  //projectiles
+            {
+                if (!transcendent) 
+                {
+                    destroyed = true;
+                }
+
+                in_hitpause = true;
+                hitstop = desired_hitstop;
+            }
+        }
+    }
+
+    return was_hit;
 }

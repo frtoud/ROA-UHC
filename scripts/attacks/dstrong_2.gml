@@ -48,6 +48,8 @@ set_hitbox_value(AT_DSTRONG_2, 1, HG_PROJECTILE_DESTROY_EFFECT, 1);
 set_hitbox_value(AT_DSTRONG_2, 1, HG_HITSTUN_MULTIPLIER, 1.0);
 set_hitbox_value(AT_DSTRONG_2, 1, HG_PROJECTILE_SPRITE, asset_get("empty_sprite"));
 set_hitbox_value(AT_DSTRONG_2, 1, HG_PROJECTILE_MASK, -1);
+set_hitbox_value(AT_DSTRONG_2, 1, HG_IGNORES_PROJECTILES, 1);
+set_hitbox_value(AT_DSTRONG_2, 1, HG_PROJECTILE_DESTROY_EFFECT, 1); //none
 set_hitbox_value(AT_DSTRONG_2, 1, HG_PROJECTILE_UNBASHABLE, 1);
 set_hitbox_value(AT_DSTRONG_2, 1, HG_PROJECTILE_DOES_NOT_REFLECT, 1);
 set_hitbox_value(AT_DSTRONG_2, 1, HG_PROJECTILE_IS_TRANSCENDENT, 1);
@@ -74,6 +76,8 @@ set_hitbox_value(AT_DSTRONG_2, 2, HG_HIT_SFX, asset_get("sfx_blow_heavy1"));
 set_hitbox_value(AT_DSTRONG_2, 2, HG_SPIN_SFX, sound_get("sfx_ssbu_slash2"));
 set_hitbox_value(AT_DSTRONG_2, 2, HG_PROJECTILE_SPRITE, asset_get("empty_sprite"));
 set_hitbox_value(AT_DSTRONG_2, 2, HG_PROJECTILE_MASK, -1);
+set_hitbox_value(AT_DSTRONG_2, 2, HG_IGNORES_PROJECTILES, 1);
+set_hitbox_value(AT_DSTRONG_2, 2, HG_PROJECTILE_DESTROY_EFFECT, 1); //none
 set_hitbox_value(AT_DSTRONG_2, 2, HG_PROJECTILE_UNBASHABLE, 1);
 set_hitbox_value(AT_DSTRONG_2, 2, HG_PROJECTILE_DOES_NOT_REFLECT, 1);
 set_hitbox_value(AT_DSTRONG_2, 2, HG_PROJECTILE_IS_TRANSCENDENT, 1);

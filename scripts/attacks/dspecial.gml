@@ -77,6 +77,8 @@ set_hitbox_value(AT_DSPECIAL, 2, HG_LIFETIME, 4);
 set_hitbox_value(AT_DSPECIAL, 2, HG_WIDTH, 40);
 set_hitbox_value(AT_DSPECIAL, 2, HG_HEIGHT, 40);
 set_hitbox_value(AT_DSPECIAL, 2, HG_PRIORITY, 3);
+set_hitbox_value(AT_DSPECIAL, 2, HG_IGNORES_PROJECTILES, 1);
+set_hitbox_value(AT_DSPECIAL, 2, HG_PROJECTILE_DESTROY_EFFECT, 1); //none
 set_hitbox_value(AT_DSPECIAL, 2, HG_PROJECTILE_ENEMY_BEHAVIOR, 1);
 set_hitbox_value(AT_DSPECIAL, 2, HG_PROJECTILE_GROUND_BEHAVIOR, 1);
 set_hitbox_value(AT_DSPECIAL, 2, HG_PROJECTILE_WALL_BEHAVIOR, 1);
