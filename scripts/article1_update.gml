@@ -164,7 +164,7 @@ switch (state)
         {
             hsp = -spr_dir * cd_roll_speed;
         }
-        do_gravity();
+        if (state_timer > cd_roll_grav_time) do_gravity();
         try_pickup();
         
         //recall availability
