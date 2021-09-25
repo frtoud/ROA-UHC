@@ -37,6 +37,7 @@ through_platforms = false;
 //Constants
 cd_grav_force  = 0.35;
 cd_frict_force = 0.07;
+cd_air_frict_force = 0.03;
 cd_accel_force = 0.35;
 cd_roll_speed = 6;
 cd_fall_speed = 9;

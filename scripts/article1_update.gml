@@ -574,7 +574,7 @@ if (getting_bashed && state != AR_STATE_BASHED)
 //==============================================================================
 #define do_friction()
 {
-    if (!free) hsp *= (1 - cd_frict_force);
+    hsp *= (1 - (free ? cd_air_frict_force : cd_frict_force));
 }
 //==============================================================================
 // call to check if the article is in clairen's no-fun-zone.
