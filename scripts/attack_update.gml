@@ -402,7 +402,7 @@ switch (attack)
         else if (window == 4)
         {
             if (uhc_current_cd.cd_spin_meter >= uhc_cd_spin_max)
-            || (shield_pressed || attack_pressed || special_pressed || is_strong_pressed(DIR_ANY))
+            || (shield_pressed || special_pressed || attack_pressed || jump_pressed)
             {
                 window = 5;
                 window_timer = 0;
