@@ -38,6 +38,7 @@ set_window_value(AT_DSPECIAL, 5, AG_WINDOW_ANIM_FRAMES, 3);
 set_window_value(AT_DSPECIAL, 5, AG_WINDOW_ANIM_FRAME_START, 11);
 set_window_value(AT_DSPECIAL, 5, AG_WINDOW_HAS_SFX, 1);
 set_window_value(AT_DSPECIAL, 5, AG_WINDOW_SFX, sound_get("sfx_reload_done"));
+set_window_value(AT_DSPECIAL, 5, AG_WINDOW_CANCEL_FRAME, 10);
 set_window_value(AT_DSPECIAL, 5, AG_WINDOW_GOTO, 9); //ends move
 
 //Blade caught (secret window)
