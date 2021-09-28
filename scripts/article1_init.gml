@@ -81,7 +81,9 @@ cd_saved_spin_meter = cd_spin_meter; //charge of blade at the beginning of curre
 
 has_hit = false; //if a cd-hitbox connected on this move
 pickup_priority = 0; //time where only current_owner_id can grab this CD
-has_dstrong_hitbox = false; //checks if air DSTRONG spawned already
+
+cd_has_hitbox = false; //checks if CD has a hitbox right now
+cd_hitbox = noone; //the current CD hitbox
 
 cd_stunned_timer = 0; //time during which CD cannot be recalled or picked up
 
@@ -102,7 +104,6 @@ dstrong_remaining_laps = 0;
 dstrong_need_gravity = false;
 dstrong_angular_timer = 0;
 dstrong_angular_timer_prev = 0;
-dstrong_hitbox = noone;
 
 //=====================================================
 // animation variables

@@ -24,6 +24,8 @@ if (buffered_state != AR_STATE_BUFFER)
     set_state(buffered_state);
     cd_saved_spin_meter = cd_spin_meter;
     buffered_state = AR_STATE_BUFFER;
+    
+    destroy_cd_hitboxes();
 }
 //=====================================================
 
@@ -240,19 +242,19 @@ switch (state)
                 dstrong_angular_timer_prev -= 360; //can be negative; actually helps logic!
             }
         }
-        if (!instance_exists(dstrong_hitbox))
+        if (!instance_exists(cd_hitbox))
         {
-            dstrong_hitbox = spawn_hitbox(AT_DSTRONG, 2);
+            cd_hitbox = spawn_hitbox(AT_DSTRONG, 2);
         }
         
         if (was_parried)
         {
-            dstrong_hitbox.can_hit_self = true;
+            cd_hitbox.can_hit_self = true;
             spr_dir *= -1;
             dstrong_angular_timer = 360 - dstrong_angular_timer;
             dstrong_angular_timer_prev = dstrong_angular_timer - 1;
         }
-        dstrong_hitbox.spr_dir = spr_dir;
+        cd_hitbox.spr_dir = spr_dir;
         
         //angular timer of CD dictates how CD behaves
         hsp = -spr_dir * lengthdir_x(dstrong_current_speed, dstrong_angular_timer);
@@ -269,9 +271,7 @@ switch (state)
              || (dstrong_angular_timer >= 270 && dstrong_angular_timer_prev < 270)
         {
             dstrong_need_gravity = free;
-            for (var p = 0; p < array_length(dstrong_hitbox.can_hit); p++)
-            { dstrong_hitbox.can_hit[p] = (p != last_parried_by_player); }
-            dstrong_hitbox.stop_effect = false;
+            refresh_cd_hitbox();
         }
         //calculate angle towards projected next hit
         //lengthdir_y is not an error: angle 0 is "directly behind" and so needs sine
@@ -279,10 +279,10 @@ switch (state)
             launch_x = (launch_x < 0) ? min(launch_x, -3) : max(launch_x, 3)
         var launch_y = -max(2, abs(launch_x/3)); //to compensate 10 frames of gravity
         
-        dstrong_hitbox.kb_value = point_distance(0, 0, launch_x, launch_y);
-        dstrong_hitbox.kb_angle = point_direction(0, 0, launch_x, launch_y);
+        cd_hitbox.kb_value = point_distance(0, 0, launch_x, launch_y);
+        cd_hitbox.kb_angle = point_direction(0, 0, launch_x, launch_y);
         
-        dstrong_hitbox.hitbox_timer = 0;
+        cd_hitbox.hitbox_timer = 0;
         
         if (hit_wall)
         {
@@ -294,11 +294,7 @@ switch (state)
                 vsp = -6;
                 hsp = sign(hsp) * -1;
                 
-                if (instance_exists(dstrong_hitbox))
-                {
-                    dstrong_hitbox.destroyed = true;
-                    dstrong_hitbox = noone;
-                }
+            	destroy_cd_hitboxes();
             }
             else
             {
@@ -314,17 +310,13 @@ switch (state)
         
         if (dstrong_remaining_laps <= 0)
         {
+            destroy_cd_hitboxes();
+            
             if (has_hit) //finisher
             { spawn_hitbox(AT_DSTRONG, 3); }
             
             set_state(AR_STATE_IDLE);
             hsp *= 0.5;
-            
-            if (instance_exists(dstrong_hitbox))
-            {
-                dstrong_hitbox.destroyed = true;
-                dstrong_hitbox = noone;
-            }
         }
         //recall availability
         can_priority_recall = true;
@@ -343,12 +335,12 @@ switch (state)
         if (state_timer <= 1)
         {
             state_timer = 1;
-            has_dstrong_hitbox = false;
+            cd_has_hitbox = false;
         }
-        if (vsp > cd_dstrong_air_min_speed_for_hitbox) && (!has_dstrong_hitbox)
+        if (vsp > cd_dstrong_air_min_speed_for_hitbox) && (!cd_has_hitbox)
         {
             spawn_hitbox(AT_DSTRONG_2, (state_timer < cd_dstrong_air_spiking_time) ? 1: 2);
-            has_dstrong_hitbox = true;
+            cd_has_hitbox = true;
         }
         else if (!free || has_hit || was_parried)
         {
@@ -708,12 +700,22 @@ if (getting_bashed && state != AR_STATE_BASHED)
     return hb;
 }
 //==============================================================================
+#define refresh_cd_hitbox()
+{
+	if (is_array(cd_hitbox.can_hit))
+    for (var p = 0; p < array_length(cd_hitbox.can_hit); p++)
+    { cd_hitbox.can_hit[p] = (p != last_parried_by_player); }
+    cd_hitbox.stop_effect = false;
+}
+//==============================================================================
 #define destroy_cd_hitboxes()
 {
     with (pHitBox) if ("uhc_parent_cd" in self) && (uhc_parent_cd == other)
     {
         destroyed = true;
     }
+    cd_has_hitbox = false;
+    cd_hitbox = noone;
 }
 
 //==============================================================================
