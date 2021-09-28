@@ -54,7 +54,7 @@ if ("uhc_parent_cd" in self)
                                uhc_parent_cd.cd_dstrong_air_spiking_time)
         {
             // causes the CD to spawn the second hitbox
-            uhc_parent_cd.has_dstrong_hitbox = false;
+            uhc_parent_cd.cd_has_hitbox = false;
             destroyed = true;
         }
     }

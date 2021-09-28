@@ -21,11 +21,13 @@ if (!uhc_handled_victory_quote)
     { 
         transfer_array[p] = 
         {
-            order: 99999,
-            team: get_player_team(p),
-            priority: 0, 
-            quote:"", 
-            held_cd_color:-1
+            order: 99999,             // placement in results. only known later
+            team: get_player_team(p), // current team of player
+            priority: 0,              // message priority (0 default, 1 builtin, 2 explicit)
+            quote:"",                 // message if Hypercam wins against you
+            //===========================================================================
+            status_quote: "",         // message for this Hypercam if he wins under certain conditions
+            held_cd_color:-1          // Current color of CD for Hypercam
         }
     }
     
@@ -41,36 +43,42 @@ if (!uhc_handled_victory_quote)
             //only one Hypercam has to handle this for everyone: notify them.
             uhc_handled_victory_quote = true;
             
-            data.priority = 1;
+            data.priority = 2;
             data.quote = uhc_victory_quote;
             
             var on_team_with_niconico = false;
-            with (oPlayer) 
-            if ("url" in self && url == "2177081326")
-            && (get_player_team(player) == get_player_team(other.player))
+            with (oPlayer) if ("url" in self && url == "2177081326")
+                           && (get_player_team(player) == get_player_team(other.player))
             {
                 on_team_with_niconico = true; break;
             }
 
+            //blade color
+            var stole_cd = false;
+            if (temp_holding_blade) && (uhc_current_cd.player_id != self)
+            { 
+                stole_cd = true;
+                data.held_cd_color = get_player_color(uhc_current_cd.player_id.player); 
+            }
+
             if (on_team_with_niconico)
             {
-                data.priority = 3;
-                data.quote = "nobody mess with teh ultimate team of ultimae destiny!!!";
+                data.status_quote = "nobody mess with teh ultimate team of ultimae destiny!!!";
+            }
+            else if (stole_cd)
+            {
+                data.status_quote = "thx for sharing ur mixtap :D";
             }
             else if (get_match_setting(SET_RUNES))
             {
-                data.priority = 2;
-                data.quote = "thank u 4 watching my king for a day speedrun, sucribe for more content :)";
+                data.status_quote = "thank u 4 watching my king for a day speedrun, sucribe for more content :)";
             }
             //else... >:]
             
-            //blade color
-            if (temp_holding_blade) && (uhc_current_cd.player_id != self)
-            { data.held_cd_color = get_player_color(uhc_current_cd.player_id.player); }
         }
         else if ("uhc_victory_quote" in self)
         {
-            data.priority = 1;
+            data.priority = 2;
             data.quote = uhc_victory_quote;
         }
         else

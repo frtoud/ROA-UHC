@@ -215,14 +215,7 @@ if (object_index == asset_get("draw_result_screen"))
     {
         uhc_held_cd_color_array[p] = data_array[p].held_cd_color;
     }
-    
-    //special case: winner is holding another Hypercam's CD
-    if (data_array[winner].held_cd_color != -1)
-    {
-        data_array[winner].priority = 2;
-        data_array[winner].quote = "thx for sharing ur mixtap :D";
-    }
-    
+
     //determine who's 2nd, 3rd and 4th by position of their boxes
     with asset_get("result_screen_box")
     {
@@ -235,12 +228,18 @@ if (object_index == asset_get("draw_result_screen"))
     // - highest priority
     // - highest ranking
     
-    var best_player = winner;
-    var winning_team = data_array[winner].team;
-    var best_is_on_team = true;
     
-    if !(data_array[winner].priority >= 2)
+    if (string_length(data_array[winner].status_quote) > 1)
     {
+        //Status messages always take precedence for winner Hypercam
+        uhc_victory_quote = data_array[winner].status_quote;
+    }
+    else
+    {
+        var best_player = winner;
+        var winning_team = data_array[winner].team;
+        var best_is_on_team = true;
+        
         for (var p = 1; p <= 4; p++) if is_player_on(p)
         {
             var best = data_array[best_player];
@@ -259,9 +258,10 @@ if (object_index == asset_get("draw_result_screen"))
                 best_is_on_team = (best.team == winning_team);
             }
         }
+
+        uhc_victory_quote = data_array[best_player].quote;
+        if (string_length(uhc_victory_quote) < 1)
+        { uhc_victory_quote = get_random_quote(); }
     }
     
-    uhc_victory_quote = data_array[best_player].quote;
-    if (string_length(uhc_victory_quote) < 1)
-    { uhc_victory_quote = get_random_quote(); }
 }

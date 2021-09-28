@@ -348,8 +348,8 @@ walle_taunt_playing = false;
 //Agent N
 nname = "Unregistered HyperCam 2"
 ncode1 = "Outfitted with a deadly sawblade and throwing stars.";
-ncode2 = "Creator unknown; but deeply nostalgic.";
-ncode3 = "Pretends to be royalty and incessantly asks to subscribe.";
+ncode2 = "Creator unknown, but deeply nostalgic.";
+ncode3 = "Pretends to be royalty; incessantly asks to subscribe.";
 
 
 //=========================================================================
