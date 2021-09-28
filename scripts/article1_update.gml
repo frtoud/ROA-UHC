@@ -735,10 +735,10 @@ if (getting_bashed && state != AR_STATE_BASHED)
         //only get hit by the best possible hitbox that could have damaged your current owner
 	    if (player != cd_owner_id.player || can_hit_self)
         && ((hit_priority > best_priority) || (hit_priority == best_priority && damage > best_damage))
-	    && (other.can_be_hit[player] == 0) && (can_hit[cd_owner_id.player])
-        && (proj_break == 0 || "uhc_parent_cd" in self)
+	    && (cd_owner_id.can_be_hit[player] == 0) && (can_hit[cd_owner_id.player])
+        && (proj_break == 0 || ("uhc_parent_cd" in self && other != uhc_parent_cd))
 	    && (get_player_team(cd_owner_id.player) != get_player_team(player) || team_attack)
-	    && collision_circle(other.x, other.y, other.cd_hittable_radius, self, true, false)
+	    && (self == collision_circle(other.x, other.y, other.cd_hittable_radius, self, true, false))
         {
             best_hitbox = self;
             best_priority = hit_priority;
@@ -753,6 +753,11 @@ if (getting_bashed && state != AR_STATE_BASHED)
         //simulate getting hit
         var kb_adj = 1.1;
         var simulated_percent = 30;
+
+        print(`================================================================================`);
+        print(`found hitbox: atk=${hb.attack}, num=${hb.hbox_num}, type=${hb.type}, player=${hb.player}`);
+        print(`canbehit=${cd_owner_id.can_be_hit[hb.player]}, canhit=${hb.can_hit[cd_owner_id.player]}`);
+        print(`ignoreProj=${hb.proj_break}, isCD=${'uhc_parent_cd' in hb},collides=${hb == collision_circle(x, y, cd_hittable_radius, hb, true, false)}`);
 
         // CD Knockback
         var kb_val = max(cd_min_knockback, (hb.force_flinch) ? 0.3 : 
