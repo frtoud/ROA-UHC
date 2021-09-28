@@ -98,14 +98,21 @@ switch (state)
 //=====================================================
     case AR_STATE_FSTRONG:
     {
+        if (!instance_exists(cd_hitbox))
+        {
+            cd_hitbox = spawn_hitbox(AT_FSTRONG, 2);
+        }
         if (was_parried)
         {
+            cd_hitbox.can_hit_self = true;
             was_parried = false;
             
             //flip direction
             spr_dir *= -1;
             hsp *= -1.5; //slight boost
         }
+        cd_hitbox.hitbox_timer = 0;
+        cd_hitbox.spr_dir = spr_dir;
         
         //Update
         if (hsp * spr_dir > 0)
@@ -113,13 +120,15 @@ switch (state)
             hsp -= (spr_dir * cd_accel_force);
             if (0 == state_timer % 5)
             {
-                spawn_hitbox(AT_FSTRONG, 2);
+                refresh_cd_hitbox();
                 var hfx = spawn_hit_fx( x, y, player_id.vfx_spinning);
                 hfx.draw_angle = random_func( 7, 180, true);
             }
         }
         else
         {
+            destroy_cd_hitboxes();
+
             if (has_hit) //finisher
             { spawn_hitbox(AT_FSTRONG, 3); }
             
@@ -167,7 +176,7 @@ switch (state)
             hsp = -spr_dir * cd_roll_speed;
         }
         if (state_timer > cd_roll_grav_time) do_gravity();
-        try_pickup();
+        if try_pickup() break;
         
         //recall availability
         can_priority_recall = true;
@@ -182,24 +191,34 @@ switch (state)
         //Update
         if (vsp < 0)
         {
+	        if (!instance_exists(cd_hitbox))
+	        {
+	            cd_hitbox = spawn_hitbox(AT_USTRONG, 2);
+	        }
+        	cd_hitbox.hitbox_timer = 0;
+	        
             do_gravity();
             if (was_parried)
             {
                 was_parried = false;
                 vsp = max(abs(vsp), cd_dstrong_air_min_speed_for_hitbox);
                 set_state(AR_STATE_DSTRONG_AIR);
+            	destroy_cd_hitboxes();
             }
             else if (0 == state_timer % 5)
             {
-                spawn_hitbox(AT_USTRONG, 2);
+                refresh_cd_hitbox();
                 var hfx = spawn_hit_fx( x, y, player_id.vfx_spinning);
                 hfx.draw_angle = random_func( 7, 180, true);
             }
         }
         else
         {
+            destroy_cd_hitboxes();
+            
             if (has_hit) //finisher
             { spawn_hitbox(AT_USTRONG, 3); }
+            
             set_state(AR_STATE_DSTRONG_AIR);
         }
         
@@ -377,23 +396,24 @@ switch (state)
         vsp = lengthdir_y(total_speed, lookat_angle);
         
         pickup_priority = max(pickup_priority, 3);
-        try_pickup();
+        if try_pickup() break;
         
-        if (state == AR_STATE_HELD)
+        if (!instance_exists(cd_hitbox))
         {
-            //blade was just caught
-            //Activate DSPECIAL 2?
+            cd_hitbox = spawn_hitbox(AT_DSPECIAL, 2);
         }
-        else if (was_parried)
+        cd_hitbox.hitbox_timer = 0;
+        if (was_parried)
         {
             was_parried = false;
+            destroy_cd_hitboxes();
             set_state(AR_STATE_IDLE);
             vsp = -6;
             hsp = sign(hsp);
         }
         else if (0 == state_timer % 5)
         {
-            spawn_hitbox(AT_DSPECIAL, 2);
+            refresh_cd_hitbox();
             var hfx = spawn_hit_fx( x, y, player_id.vfx_spinning);
             hfx.draw_angle = random_func( 7, 180, true);
         }
@@ -420,6 +440,10 @@ switch (state)
     case AR_STATE_BASH_THROW:
     {
         //See FSTRONG: similar logic, but omnidirectional
+        if (!instance_exists(cd_hitbox))
+        {
+            cd_hitbox = spawn_hitbox(AT_FSTRONG, 2);
+        }
         if (was_parried)
         {
             was_parried = false;
@@ -429,6 +453,8 @@ switch (state)
             hsp *= -1.5; //slight boost
             vsp *= -1.5; //slight boost
         }
+        cd_hitbox.hitbox_timer = 0;
+        cd_hitbox.spr_dir = spr_dir;
         
         //Update
         var speed_val = point_distance(0, 0, hsp, vsp);
@@ -440,7 +466,7 @@ switch (state)
             vsp = lengthdir_y(speed_val, speed_dir);
             if (0 == state_timer % 5)
             {
-                spawn_hitbox(AT_FSTRONG, 2);
+                refresh_cd_hitbox();
                 var hfx = spawn_hit_fx( x, y, player_id.vfx_spinning);
                 hfx.draw_angle = random_func( 7, 180, true);
             }
@@ -598,8 +624,9 @@ if (getting_bashed && state != AR_STATE_BASHED)
 //==============================================================================
 #define try_pickup()
 {
-    if (cd_stunned_timer > 0) return;
+    if (cd_stunned_timer > 0) return false;
 
+	var was_caught = false;
     var found_player_id = noone;
     var any_owner = (pickup_priority <= 0);
     
@@ -634,6 +661,8 @@ if (getting_bashed && state != AR_STATE_BASHED)
     
     if (found_player_id != noone)
     {
+        was_caught = true;
+        destroy_cd_hitboxes();
         set_state(AR_STATE_HELD);
         found_player_id.uhc_has_cd_blade = true;
         found_player_id.uhc_update_blade_status = true;
@@ -660,6 +689,8 @@ if (getting_bashed && state != AR_STATE_BASHED)
             }
         }
     }
+    
+    return was_caught;
 }
 //==============================================================================
 #define spawn_hitbox(atk, hnum)
