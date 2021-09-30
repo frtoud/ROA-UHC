@@ -345,6 +345,9 @@ walle_taunt_sound = sound_get("cmp_walle");
 walle_taunt_type = 1;
 walle_taunt_playing = false;
 
+//TCO
+tcoart = sprite_get("cmp_tco");
+
 //Kirby
 enemykirby = noone;
 kirbyability = 16;
