@@ -313,10 +313,11 @@ switch (state)
                     else
                     { uhc_taunt_timer++; }
                 }
-                 
-                if (window_timer == 4)
+
+                if (window == 1) && (window_timer == 12) //startup: shuffle
                 {
-                    if (window == 1) //startup: shuffle
+                    uhc_taunt_bufferskip = taunt_down;
+                    if (!taunt_down) 
                     {
                         for (var i = (uhc_taunt_num_videos - 1); i >= 0; i--)
                         {
@@ -329,33 +330,39 @@ switch (state)
                             }
                         }
                     }
-                    else if (window == 2) //Click to start
-                    {
-                        var video_number = 0;
-                        //Switching channels
-                        if (uhc_taunt_current_video != noone)
-                        {
-                            sound_stop(uhc_taunt_current_video.song);
-                            video_number = (uhc_taunt_current_video_index + 1) % uhc_taunt_num_videos;
-                        }
-                        else
-                        {
-                            video_number = random_func(0, uhc_taunt_num_videos, true);
-                        }
-
-                        uhc_taunt_current_video = uhc_taunt_videos[video_number];
-                        uhc_taunt_current_video_index = video_number;
-                        uhc_taunt_timer = 0;
-                        uhc_taunt_is_opening = true;
-                        //special == 1: no buffering
-                        uhc_taunt_buffering_timer = (uhc_taunt_current_video.special == 1) ? 0 
-                                                    : 20 + random_func(0, 40, true);
-                    }
-                    else if (window == 6) //Click to end
+                }
+                else if (window == 2) && (window_timer == 4) //Click to start
+                {
+                    var video_number = 0;
+                    //Switching channels
+                    if (uhc_taunt_current_video != noone)
                     {
                         sound_stop(uhc_taunt_current_video.song);
-                        uhc_taunt_is_opening = false;
+                        video_number = (uhc_taunt_current_video_index + 1) % uhc_taunt_num_videos;
                     }
+                    else
+                    {
+                        video_number = uhc_taunt_current_video_index;
+                    }
+
+                    uhc_taunt_current_video = uhc_taunt_videos[video_number];
+                    uhc_taunt_current_video_index = video_number;
+                    uhc_taunt_timer = 0;
+                    uhc_taunt_is_opening = true;
+                    //special == 1: no buffering
+                    uhc_taunt_buffering_timer = (uhc_taunt_current_video.special == 1) ? 0 
+                                                : 20 + random_func(0, 40, true);
+                    if (uhc_taunt_bufferskip)
+                    {
+                        uhc_taunt_bufferskip = false;
+                        //see sound_play condition in timers section
+                        uhc_taunt_buffering_timer = min(uhc_taunt_buffering_timer, 2);
+                    }
+                }
+                else if (window == 6) && (window_timer == 4) //Click to end
+                {
+                    sound_stop(uhc_taunt_current_video.song);
+                    uhc_taunt_is_opening = false;
                 }
 
                 //Respawn taunt special behavior

@@ -236,6 +236,7 @@ uhc_taunt_opening_timer = 0;
 uhc_taunt_opening_timer_max = 8;
 uhc_taunt_buffering_timer = 0;
 uhc_taunt_reloop = false;
+uhc_taunt_bufferskip = false;
 
 //NOTE: time values unsafe for online! only used in rendering!
 uhc_fast_screenshot = 2 < (is_player_on(1) + is_player_on(2) + is_player_on(3) + is_player_on(4));
