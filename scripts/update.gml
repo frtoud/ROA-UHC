@@ -282,6 +282,8 @@ with (oPlayer) if (uhc_handler_id == other)
             {
                 if (window_timer == 1)
                 {
+                    has_hit_is_new = true;
+
                     var charge_level = 
                     (uhc_kirby_charge < uhc_handler_id.uhc_fspecial_charge_half) ? 1 :
                     (uhc_kirby_charge < uhc_handler_id.uhc_fspecial_charge_max)  ? 2 : 3;
@@ -311,7 +313,52 @@ with (oPlayer) if (uhc_handler_id == other)
                     uhc_kirby_anim_timer = uhc_handler_id.uhc_anim_fspecial_flash_time;
                 }
             }
+            else if (window == 2 && has_hit && has_hit_is_new)
+            {
+                has_hit_is_new = false;
+                //detect a hit during window 2
+                //should be hitbox #1 of AT_EXTRA_1
+                //see hit_player
+                if instance_exists(hit_player_obj) && instance_exists(my_hitboxID)
+                && (my_hitboxID.attack == AT_EXTRA_3 && my_hitboxID.hbox_num == 1)
+                {
+                    var victim = hit_player_obj;
+                    with (uhc_handler_id) 
+                    if (uhc_unsafe_screenshot.next_time < current_time)
+                    {
+                        uhc_unsafe_screenshot.sfx_time   = current_time +   500;
+                        uhc_unsafe_screenshot.start_time = current_time +   750;
+                        uhc_unsafe_screenshot.rise_time  = current_time +  1000;
+                        uhc_unsafe_screenshot.fall_time  = current_time +  1000 + (uhc_fast_screenshot ? 1000 : 6000);
+                        uhc_unsafe_screenshot.end_time   = current_time +  1250 + (uhc_fast_screenshot ? 1000 : 6000);
+                        with (oPlayer) if ("uhc_unsafe_screenshot" in self)
+                        { uhc_unsafe_screenshot.next_time  = current_time + 10000; }
+                        
+                        var scale = 1 + victim.small_sprites;
+                        
+                        var height_offset = clamp(victim.y - y + 8, -24, 24);
+                        uhc_unsafe_screenshot.target = victim;
+                        uhc_unsafe_screenshot.spr_dir = victim.spr_dir;
+                        if ("uhc_custom_screenshot_sprite" in victim
+                        && victim.uhc_custom_screenshot_sprite != noone)
+                        {
+                            uhc_unsafe_screenshot.sprite = victim.uhc_custom_screenshot_sprite;
+                            uhc_unsafe_screenshot.image  = 0;
+                            uhc_unsafe_screenshot.spr_top = 
+                                sprite_get_yoffset(uhc_unsafe_screenshot.sprite) - 47/scale - height_offset;
+                            uhc_unsafe_screenshot.spr_left = 
+                                abs(sprite_get_xoffset(uhc_unsafe_screenshot.sprite)) - 43/scale;
+                        }
+                        else
+                        {
+                            uhc_unsafe_screenshot.sprite = victim.sprite_index;
+                            uhc_unsafe_screenshot.image  = victim.image_index;
+                            uhc_unsafe_screenshot.spr_left = abs(victim.sprite_xoffset) - 43/scale;
+                            uhc_unsafe_screenshot.spr_top = victim.sprite_yoffset - (47+height_offset)/scale;
+                        }
+                    }
+                }
+            }
         }
-
     }
 }
