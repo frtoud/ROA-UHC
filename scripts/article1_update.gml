@@ -787,11 +787,6 @@ if (getting_bashed && state != AR_STATE_BASHED)
         var kb_adj = 1.1;
         var simulated_percent = 30;
 
-        print(`================================================================================`);
-        print(`found hitbox: atk=${hb.attack}, num=${hb.hbox_num}, type=${hb.type}, player=${hb.player}`);
-        print(`canbehit=${cd_owner_id.can_be_hit[hb.player]}, canhit=${hb.can_hit[cd_owner_id.player]}`);
-        print(`ignoreProj=${hb.proj_break}, isCD=${'uhc_parent_cd' in hb},collides=${hb == collision_circle(x, y, cd_hittable_radius, hb, true, false)}`);
-
         // CD Knockback
         var kb_val = max(cd_min_knockback, (hb.force_flinch) ? 0.3 : 
                     hb.kb_value + (simulated_percent + hb.damage) * hb.kb_scale * kb_adj * 0.12);
