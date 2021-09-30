@@ -485,7 +485,7 @@ switch (state)
                 if (!has_hit) { sound_play(asset_get("sfx_blow_weak1")); }
             
                 vsp = -6;
-                hsp = spr_dir * (was_parried ? 1 : -1);
+                hsp = spr_dir * (hit_wall ? 1 : -1);
             }
         }
         
