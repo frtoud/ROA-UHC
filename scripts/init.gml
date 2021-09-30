@@ -193,6 +193,8 @@ uhc_anim_rewind =
 
 vfx_spinning = hit_fx_create(sprite_get("vfx_spinning"), 4);
 
+indicator_spr = sprite_get("indicator_triangle");
+
 uhc_anim_buffer_timer = 0;
 uhc_anim_dspecial_image_timer = 0;
 uhc_anim_platform_timer = 0;
@@ -314,6 +316,9 @@ uhc_nspecial_is_charging = false;
 uhc_uspecial_hitbox = noone;
 uhc_uspecial_start_pos = { x:0, y:0 };
 
+//from other_init, for simplicity
+uhc_handler_id = noone;
+
 //=================================================
 // Compatibility Zone
 
@@ -336,6 +341,11 @@ Hikaru_Title = "Five-Star Freeware";
 walle_taunt_sound = sound_get("cmp_walle");
 walle_taunt_type = 1;
 walle_taunt_playing = false;
+
+//Kirby
+enemykirby = noone;
+kirbyability = 16;
+swallowed = false;
 
 //Agent N
 nname = "Unregistered HyperCam 2"

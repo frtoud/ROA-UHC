@@ -89,6 +89,7 @@ sprite_change_offset("vfx_flash_medium", 0, 53);
 sprite_change_offset("vfx_flash_large", 0, 107);
 
 sprite_change_offset("hud_icons", 3, -1);
+sprite_change_offset("indicator_triangle", 3, 3);
 
 // See init::add_uhc_video() for the generalized version
 // sprite_change_offset("video_blocked", 11, 8);
@@ -97,6 +98,7 @@ set_victory_theme(sound_get("victory"));
 set_victory_bg(sprite_get("victory"));
 
 sprite_change_offset("cmp_trial_grounds", 31, 0);
+sprite_change_offset("cmp_kirby", 32, 54);
 
 //=================================================
 // DEFINES
