@@ -349,6 +349,8 @@ walle_taunt_playing = false;
 enemykirby = noone;
 kirbyability = 16;
 swallowed = false;
+// for easter egg to work
+uhc_kirby_last_sprite = { spr: noone, img: 0, time: 0 };
 
 //Agent N
 nname = "Unregistered HyperCam 2"

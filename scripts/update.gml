@@ -311,6 +311,14 @@ with (oPlayer) if (uhc_handler_id == other)
                     move_cooldown[AT_EXTRA_3] = 2 * uhc_handler_id.uhc_fspecial_cooldown;
                     uhc_kirby_charge = 0;
                     uhc_kirby_anim_timer = uhc_handler_id.uhc_anim_fspecial_flash_time;
+
+                    //for easter egg to accurately take the current sprite (check below is one frame late)
+                    with (oPlayer)
+                    {
+                        uhc_kirby_last_sprite.spr = sprite_index;
+                        uhc_kirby_last_sprite.img = image_index;
+                        uhc_kirby_last_sprite.time = get_gameplay_time();
+                    }
                 }
             }
             else if (window == 2 && has_hit && has_hit_is_new)
@@ -336,7 +344,7 @@ with (oPlayer) if (uhc_handler_id == other)
                         
                         var scale = 1 + victim.small_sprites;
                         
-                        var height_offset = clamp(victim.y - y + 8, -24, 24);
+                        var height_offset = clamp(victim.y - other.y + 2, -24, 24);
                         uhc_unsafe_screenshot.target = victim;
                         uhc_unsafe_screenshot.spr_dir = victim.spr_dir;
                         if ("uhc_custom_screenshot_sprite" in victim
@@ -344,6 +352,17 @@ with (oPlayer) if (uhc_handler_id == other)
                         {
                             uhc_unsafe_screenshot.sprite = victim.uhc_custom_screenshot_sprite;
                             uhc_unsafe_screenshot.image  = 0;
+                            uhc_unsafe_screenshot.spr_top = 
+                                sprite_get_yoffset(uhc_unsafe_screenshot.sprite) - 47/scale - height_offset;
+                            uhc_unsafe_screenshot.spr_left = 
+                                abs(sprite_get_xoffset(uhc_unsafe_screenshot.sprite)) - 43/scale;
+                        }
+                        else if ("uhc_kirby_last_sprite" in victim
+                        && victim.uhc_kirby_last_sprite.spr != noone
+                        && abs(get_gameplay_time() - victim.uhc_kirby_last_sprite.time) < 5)
+                        {
+                            uhc_unsafe_screenshot.sprite = victim.uhc_kirby_last_sprite.spr;
+                            uhc_unsafe_screenshot.image  = victim.uhc_kirby_last_sprite.img;
                             uhc_unsafe_screenshot.spr_top = 
                                 sprite_get_yoffset(uhc_unsafe_screenshot.sprite) - 47/scale - height_offset;
                             uhc_unsafe_screenshot.spr_left = 
