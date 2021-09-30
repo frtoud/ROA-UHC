@@ -98,6 +98,10 @@ switch (state)
 //=====================================================
     case AR_STATE_FSTRONG:
     {
+        if (state_timer <= 1)
+        {
+            fstrong_starting_speed = abs(hsp);
+        }
         if (!instance_exists(cd_hitbox))
         {
             cd_hitbox = spawn_hitbox(AT_FSTRONG, 2);
@@ -108,8 +112,9 @@ switch (state)
             was_parried = false;
             
             //flip direction
-            spr_dir *= -1;
-            hsp *= -1.5; //slight boost
+            spr_dir *= -1; 
+            //adapt speed in a way that it can reach the thrower
+            hsp = -sign(hsp) * min(1.3 * fstrong_starting_speed, player_id.uhc_fstrong_throwspeed_max);
         }
         cd_hitbox.hitbox_timer = 0;
         cd_hitbox.spr_dir = spr_dir;

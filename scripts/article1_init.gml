@@ -98,6 +98,8 @@ pre_dspecial_immunity = 0; //prevents CD from dying while AT_DSPECIAL_2 is in pr
 can_recall = false; //if true, CD is available to be recalled
 can_priority_recall = false; //if true, can be recalled (but only by current_owner_id)
 
+fstrong_starting_speed = 0; //speed at which fstrong was launched
+
 dstrong_charge_percent = 0; // matched (strong_charge / 60), % of charge when thrown by AT_DSTRONG
 dstrong_current_speed = cd_dstrong_ground_min_speed;
 dstrong_remaining_laps = 0;
