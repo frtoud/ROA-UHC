@@ -56,7 +56,7 @@ cd_dstrong_ground_max_laps = 5;
 
 cd_multihit_speed_bonus = 0.75;
 
-cd_hittable_radius = 24;
+cd_hittable_radius = 20;
 cd_min_knockback = 3;
 cd_max_kb_hsp = 12;
 cd_max_kb_vsp = 9;
