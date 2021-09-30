@@ -257,7 +257,6 @@ with (oPlayer) if (uhc_handler_id == other)
         //animation counter
         if (uhc_kirby_anim_timer > 0)
         { uhc_kirby_anim_timer--; }
-        //indicator flash
 
         if (current_ability == 0)
         {
@@ -272,7 +271,6 @@ with (oPlayer) if (uhc_handler_id == other)
                 && (attack == AT_EXTRA_3))
         {
             //Using the copied move -- see attack_update FSPECIAL
-            
             if (window <= 2)
             {
                 can_move = false;
@@ -307,7 +305,8 @@ with (oPlayer) if (uhc_handler_id == other)
                 }
                 else if (window_timer == get_window_value(AT_EXTRA_3, 1, AG_WINDOW_LENGTH) - 1)
                 {
-                    move_cooldown[AT_EXTRA_3] = uhc_handler_id.uhc_fspecial_cooldown;
+                    //Kirby's cooldown counts down twice as fast!?
+                    move_cooldown[AT_EXTRA_3] = 2 * uhc_handler_id.uhc_fspecial_cooldown;
                     uhc_kirby_charge = 0;
                     uhc_kirby_anim_timer = uhc_handler_id.uhc_anim_fspecial_flash_time;
                 }
