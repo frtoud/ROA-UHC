@@ -227,14 +227,14 @@ switch (state)
 //===============================================================
             case AT_FSPECIAL:
             {
-                if (window == 1 && window_timer == 1)
+                if (window == 1 && window_timer == 3)
                 {
-                    uhc_anim_fspecial_flash_timer = 6;
+                    uhc_anim_fspecial_flash_timer = uhc_anim_fspecial_flash_pre_time;
                     uhc_anim_fspecial_flash_spr = vfx_flash_charge;
                 }
                 else if (window >= 2 && window <= 4) && (window_timer == 0)
                 {
-                    uhc_anim_fspecial_flash_timer = 6;
+                    uhc_anim_fspecial_flash_timer = uhc_anim_fspecial_flash_time;
                      
                     uhc_anim_fspecial_flash_spr = (window == 2 ? vfx_flash_small
                                                 : (window == 3 ? vfx_flash_medium

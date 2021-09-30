@@ -110,7 +110,7 @@ if (state == PS_ATTACK_AIR || state == PS_ATTACK_GROUND) && (attack == AT_NSPECI
 // FSPECIAL Flash
 if (uhc_anim_fspecial_flash_spr != noone)
 {
-    var frame = 4 - clamp((uhc_anim_fspecial_flash_timer) / 2, 0, 4);
+    var frame = 4 - clamp((uhc_anim_fspecial_flash_timer - 1) / 2, 0, 4);
     shader_start();
     draw_sprite_ext(uhc_anim_fspecial_flash_spr, frame, 
                     x + (spr_dir * 18), y - 28, spr_dir * scale, scale, 0, c_white, 1);

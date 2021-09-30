@@ -178,6 +178,8 @@ vfx_flash_large = sprite_get("vfx_flash_large");
 
 uhc_anim_fspecial_flash_spr = noone;
 uhc_anim_fspecial_flash_timer = 0;
+uhc_anim_fspecial_flash_time = 8;
+uhc_anim_fspecial_flash_pre_time = 8;
 
 //DSPECIAL Rewind
 uhc_anim_rewind = 

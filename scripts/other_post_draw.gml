@@ -16,7 +16,7 @@ if (uhc_handler_id == other_player_id) && (uhc_has_kirby_ability)
 {
     if (uhc_kirby_anim_timer > 0)
     {
-        var frame = 4 - clamp((uhc_kirby_anim_timer) / 2, 0, 4);
+        var frame = 4 - clamp((uhc_kirby_anim_timer - 1) / 2, 0, 4);
         
         draw_sprite_ext(( uhc_kirby_anim_charge_level <= 1 ? uhc_handler_id.vfx_flash_small
                         : uhc_kirby_anim_charge_level == 2 ? uhc_handler_id.vfx_flash_medium
