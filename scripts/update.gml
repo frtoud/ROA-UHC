@@ -309,7 +309,7 @@ with (oPlayer) if (uhc_handler_id == other)
                 {
                     move_cooldown[AT_EXTRA_3] = uhc_handler_id.uhc_fspecial_cooldown;
                     uhc_kirby_charge = 0;
-                    uhc_kirby_anim_timer = 6;
+                    uhc_kirby_anim_timer = uhc_handler_id.uhc_anim_fspecial_flash_time;
                 }
             }
         }
