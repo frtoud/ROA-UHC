@@ -135,7 +135,10 @@ switch (state)
             destroy_cd_hitboxes();
 
             if (has_hit) //finisher
-            { spawn_hitbox(AT_FSTRONG, 3); }
+            {
+                spawn_hitbox(AT_FSTRONG, 3);
+                cd_recall_stun_timer = cd_finisher_recall_stun;
+            }
             
             if (hit_wall)
             {
@@ -143,6 +146,7 @@ switch (state)
                 vsp = -6;
                 hsp = -spr_dir;
                 set_state(AR_STATE_IDLE); 
+                cd_recall_stun_timer = cd_finisher_recall_stun;
             }
             else
             {
@@ -200,7 +204,7 @@ switch (state)
 	        {
 	            cd_hitbox = spawn_hitbox(AT_USTRONG, 2);
 	        }
-        	cd_hitbox.hitbox_timer = 0;
+            cd_hitbox.hitbox_timer = 0;
 	        
             do_gravity();
             if (was_parried)
@@ -222,7 +226,10 @@ switch (state)
             destroy_cd_hitboxes();
             
             if (has_hit) //finisher
-            { spawn_hitbox(AT_USTRONG, 3); }
+            { 
+                spawn_hitbox(AT_USTRONG, 3);
+                cd_recall_stun_timer = cd_finisher_recall_stun;
+            }
             
             set_state(AR_STATE_DSTRONG_AIR);
         }
@@ -319,6 +326,7 @@ switch (state)
                 hsp = sign(hsp) * -1;
                 
             	destroy_cd_hitboxes();
+                cd_recall_stun_timer = cd_finisher_recall_stun;
             }
             else
             {
@@ -337,7 +345,10 @@ switch (state)
             destroy_cd_hitboxes();
             
             if (has_hit) //finisher
-            { spawn_hitbox(AT_DSTRONG, 3); }
+            {
+                spawn_hitbox(AT_DSTRONG, 3);
+                cd_recall_stun_timer = cd_finisher_recall_stun;
+            }
             
             set_state(AR_STATE_IDLE);
             hsp *= 0.5;
@@ -378,6 +389,7 @@ switch (state)
         {
             if !(has_hit) { sound_play(asset_get("sfx_blow_weak1")); }
             set_state(AR_STATE_IDLE);
+            cd_recall_stun_timer = cd_finisher_recall_stun;
             vsp = -6;
             hsp = -spr_dir;
         }
@@ -496,6 +508,7 @@ switch (state)
             if (has_hit || !free || hit_wall)
             {
                 if (!has_hit) { sound_play(asset_get("sfx_blow_weak1")); }
+                cd_recall_stun_timer = cd_finisher_recall_stun;
             
                 vsp = -6;
                 hsp = spr_dir * (hit_wall ? 1 : -1);
@@ -818,9 +831,9 @@ if (getting_bashed && state != AR_STATE_BASHED)
 
         // CD "hitstun"
         cd_recall_stun_timer = (hb.kb_value * 4 *((kb_adj - 1) * 0.6 + 1))
-                         + (hb.damage * 0.12 * hb.kb_scale * 4 * 0.65 * kb_adj) + 12;
+                             + (hb.damage * 0.12 * hb.kb_scale * 4 * 0.65 * kb_adj) + 12;
         cd_pickup_stun_timer = cd_recall_stun_timer;
-        
+
         // CD hitpause
         var desired_hitstop = min(20, floor(hb.hitpause + hb.damage * hb.hitpause_growth * 0.05));
         hitstop = desired_hitstop;
