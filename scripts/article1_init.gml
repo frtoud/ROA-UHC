@@ -62,7 +62,8 @@ cd_min_knockback = 3;
 cd_max_kb_hsp = 12;
 cd_max_kb_vsp = 9;
 
-cd_finisher_recall_stun = 20; //frames of hitstun after a finisher hit
+cd_finisher_recall_stun = 30; //frames of hitstun after a finisher hit
+cd_extra_hitstun = 20; //extra frames of hitstun from being hit (default formula uses 12)
 
 //=====================================================
 // state variables

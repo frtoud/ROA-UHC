@@ -834,7 +834,8 @@ if (getting_bashed && state != AR_STATE_BASHED)
 
         // CD "hitstun"
         cd_recall_stun_timer = (hb.kb_value * 4 *((kb_adj - 1) * 0.6 + 1))
-                             + (hb.damage * 0.12 * hb.kb_scale * 4 * 0.65 * kb_adj) + 12;
+                             + (hb.damage * 0.12 * hb.kb_scale * 4 * 0.65 * kb_adj) 
+                             + cd_extra_hitstun;
         cd_pickup_stun_timer = cd_recall_stun_timer;
 
         // CD hitpause
