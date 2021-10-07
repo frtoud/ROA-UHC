@@ -583,11 +583,17 @@ if (state == AR_STATE_DYING || state == AR_STATE_HELD)
     can_priority_recall = false;
 }
 
-if (cd_stunned_timer > 0)
+//=====================================================
+//Hitstun pseudostate
+if (cd_recall_stun_timer > 0)
 {
-    cd_stunned_timer--;
+    cd_recall_stun_timer--;
     can_recall = false;
     can_priority_recall = false;
+}
+if (cd_pickup_stun_timer > 0)
+{
+    cd_pickup_stun_timer--;
 }
 
 //=====================================================
@@ -637,7 +643,7 @@ if (getting_bashed && state != AR_STATE_BASHED)
 //==============================================================================
 #define try_pickup()
 {
-    if (cd_stunned_timer > 0) return false;
+    if (cd_pickup_stun_timer > 0) return false;
 
 	var was_caught = false;
     var found_player_id = noone;
@@ -807,12 +813,13 @@ if (getting_bashed && state != AR_STATE_BASHED)
 
         hsp = clamp(lengthdir_x(kb_val, kb_dir), -cd_max_kb_hsp, cd_max_kb_hsp);
         vsp = clamp(lengthdir_y(kb_val, kb_dir), -cd_max_kb_vsp, 3);
-        if (hsp < 1 && hsp > -1) hsp = -1*spr_dir;
+        if (hsp < 1 && hsp > -1) hsp = -spr_dir;
         if (vsp < 1) vsp -= 2;
 
         // CD "hitstun"
-        cd_stunned_timer = (hb.kb_value * 4 *((kb_adj - 1) * 0.6 + 1))
+        cd_recall_stun_timer = (hb.kb_value * 4 *((kb_adj - 1) * 0.6 + 1))
                          + (hb.damage * 0.12 * hb.kb_scale * 4 * 0.65 * kb_adj) + 12;
+        cd_pickup_stun_timer = cd_recall_stun_timer;
         
         // CD hitpause
         var desired_hitstop = min(20, floor(hb.hitpause + hb.damage * hb.hitpause_growth * 0.05));

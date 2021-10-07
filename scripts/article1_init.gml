@@ -62,6 +62,8 @@ cd_min_knockback = 3;
 cd_max_kb_hsp = 12;
 cd_max_kb_vsp = 9;
 
+cd_finisher_recall_stun = 20; //frames of hitstun after a finisher hit
+
 //=====================================================
 // state variables
 buffered_state = -1; //AR_STATE_BUFFER
@@ -86,7 +88,8 @@ pickup_priority = 0; //time where only current_owner_id can grab this CD
 cd_has_hitbox = false; //checks if CD has a hitbox right now
 cd_hitbox = noone; //the current CD hitbox
 
-cd_stunned_timer = 0; //time during which CD cannot be recalled or picked up
+cd_recall_stun_timer = 0; //time during which CD cannot be recalled
+cd_pickup_stun_timer = 0; //time during which CD cannot be picked up
 
 was_parried = false; // if the CD was just parried
 last_parried_by_player = 0; // which player needs to not be hit by the CD (0 meaning owner)
