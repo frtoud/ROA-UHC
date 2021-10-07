@@ -2,7 +2,7 @@
 
 //===============================================
 //Strongs to Tilts conversions
-if (!uhc_has_cd_blade)
+if (!uhc_has_cd_blade || uhc_throw_cooldown_override > 0)
 {
     if (attack == AT_FSTRONG) { attack = AT_FTILT; }
     else if (attack == AT_USTRONG) { attack = AT_UTILT; }

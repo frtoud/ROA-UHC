@@ -280,6 +280,7 @@ uhc_cd_spin_charge_rate = 1.35; //per frame
 uhc_cd_spin_max = 100;
 uhc_cd_respawn_timer_max = 300; //# of frames
 uhc_pickup_cooldown_max = 30; //# of frames
+uhc_throw_cooldown_max = 30; //# of frames
 
 uhc_nspecial_charges_max = 4;
 uhc_nspecial_speed = 12;
@@ -295,7 +296,8 @@ uhc_uspecial_speed_fast = 7;
 //Custom variables initialized here
 uhc_has_cd_blade = true;
 uhc_current_cd = instance_create(x, y, "obj_article1"); //CD held (or last CD held)
-uhc_pickup_cooldown = 0;
+uhc_pickup_cooldown = 0; //number of frames before being able to pickup a CD
+uhc_throw_cooldown_override = 0; //number of frames before you can throw again
 
 uhc_dspecial_is_recalling = false;
 uhc_recalling_cd = noone; // target CD of current DSPECIAL

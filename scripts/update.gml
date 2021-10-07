@@ -34,9 +34,14 @@ if (!uhc_cd_can_respawn && !uhc_no_charging) && !instance_exists(uhc_current_cd)
 }
 
 //=====================================================
-//Blade pickup cooldown
+//Blade pickup cooldown (see article1_update)
 if (uhc_pickup_cooldown > 0)
 { uhc_pickup_cooldown--; }
+
+//=====================================================
+//Throws cooldown override (see set_attack)
+if (uhc_throw_cooldown_override > 0)
+{ uhc_throw_cooldown_override--; }
 
 //=====================================================
 // Recalling logic

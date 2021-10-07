@@ -711,7 +711,10 @@ if (getting_bashed && state != AR_STATE_BASHED)
         
         with (current_owner_id)
         {
-        // "Crownslide": catch blade to remove friction for 12 frames
+            //Prevent throws for a short period
+            uhc_throw_cooldown_override = uhc_throw_cooldown_max;
+            
+            // "Crownslide": catch blade to remove friction for 12 frames
             if (state_cat == SC_GROUND_NEUTRAL || state_cat == SC_AIR_NEUTRAL)
             || (state == PS_LAND || state == PS_WAVELAND || state == PS_WALK_TURN 
             ||  state == PS_DASH_START || state == PS_DASH || state == PS_DASH_TURN || state == PS_DASH_STOP)
