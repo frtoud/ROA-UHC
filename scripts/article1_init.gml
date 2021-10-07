@@ -46,6 +46,7 @@ cd_dspecial_force = 0.75;
 cd_dspecial_speed = 15;
 cd_dstrong_air_min_speed_for_hitbox = 5.5;
 cd_dstrong_air_spiking_time = 10;
+cd_reflect_vspeed = 12;
 
 cd_dstrong_ground_min_speed = 12;
 cd_dstrong_ground_max_speed = 16;

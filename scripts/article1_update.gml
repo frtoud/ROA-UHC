@@ -206,7 +206,7 @@ switch (state)
             if (was_parried)
             {
                 was_parried = false;
-                vsp = max(abs(vsp), cd_dstrong_air_min_speed_for_hitbox);
+                vsp = max(abs(vsp), cd_reflect_vspeed);
                 set_state(AR_STATE_DSTRONG_AIR);
             	destroy_cd_hitboxes();
             }
@@ -366,12 +366,20 @@ switch (state)
             spawn_hitbox(AT_DSTRONG_2, (state_timer < cd_dstrong_air_spiking_time) ? 1: 2);
             cd_has_hitbox = true;
         }
-        else if (!free || has_hit || was_parried)
+        else if (was_parried)
         {
-            if !(has_hit || was_parried) { sound_play(asset_get("sfx_blow_weak1")); }
+            was_parried = false;
+            set_state(AR_STATE_USTRONG);
+            destroy_cd_hitboxes();
+            vsp = -cd_reflect_vspeed;
+            hsp = 0;
+        }
+        else if (!free || has_hit)
+        {
+            if !(has_hit) { sound_play(asset_get("sfx_blow_weak1")); }
             set_state(AR_STATE_IDLE);
             vsp = -6;
-            hsp = spr_dir * (was_parried ? 1 : -1);
+            hsp = -spr_dir;
         }
         
         //recall availability
