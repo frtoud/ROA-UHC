@@ -51,6 +51,7 @@ if (uhc_dspecial_is_recalling)
     if (state_cat == SC_HITSTUN) || (uhc_has_cd_blade)
     || !instance_exists(uhc_recalling_cd)
     || (state == PS_DEAD || state == PS_RESPAWN)
+    || (uhc_recalling_cd.state != AT_DSPECIAL)
     {
         if (instance_exists(uhc_recalling_cd) 
         && uhc_recalling_cd.state == AT_DSPECIAL)
