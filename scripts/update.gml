@@ -39,9 +39,15 @@ if (uhc_pickup_cooldown > 0)
 { uhc_pickup_cooldown--; }
 
 //=====================================================
-//Throws cooldown override (see set_attack)
+//Throws cooldown override
 if (uhc_throw_cooldown_override > 0)
-{ uhc_throw_cooldown_override--; }
+{ 
+    uhc_throw_cooldown_override--;
+    move_cooldown[AT_FSTRONG]   = max(2, move_cooldown[AT_FSTRONG]);
+    move_cooldown[AT_USTRONG]   = max(2, move_cooldown[AT_USTRONG]);
+    move_cooldown[AT_DSTRONG]   = max(2, move_cooldown[AT_DSTRONG]);
+    move_cooldown[AT_DSTRONG_2] = max(2, move_cooldown[AT_DSTRONG_2]);
+}
 
 //=====================================================
 // Recalling logic
