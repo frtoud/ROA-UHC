@@ -137,7 +137,6 @@ switch (state)
             if (has_hit) //finisher
             {
                 spawn_hitbox(AT_FSTRONG, 3);
-                cd_recall_stun_timer = cd_finisher_recall_stun;
             }
             
             if (hit_wall)
@@ -146,7 +145,7 @@ switch (state)
                 vsp = -6;
                 hsp = -spr_dir;
                 set_state(AR_STATE_IDLE); 
-                cd_recall_stun_timer = cd_finisher_recall_stun;
+                cd_recall_stun_timer = cd_low_recall_stun;
             }
             else
             {
@@ -228,7 +227,6 @@ switch (state)
             if (has_hit) //finisher
             { 
                 spawn_hitbox(AT_USTRONG, 3);
-                cd_recall_stun_timer = cd_finisher_recall_stun;
             }
             
             set_state(AR_STATE_DSTRONG_AIR);
@@ -326,7 +324,7 @@ switch (state)
                 hsp = sign(hsp) * -1;
                 
             	destroy_cd_hitboxes();
-                cd_recall_stun_timer = cd_finisher_recall_stun;
+                cd_recall_stun_timer = cd_low_recall_stun;
             }
             else
             {
@@ -347,7 +345,6 @@ switch (state)
             if (has_hit) //finisher
             {
                 spawn_hitbox(AT_DSTRONG, 3);
-                cd_recall_stun_timer = cd_finisher_recall_stun;
             }
             
             set_state(AR_STATE_IDLE);
@@ -366,30 +363,55 @@ switch (state)
     {
         //Update
         do_gravity();
+
+        var can_spike = (state_timer < cd_dstrong_air_spiking_time)
         
         if (state_timer <= 1)
         {
             state_timer = 1;
             cd_has_hitbox = false;
         }
-        if (vsp > cd_dstrong_air_min_speed_for_hitbox) && (!cd_has_hitbox)
+        if (vsp > cd_dstrong_air_min_speed_for_hitbox)
         {
-            spawn_hitbox(AT_DSTRONG_2, (state_timer < cd_dstrong_air_spiking_time) ? 1: 2);
-            cd_has_hitbox = true;
+            if (can_spike && 1 == state_timer % 3)
+            {
+                var hfx = spawn_hit_fx( x, y, player_id.vfx_spinning);
+                hfx.draw_angle = random_func( 7, 180, true);
+            }
+
+            if (!cd_has_hitbox)
+            {
+                spawn_hitbox(AT_DSTRONG_2, can_spike ? 1: 2);
+                cd_has_hitbox = true;
+            }
         }
-        else if (was_parried)
+        if (was_parried)
         {
             was_parried = false;
-            set_state(AR_STATE_USTRONG);
             destroy_cd_hitboxes();
-            vsp = -cd_reflect_vspeed;
-            hsp = 0;
+            if (can_spike)
+            {
+                set_state(AR_STATE_USTRONG);
+                vsp = -cd_reflect_vspeed;
+                hsp = 0;
+            }
+            else
+            {
+                set_state(AR_STATE_IDLE);
+                cd_recall_stun_timer = cd_high_recall_stun;
+                vsp = -vsp * 0.75;
+                hsp = 0;
+            }
+            
         }
         else if (!free || has_hit)
         {
-            if !(has_hit) { sound_play(asset_get("sfx_blow_weak1")); }
+            if !(has_hit) 
+            { 
+                sound_play(asset_get("sfx_blow_weak1"));
+                cd_recall_stun_timer = cd_low_recall_stun;
+            }
             set_state(AR_STATE_IDLE);
-            cd_recall_stun_timer = cd_finisher_recall_stun;
             vsp = -6;
             hsp = -spr_dir;
         }
@@ -445,7 +467,6 @@ switch (state)
         
         //Animation
         sprite_index = spr_article_cd_shoot;
-        //image_angle = lookat_angle;
         image_index += 0.25;
                                
     } break;
@@ -507,9 +528,12 @@ switch (state)
             //with bounce 
             if (has_hit || !free || hit_wall)
             {
-                if (!has_hit) { sound_play(asset_get("sfx_blow_weak1")); }
-                cd_recall_stun_timer = cd_finisher_recall_stun;
-            
+                if (!has_hit) 
+                {
+                    sound_play(asset_get("sfx_blow_weak1")); 
+                    cd_recall_stun_timer = cd_low_recall_stun;
+                }
+
                 vsp = -6;
                 hsp = spr_dir * (hit_wall ? 1 : -1);
             }

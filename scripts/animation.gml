@@ -81,7 +81,8 @@ uhc_anim_platform_timer++;
 //===============================================================
 // Reset at the beginning of each move/state
 // Used by Strongs so that throws can show smears
-if (uhc_anim_blade_force_draw && (state_timer == 0 || state_cat == SC_HITSTUN))
+if (uhc_anim_blade_force_draw && (state_timer == 0 
+                              || !(state == PS_ATTACK_AIR || state == PS_ATTACK_GROUND)) )
 { uhc_anim_blade_force_draw = false; }
 
 //===============================================================

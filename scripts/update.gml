@@ -39,9 +39,15 @@ if (uhc_pickup_cooldown > 0)
 { uhc_pickup_cooldown--; }
 
 //=====================================================
-//Throws cooldown override (see set_attack)
+//Throws cooldown override
 if (uhc_throw_cooldown_override > 0)
-{ uhc_throw_cooldown_override--; }
+{ 
+    uhc_throw_cooldown_override--;
+    move_cooldown[AT_FSTRONG]   = max(2, move_cooldown[AT_FSTRONG]);
+    move_cooldown[AT_USTRONG]   = max(2, move_cooldown[AT_USTRONG]);
+    move_cooldown[AT_DSTRONG]   = max(2, move_cooldown[AT_DSTRONG]);
+    move_cooldown[AT_DSTRONG_2] = max(2, move_cooldown[AT_DSTRONG_2]);
+}
 
 //=====================================================
 // Recalling logic
@@ -50,11 +56,12 @@ if (uhc_dspecial_is_recalling)
     //prevent move spam during recall
     move_cooldown[AT_DSPECIAL] = 2;
     
-    if (state_cat == SC_HITSTUN) || (uhc_has_cd_blade)
-    || !instance_exists(uhc_recalling_cd)
-    || (state == PS_DEAD || state == PS_RESPAWN)
+    if (state_cat == SC_HITSTUN) // Got hit
+    || (uhc_has_cd_blade) //caught CD
+    || (state == PS_DEAD || state == PS_RESPAWN) // Got killed
+    || !instance_exists(uhc_recalling_cd) // CD missing
     || (uhc_recalling_cd.state != AT_DSPECIAL 
-     && uhc_recalling_cd.buffered_state != AT_DSPECIAL)
+     && uhc_recalling_cd.buffered_state != AT_DSPECIAL) // CD stopped recall
     {
         if (instance_exists(uhc_recalling_cd) 
         && uhc_recalling_cd.state == AT_DSPECIAL)
