@@ -43,9 +43,10 @@ cd_roll_speed = 6;
 cd_roll_grav_time = 12;
 cd_fall_speed = 9;
 cd_dspecial_force = 0.75;
-cd_dspecial_speed = 24;
+cd_dspecial_speed = 15;
 cd_dstrong_air_min_speed_for_hitbox = 5.5;
 cd_dstrong_air_spiking_time = 10;
+cd_reflect_vspeed = 12;
 
 cd_dstrong_ground_min_speed = 12;
 cd_dstrong_ground_max_speed = 16;
@@ -60,6 +61,9 @@ cd_hittable_radius = 20;
 cd_min_knockback = 3;
 cd_max_kb_hsp = 12;
 cd_max_kb_vsp = 9;
+
+cd_finisher_recall_stun = 30; //frames of hitstun after a finisher hit
+cd_extra_hitstun = 20; //extra frames of hitstun from being hit (default formula uses 12)
 
 //=====================================================
 // state variables
@@ -85,7 +89,8 @@ pickup_priority = 0; //time where only current_owner_id can grab this CD
 cd_has_hitbox = false; //checks if CD has a hitbox right now
 cd_hitbox = noone; //the current CD hitbox
 
-cd_stunned_timer = 0; //time during which CD cannot be recalled or picked up
+cd_recall_stun_timer = 0; //time during which CD cannot be recalled
+cd_pickup_stun_timer = 0; //time during which CD cannot be picked up
 
 was_parried = false; // if the CD was just parried
 last_parried_by_player = 0; // which player needs to not be hit by the CD (0 meaning owner)

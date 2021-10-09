@@ -43,7 +43,7 @@ max_fall = 10; //maximum fall speed without fastfalling
 fast_fall = 13; //fast fall speed
 gravity_speed = .6;
 hitstun_grav = .5;
-knockback_adj = 1.0; //the multiplier to KB dealt to you. 1 = default, >1 = lighter, <1 = heavier
+knockback_adj = 0.95; //the multiplier to KB dealt to you. 1 = default, >1 = lighter, <1 = heavier
 
 land_time = 6; //normal landing frames
 prat_land_time = 16;
@@ -116,7 +116,8 @@ uhc_spin_sfx_threshold = 0.40; //above 40% spin, you get the new sounds
 uhc_spin_sfx_high_threshold = 0.80; //above 80% spin, some moves get even more sounds
 
 // Custom Angle Flipper values
-ANGLE_FLIPPER_CD_MULTIHIT = 55; //simulate "pull towards center" angle flipper; but considers speed of cd
+ANGLE_FLIPPER_AUTOLINK = 33; //simulates "pull towards center" but considers position of victim & base KB direction/length
+ANGLE_FLIPPER_CD_MULTIHIT = 55; //simulate "pull towards center" but considers position of victim & speed of cd
 
 //=================================================
 //Custom vfx & sprites
@@ -288,6 +289,7 @@ uhc_cd_spin_charge_rate = 1.35; //per frame
 uhc_cd_spin_max = 100;
 uhc_cd_respawn_timer_max = uhc_rune_flags.dual_disk_system ? -1 : 300; //# of frames
 uhc_pickup_cooldown_max = 30; //# of frames
+uhc_throw_cooldown_max = 12; //# of frames
 
 uhc_nspecial_charges_max = 4;
 uhc_nspecial_speed = 12;
@@ -303,7 +305,8 @@ uhc_uspecial_speed_fast = 7;
 //Custom variables initialized here
 uhc_has_cd_blade = true;
 uhc_current_cd = instance_create(x, y, "obj_article1"); //CD held (or last CD held)
-uhc_pickup_cooldown = 0;
+uhc_pickup_cooldown = 0; //number of frames before being able to pickup a CD
+uhc_throw_cooldown_override = 0; //number of frames before you can throw again
 
 uhc_dspecial_is_recalling = false;
 uhc_recalling_cd = noone; // target CD of current DSPECIAL

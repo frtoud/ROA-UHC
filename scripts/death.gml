@@ -1,6 +1,7 @@
 //death.gml
 
 uhc_pickup_cooldown = 0;
+uhc_throw_cooldown_override = 0;
 
 //move flags
 uhc_nspecial_charges = 0;

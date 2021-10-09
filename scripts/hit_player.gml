@@ -26,28 +26,57 @@ if ("uhc_parent_cd" in my_hitboxID)
     if (cd_id.hitstop < my_hitboxID.hitpause)
     { cd_id.hitstop = my_hitboxID.hitpause; }
     
+    //Special Flipper: "Projectile Autolink" 
+    // Attempts to pull towards center of future hitbox position
     if (my_hitboxID.hit_flipper == ANGLE_FLIPPER_CD_MULTIHIT)
+    // No effect on armored enemies
     && (hit_player_obj.state == PS_HITSTUN || hit_player_obj.state == PS_HITSTUN_LAND)
-    { 
-        //can't get too much bonus from speed
-        var diff_mult = 0.07;
-        var diff_x = -diff_mult * (cd_id.x - hit_player_obj.x);
-        var diff_y = -diff_mult * (cd_id.y - (hit_player_obj.y - hit_player_obj.char_height/2));
-        
+    {
+        var grav_bias = 3; //VSP offset to compensate gravity's effect en-route to next hit
+        var diff_mult = 0.16; //Multiplier to reduce speed gained from position (enough speed to fix offset in 1/X frames)
+
+        //Vector from PlayerCenter to HitboxCenter
+        var diff_x = diff_mult * (hit_player_obj.x - cd_id.x);
+        var diff_y = diff_mult * (hit_player_obj.y - hit_player_obj.char_height/2 - cd_id.y);
+
         //simulate "pull towards center" angle flipper; but considers speed
-        //Angle depends on current article speed (vsp adjusted for gravity)
-        var pull_angle = point_direction(diff_x, diff_y, cd_id.hsp, cd_id.vsp);
-        var cd_speed = point_distance(diff_x, diff_y, cd_id.hsp, cd_id.vsp);
-        var grav_bias = max(1 - (cd_id.vsp + 3) * 0.2, 1);
+        //Angle depends on current article speed and offset of victim (vsp adjusted for gravity)
+        var pull_angle = point_direction(diff_x, grav_bias + diff_y, cd_id.hsp, cd_id.vsp);
+        var cd_speed = point_distance(diff_x, grav_bias + diff_y, cd_id.hsp, cd_id.vsp);
         
         //knockback speed is determined by orig_knock
         //direction is determined by the vector [old_hsp, old_vsp]
         //I blame Dan
-        hit_player_obj.orig_knock += min(8*grav_bias, cd_speed * cd_id.cd_multihit_speed_bonus);
+        hit_player_obj.orig_knock += cd_speed * cd_id.cd_multihit_speed_bonus;
                                      
         hit_player_obj.old_hsp = lengthdir_x(hit_player_obj.orig_knock, pull_angle);
-        hit_player_obj.old_vsp = lengthdir_y(hit_player_obj.orig_knock, pull_angle) - 2;
+        hit_player_obj.old_vsp = lengthdir_y(hit_player_obj.orig_knock, pull_angle);
     }
+}
+
+//Special Flipper: "Autolink" 
+// Adjusts to pull towards wherever curernt knockback is pointing at (relative to the hitbox)
+if (my_hitboxID.hit_flipper == ANGLE_FLIPPER_AUTOLINK)
+// No effect on armored enemies; only do this for hitstun states
+&& (hit_player_obj.state == PS_HITSTUN || hit_player_obj.state == PS_HITSTUN_LAND)
+{
+    var grav_bias = 3; //VSP offset to compensate gravity's effect en-route to next hit
+    var diff_mult = 0.16; //Multiplier to reduce speed gained from position (enough speed to fix offset in 1/X frames)
+
+    //Vector from PlayerCenter to HitboxCenter
+    var diff_x = diff_mult * (hit_player_obj.x - my_hitboxID.x);
+    var diff_y = diff_mult * (hit_player_obj.y - hit_player_obj.char_height/2 - my_hitboxID.y);
+
+    //simulate "pull towards center" angle flipper; but considers kb direction
+    //Angle depends on knockback direction and offset of victim (vsp adjusted for gravity)
+    var pull_angle = point_direction(diff_x, grav_bias + diff_y, hit_player_obj.old_hsp, hit_player_obj.old_vsp);
+    var new_knockback = point_distance(diff_x, grav_bias + diff_y, hit_player_obj.old_hsp, hit_player_obj.old_vsp);
+
+    //I still blame Dan
+    hit_player_obj.orig_knock = new_knockback;
+
+    hit_player_obj.old_hsp = lengthdir_x(hit_player_obj.orig_knock, pull_angle);
+    hit_player_obj.old_vsp = lengthdir_y(hit_player_obj.orig_knock, pull_angle);
 }
 
 //=====================================================
