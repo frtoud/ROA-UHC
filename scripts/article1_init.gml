@@ -63,7 +63,7 @@ cd_max_kb_hsp = 12;
 cd_max_kb_vsp = 9;
 
 cd_low_recall_stun = 20; //frames of hitstun after interrupted attack
-cd_high_recall_stun = 40; //frames of hitstun after parried DSPECIAL, DSTRONG_AIR
+cd_high_recall_stun = 60; //frames of hitstun after parried DSPECIAL, DSTRONG_AIR
 cd_extra_hitstun = 20; //extra frames of hitstun from being hit (default formula uses 12)
 
 //=====================================================
