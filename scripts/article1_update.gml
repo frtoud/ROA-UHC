@@ -98,6 +98,10 @@ switch (state)
 //=====================================================
     case AR_STATE_FSTRONG:
     {
+        if (state_timer <= 1)
+        {
+            fstrong_starting_speed = abs(hsp);
+        }
         if (!instance_exists(cd_hitbox))
         {
             cd_hitbox = spawn_hitbox(AT_FSTRONG, 2);
@@ -108,8 +112,9 @@ switch (state)
             was_parried = false;
             
             //flip direction
-            spr_dir *= -1;
-            hsp *= -1.5; //slight boost
+            spr_dir *= -1; 
+            //adapt speed in a way that it can reach the thrower
+            hsp = -sign(hsp) * min(1.3 * fstrong_starting_speed, player_id.uhc_fstrong_throwspeed_max);
         }
         cd_hitbox.hitbox_timer = 0;
         cd_hitbox.spr_dir = spr_dir;
@@ -485,7 +490,7 @@ switch (state)
                 if (!has_hit) { sound_play(asset_get("sfx_blow_weak1")); }
             
                 vsp = -6;
-                hsp = spr_dir * (was_parried ? 1 : -1);
+                hsp = spr_dir * (hit_wall ? 1 : -1);
             }
         }
         
@@ -786,11 +791,6 @@ if (getting_bashed && state != AR_STATE_BASHED)
         //simulate getting hit
         var kb_adj = 1.1;
         var simulated_percent = 30;
-
-        print(`================================================================================`);
-        print(`found hitbox: atk=${hb.attack}, num=${hb.hbox_num}, type=${hb.type}, player=${hb.player}`);
-        print(`canbehit=${cd_owner_id.can_be_hit[hb.player]}, canhit=${hb.can_hit[cd_owner_id.player]}`);
-        print(`ignoreProj=${hb.proj_break}, isCD=${'uhc_parent_cd' in hb},collides=${hb == collision_circle(x, y, cd_hittable_radius, hb, true, false)}`);
 
         // CD Knockback
         var kb_val = max(cd_min_knockback, (hb.force_flinch) ? 0.3 : 

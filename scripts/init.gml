@@ -178,6 +178,8 @@ vfx_flash_large = sprite_get("vfx_flash_large");
 
 uhc_anim_fspecial_flash_spr = noone;
 uhc_anim_fspecial_flash_timer = 0;
+uhc_anim_fspecial_flash_time = 8;
+uhc_anim_fspecial_flash_pre_time = 8;
 
 //DSPECIAL Rewind
 uhc_anim_rewind = 
@@ -192,6 +194,8 @@ uhc_anim_rewind =
 };
 
 vfx_spinning = hit_fx_create(sprite_get("vfx_spinning"), 4);
+
+indicator_spr = sprite_get("indicator_triangle");
 
 uhc_anim_buffer_timer = 0;
 uhc_anim_dspecial_image_timer = 0;
@@ -232,6 +236,7 @@ uhc_taunt_opening_timer = 0;
 uhc_taunt_opening_timer_max = 8;
 uhc_taunt_buffering_timer = 0;
 uhc_taunt_reloop = false;
+uhc_taunt_bufferskip = false;
 
 //NOTE: time values unsafe for online! only used in rendering!
 uhc_fast_screenshot = 2 < (is_player_on(1) + is_player_on(2) + is_player_on(3) + is_player_on(4));
@@ -322,6 +327,9 @@ uhc_nspecial_is_charging = false;
 uhc_uspecial_hitbox = noone;
 uhc_uspecial_start_pos = { x:0, y:0 };
 
+//from other_init, for simplicity
+uhc_handler_id = noone;
+
 //=================================================
 // Compatibility Zone
 
@@ -344,6 +352,16 @@ Hikaru_Title = "Five-Star Freeware";
 walle_taunt_sound = sound_get("cmp_walle");
 walle_taunt_type = 1;
 walle_taunt_playing = false;
+
+//TCO
+tcoart = sprite_get("cmp_tco");
+
+//Kirby
+enemykirby = noone;
+kirbyability = 16;
+swallowed = false;
+// for easter egg to work
+uhc_kirby_last_sprite = { spr: noone, img: 0, time: 0 };
 
 //Agent N
 nname = "Unregistered HyperCam 2"

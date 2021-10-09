@@ -56,7 +56,7 @@ cd_dstrong_ground_max_laps = 5;
 
 cd_multihit_speed_bonus = 0.75;
 
-cd_hittable_radius = 24;
+cd_hittable_radius = 20;
 cd_min_knockback = 3;
 cd_max_kb_hsp = 12;
 cd_max_kb_vsp = 9;
@@ -97,6 +97,8 @@ death_anim_timer_max = 30; //time it takes for the death animation
 pre_dspecial_immunity = 0; //prevents CD from dying while AT_DSPECIAL_2 is in progress
 can_recall = false; //if true, CD is available to be recalled
 can_priority_recall = false; //if true, can be recalled (but only by current_owner_id)
+
+fstrong_starting_speed = 0; //speed at which fstrong was launched
 
 dstrong_charge_percent = 0; // matched (strong_charge / 60), % of charge when thrown by AT_DSTRONG
 dstrong_current_speed = cd_dstrong_ground_min_speed;

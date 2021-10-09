@@ -32,7 +32,7 @@ set_attack_value(AT_DSTRONG, AG_NUM_HITBOXES_BLADED, 1);
 set_hitbox_value(AT_DSTRONG, 1, HG_PARENT_HITBOX, 1);
 set_hitbox_value(AT_DSTRONG, 1, HG_HITBOX_TYPE, 1);
 set_hitbox_value(AT_DSTRONG, 1, HG_WINDOW, 3);
-set_hitbox_value(AT_DSTRONG, 1, HG_LIFETIME, 5);
+set_hitbox_value(AT_DSTRONG, 1, HG_LIFETIME, 2);
 set_hitbox_value(AT_DSTRONG, 1, HG_HITBOX_X, 0);
 set_hitbox_value(AT_DSTRONG, 1, HG_HITBOX_Y, -20);
 set_hitbox_value(AT_DSTRONG, 1, HG_WIDTH, 80);
