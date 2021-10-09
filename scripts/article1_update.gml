@@ -137,7 +137,6 @@ switch (state)
             if (has_hit) //finisher
             {
                 spawn_hitbox(AT_FSTRONG, 3);
-                cd_recall_stun_timer = cd_finisher_recall_stun;
             }
             
             if (hit_wall)
@@ -146,7 +145,7 @@ switch (state)
                 vsp = -6;
                 hsp = -spr_dir;
                 set_state(AR_STATE_IDLE); 
-                cd_recall_stun_timer = cd_finisher_recall_stun;
+                cd_recall_stun_timer = cd_low_recall_stun;
             }
             else
             {
@@ -228,7 +227,6 @@ switch (state)
             if (has_hit) //finisher
             { 
                 spawn_hitbox(AT_USTRONG, 3);
-                cd_recall_stun_timer = cd_finisher_recall_stun;
             }
             
             set_state(AR_STATE_DSTRONG_AIR);
@@ -326,7 +324,7 @@ switch (state)
                 hsp = sign(hsp) * -1;
                 
             	destroy_cd_hitboxes();
-                cd_recall_stun_timer = cd_finisher_recall_stun;
+                cd_recall_stun_timer = cd_low_recall_stun;
             }
             else
             {
@@ -347,7 +345,6 @@ switch (state)
             if (has_hit) //finisher
             {
                 spawn_hitbox(AT_DSTRONG, 3);
-                cd_recall_stun_timer = cd_finisher_recall_stun;
             }
             
             set_state(AR_STATE_IDLE);
@@ -387,9 +384,12 @@ switch (state)
         }
         else if (!free || has_hit)
         {
-            if !(has_hit) { sound_play(asset_get("sfx_blow_weak1")); }
+            if !(has_hit) 
+            { 
+                sound_play(asset_get("sfx_blow_weak1"));
+                cd_recall_stun_timer = cd_low_recall_stun;
+            }
             set_state(AR_STATE_IDLE);
-            cd_recall_stun_timer = cd_finisher_recall_stun;
             vsp = -6;
             hsp = -spr_dir;
         }
@@ -445,7 +445,6 @@ switch (state)
         
         //Animation
         sprite_index = spr_article_cd_shoot;
-        //image_angle = lookat_angle;
         image_index += 0.25;
                                
     } break;
@@ -507,8 +506,11 @@ switch (state)
             //with bounce 
             if (has_hit || !free || hit_wall)
             {
-                if (!has_hit) { sound_play(asset_get("sfx_blow_weak1")); }
-                cd_recall_stun_timer = cd_finisher_recall_stun;
+                if (!has_hit) 
+                {
+                    sound_play(asset_get("sfx_blow_weak1")); 
+                    cd_recall_stun_timer = cd_low_recall_stun;
+                }
             
                 vsp = -6;
                 hsp = spr_dir * (hit_wall ? 1 : -1);
