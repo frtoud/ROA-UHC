@@ -88,7 +88,7 @@ switch (attack)
             {
                 //Looping hitbox as long as you hold
                 sound_play(asset_get("sfx_swipe_weak1"));
-                create_hitbox(AT_DATTACK, 4, 0, 0);
+                create_hitbox(AT_DATTACK, 3, 0, 0);
             }
             
             if (!attack_down && uhc_looping_attack_can_exit) 
