@@ -353,8 +353,6 @@ switch (attack)
                 }
                 else //No CD, no Target
                 {
-                    //prevent spam
-                    move_cooldown[AT_DSPECIAL] = 60;
                     set_window_value(AT_DSPECIAL, 2, AG_WINDOW_HAS_SFX, true);
                 }
             }
