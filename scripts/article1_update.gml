@@ -33,7 +33,7 @@ if (buffered_state != AR_STATE_BUFFER)
 visible = (state != AR_STATE_HELD);
 ignores_walls = (state == AR_STATE_DSPECIAL);
 
-unbashable = (state == AR_STATE_HELD && state == AR_STATE_DYING);
+unbashable = (state == AR_STATE_HELD || state == AR_STATE_DYING);
 
 can_recall = false;
 can_priority_recall = false;
