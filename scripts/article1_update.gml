@@ -902,9 +902,6 @@ if (getting_bashed && state != AR_STATE_BASHED)
                 {
                     destroyed = true;
                 }
-
-                in_hitpause = true;
-                hitstop = desired_hitstop;
             }
         }
     }
