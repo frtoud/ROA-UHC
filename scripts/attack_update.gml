@@ -296,6 +296,7 @@ switch (attack)
 //==========================================================
     case AT_DSPECIAL:
     {
+        can_fast_fall = false;
         if (window == 1)
         {
             //try finding a target for CD recall
