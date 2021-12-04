@@ -113,6 +113,13 @@ dstrong_need_gravity = false;
 dstrong_angular_timer = 0;
 dstrong_angular_timer_prev = 0;
 
+//air-strong penalty
+aerial_strong_check = false; //true if need to count number of aerial strong frames
+aerial_strong_frames = 0; //number of frames last owner was not grounded
+aerial_strong_frames_max = 12; //limit for full penalty
+
+aerial_strong_max_penality = 0.25; //multiplier for maximu penalty
+
 //=====================================================
 // animation variables
 cd_anim_blade_spin = 0; //animation speed for the blade when held

@@ -14,6 +14,15 @@
 #macro AR_STATE_BASH_THROW   5
 //=====================================================
 
+//one exception to condition below: this is based on player behavior
+if (aerial_strong_check)
+{
+	if (current_owner_id.free && aerial_strong_frames < aerial_strong_frames_max) 
+	    aerial_strong_frames++;
+	else 
+	    aerial_strong_check = false;
+}
+
 // no logic/timers affected if we're currently in hitstop
 if (hitstop) exit;
 
@@ -136,7 +145,12 @@ switch (state)
 
             if (has_hit) //finisher
             {
-                spawn_hitbox(AT_FSTRONG, 3);
+                var finisher = spawn_hitbox(AT_FSTRONG, 3);
+                if (aerial_strong_frames > 0)
+                {
+                	finisher.kb_scale *= lerp(1.0, aerial_strong_max_penality, 
+                	    (aerial_strong_frames * 1.0/aerial_strong_frames_max));
+                }
             }
             
             if (hit_wall)
@@ -226,7 +240,12 @@ switch (state)
             
             if (has_hit) //finisher
             { 
-                spawn_hitbox(AT_USTRONG, 3);
+                var finisher = spawn_hitbox(AT_USTRONG, 3);
+                if (aerial_strong_frames > 0)
+                {
+                	finisher.kb_scale *= lerp(1.0, aerial_strong_max_penality, 
+                	    (aerial_strong_frames * 1.0/aerial_strong_frames_max));
+                }
             }
             
             set_state(AR_STATE_DSTRONG_AIR);

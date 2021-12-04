@@ -543,6 +543,10 @@ if (uhc_has_cd_blade || uhc_spin_cost_throw_bypass)
         uhc_current_cd.was_parried = true;
         uhc_current_cd.last_parried_by_player = parry_id.player;
     }
+    
+    // air throw penality detection
+    uhc_current_cd.aerial_strong_check = free;
+    uhc_current_cd.aerial_strong_frames = 0;
 }
 //==============================================================================
 #define adjust_bladed_attack_grid()
