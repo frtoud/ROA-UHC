@@ -24,7 +24,7 @@ switch (attack)
         if (window == 1 && window_timer == 1)
         { uhc_looping_attack_can_exit = false; }
         
-        if (window == 5 && window_timer == 1 && !uhc_has_cd_blade)
+        if (window == 5 && window_timer == 1 && (!uhc_has_cd_blade || was_parried))
         { window = 8; } //skip to finisher
         
         if (window == 7)
@@ -42,9 +42,9 @@ switch (attack)
                 create_hitbox(AT_JAB, 6, 0, 0);
             }
             
-            if (!attack_down && uhc_looping_attack_can_exit) 
+            if (!attack_down && uhc_looping_attack_can_exit) || (was_parried)
             { 
-                window = 8;
+                window = (was_parried ? 9 : 8);
                 window_timer = 0;
                 destroy_hitboxes();
                 uhc_update_blade_status = true;
@@ -91,7 +91,7 @@ switch (attack)
                 create_hitbox(AT_DATTACK, 3, 0, 0);
             }
             
-            if (!attack_down && uhc_looping_attack_can_exit) 
+            if (!attack_down && uhc_looping_attack_can_exit) || (was_parried)
             { 
                 window = 4;
                 window_timer = 0;
