@@ -217,10 +217,10 @@ if (swallowed && instance_exists(enemykirby))
             set_hitbox_value(AT_EXTRA_3, 5, HG_HITBOX_TYPE, 1);
             set_hitbox_value(AT_EXTRA_3, 5, HG_WINDOW, 0);
             set_hitbox_value(AT_EXTRA_3, 5, HG_LIFETIME, 4);
-            set_hitbox_value(AT_EXTRA_3, 5, HG_HITBOX_X, 105);
+            set_hitbox_value(AT_EXTRA_3, 5, HG_HITBOX_X, 90);
             set_hitbox_value(AT_EXTRA_3, 5, HG_HITBOX_Y, -24);
-            set_hitbox_value(AT_EXTRA_3, 5, HG_WIDTH, 140);
-            set_hitbox_value(AT_EXTRA_3, 5, HG_HEIGHT, 180);
+            set_hitbox_value(AT_EXTRA_3, 5, HG_WIDTH, 100);
+            set_hitbox_value(AT_EXTRA_3, 5, HG_HEIGHT, 160);
             set_hitbox_value(AT_EXTRA_3, 5, HG_PRIORITY, 4);
             set_hitbox_value(AT_EXTRA_3, 5, HG_DAMAGE, 12);
             set_hitbox_value(AT_EXTRA_3, 5, HG_ANGLE, 90);
@@ -234,10 +234,10 @@ if (swallowed && instance_exists(enemykirby))
             set_hitbox_value(AT_EXTRA_3, 6, HG_HITBOX_TYPE, 1);
             set_hitbox_value(AT_EXTRA_3, 6, HG_WINDOW, 0);
             set_hitbox_value(AT_EXTRA_3, 6, HG_LIFETIME, 4);
-            set_hitbox_value(AT_EXTRA_3, 6, HG_HITBOX_X, 145);
+            set_hitbox_value(AT_EXTRA_3, 6, HG_HITBOX_X, 130);
             set_hitbox_value(AT_EXTRA_3, 6, HG_HITBOX_Y, -24);
-            set_hitbox_value(AT_EXTRA_3, 6, HG_WIDTH, 100);
-            set_hitbox_value(AT_EXTRA_3, 6, HG_HEIGHT, 300);
+            set_hitbox_value(AT_EXTRA_3, 6, HG_WIDTH, 80);
+            set_hitbox_value(AT_EXTRA_3, 6, HG_HEIGHT, 260);
             set_hitbox_value(AT_EXTRA_3, 6, HG_PRIORITY, 3);
             set_hitbox_value(AT_EXTRA_3, 6, HG_DAMAGE, 10);
             set_hitbox_value(AT_EXTRA_3, 6, HG_ANGLE, 90);
