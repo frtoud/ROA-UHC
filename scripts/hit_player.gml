@@ -44,6 +44,10 @@ if ("uhc_parent_cd" in my_hitboxID)
         var pull_angle = point_direction(diff_x, grav_bias + diff_y, cd_id.hsp, cd_id.vsp);
         var cd_speed = point_distance(diff_x, grav_bias + diff_y, cd_id.hsp, cd_id.vsp);
         
+        if (my_hitboxID.attack == AT_DSPECIAL)
+        {
+            cd_speed = min(12, cd_speed);
+        }
         //knockback speed is determined by orig_knock
         //direction is determined by the vector [old_hsp, old_vsp]
         //I blame Dan
