@@ -390,6 +390,27 @@ switch (state)
     {
         image_index = 0;
     }break;
+    case PS_SPAWN:
+    {
+        if (state_timer < (56 + 36))
+        {
+            sprite_index = sprite_get("spawn");
+            image_index = 0;
+            if (state_timer > 56)
+            {
+                image_index = 1 + (state_timer - 56)/6;
+            }
+            else if (state_timer == 55) && !hitpause
+            {
+                uhc_anim_blink_timer = uhc_anim_blink_timer_max;
+                sound_play(sfx_cd_respawn);
+            }
+            else
+            {
+                uhc_current_cd.cd_anim_blade_spin = 0;
+            }
+        }
+    }break;
     default: break;
 }
 
