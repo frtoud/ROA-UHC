@@ -446,6 +446,7 @@ switch (state)
     case AR_STATE_DSPECIAL:
     {
         //Update
+        pre_dspecial_immunity = max(2, pre_dspecial_immunity);
         //Shoot towards player
         var total_speed = point_distance(0, 0, hsp, vsp);
         if (total_speed < cd_dspecial_speed)
@@ -623,9 +624,10 @@ if (state != AR_STATE_HELD)
        //when activating AT_DSPECIAL_2 while CD is still alive, needs to be allowed to call back
        pre_dspecial_immunity--;
     }
-    else if (y > room_height)
+    else if (y > room_height + 20)
     {
-        //fell off the stage 
+        //fell off the stage
+        print(state)
         set_state(AR_STATE_DYING);
     }
 }
