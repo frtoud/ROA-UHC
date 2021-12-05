@@ -160,6 +160,14 @@ else if (uhc_lost_hat_timer < uhc_lost_hat_timer_max)
 }
 
 //===================================================
+// Batteries
+if (!uhc_batteries) && (get_gameplay_time() > 360)
+{
+    draw_sprite_ext(sprite_get("vfx_batteries"), (get_gameplay_time()%120 > 60),
+                    x, y - 60, 2, 2, 0, c_white, 1);
+}
+
+//===================================================
 #define draw_blade(spr_id, img_id, posx, posy)
 {
     if (uhc_has_cd_blade || (uhc_anim_blade_force_draw && instance_exists(uhc_current_cd) ))

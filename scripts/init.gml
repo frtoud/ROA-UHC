@@ -225,6 +225,8 @@ uhc_lost_hat_pos = {x:0,y:0}
 uhc_lost_hat_timer = 0;
 uhc_lost_hat_timer_max = 32;
 
+uhc_batteries = !((current_day == 1) && (current_month == 4));
+
 //=================================================
 // Taunt video
 uhc_taunt_videos[31] = noone; //preinitialized to a reasonable amount

@@ -90,6 +90,7 @@ sprite_change_offset("vfx_flash_large", 0, 107);
 
 sprite_change_offset("hud_icons", 3, -1);
 sprite_change_offset("indicator_triangle", 3, 3);
+sprite_change_offset("vfx_batteries", 11, 16);
 
 sprite_change_offset_bladed("spawn", 22, 22);
 

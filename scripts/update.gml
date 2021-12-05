@@ -21,6 +21,22 @@ if (uhc_fspecial_charge_current < uhc_fspecial_charge_max)
     uhc_fspecial_charge_current++;
 }
 
+//======================================================
+// Batteries
+if (!uhc_batteries)
+{
+    state = PS_SPAWN;
+    state_timer = 0;
+    attack_invince = true;
+    draw_indicator = false;
+    go_through = true;
+    force_depth = true;
+    depth = 0;
+    set_player_damage(player, 0);
+    y += vsp;
+    exit;
+}
+
 //=====================================================
 // Blade respawn cooldown
 uhc_cd_can_respawn = uhc_cd_respawn_timer >= uhc_cd_respawn_timer_max;
@@ -93,6 +109,7 @@ if (state == PS_WALL_JUMP && attack == AT_USPECIAL)
         uhc_being_buffered_by = noone;
     }
 }
+
 
 //======================================================
 // Kirby compatibility

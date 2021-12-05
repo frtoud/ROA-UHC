@@ -101,6 +101,7 @@ if (!uhc_handled_victory_quote)
     smuggler.length = 60; //will destroy itself automatically after one second.
     
     smuggler.uhc_victory_screen_array = transfer_array;
+    smuggler.uhc_batteries = uhc_batteries;
 }
 
 //==============================================================
