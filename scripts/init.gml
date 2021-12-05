@@ -216,6 +216,15 @@ sfx_cd_respawn = sound_get("sfx_cd_respawn");
 uhc_victory_quote = "Thx 4 watchign dont forget to rate 5 stars :)";
 uhc_handled_victory_quote = false;
 
+//Hat
+vfx_hat_spawn = sprite_get("vfx_hat_spawn");
+vfx_hat_idle = sprite_get("vfx_hat_idle");
+vfx_hat_lost = sprite_get("vfx_hat_lost");
+uhc_has_hat = (get_match_setting(SET_SEASON) == 4) //christmas
+uhc_lost_hat_pos = {x:0,y:0}
+uhc_lost_hat_timer = 0;
+uhc_lost_hat_timer_max = 32;
+
 //=================================================
 // Taunt video
 uhc_taunt_videos[31] = noone; //preinitialized to a reasonable amount
@@ -311,6 +320,9 @@ uhc_spin_cost_throw_bypass = false; //allows spin cost to apply if CD is thrown
 uhc_no_charging = false; //prevents CD blade drain and FSPECIAL charge
 
 uhc_looping_attack_can_exit = false; //used with jab, dattack
+
+uhc_fresh_air_throw = false; //true if just threw CD in aerial attack
+uhc_air_throw_frames = 0; //increases for each frame not landed after an aerial throw
 
 uhc_dair_window_bounced = 0;
 

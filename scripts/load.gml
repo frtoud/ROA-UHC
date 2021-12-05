@@ -93,6 +93,10 @@ sprite_change_offset("indicator_triangle", 3, 3);
 
 sprite_change_offset_bladed("spawn", 22, 22);
 
+sprite_change_offset("vfx_hat_idle", 6, 33);
+sprite_change_offset("vfx_hat_spawn", 8, 32);
+sprite_change_offset("vfx_hat_lost", 13, 38);
+
 // See init::add_uhc_video() for the generalized version
 // sprite_change_offset("video_blocked", 11, 8);
 

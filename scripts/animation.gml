@@ -414,6 +414,21 @@ switch (state)
     default: break;
 }
 
+//===================================================
+// Host hat
+if (uhc_has_hat) 
+&& !(sprite_index == sprite_get("idle") || sprite_index == sprite_get("spawn"))
+{
+    uhc_has_hat = false;
+    uhc_lost_hat_pos.x = x;
+    uhc_lost_hat_pos.y = y;
+    uhc_lost_hat_timer = 0;
+}
+if (uhc_lost_hat_timer < uhc_lost_hat_timer_max)
+{
+    uhc_lost_hat_timer++;
+}
+
 //==============================================================
 //prevent this from looping if no longer taunting
 if (uhc_taunt_current_video != noone && state != PS_ATTACK_GROUND)
