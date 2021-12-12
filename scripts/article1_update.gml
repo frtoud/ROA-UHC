@@ -627,7 +627,6 @@ if (state != AR_STATE_HELD)
     else if (y > room_height + 20)
     {
         //fell off the stage
-        print(state)
         set_state(AR_STATE_DYING);
     }
 }
@@ -813,10 +812,24 @@ if (getting_bashed && state != AR_STATE_BASHED)
 //==============================================================================
 #define refresh_cd_hitbox()
 {
-	if (is_array(cd_hitbox.can_hit))
-    for (var p = 0; p < array_length(cd_hitbox.can_hit); p++)
-    { cd_hitbox.can_hit[p] = (p != last_parried_by_player); }
-    cd_hitbox.stop_effect = false;
+    if (is_array(cd_hitbox.can_hit))
+    {
+        //Do not refresh players in hitstun-pause (reverse-polite)
+        var in_hitstunpause = [];
+        in_hitstunpause[array_length(cd_hitbox.can_hit)] = false; //init everything to zero
+        with (oPlayer)
+        {
+            //might have multiple oPlayer per player
+            if (state_cat == SC_HITSTUN && hitpause) 
+                in_hitstunpause[player] = true;
+        }
+
+        for (var p = 0; p < array_length(cd_hitbox.can_hit); p++)
+        { 
+            cd_hitbox.can_hit[p] = (p != last_parried_by_player) && !in_hitstunpause[p]; 
+        }
+        cd_hitbox.stop_effect = false;
+    }
 }
 //==============================================================================
 #define destroy_cd_hitboxes()
