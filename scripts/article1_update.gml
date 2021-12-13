@@ -428,7 +428,6 @@ switch (state)
             if !(has_hit) 
             { 
                 sound_play(asset_get("sfx_blow_weak1"));
-                cd_recall_stun_timer = cd_low_recall_stun;
             }
             set_state(AR_STATE_IDLE);
             vsp = -6;
@@ -551,7 +550,7 @@ switch (state)
                 if (!has_hit) 
                 {
                     sound_play(asset_get("sfx_blow_weak1")); 
-                    cd_recall_stun_timer = cd_low_recall_stun;
+                    cd_recall_stun_timer = cd_high_recall_stun;
                 }
 
                 vsp = -6;
