@@ -130,3 +130,10 @@ cd_anim_color = get_player_color(player_id.player) //color of CD
 unbashable = true;
 getting_bashed = false;
 bashed_id = noone;
+
+//======================================================
+// Runes
+rune_wincon_timer = 0;
+rune_wincon_timer_max = 15;
+rune_wincon_active = false;
+rune_wincon_speed_min = 6;

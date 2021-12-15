@@ -99,3 +99,31 @@ set_hitbox_value(AT_DSPECIAL, 2, HG_VISUAL_EFFECT, 302);
 set_hitbox_value(AT_DSPECIAL, 2, HG_HIT_SFX, sound_get("sfx_ssbu_slash1"));
 set_hitbox_value(AT_DSPECIAL, 2, HG_PROJECTILE_SPRITE, asset_get("empty_sprite"));
 set_hitbox_value(AT_DSPECIAL, 2, HG_PROJECTILE_MASK, -1);
+
+//WINCON rune hitbox
+set_hitbox_value(AT_DSPECIAL, 3, HG_HITBOX_TYPE, 2);
+set_hitbox_value(AT_DSPECIAL, 3, HG_LIFETIME, 4);
+set_hitbox_value(AT_DSPECIAL, 3, HG_WIDTH, 40);
+set_hitbox_value(AT_DSPECIAL, 3, HG_HEIGHT, 40);
+set_hitbox_value(AT_DSPECIAL, 3, HG_PRIORITY, 7);
+set_hitbox_value(AT_DSPECIAL, 3, HG_IGNORES_PROJECTILES, 1);
+set_hitbox_value(AT_DSPECIAL, 3, HG_PROJECTILE_DESTROY_EFFECT, 1); //none
+set_hitbox_value(AT_DSPECIAL, 3, HG_PROJECTILE_ENEMY_BEHAVIOR, 1);
+set_hitbox_value(AT_DSPECIAL, 3, HG_PROJECTILE_GROUND_BEHAVIOR, 1);
+set_hitbox_value(AT_DSPECIAL, 3, HG_PROJECTILE_WALL_BEHAVIOR, 1);
+set_hitbox_value(AT_DSPECIAL, 3, HG_PROJECTILE_UNBASHABLE, 1);
+set_hitbox_value(AT_DSPECIAL, 3, HG_PROJECTILE_DOES_NOT_REFLECT, 1);
+set_hitbox_value(AT_DSPECIAL, 3, HG_PROJECTILE_IS_TRANSCENDENT, 1);
+set_hitbox_value(AT_DSPECIAL, 3, HG_PROJECTILE_PLASMA_SAFE, 1);
+set_hitbox_value(AT_DSPECIAL, 3, HG_PROJECTILE_PARRY_STUN, 1);
+set_hitbox_value(AT_DSPECIAL, 3, HG_EXTENDED_PARRY_STUN, 1);
+set_hitbox_value(AT_DSPECIAL, 3, HG_ANGLE, 90); //dynamic
+set_hitbox_value(AT_DSPECIAL, 3, HG_DAMAGE, 1); //dynamic
+set_hitbox_value(AT_DSPECIAL, 3, HG_BASE_KNOCKBACK, 2); //dynamic
+set_hitbox_value(AT_DSPECIAL, 3, HG_KNOCKBACK_SCALING, 0.6);
+set_hitbox_value(AT_DSPECIAL, 3, HG_BASE_HITPAUSE, 16);
+set_hitbox_value(AT_DSPECIAL, 3, HG_SPIN_COST, 12);
+set_hitbox_value(AT_DSPECIAL, 3, HG_VISUAL_EFFECT, 304);
+set_hitbox_value(AT_DSPECIAL, 3, HG_HIT_SFX, asset_get("sfx_blow_heavy2")); //dynamic
+set_hitbox_value(AT_DSPECIAL, 3, HG_PROJECTILE_SPRITE, asset_get("empty_sprite"));
+set_hitbox_value(AT_DSPECIAL, 3, HG_PROJECTILE_MASK, -1)

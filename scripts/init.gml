@@ -274,6 +274,7 @@ vfx_screenshot_tab = sprite_get("vfx_screenshot");
 //Rune flags
 uhc_rune_flags = 
 {
+    wincon: true, //you're welcome ShadowKing
     remote_throws: false,
     dual_disk_system: has_rune("O") //you read that right
 }

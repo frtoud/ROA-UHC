@@ -461,14 +461,50 @@ switch (state)
         hsp = lengthdir_x(total_speed, lookat_angle);
         vsp = lengthdir_y(total_speed, lookat_angle);
         
+        //pickup logic
         pickup_priority = max(pickup_priority, 3);
         if try_pickup() break;
-        
+
+        //create hitbox
         if (!instance_exists(cd_hitbox))
         {
             cd_hitbox = spawn_hitbox(AT_DSPECIAL, 2);
         }
         cd_hitbox.hitbox_timer = 0;
+        
+        //=====================================================
+        //WINCON RUNE
+        if (current_owner_id.uhc_rune_flags.wincon)
+        {
+            if (rune_wincon_active && has_hit)
+            {
+                //shortcut to parried state
+                was_parried = true;
+                hsp *= -1;
+                x += hsp;
+            }
+            else if (state_timer <= 1 || has_hit)
+            {
+                has_hit = false;
+                rune_wincon_active = false;
+                rune_wincon_timer = 0;
+            }
+            else if (!rune_wincon_active)
+            {
+                rune_wincon_timer++;
+                if (rune_wincon_timer >= rune_wincon_timer_max)
+                && (total_speed >= rune_wincon_speed_min)
+                {
+                    rune_wincon_active = true;
+                    destroy_cd_hitboxes();
+                    cd_hitbox = spawn_hitbox(AT_DSPECIAL, 3);
+                }
+                
+            }
+        }
+        //=====================================================
+
+        
         if (was_parried)
         {
             was_parried = false;
@@ -476,6 +512,20 @@ switch (state)
             set_state(AR_STATE_IDLE);
             vsp = -6;
             hsp = sign(hsp);
+        }
+        else if (rune_wincon_active)
+        {
+            // damage/knockback depends on current speed
+            cd_hitbox.damage = 0.5 * total_speed;
+            cd_hitbox.kb_angle = point_direction(0, 0, hsp * spr_dir, 3 * min(vsp-2, -5));
+            cd_hitbox.kb_value = total_speed; 
+
+            if (total_speed > 20)      cd_hitbox.sound_effect = sound_get("sfx_ssbm_bat");
+            else if (total_speed > 15) cd_hitbox.sound_effect = sound_get("sfx_tf2_sawblade");
+            else                       cd_hitbox.sound_effect = asset_get("sfx_blow_heavy2");
+            
+            var hfx = spawn_hit_fx( x, y, player_id.vfx_spinning);
+            hfx.draw_angle = random_func( 7, 180, true);
         }
         else if (0 == state_timer % 5)
         {
