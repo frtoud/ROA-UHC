@@ -38,6 +38,7 @@ set_window_value(AT_DSPECIAL, 5, AG_WINDOW_ANIM_FRAMES, 3);
 set_window_value(AT_DSPECIAL, 5, AG_WINDOW_ANIM_FRAME_START, 11);
 set_window_value(AT_DSPECIAL, 5, AG_WINDOW_HAS_SFX, 1);
 set_window_value(AT_DSPECIAL, 5, AG_WINDOW_SFX, sound_get("sfx_reload_done"));
+set_window_value(AT_DSPECIAL, 5, AG_WINDOW_CANCEL_FRAME, 10);
 set_window_value(AT_DSPECIAL, 5, AG_WINDOW_GOTO, 9); //ends move
 
 //Blade caught (secret window)
@@ -62,7 +63,7 @@ set_hitbox_value(AT_DSPECIAL, 1, HG_ANGLE, 60);
 set_hitbox_value(AT_DSPECIAL, 1, HG_ANGLE_FLIPPER, 3); //Horz-outward
 set_hitbox_value(AT_DSPECIAL, 1, HG_DAMAGE, 1);
 set_hitbox_value(AT_DSPECIAL, 1, HG_BASE_KNOCKBACK, 4);
-set_hitbox_value(AT_DSPECIAL, 1, HG_BASE_HITPAUSE, 0);
+set_hitbox_value(AT_DSPECIAL, 1, HG_BASE_HITPAUSE, 1);
 set_hitbox_value(AT_DSPECIAL, 1, HG_EXTRA_HITPAUSE, 4);
 set_hitbox_value(AT_DSPECIAL, 1, HG_HIT_LOCKOUT, 6);
 set_hitbox_value(AT_DSPECIAL, 1, HG_VISUAL_EFFECT, 302);
@@ -76,6 +77,8 @@ set_hitbox_value(AT_DSPECIAL, 2, HG_LIFETIME, 4);
 set_hitbox_value(AT_DSPECIAL, 2, HG_WIDTH, 40);
 set_hitbox_value(AT_DSPECIAL, 2, HG_HEIGHT, 40);
 set_hitbox_value(AT_DSPECIAL, 2, HG_PRIORITY, 3);
+set_hitbox_value(AT_DSPECIAL, 2, HG_IGNORES_PROJECTILES, 1);
+set_hitbox_value(AT_DSPECIAL, 2, HG_PROJECTILE_DESTROY_EFFECT, 1); //none
 set_hitbox_value(AT_DSPECIAL, 2, HG_PROJECTILE_ENEMY_BEHAVIOR, 1);
 set_hitbox_value(AT_DSPECIAL, 2, HG_PROJECTILE_GROUND_BEHAVIOR, 1);
 set_hitbox_value(AT_DSPECIAL, 2, HG_PROJECTILE_WALL_BEHAVIOR, 1);
@@ -83,6 +86,8 @@ set_hitbox_value(AT_DSPECIAL, 2, HG_PROJECTILE_UNBASHABLE, 1);
 set_hitbox_value(AT_DSPECIAL, 2, HG_PROJECTILE_DOES_NOT_REFLECT, 1);
 set_hitbox_value(AT_DSPECIAL, 2, HG_PROJECTILE_IS_TRANSCENDENT, 1);
 set_hitbox_value(AT_DSPECIAL, 2, HG_PROJECTILE_PLASMA_SAFE, 1);
+set_hitbox_value(AT_DSPECIAL, 2, HG_PROJECTILE_PARRY_STUN, 1);
+set_hitbox_value(AT_DSPECIAL, 2, HG_EXTENDED_PARRY_STUN, 1);
 set_hitbox_value(AT_DSPECIAL, 2, HG_ANGLE, 25);
 set_hitbox_value(AT_DSPECIAL, 2, HG_ANGLE_FLIPPER, ANGLE_FLIPPER_CD_MULTIHIT);
 set_hitbox_value(AT_DSPECIAL, 2, HG_DAMAGE, 1);

@@ -55,6 +55,7 @@ set_hitbox_value(AT_USPECIAL, 1, HG_DAMAGE, 0);
 set_hitbox_value(AT_USPECIAL, 1, HG_ANGLE, 90);
 set_hitbox_value(AT_USPECIAL, 1, HG_BASE_KNOCKBACK, 7);
 set_hitbox_value(AT_USPECIAL, 1, HG_VISUAL_EFFECT, 1); //none
+set_hitbox_value(AT_USPECIAL, 1, HG_IGNORES_PROJECTILES, 1);
 set_hitbox_value(AT_USPECIAL, 1, HG_HITBOX_GROUP, -1);
 
 //"Buffer" hitbox (ought to be melee but eh...)
@@ -71,10 +72,12 @@ set_hitbox_value(AT_USPECIAL, 2, HG_DAMAGE, 0);
 set_hitbox_value(AT_USPECIAL, 2, HG_ANGLE, 90);
 set_hitbox_value(AT_USPECIAL, 2, HG_BASE_KNOCKBACK, 7);
 set_hitbox_value(AT_USPECIAL, 2, HG_VISUAL_EFFECT, 1); //none
-set_hitbox_value(AT_USPECIAL, 2, HG_PROJECTILE_DESTROY_EFFECT, 1);
+set_hitbox_value(AT_USPECIAL, 2, HG_PROJECTILE_DESTROY_EFFECT, 1); //none
+set_hitbox_value(AT_USPECIAL, 2, HG_BASE_HITPAUSE, 1);
 set_hitbox_value(AT_USPECIAL, 2, HG_EXTRA_HITPAUSE, 30);
 set_hitbox_value(AT_USPECIAL, 2, HG_PROJECTILE_SPRITE, asset_get("empty_sprite"));
 set_hitbox_value(AT_USPECIAL, 2, HG_PROJECTILE_MASK, -1);
+set_hitbox_value(AT_USPECIAL, 2, HG_IGNORES_PROJECTILES, 1);
 set_hitbox_value(AT_USPECIAL, 2, HG_PROJECTILE_ENEMY_BEHAVIOR, 1);
 set_hitbox_value(AT_USPECIAL, 2, HG_PROJECTILE_GROUND_BEHAVIOR, 1);
 set_hitbox_value(AT_USPECIAL, 2, HG_PROJECTILE_WALL_BEHAVIOR, 1);
@@ -100,6 +103,7 @@ set_hitbox_value(AT_USPECIAL, 3, HG_PROJECTILE_DESTROY_EFFECT, 1);
 set_hitbox_value(AT_USPECIAL, 3, HG_HIT_SFX, asset_get("sfx_blow_medium2"));
 set_hitbox_value(AT_USPECIAL, 3, HG_PROJECTILE_SPRITE, asset_get("empty_sprite"));
 set_hitbox_value(AT_USPECIAL, 3, HG_PROJECTILE_MASK, -1);
+set_hitbox_value(AT_USPECIAL, 3, HG_IGNORES_PROJECTILES, 1);
 set_hitbox_value(AT_USPECIAL, 3, HG_PROJECTILE_ENEMY_BEHAVIOR, 1);
 set_hitbox_value(AT_USPECIAL, 3, HG_PROJECTILE_GROUND_BEHAVIOR, 1);
 set_hitbox_value(AT_USPECIAL, 3, HG_PROJECTILE_WALL_BEHAVIOR, 1);

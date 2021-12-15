@@ -117,7 +117,7 @@ if (object_index == asset_get("draw_result_screen"))
         set_character_color_slot( 2, tempR, tempG, tempB);
     }
     
-    if (winner == player) //...only do the following with the frontmost Hypercam
+    if (winner == player && uhc_batteries) //...only do the following with the frontmost Hypercam
     {
         //panel constants
         var quote_pos_y =    50;
@@ -201,28 +201,25 @@ if (object_index == asset_get("draw_result_screen"))
 #define get_victory_screen_data()
 {
     var data_array = noone;
+    var data_batteries = true;
     //relies on unload.gml sending over a persistent hitbox with said data
     with (asset_get("pHitBox")) if ("uhc_victory_screen_array" in self)
     {
         data_array = uhc_victory_screen_array;
+        data_batteries = uhc_batteries;
         break;
     }
     
     if (data_array == noone) return; // no data :(
+    
+    uhc_batteries = data_batteries;
     
     //hypercams are maybe holding another blade than their own
     for (var p = 1; p <= 4; p++)
     {
         uhc_held_cd_color_array[p] = data_array[p].held_cd_color;
     }
-    
-    //special case: winner is holding another Hypercam's CD
-    if (data_array[winner].held_cd_color != -1)
-    {
-        data_array[winner].priority = 2;
-        data_array[winner].quote = "thx for sharing ur mixtap :D";
-    }
-    
+
     //determine who's 2nd, 3rd and 4th by position of their boxes
     with asset_get("result_screen_box")
     {
@@ -235,12 +232,18 @@ if (object_index == asset_get("draw_result_screen"))
     // - highest priority
     // - highest ranking
     
-    var best_player = winner;
-    var winning_team = data_array[winner].team;
-    var best_is_on_team = true;
     
-    if !(data_array[winner].priority >= 2)
+    if (string_length(data_array[winner].status_quote) > 1)
     {
+        //Status messages always take precedence for winner Hypercam
+        uhc_victory_quote = data_array[winner].status_quote;
+    }
+    else
+    {
+        var best_player = winner;
+        var winning_team = data_array[winner].team;
+        var best_is_on_team = true;
+        
         for (var p = 1; p <= 4; p++) if is_player_on(p)
         {
             var best = data_array[best_player];
@@ -259,9 +262,10 @@ if (object_index == asset_get("draw_result_screen"))
                 best_is_on_team = (best.team == winning_team);
             }
         }
+
+        uhc_victory_quote = data_array[best_player].quote;
+        if (string_length(uhc_victory_quote) < 1)
+        { uhc_victory_quote = get_random_quote(); }
     }
     
-    uhc_victory_quote = data_array[best_player].quote;
-    if (string_length(uhc_victory_quote) < 1)
-    { uhc_victory_quote = get_random_quote(); }
 }

@@ -13,14 +13,14 @@ pratfall_anim_speed = .25;
 walk_speed = 2.75;
 walk_accel = 1;
 walk_turn_time = 6;
-initial_dash_time = 14;
-initial_dash_speed = 8;
-dash_speed = 7.5;
-dash_turn_time = 10;
-dash_turn_accel = 1.4;
+initial_dash_time = 12;
+initial_dash_speed = 7.2;
+dash_speed = 7;
+dash_turn_time = 8;
+dash_turn_accel = 1.5;
 dash_stop_time = 12;
 dash_stop_percent = .3; //the value to multiply your hsp by when going into idle from dash or dashstop
-ground_friction = .5;
+ground_friction = .7;
 moonwalk_accel = 1.4;
 
 jump_start_time = 5;
@@ -40,10 +40,10 @@ walljump_hsp = 8;
 walljump_vsp = 10;
 walljump_time = 25;
 max_fall = 10; //maximum fall speed without fastfalling
-fast_fall = 15; //fast fall speed
+fast_fall = 13; //fast fall speed
 gravity_speed = .6;
 hitstun_grav = .5;
-knockback_adj = 1.0; //the multiplier to KB dealt to you. 1 = default, >1 = lighter, <1 = heavier
+knockback_adj = 0.95; //the multiplier to KB dealt to you. 1 = default, >1 = lighter, <1 = heavier
 
 land_time = 6; //normal landing frames
 prat_land_time = 16;
@@ -116,7 +116,8 @@ uhc_spin_sfx_threshold = 0.40; //above 40% spin, you get the new sounds
 uhc_spin_sfx_high_threshold = 0.80; //above 80% spin, some moves get even more sounds
 
 // Custom Angle Flipper values
-ANGLE_FLIPPER_CD_MULTIHIT = 55; //simulate "pull towards center" angle flipper; but considers speed of cd
+ANGLE_FLIPPER_AUTOLINK = 33; //simulates "pull towards center" but considers position of victim & base KB direction/length
+ANGLE_FLIPPER_CD_MULTIHIT = 55; //simulate "pull towards center" but considers position of victim & speed of cd
 
 //=================================================
 //Custom vfx & sprites
@@ -178,6 +179,8 @@ vfx_flash_large = sprite_get("vfx_flash_large");
 
 uhc_anim_fspecial_flash_spr = noone;
 uhc_anim_fspecial_flash_timer = 0;
+uhc_anim_fspecial_flash_time = 8;
+uhc_anim_fspecial_flash_pre_time = 8;
 
 //DSPECIAL Rewind
 uhc_anim_rewind = 
@@ -192,6 +195,8 @@ uhc_anim_rewind =
 };
 
 vfx_spinning = hit_fx_create(sprite_get("vfx_spinning"), 4);
+
+indicator_spr = sprite_get("indicator_triangle");
 
 uhc_anim_buffer_timer = 0;
 uhc_anim_dspecial_image_timer = 0;
@@ -210,6 +215,17 @@ sfx_cd_respawn = sound_get("sfx_cd_respawn");
 //Quote
 uhc_victory_quote = "Thx 4 watchign dont forget to rate 5 stars :)";
 uhc_handled_victory_quote = false;
+
+//Hat
+vfx_hat_spawn = sprite_get("vfx_hat_spawn");
+vfx_hat_idle = sprite_get("vfx_hat_idle");
+vfx_hat_lost = sprite_get("vfx_hat_lost");
+uhc_has_hat = (get_match_setting(SET_SEASON) == 4) //christmas
+uhc_lost_hat_pos = {x:0,y:0}
+uhc_lost_hat_timer = 0;
+uhc_lost_hat_timer_max = 32;
+
+uhc_batteries = !((current_day == 1) && (current_month == 4));
 
 //=================================================
 // Taunt video
@@ -232,6 +248,7 @@ uhc_taunt_opening_timer = 0;
 uhc_taunt_opening_timer_max = 8;
 uhc_taunt_buffering_timer = 0;
 uhc_taunt_reloop = false;
+uhc_taunt_bufferskip = false;
 
 //NOTE: time values unsafe for online! only used in rendering!
 uhc_fast_screenshot = 2 < (is_player_on(1) + is_player_on(2) + is_player_on(3) + is_player_on(4));
@@ -276,20 +293,21 @@ uhc_bair_pseudograb_factor = 0.08; //strength of interpolation pulling to target
 uhc_dair_boost = 3;
 uhc_dair_boost_final = 7;
 
-uhc_cd_spin_drain_base = 0.035;
-uhc_cd_spin_drain_idle = 0.065;
-uhc_cd_spin_drain_clairen = 0.65;
-uhc_cd_spin_charge_rate = 1;
+uhc_cd_spin_drain_base = 0.035; //per frame
+uhc_cd_spin_drain_idle = 0.065; //per frame
+uhc_cd_spin_drain_clairen = 0.65; //per frame
+uhc_cd_spin_charge_rate = 1.35; //per frame
 uhc_cd_spin_max = 100;
-uhc_cd_respawn_timer_max = uhc_rune_flags.dual_disk_system ? -1 : 300;
-uhc_pickup_cooldown_max = 30;
+uhc_cd_respawn_timer_max = uhc_rune_flags.dual_disk_system ? -1 : 300; //# of frames
+uhc_pickup_cooldown_max = 30; //# of frames
+uhc_throw_cooldown_max = 12; //# of frames
 
 uhc_nspecial_charges_max = 4;
 uhc_nspecial_speed = 12;
 
-uhc_fspecial_charge_max = 480; // 8s * 60
-uhc_fspecial_charge_half = 240; // 4s * 60
-uhc_fspecial_cooldown = 60; // 1s * 60
+uhc_fspecial_charge_max = 15*60;
+uhc_fspecial_charge_half = 5*60;
+uhc_fspecial_cooldown = 1*60;
 
 uhc_uspecial_speed = 3;
 uhc_uspecial_speed_fast = 7;
@@ -298,7 +316,8 @@ uhc_uspecial_speed_fast = 7;
 //Custom variables initialized here
 uhc_has_cd_blade = true;
 uhc_current_cd = instance_create(x, y, "obj_article1"); //CD held (or last CD held)
-uhc_pickup_cooldown = 0;
+uhc_pickup_cooldown = 0; //number of frames before being able to pickup a CD
+uhc_throw_cooldown_override = 0; //number of frames before you can throw again
 
 uhc_dspecial_is_recalling = false;
 uhc_recalling_cd = noone; // target CD of current DSPECIAL
@@ -312,6 +331,9 @@ uhc_no_charging = false; //prevents CD blade drain and FSPECIAL charge
 
 uhc_looping_attack_can_exit = false; //used with jab, dattack
 
+uhc_fresh_air_throw = false; //true if just threw CD in aerial attack
+uhc_air_throw_frames = 0; //increases for each frame not landed after an aerial throw
+
 uhc_dair_window_bounced = 0;
 
 uhc_fspecial_charge_current = 0;
@@ -321,6 +343,9 @@ uhc_nspecial_is_charging = false;
 
 uhc_uspecial_hitbox = noone;
 uhc_uspecial_start_pos = { x:0, y:0 };
+
+//from other_init, for simplicity
+uhc_handler_id = noone;
 
 //=================================================
 // Compatibility Zone
@@ -345,11 +370,21 @@ walle_taunt_sound = sound_get("cmp_walle");
 walle_taunt_type = 1;
 walle_taunt_playing = false;
 
+//TCO
+tcoart = sprite_get("cmp_tco");
+
+//Kirby
+enemykirby = noone;
+kirbyability = 16;
+swallowed = false;
+// for easter egg to work
+uhc_kirby_last_sprite = { spr: noone, img: 0, time: 0 };
+
 //Agent N
 nname = "Unregistered HyperCam 2"
 ncode1 = "Outfitted with a deadly sawblade and throwing stars.";
-ncode2 = "Creator unknown; but deeply nostalgic.";
-ncode3 = "Pretends to be royalty and incessantly asks to subscribe.";
+ncode2 = "Creator unknown, but deeply nostalgic.";
+ncode3 = "Pretends to be royalty; incessantly asks to subscribe.";
 
 
 //=========================================================================

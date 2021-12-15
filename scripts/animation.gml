@@ -81,7 +81,8 @@ uhc_anim_platform_timer++;
 //===============================================================
 // Reset at the beginning of each move/state
 // Used by Strongs so that throws can show smears
-if (uhc_anim_blade_force_draw && (state_timer == 0 || state_cat == SC_HITSTUN))
+if (uhc_anim_blade_force_draw && (state_timer == 0 
+                              || !(state == PS_ATTACK_AIR || state == PS_ATTACK_GROUND)) )
 { uhc_anim_blade_force_draw = false; }
 
 //===============================================================
@@ -227,14 +228,14 @@ switch (state)
 //===============================================================
             case AT_FSPECIAL:
             {
-                if (window == 1 && window_timer == 1)
+                if (window == 1 && window_timer == 3)
                 {
-                    uhc_anim_fspecial_flash_timer = 6;
+                    uhc_anim_fspecial_flash_timer = uhc_anim_fspecial_flash_pre_time;
                     uhc_anim_fspecial_flash_spr = vfx_flash_charge;
                 }
                 else if (window >= 2 && window <= 4) && (window_timer == 0)
                 {
-                    uhc_anim_fspecial_flash_timer = 6;
+                    uhc_anim_fspecial_flash_timer = uhc_anim_fspecial_flash_time;
                      
                     uhc_anim_fspecial_flash_spr = (window == 2 ? vfx_flash_small
                                                 : (window == 3 ? vfx_flash_medium
@@ -313,10 +314,11 @@ switch (state)
                     else
                     { uhc_taunt_timer++; }
                 }
-                 
-                if (window_timer == 4)
+
+                if (window == 1) && (window_timer == 12) //startup: shuffle
                 {
-                    if (window == 1) //startup: shuffle
+                    uhc_taunt_bufferskip = taunt_down;
+                    if (!taunt_down) 
                     {
                         for (var i = (uhc_taunt_num_videos - 1); i >= 0; i--)
                         {
@@ -329,33 +331,39 @@ switch (state)
                             }
                         }
                     }
-                    else if (window == 2) //Click to start
-                    {
-                        var video_number = 0;
-                        //Switching channels
-                        if (uhc_taunt_current_video != noone)
-                        {
-                            sound_stop(uhc_taunt_current_video.song);
-                            video_number = (uhc_taunt_current_video_index + 1) % uhc_taunt_num_videos;
-                        }
-                        else
-                        {
-                            video_number = random_func(0, uhc_taunt_num_videos, true);
-                        }
-
-                        uhc_taunt_current_video = uhc_taunt_videos[video_number];
-                        uhc_taunt_current_video_index = video_number;
-                        uhc_taunt_timer = 0;
-                        uhc_taunt_is_opening = true;
-                        //special == 1: no buffering
-                        uhc_taunt_buffering_timer = (uhc_taunt_current_video.special == 1) ? 0 
-                                                    : 20 + random_func(0, 40, true);
-                    }
-                    else if (window == 6) //Click to end
+                }
+                else if (window == 2) && (window_timer == 4) //Click to start
+                {
+                    var video_number = 0;
+                    //Switching channels
+                    if (uhc_taunt_current_video != noone)
                     {
                         sound_stop(uhc_taunt_current_video.song);
-                        uhc_taunt_is_opening = false;
+                        video_number = (uhc_taunt_current_video_index + 1) % uhc_taunt_num_videos;
                     }
+                    else
+                    {
+                        video_number = uhc_taunt_current_video_index;
+                    }
+
+                    uhc_taunt_current_video = uhc_taunt_videos[video_number];
+                    uhc_taunt_current_video_index = video_number;
+                    uhc_taunt_timer = 0;
+                    uhc_taunt_is_opening = true;
+                    //special == 1: no buffering
+                    uhc_taunt_buffering_timer = (uhc_taunt_current_video.special == 1) ? 0 
+                                                : 20 + random_func(0, 40, true);
+                    if (uhc_taunt_bufferskip)
+                    {
+                        uhc_taunt_bufferskip = false;
+                        //see sound_play condition in timers section
+                        uhc_taunt_buffering_timer = min(uhc_taunt_buffering_timer, 2);
+                    }
+                }
+                else if (window == 6) && (window_timer == 4) //Click to end
+                {
+                    sound_stop(uhc_taunt_current_video.song);
+                    uhc_taunt_is_opening = false;
                 }
 
                 //Respawn taunt special behavior
@@ -382,7 +390,43 @@ switch (state)
     {
         image_index = 0;
     }break;
+    case PS_SPAWN:
+    {
+        if (state_timer < (56 + 36))
+        {
+            sprite_index = sprite_get("spawn");
+            image_index = 0;
+            if (state_timer > 56)
+            {
+                image_index = 1 + (state_timer - 56)/6;
+            }
+            else if (state_timer == 55) && !hitpause
+            {
+                uhc_anim_blink_timer = uhc_anim_blink_timer_max;
+                sound_play(sfx_cd_respawn);
+            }
+            else
+            {
+                uhc_current_cd.cd_anim_blade_spin = 0;
+            }
+        }
+    }break;
     default: break;
+}
+
+//===================================================
+// Host hat
+if (uhc_has_hat) 
+&& !(sprite_index == sprite_get("idle") || sprite_index == sprite_get("spawn"))
+{
+    uhc_has_hat = false;
+    uhc_lost_hat_pos.x = x;
+    uhc_lost_hat_pos.y = y;
+    uhc_lost_hat_timer = 0;
+}
+if (uhc_lost_hat_timer < uhc_lost_hat_timer_max)
+{
+    uhc_lost_hat_timer++;
 }
 
 //==============================================================
@@ -521,6 +565,12 @@ if (uhc_taunt_collect_videos && state == PS_ATTACK_GROUND && attack == AT_TAUNT)
            videos[0] = { sprite:sprite_get("video_lol"),   
                          song:sound_get("video_lol"),   
                          fps:8 };
+           break;
+        case "2390163800": //SEGERAK
+           sprite_change_offset("video_brody", 11, 8);
+           videos[0] = { sprite:sprite_get("video_brody"),   
+                         song:sound_get("video_brody"),   
+                         fps:14 };
            break;
         //=================================================================
         // Base cast

@@ -1,6 +1,7 @@
 //death.gml
 
 uhc_pickup_cooldown = 0;
+uhc_throw_cooldown_override = 0;
 
 //move flags
 uhc_nspecial_charges = 0;
@@ -20,3 +21,5 @@ if (uhc_has_cd_blade)
     uhc_current_cd.cd_anim_color = get_player_color(player);
     uhc_current_cd.cd_spin_meter = floor(uhc_cd_spin_max / 2);
 }
+
+if (get_match_setting(SET_SEASON) == 4) uhc_has_hat = true; //christmas
