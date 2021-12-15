@@ -98,6 +98,11 @@ switch (attack)
                 destroy_hitboxes();
             }
         }
+        
+        if (!was_parried && has_hit_player)
+        {
+            can_attack = true;
+        }
     } break;
 //==========================================================
     case AT_FSTRONG:
