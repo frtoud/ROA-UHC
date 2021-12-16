@@ -274,6 +274,7 @@ vfx_screenshot_tab = sprite_get("vfx_screenshot");
 //Rune flags
 uhc_rune_flags = 
 {
+    passive_rewind: true,
     aircharge_strongs: true,
     wincon: true, //you're welcome ShadowKing
     remote_throws: false,
@@ -296,7 +297,7 @@ uhc_dair_boost = 3;
 uhc_dair_boost_final = 7;
 
 uhc_cd_spin_drain_base = 0.035; //per frame
-uhc_cd_spin_drain_idle = 0.065; //per frame
+uhc_cd_spin_drain_idle = uhc_rune_flags.passive_rewind ? -0.065 : 0.065; //per frame
 uhc_cd_spin_drain_clairen = 0.65; //per frame
 uhc_cd_spin_charge_rate = 1.35; //per frame
 uhc_cd_spin_max = 100;
