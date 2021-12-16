@@ -110,6 +110,12 @@ if (state == PS_WALL_JUMP && attack == AT_USPECIAL)
     }
 }
 
+//======================================================
+// Dan pls: prevent stacking of hsp on first frame of window 2
+if (state == PS_ATTACK_GROUND && attack == AT_DATTACK && window == 2)
+{
+    hsp = clamp(hsp, -dash_speed, dash_speed);
+}
 
 //======================================================
 // Kirby compatibility
