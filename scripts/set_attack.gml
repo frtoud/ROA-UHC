@@ -18,15 +18,17 @@ else if (up_strong_pressed || down_strong_pressed
     else if (attack == AT_DAIR) { attack = AT_DSTRONG_2; }
     
     //Prevent strong charge when in the air
-    if (free)
+    if (free && !uhc_rune_flags.aircharge_strongs)
     {
         set_attack_value(AT_FSTRONG, AG_STRONG_CHARGE_WINDOW, 0);
         set_attack_value(AT_USTRONG, AG_STRONG_CHARGE_WINDOW, 0);
+        reset_attack_value(AT_DSTRONG_2, AG_STRONG_CHARGE_WINDOW);
     }
     else
     {
         reset_attack_value(AT_FSTRONG, AG_STRONG_CHARGE_WINDOW);
         reset_attack_value(AT_USTRONG, AG_STRONG_CHARGE_WINDOW);
+        set_attack_value(AT_DSTRONG_2, AG_STRONG_CHARGE_WINDOW, 1);
     }
 }
 

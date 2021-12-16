@@ -142,7 +142,7 @@ switch (attack)
 //==========================================================
     case AT_DSTRONG_2:
     {
-        if (window == 2 && window_timer == 1)
+        if (window == 3 && window_timer == 1)
         {
             throw_blade(0, 20, 0, uhc_dstrong_throwspeed, AT_DSTRONG_2);
         }

@@ -274,6 +274,7 @@ vfx_screenshot_tab = sprite_get("vfx_screenshot");
 //Rune flags
 uhc_rune_flags = 
 {
+    aircharge_strongs: true,
     wincon: true, //you're welcome ShadowKing
     remote_throws: false,
     dual_disk_system: has_rune("O") //you read that right
@@ -334,6 +335,8 @@ uhc_looping_attack_can_exit = false; //used with jab, dattack
 
 uhc_fresh_air_throw = false; //true if just threw CD in aerial attack
 uhc_air_throw_frames = 0; //increases for each frame not landed after an aerial throw
+
+uhc_last_strong_charge = 0; //for air strong charge hitpause
 
 uhc_dair_window_bounced = 0;
 

@@ -9,6 +9,17 @@ if (uhc_has_cd_blade && !instance_exists(uhc_current_cd))
 }
 
 //=====================================================
+// air strong charge rune: uses hitpause to hang in the air
+if (uhc_rune_flags.aircharge_strongs)
+{
+    if (free && strong_charge > uhc_last_strong_charge)
+    {
+        do_hitpause(1);
+    }
+    uhc_last_strong_charge = strong_charge;
+}
+
+//=====================================================
 //All states that don't count for charges
 uhc_no_charging = (state == PS_RESPAWN) || (state == PS_SPAWN) || (state == PS_DEAD)
                || (state == PS_ATTACK_GROUND && attack == AT_TAUNT);
@@ -408,4 +419,18 @@ with (oPlayer) if (uhc_handler_id == other)
             }
         }
     }
+}
+
+//==================================================================
+#define do_hitpause(hitpause_length)
+{
+    //Do not override previous old_hsp values if already in hitpause
+    if (!hitpause)
+    {
+        old_hsp = hsp;
+        old_vsp = vsp;
+        hitpause = true;
+    }
+    hitstop = hitpause_length;
+    hitstop_full = hitpause_length;
 }
