@@ -107,7 +107,7 @@ switch (attack)
 //==========================================================
     case AT_FSTRONG:
     {
-        can_move = false;
+        can_move = window > 2;
         if (window <= 2)
         {
             //dampen fall?
@@ -123,6 +123,7 @@ switch (attack)
 //==========================================================
     case AT_USTRONG:
     {
+        can_move = (!hitpause);
         if (window == 3 && window_timer == 1)
         {
             throw_blade(12, 65, uhc_ustrong_throwspeed_horz + 0.5* hsp * spr_dir, 
@@ -142,6 +143,7 @@ switch (attack)
 //==========================================================
     case AT_DSTRONG_2:
     {
+        can_move = (!hitpause);
         if (window == 3 && window_timer == 1)
         {
             throw_blade(0, 20, 0, uhc_dstrong_throwspeed, AT_DSTRONG_2);
