@@ -274,10 +274,10 @@ vfx_screenshot_tab = sprite_get("vfx_screenshot");
 //Rune flags
 uhc_rune_flags = 
 {
-    passive_rewind: true,
-    aircharge_strongs: true,
-    wincon: true, //you're welcome ShadowKing
-    remote_throws: false,
+    passive_rewind: has_rune("G"),
+    aircharge_strongs: has_rune("A"),
+    wincon: has_rune("H"), //you're welcome ShadowKing
+    remote_throws: has_rune("N"),
     dual_disk_system: has_rune("O") //you read that right
 }
 
