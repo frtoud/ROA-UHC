@@ -100,6 +100,7 @@ switch (attack)
         if (!was_parried && has_hit_player)
         {
             can_attack = true;
+            can_jump = true;
         }
     } break;
 //==========================================================
