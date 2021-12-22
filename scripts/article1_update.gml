@@ -479,7 +479,7 @@ switch (state)
         }
         else if (0 == state_timer % 5)
         {
-            refresh_cd_hitbox();
+            refresh_cd_hitbox(state_timer > 3);
             var hfx = spawn_hit_fx( x, y, player_id.vfx_spinning);
             hfx.draw_angle = random_func( 7, 180, true);
         }
@@ -810,16 +810,17 @@ if (getting_bashed && state != AR_STATE_BASHED)
 }
 //==============================================================================
 #define refresh_cd_hitbox()
+var antipolite = (argument_count > 0) ? argument[0] : false;
 {
     if (is_array(cd_hitbox.can_hit))
     {
         //Do not refresh players in hitstun-pause (reverse-polite)
         var in_hitstunpause = [];
         in_hitstunpause[array_length(cd_hitbox.can_hit)] = false; //init everything to zero
-        with (oPlayer)
+        if (antipolite) with (oPlayer)
         {
             //might have multiple oPlayer per player
-            if (state_cat == SC_HITSTUN && hitpause) 
+            if (state_cat == SC_HITSTUN && hitpause)
                 in_hitstunpause[player] = true;
         }
 
