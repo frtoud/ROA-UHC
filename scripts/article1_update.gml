@@ -671,6 +671,7 @@ if (getting_bashed && state != AR_STATE_BASHED)
 //==============================================================================
 #define set_state(new_state)
 {
+    prev_state = state;
     state = new_state;
     state_timer = 0;
     has_hit = false;

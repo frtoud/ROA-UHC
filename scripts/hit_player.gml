@@ -37,7 +37,12 @@ if ("uhc_parent_cd" in my_hitboxID)
 
         //Vector from PlayerCenter to HitboxCenter
         var diff_x = diff_mult * (hit_player_obj.x - cd_id.x);
-        var diff_y = diff_mult * (hit_player_obj.y - min(25, hit_player_obj.char_height/2) - cd_id.y);
+        var diff_y = diff_mult * (hit_player_obj.y - cd_id.y
+          //FSTRONG needs to lift taller characters up so they can be carried off ledges
+          //given to DSPECIAL too to make FSTRONG->DSPECIAL work cleanly with ledges
+          -  ((my_hitboxID.attack == AT_FSTRONG 
+           || (my_hitboxID.attack == AT_DSPECIAL && cd_id.prev_state == AT_FSTRONG) ) ? min(25, hit_player_obj.char_height/2) 
+                                                                                      : hit_player_obj.char_height/2 ));
 
         //simulate "pull towards center" angle flipper; but considers speed
         //Angle depends on current article speed and offset of victim (vsp adjusted for gravity)

@@ -71,6 +71,7 @@ cd_extra_hitstun = 20; //extra frames of hitstun from being hit (default formula
 buffered_state = -1; //AR_STATE_BUFFER
 state = 0; //AR_STATE_HOLD
 state_timer = 0;
+prev_state = 0;
 
 //=====================================================
 // current holder
