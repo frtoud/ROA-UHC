@@ -69,8 +69,6 @@ switch (attack)
 //==========================================================
     case AT_DATTACK:
     {
-        hsp = clamp(hsp, -dash_speed, dash_speed);
-        
         if (window == 1 && window_timer == 1)
         { uhc_looping_attack_can_exit = false; }
         
@@ -102,6 +100,7 @@ switch (attack)
         if (!was_parried && has_hit_player)
         {
             can_attack = true;
+            can_jump = true;
         }
     } break;
 //==========================================================
