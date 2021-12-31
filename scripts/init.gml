@@ -16,9 +16,9 @@ walk_turn_time = 6;
 initial_dash_time = 12;
 initial_dash_speed = 7.2;
 dash_speed = 7;
-dash_turn_time = 10;
+dash_turn_time = 8;
 dash_turn_accel = 1.5;
-dash_stop_time = 12;
+dash_stop_time = 8;
 dash_stop_percent = .3; //the value to multiply your hsp by when going into idle from dash or dashstop
 ground_friction = .7;
 moonwalk_accel = 1.4;
@@ -216,6 +216,17 @@ sfx_cd_respawn = sound_get("sfx_cd_respawn");
 uhc_victory_quote = "Thx 4 watchign dont forget to rate 5 stars :)";
 uhc_handled_victory_quote = false;
 
+//Hat
+vfx_hat_spawn = sprite_get("vfx_hat_spawn");
+vfx_hat_idle = sprite_get("vfx_hat_idle");
+vfx_hat_lost = sprite_get("vfx_hat_lost");
+uhc_has_hat = (get_match_setting(SET_SEASON) == 4) //christmas
+uhc_lost_hat_pos = {x:0,y:0}
+uhc_lost_hat_timer = 0;
+uhc_lost_hat_timer_max = 32;
+
+uhc_batteries = !((current_day == 1) && (current_month == 4));
+
 //=================================================
 // Taunt video
 uhc_taunt_videos[31] = noone; //preinitialized to a reasonable amount
@@ -263,7 +274,10 @@ vfx_screenshot_tab = sprite_get("vfx_screenshot");
 //Rune flags
 uhc_rune_flags = 
 {
-    remote_throws: false,
+    passive_rewind: has_rune("G"),
+    aircharge_strongs: has_rune("A"),
+    wincon: has_rune("H"), //you're welcome ShadowKing
+    remote_throws: has_rune("N"),
     dual_disk_system: has_rune("O") //you read that right
 }
 
@@ -283,7 +297,7 @@ uhc_dair_boost = 3;
 uhc_dair_boost_final = 7;
 
 uhc_cd_spin_drain_base = 0.035; //per frame
-uhc_cd_spin_drain_idle = 0.065; //per frame
+uhc_cd_spin_drain_idle = uhc_rune_flags.passive_rewind ? -0.065 : 0.065; //per frame
 uhc_cd_spin_drain_clairen = 0.65; //per frame
 uhc_cd_spin_charge_rate = 1.35; //per frame
 uhc_cd_spin_max = 100;
@@ -319,6 +333,11 @@ uhc_spin_cost_throw_bypass = false; //allows spin cost to apply if CD is thrown
 uhc_no_charging = false; //prevents CD blade drain and FSPECIAL charge
 
 uhc_looping_attack_can_exit = false; //used with jab, dattack
+
+uhc_fresh_air_throw = false; //true if just threw CD in aerial attack
+uhc_air_throw_frames = 0; //increases for each frame not landed after an aerial throw
+
+uhc_last_strong_charge = 0; //for air strong charge hitpause
 
 uhc_dair_window_bounced = 0;
 

@@ -14,6 +14,15 @@
 #macro AR_STATE_BASH_THROW   5
 //=====================================================
 
+//one exception to condition below: this is based on player behavior
+if (aerial_strong_check)
+{
+	if (current_owner_id.free && aerial_strong_frames < aerial_strong_frames_max) 
+	    aerial_strong_frames++;
+	else 
+	    aerial_strong_check = false;
+}
+
 // no logic/timers affected if we're currently in hitstop
 if (hitstop) exit;
 
@@ -33,7 +42,7 @@ if (buffered_state != AR_STATE_BUFFER)
 visible = (state != AR_STATE_HELD);
 ignores_walls = (state == AR_STATE_DSPECIAL);
 
-unbashable = (state == AR_STATE_HELD && state == AR_STATE_DYING);
+unbashable = (state == AR_STATE_HELD || state == AR_STATE_DYING);
 
 can_recall = false;
 can_priority_recall = false;
@@ -136,7 +145,12 @@ switch (state)
 
             if (has_hit) //finisher
             {
-                spawn_hitbox(AT_FSTRONG, 3);
+                var finisher = spawn_hitbox(AT_FSTRONG, 3);
+                if (aerial_strong_frames > 0)
+                {
+                	finisher.kb_scale *= lerp(1.0, aerial_strong_max_penality, 
+                	    (aerial_strong_frames * 1.0/aerial_strong_frames_max));
+                }
             }
             
             if (hit_wall)
@@ -226,7 +240,12 @@ switch (state)
             
             if (has_hit) //finisher
             { 
-                spawn_hitbox(AT_USTRONG, 3);
+                var finisher = spawn_hitbox(AT_USTRONG, 3);
+                if (aerial_strong_frames > 0)
+                {
+                	finisher.kb_scale *= lerp(1.0, aerial_strong_max_penality, 
+                	    (aerial_strong_frames * 1.0/aerial_strong_frames_max));
+                }
             }
             
             set_state(AR_STATE_DSTRONG_AIR);
@@ -409,7 +428,6 @@ switch (state)
             if !(has_hit) 
             { 
                 sound_play(asset_get("sfx_blow_weak1"));
-                cd_recall_stun_timer = cd_low_recall_stun;
             }
             set_state(AR_STATE_IDLE);
             vsp = -6;
@@ -427,6 +445,7 @@ switch (state)
     case AR_STATE_DSPECIAL:
     {
         //Update
+        pre_dspecial_immunity = max(2, pre_dspecial_immunity);
         //Shoot towards player
         var total_speed = point_distance(0, 0, hsp, vsp);
         if (total_speed < cd_dspecial_speed)
@@ -442,14 +461,50 @@ switch (state)
         hsp = lengthdir_x(total_speed, lookat_angle);
         vsp = lengthdir_y(total_speed, lookat_angle);
         
+        //pickup logic
         pickup_priority = max(pickup_priority, 3);
         if try_pickup() break;
-        
+
+        //create hitbox
         if (!instance_exists(cd_hitbox))
         {
             cd_hitbox = spawn_hitbox(AT_DSPECIAL, 2);
         }
         cd_hitbox.hitbox_timer = 0;
+        
+        //=====================================================
+        //WINCON RUNE
+        if (current_owner_id.uhc_rune_flags.wincon)
+        {
+            if (rune_wincon_active && has_hit)
+            {
+                //shortcut to parried state
+                was_parried = true;
+                hsp *= -1;
+                x += hsp;
+            }
+            else if (state_timer <= 1 || has_hit)
+            {
+                has_hit = false;
+                rune_wincon_active = false;
+                rune_wincon_timer = 0;
+            }
+            else if (!rune_wincon_active)
+            {
+                rune_wincon_timer++;
+                if (rune_wincon_timer >= rune_wincon_timer_max)
+                && (total_speed >= rune_wincon_speed_min)
+                {
+                    rune_wincon_active = true;
+                    destroy_cd_hitboxes();
+                    cd_hitbox = spawn_hitbox(AT_DSPECIAL, 3);
+                }
+                
+            }
+        }
+        //=====================================================
+
+        
         if (was_parried)
         {
             was_parried = false;
@@ -458,9 +513,23 @@ switch (state)
             vsp = -6;
             hsp = sign(hsp);
         }
+        else if (rune_wincon_active)
+        {
+            // damage/knockback depends on current speed
+            cd_hitbox.damage = 0.5 * total_speed;
+            cd_hitbox.kb_angle = point_direction(0, 0, hsp * spr_dir, 3 * min(vsp-2, -5));
+            cd_hitbox.kb_value = total_speed; 
+
+            if (total_speed > 20)      cd_hitbox.sound_effect = sound_get("sfx_ssbm_bat");
+            else if (total_speed > 15) cd_hitbox.sound_effect = sound_get("sfx_tf2_sawblade");
+            else                       cd_hitbox.sound_effect = asset_get("sfx_blow_heavy2");
+            
+            var hfx = spawn_hit_fx( x, y, player_id.vfx_spinning);
+            hfx.draw_angle = random_func( 7, 180, true);
+        }
         else if (0 == state_timer % 5)
         {
-            refresh_cd_hitbox();
+            refresh_cd_hitbox(state_timer > 3);
             var hfx = spawn_hit_fx( x, y, player_id.vfx_spinning);
             hfx.draw_angle = random_func( 7, 180, true);
         }
@@ -531,7 +600,7 @@ switch (state)
                 if (!has_hit) 
                 {
                     sound_play(asset_get("sfx_blow_weak1")); 
-                    cd_recall_stun_timer = cd_low_recall_stun;
+                    cd_recall_stun_timer = cd_high_recall_stun;
                 }
 
                 vsp = -6;
@@ -604,9 +673,9 @@ if (state != AR_STATE_HELD)
        //when activating AT_DSPECIAL_2 while CD is still alive, needs to be allowed to call back
        pre_dspecial_immunity--;
     }
-    else if (y > room_height)
+    else if (y > room_height + 20)
     {
-        //fell off the stage 
+        //fell off the stage
         set_state(AR_STATE_DYING);
     }
 }
@@ -652,6 +721,7 @@ if (getting_bashed && state != AR_STATE_BASHED)
 //==============================================================================
 #define set_state(new_state)
 {
+    prev_state = state;
     state = new_state;
     state_timer = 0;
     has_hit = false;
@@ -791,11 +861,26 @@ if (getting_bashed && state != AR_STATE_BASHED)
 }
 //==============================================================================
 #define refresh_cd_hitbox()
+var antipolite = (argument_count > 0) ? argument[0] : false;
 {
-	if (is_array(cd_hitbox.can_hit))
-    for (var p = 0; p < array_length(cd_hitbox.can_hit); p++)
-    { cd_hitbox.can_hit[p] = (p != last_parried_by_player); }
-    cd_hitbox.stop_effect = false;
+    if (is_array(cd_hitbox.can_hit))
+    {
+        //Do not refresh players in hitstun-pause (reverse-polite)
+        var in_hitstunpause = [];
+        in_hitstunpause[array_length(cd_hitbox.can_hit)] = false; //init everything to zero
+        if (antipolite) with (oPlayer)
+        {
+            //might have multiple oPlayer per player
+            if (state_cat == SC_HITSTUN && hitpause)
+                in_hitstunpause[player] = true;
+        }
+
+        for (var p = 0; p < array_length(cd_hitbox.can_hit); p++)
+        { 
+            cd_hitbox.can_hit[p] = (p != last_parried_by_player) && !in_hitstunpause[p]; 
+        }
+        cd_hitbox.stop_effect = false;
+    }
 }
 //==============================================================================
 #define destroy_cd_hitboxes()
@@ -902,9 +987,6 @@ if (getting_bashed && state != AR_STATE_BASHED)
                 {
                     destroyed = true;
                 }
-
-                in_hitpause = true;
-                hitstop = desired_hitstop;
             }
         }
     }

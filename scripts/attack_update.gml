@@ -24,7 +24,7 @@ switch (attack)
         if (window == 1 && window_timer == 1)
         { uhc_looping_attack_can_exit = false; }
         
-        if (window == 5 && window_timer == 1 && !uhc_has_cd_blade)
+        if (window == 5 && window_timer == 1 && (!uhc_has_cd_blade || was_parried))
         { window = 8; } //skip to finisher
         
         if (window == 7)
@@ -42,9 +42,9 @@ switch (attack)
                 create_hitbox(AT_JAB, 6, 0, 0);
             }
             
-            if (!attack_down && uhc_looping_attack_can_exit) 
+            if (!attack_down && uhc_looping_attack_can_exit) || (was_parried)
             { 
-                window = 8;
+                window = (was_parried ? 9 : 8);
                 window_timer = 0;
                 destroy_hitboxes();
                 uhc_update_blade_status = true;
@@ -69,8 +69,6 @@ switch (attack)
 //==========================================================
     case AT_DATTACK:
     {
-        hsp = clamp(hsp, -dash_speed, dash_speed);
-        
         if (window == 1 && window_timer == 1)
         { uhc_looping_attack_can_exit = false; }
         
@@ -91,18 +89,24 @@ switch (attack)
                 create_hitbox(AT_DATTACK, 3, 0, 0);
             }
             
-            if (!attack_down && uhc_looping_attack_can_exit) 
+            if (!attack_down && uhc_looping_attack_can_exit) || (was_parried)
             { 
                 window = 4;
                 window_timer = 0;
                 destroy_hitboxes();
             }
         }
+        
+        if (!was_parried && has_hit_player)
+        {
+            can_attack = true;
+            can_jump = true;
+        }
     } break;
 //==========================================================
     case AT_FSTRONG:
     {
-        can_move = false;
+        can_move = window > 2;
         if (window <= 2)
         {
             //dampen fall?
@@ -118,6 +122,7 @@ switch (attack)
 //==========================================================
     case AT_USTRONG:
     {
+        can_move = (!hitpause);
         if (window == 3 && window_timer == 1)
         {
             throw_blade(12, 65, uhc_ustrong_throwspeed_horz + 0.5* hsp * spr_dir, 
@@ -137,7 +142,8 @@ switch (attack)
 //==========================================================
     case AT_DSTRONG_2:
     {
-        if (window == 2 && window_timer == 1)
+        can_move = (!hitpause);
+        if (window == 3 && window_timer == 1)
         {
             throw_blade(0, 20, 0, uhc_dstrong_throwspeed, AT_DSTRONG_2);
         }
@@ -296,6 +302,7 @@ switch (attack)
 //==========================================================
     case AT_DSPECIAL:
     {
+        can_fast_fall = false;
         if (window == 1)
         {
             //try finding a target for CD recall
@@ -546,6 +553,10 @@ if (uhc_has_cd_blade || uhc_spin_cost_throw_bypass)
         uhc_current_cd.was_parried = true;
         uhc_current_cd.last_parried_by_player = parry_id.player;
     }
+    
+    // air throw penality detection
+    uhc_current_cd.aerial_strong_check = free;
+    uhc_current_cd.aerial_strong_frames = 0;
 }
 //==============================================================================
 #define adjust_bladed_attack_grid()

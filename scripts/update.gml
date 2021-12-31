@@ -9,6 +9,17 @@ if (uhc_has_cd_blade && !instance_exists(uhc_current_cd))
 }
 
 //=====================================================
+// air strong charge rune: uses hitpause to hang in the air
+if (uhc_rune_flags.aircharge_strongs)
+{
+    if (free && strong_charge > uhc_last_strong_charge)
+    {
+        do_hitpause(1);
+    }
+    uhc_last_strong_charge = strong_charge;
+}
+
+//=====================================================
 //All states that don't count for charges
 uhc_no_charging = (state == PS_RESPAWN) || (state == PS_SPAWN) || (state == PS_DEAD)
                || (state == PS_ATTACK_GROUND && attack == AT_TAUNT);
@@ -19,6 +30,22 @@ if (uhc_fspecial_charge_current < uhc_fspecial_charge_max)
     && !uhc_no_charging
 {
     uhc_fspecial_charge_current++;
+}
+
+//======================================================
+// Batteries
+if (!uhc_batteries)
+{
+    state = PS_SPAWN;
+    state_timer = 0;
+    attack_invince = true;
+    draw_indicator = false;
+    go_through = true;
+    force_depth = true;
+    depth = 0;
+    set_player_damage(player, 0);
+    y += vsp;
+    exit;
 }
 
 //=====================================================
@@ -92,6 +119,13 @@ if (state == PS_WALL_JUMP && attack == AT_USPECIAL)
     {
         uhc_being_buffered_by = noone;
     }
+}
+
+//======================================================
+// Dan pls: prevent stacking of hsp on first frame of window 2
+if (state == PS_ATTACK_GROUND && attack == AT_DATTACK && window == 2)
+{
+    hsp = clamp(hsp, -dash_speed, dash_speed);
 }
 
 //======================================================
@@ -217,10 +251,10 @@ if (swallowed && instance_exists(enemykirby))
             set_hitbox_value(AT_EXTRA_3, 5, HG_HITBOX_TYPE, 1);
             set_hitbox_value(AT_EXTRA_3, 5, HG_WINDOW, 0);
             set_hitbox_value(AT_EXTRA_3, 5, HG_LIFETIME, 4);
-            set_hitbox_value(AT_EXTRA_3, 5, HG_HITBOX_X, 105);
+            set_hitbox_value(AT_EXTRA_3, 5, HG_HITBOX_X, 90);
             set_hitbox_value(AT_EXTRA_3, 5, HG_HITBOX_Y, -24);
-            set_hitbox_value(AT_EXTRA_3, 5, HG_WIDTH, 140);
-            set_hitbox_value(AT_EXTRA_3, 5, HG_HEIGHT, 180);
+            set_hitbox_value(AT_EXTRA_3, 5, HG_WIDTH, 100);
+            set_hitbox_value(AT_EXTRA_3, 5, HG_HEIGHT, 160);
             set_hitbox_value(AT_EXTRA_3, 5, HG_PRIORITY, 4);
             set_hitbox_value(AT_EXTRA_3, 5, HG_DAMAGE, 12);
             set_hitbox_value(AT_EXTRA_3, 5, HG_ANGLE, 90);
@@ -234,10 +268,10 @@ if (swallowed && instance_exists(enemykirby))
             set_hitbox_value(AT_EXTRA_3, 6, HG_HITBOX_TYPE, 1);
             set_hitbox_value(AT_EXTRA_3, 6, HG_WINDOW, 0);
             set_hitbox_value(AT_EXTRA_3, 6, HG_LIFETIME, 4);
-            set_hitbox_value(AT_EXTRA_3, 6, HG_HITBOX_X, 145);
+            set_hitbox_value(AT_EXTRA_3, 6, HG_HITBOX_X, 130);
             set_hitbox_value(AT_EXTRA_3, 6, HG_HITBOX_Y, -24);
-            set_hitbox_value(AT_EXTRA_3, 6, HG_WIDTH, 100);
-            set_hitbox_value(AT_EXTRA_3, 6, HG_HEIGHT, 300);
+            set_hitbox_value(AT_EXTRA_3, 6, HG_WIDTH, 80);
+            set_hitbox_value(AT_EXTRA_3, 6, HG_HEIGHT, 260);
             set_hitbox_value(AT_EXTRA_3, 6, HG_PRIORITY, 3);
             set_hitbox_value(AT_EXTRA_3, 6, HG_DAMAGE, 10);
             set_hitbox_value(AT_EXTRA_3, 6, HG_ANGLE, 90);
@@ -391,4 +425,18 @@ with (oPlayer) if (uhc_handler_id == other)
             }
         }
     }
+}
+
+//==================================================================
+#define do_hitpause(hitpause_length)
+{
+    //Do not override previous old_hsp values if already in hitpause
+    if (!hitpause)
+    {
+        old_hsp = hsp;
+        old_vsp = vsp;
+        hitpause = true;
+    }
+    hitstop = hitpause_length;
+    hitstop_full = hitpause_length;
 }

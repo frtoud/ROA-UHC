@@ -145,6 +145,28 @@ if (uhc_taunt_current_video != noone)
     { draw_sprite_ext(vfx_mini_buffering, (floor(get_gameplay_time()/4) % 16), vid_x, vid_y, 1, y_scale/2, 0, c_white, alpha); }
 }
 
+
+//===================================================
+// Host hat
+if (uhc_has_hat)
+{
+    draw_sprite_ext(sprite_index == sprite_get("idle") ? vfx_hat_idle : vfx_hat_spawn,
+                    image_index, x, y, 2*spr_dir, 2, 0, c_white, 1);
+}
+else if (uhc_lost_hat_timer < uhc_lost_hat_timer_max)
+{
+    draw_sprite_ext(vfx_hat_lost, (uhc_lost_hat_timer/8),
+                    uhc_lost_hat_pos.x, uhc_lost_hat_pos.y, 2*spr_dir, 2, 0, c_white, 1);
+}
+
+//===================================================
+// Batteries
+if (!uhc_batteries) && (get_gameplay_time() > 360)
+{
+    draw_sprite_ext(sprite_get("vfx_batteries"), (get_gameplay_time()%120 > 60),
+                    x, y - 60, 2, 2, 0, c_white, 1);
+}
+
 //===================================================
 #define draw_blade(spr_id, img_id, posx, posy)
 {

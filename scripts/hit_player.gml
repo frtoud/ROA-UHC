@@ -37,25 +37,34 @@ if ("uhc_parent_cd" in my_hitboxID)
 
         //Vector from PlayerCenter to HitboxCenter
         var diff_x = diff_mult * (hit_player_obj.x - cd_id.x);
-        var diff_y = diff_mult * (hit_player_obj.y - hit_player_obj.char_height/2 - cd_id.y);
+        var diff_y = diff_mult * (hit_player_obj.y - cd_id.y
+          //FSTRONG needs to lift taller characters up so they can be carried off ledges
+          //given to DSPECIAL too to make FSTRONG->DSPECIAL work cleanly with ledges
+          -  ((my_hitboxID.attack == AT_FSTRONG 
+           || (my_hitboxID.attack == AT_DSPECIAL && cd_id.prev_state == AT_FSTRONG) ) ? min(25, hit_player_obj.char_height/2) 
+                                                                                      : hit_player_obj.char_height/2 ));
 
         //simulate "pull towards center" angle flipper; but considers speed
         //Angle depends on current article speed and offset of victim (vsp adjusted for gravity)
         var pull_angle = point_direction(diff_x, grav_bias + diff_y, cd_id.hsp, cd_id.vsp);
         var cd_speed = point_distance(diff_x, grav_bias + diff_y, cd_id.hsp, cd_id.vsp);
         
+        if (my_hitboxID.attack == AT_DSPECIAL)
+        {
+            cd_speed = min(12, cd_speed);
+        }
         //knockback speed is determined by orig_knock
         //direction is determined by the vector [old_hsp, old_vsp]
         //I blame Dan
         hit_player_obj.orig_knock += cd_speed * cd_id.cd_multihit_speed_bonus;
-                                     
+
         hit_player_obj.old_hsp = lengthdir_x(hit_player_obj.orig_knock, pull_angle);
         hit_player_obj.old_vsp = lengthdir_y(hit_player_obj.orig_knock, pull_angle);
     }
 }
 
 //Special Flipper: "Autolink" 
-// Adjusts to pull towards wherever curernt knockback is pointing at (relative to the hitbox)
+// Adjusts to pull towards wherever current knockback is pointing at (relative to the hitbox)
 if (my_hitboxID.hit_flipper == ANGLE_FLIPPER_AUTOLINK)
 // No effect on armored enemies; only do this for hitstun states
 && (hit_player_obj.state == PS_HITSTUN || hit_player_obj.state == PS_HITSTUN_LAND)

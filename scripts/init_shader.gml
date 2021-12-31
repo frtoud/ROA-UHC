@@ -117,7 +117,7 @@ if (object_index == asset_get("draw_result_screen"))
         set_character_color_slot( 2, tempR, tempG, tempB);
     }
     
-    if (winner == player) //...only do the following with the frontmost Hypercam
+    if (winner == player && uhc_batteries) //...only do the following with the frontmost Hypercam
     {
         //panel constants
         var quote_pos_y =    50;
@@ -201,14 +201,18 @@ if (object_index == asset_get("draw_result_screen"))
 #define get_victory_screen_data()
 {
     var data_array = noone;
+    var data_batteries = true;
     //relies on unload.gml sending over a persistent hitbox with said data
     with (asset_get("pHitBox")) if ("uhc_victory_screen_array" in self)
     {
         data_array = uhc_victory_screen_array;
+        data_batteries = uhc_batteries;
         break;
     }
     
     if (data_array == noone) return; // no data :(
+    
+    uhc_batteries = data_batteries;
     
     //hypercams are maybe holding another blade than their own
     for (var p = 1; p <= 4; p++)

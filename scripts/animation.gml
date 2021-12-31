@@ -109,7 +109,8 @@ switch (state)
         //wheeled sprite when jumping from a dash
         image_index = (prev_state == PS_DASH 
                     || prev_state == PS_DASH_START
-                    || prev_state == PS_DASH_TURN) ? 0 : 1;
+                    || prev_state == PS_DASH_TURN
+                    || (prev_state == PS_ATTACK_GROUND && attack == AT_DATTACK)) ? 0 : 1;
         
     } break;
     case PS_DOUBLE_JUMP:
@@ -390,7 +391,43 @@ switch (state)
     {
         image_index = 0;
     }break;
+    case PS_SPAWN:
+    {
+        if (state_timer < (56 + 36))
+        {
+            sprite_index = sprite_get("spawn");
+            image_index = 0;
+            if (state_timer > 56)
+            {
+                image_index = 1 + (state_timer - 56)/6;
+            }
+            else if (state_timer == 55) && !hitpause
+            {
+                uhc_anim_blink_timer = uhc_anim_blink_timer_max;
+                sound_play(sfx_cd_respawn);
+            }
+            else
+            {
+                uhc_current_cd.cd_anim_blade_spin = 0;
+            }
+        }
+    }break;
     default: break;
+}
+
+//===================================================
+// Host hat
+if (uhc_has_hat) 
+&& !(sprite_index == sprite_get("idle") || sprite_index == sprite_get("spawn"))
+{
+    uhc_has_hat = false;
+    uhc_lost_hat_pos.x = x;
+    uhc_lost_hat_pos.y = y;
+    uhc_lost_hat_timer = 0;
+}
+if (uhc_lost_hat_timer < uhc_lost_hat_timer_max)
+{
+    uhc_lost_hat_timer++;
 }
 
 //==============================================================

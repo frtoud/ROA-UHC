@@ -71,6 +71,7 @@ cd_extra_hitstun = 20; //extra frames of hitstun from being hit (default formula
 buffered_state = -1; //AR_STATE_BUFFER
 state = 0; //AR_STATE_HOLD
 state_timer = 0;
+prev_state = 0;
 
 //=====================================================
 // current holder
@@ -113,6 +114,13 @@ dstrong_need_gravity = false;
 dstrong_angular_timer = 0;
 dstrong_angular_timer_prev = 0;
 
+//air-strong penalty
+aerial_strong_check = false; //true if need to count number of aerial strong frames
+aerial_strong_frames = 0; //number of frames last owner was not grounded
+aerial_strong_frames_max = 12; //limit for full penalty
+
+aerial_strong_max_penality = 0.25; //multiplier for maximu penalty
+
 //=====================================================
 // animation variables
 cd_anim_blade_spin = 0; //animation speed for the blade when held
@@ -123,3 +131,10 @@ cd_anim_color = get_player_color(player_id.player) //color of CD
 unbashable = true;
 getting_bashed = false;
 bashed_id = noone;
+
+//======================================================
+// Runes
+rune_wincon_timer = 0;
+rune_wincon_timer_max = 15;
+rune_wincon_active = false;
+rune_wincon_speed_min = 6;
