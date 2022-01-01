@@ -617,8 +617,9 @@ if (uhc_has_cd_blade || uhc_spin_cost_throw_bypass)
         reset_hitbox_value(atk, hnum, base_index);
         
         // total = base + charge * bonus
-        var value = get_hitbox_value(atk, hnum, base_index)
-           + (charge_percent * get_hitbox_value(atk, hnum, bonus_index) );
+        // DAN PLS FIX: actually using lerp(base -> base+bonus) to restrain a bug with reset.
+        var value = lerp(get_hitbox_value(atk, hnum, base_index), 
+                         get_hitbox_value(atk, hnum, bonus_index), charge_percent);
         set_hitbox_value(atk, hnum, base_index, value);
     }
 }

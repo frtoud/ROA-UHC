@@ -118,6 +118,29 @@ if (state == PS_ATTACK_GROUND && attack == AT_DATTACK && window == 2)
 }
 
 //======================================================
+// Dan pls: make all "bonus" indexes hold the "base + bonus" max value
+// because reset_hitbox_value stops working as advertized on Tuesdays, between 1:20PM and 1:45M EST, or during a waxing crescent moon
+if (!danpls_adjusted_spinbonuses)
+{
+    for (var atk = 0; atk < 50; atk++)
+    {
+        for (var hb = 1; get_hitbox_value(atk, hb, HG_HITBOX_TYPE) != 0; hb++)
+        {
+            if (0 < get_hitbox_value(atk, hb, HG_SPIN_DAMAGE_BONUS))
+            { set_hitbox_value(atk, hb, HG_SPIN_DAMAGE_BONUS, get_hitbox_value(atk, hb, HG_DAMAGE) + get_hitbox_value(atk, hb, HG_SPIN_DAMAGE_BONUS)); }
+            if (0 < get_hitbox_value(atk, hb, HG_SPIN_HITPAUSE_BONUS))
+            { set_hitbox_value(atk, hb, HG_SPIN_HITPAUSE_BONUS, get_hitbox_value(atk, hb, HG_BASE_HITPAUSE) + get_hitbox_value(atk, hb, HG_SPIN_HITPAUSE_BONUS)); }
+            if (0 < get_hitbox_value(atk, hb, HG_SPIN_KNOCKBACK_BONUS))
+            { set_hitbox_value(atk, hb, HG_SPIN_KNOCKBACK_BONUS, get_hitbox_value(atk, hb, HG_BASE_KNOCKBACK) + get_hitbox_value(atk, hb, HG_SPIN_KNOCKBACK_BONUS)); }
+            if (0 < get_hitbox_value(atk, hb, HG_SPIN_KNOCKBACK_SCALING_BONUS))
+            { set_hitbox_value(atk, hb, HG_SPIN_KNOCKBACK_SCALING_BONUS, get_hitbox_value(atk, hb, HG_KNOCKBACK_SCALING) + get_hitbox_value(atk, hb, HG_SPIN_KNOCKBACK_SCALING_BONUS)); }
+        }
+    }
+
+    danpls_adjusted_spinbonuses = true;
+}
+
+//======================================================
 // Kirby compatibility
 if (swallowed && instance_exists(enemykirby))
 {
