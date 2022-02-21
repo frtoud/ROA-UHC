@@ -841,16 +841,13 @@ if (getting_bashed && state != AR_STATE_BASHED)
     with (player_id)
     {
         if (0 < get_hitbox_value(atk, hnum, HG_SPIN_DAMAGE_BONUS))
-        { 
-            hb.damage += charge_percent * get_hitbox_value(atk, hnum, HG_SPIN_DAMAGE_BONUS); 
-            hb.damage = floor(hb.damage);
-        }
+        { hb.damage = floor(lerp(hb.damage, get_hitbox_value(atk, hnum, HG_SPIN_DAMAGE_BONUS), charge_percent)); }
         if (0 < get_hitbox_value(atk, hnum, HG_SPIN_HITPAUSE_BONUS))
-        { hb.hitpause += charge_percent * get_hitbox_value(atk, hnum, HG_SPIN_HITPAUSE_BONUS); }
+        {hb.hitpause = lerp(hb.hitpause, get_hitbox_value(atk, hnum, HG_SPIN_HITPAUSE_BONUS), charge_percent); }
         if (0 < get_hitbox_value(atk, hnum, HG_SPIN_KNOCKBACK_BONUS))
-        { hb.kb_value += charge_percent * get_hitbox_value(atk, hnum, HG_SPIN_KNOCKBACK_BONUS); }
+        {hb.kb_value = lerp(hb.kb_value, get_hitbox_value(atk, hnum, HG_SPIN_KNOCKBACK_BONUS), charge_percent); }
         if (0 < get_hitbox_value(atk, hnum, HG_SPIN_KNOCKBACK_SCALING_BONUS))
-        { hb.kb_scale += charge_percent * get_hitbox_value(atk, hnum, HG_SPIN_KNOCKBACK_SCALING_BONUS); }
+        {hb.kb_scale = lerp(hb.kb_scale, get_hitbox_value(atk, hnum, HG_SPIN_KNOCKBACK_SCALING_BONUS), charge_percent); }
         
         //SFX
         if (0 < get_hitbox_value(atk, hnum, HG_SPIN_SFX) && charge_percent > uhc_spin_sfx_threshold)

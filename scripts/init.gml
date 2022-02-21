@@ -106,6 +106,9 @@ AG_WINDOW_LENGTH_BLADED = 71;// Length of window if holding blade
 HG_SPIN_COST = 70;           // CD Charge cost of hitting with this hitbox
 
 // Scaling bonuses applied on top of their respective values depending on CD Charge:
+//NOTE: because of an issue with reset_hitbox_value, it will instead hold the "base + bonus" maximum value. dan pls.
+danpls_adjusted_spinbonuses = false; //see update.gml
+
 HG_SPIN_DAMAGE_BONUS = 71;            // HG_DAMAGE
 HG_SPIN_HITPAUSE_BONUS = 72;          // HG_BASE_HITPAUSE
 HG_SPIN_KNOCKBACK_BONUS = 73;         // HG_BASE_KNOCKBACK
