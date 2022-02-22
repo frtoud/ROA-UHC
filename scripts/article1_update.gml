@@ -15,7 +15,12 @@
 //=====================================================
 
 //one exception to condition below: this is based on player behavior
-if (aerial_strong_check)
+// REMOTE THROWS: penalty no longer makes any sense. flat %
+if (rune_throw_was_remote)
+{
+    aerial_strong_frames = floor(rune_remote_penalty * aerial_strong_frames_max);
+}
+else if (aerial_strong_check)
 {
 	if (current_owner_id.free && aerial_strong_frames < aerial_strong_frames_max) 
 	    aerial_strong_frames++;
@@ -377,7 +382,12 @@ switch (state)
             
             if (has_hit) //finisher
             {
-                spawn_hitbox(AT_DSTRONG, 3);
+                var finisher = spawn_hitbox(AT_DSTRONG, 3);
+                if (aerial_strong_frames > 0)
+                {
+                	finisher.kb_scale *= lerp(1.0, aerial_strong_max_penality, 
+                	    (aerial_strong_frames * 1.0/aerial_strong_frames_max));
+                }
             }
             
             set_state(AR_STATE_IDLE);
