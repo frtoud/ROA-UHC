@@ -304,7 +304,7 @@ uhc_cd_spin_drain_idle = uhc_rune_flags.passive_rewind ? -0.065 : 0.065; //per f
 uhc_cd_spin_drain_clairen = 0.65; //per frame
 uhc_cd_spin_charge_rate = 1.35; //per frame
 uhc_cd_spin_max = 100;
-uhc_cd_respawn_timer_max = uhc_rune_flags.dual_disk_system ? -1 : 300; //# of frames
+uhc_cd_respawn_timer_max = uhc_rune_flags.dual_disk_system ? -1 : 300; //# of frames (FREE when dual-wielding)
 uhc_pickup_cooldown_max = 30; //# of frames
 uhc_throw_cooldown_max = 12; //# of frames
 

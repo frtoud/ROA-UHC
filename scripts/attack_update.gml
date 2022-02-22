@@ -317,7 +317,7 @@ switch (attack)
                     {
                         if (other.uhc_rune_flags.dual_disk_system)
                         {
-                            continue;
+                            continue; //Skip recall. this lets a 2nd CD get created
                         }
                         target_cd = self;
                         break; //best match, can stop looking
