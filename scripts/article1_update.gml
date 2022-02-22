@@ -189,6 +189,17 @@ switch (state)
             }
             set_state(AR_STATE_IDLE);
         }
+
+        //=====================================================
+        else if (rune_throw_was_remote)
+        {
+            // RUNE: Remote throw (does not get HSP)
+            hsp *= 0.9;
+            if (state_timer < cd_roll_grav_time) 
+                vsp += 0.02 * state_timer * cd_grav_force;
+        }
+        //=====================================================
+
         else if (-hsp * spr_dir < cd_roll_speed)
         {
             hsp -= (spr_dir * cd_accel_force);
@@ -355,7 +366,10 @@ switch (state)
             }
         }
         
-        if (dstrong_need_gravity) do_gravity();
+        if (dstrong_need_gravity) 
+            do_gravity();
+        else
+            vsp *= 0.7;
         
         if (dstrong_remaining_laps <= 0)
         {

@@ -114,9 +114,11 @@ switch (attack)
         }
         else if (window == 3 && window_timer == 1)
         {
+            // RUNE: Remote throw (needs slight bonus to HSP)
             throw_blade(32, 20, uhc_fstrong_throwspeed_base + (strong_charge/60.0) * 
                                (uhc_fstrong_throwspeed_max - uhc_fstrong_throwspeed_base)
-                               + (hsp*spr_dir*0.5), 0, AT_FSTRONG);
+                               + (hsp * spr_dir * 0.5) + (uhc_has_cd_blade ? 0 : 1)
+                               , 0, AT_FSTRONG);
         }
     } break;
 //==========================================================
@@ -125,7 +127,11 @@ switch (attack)
         can_move = (!hitpause);
         if (window == 3 && window_timer == 1)
         {
-            throw_blade(12, 65, uhc_ustrong_throwspeed_horz + 0.5* hsp * spr_dir, 
+            // RUNE: Remote throw (does not get HSP)
+            var temp_ustrong_hsp = 
+                uhc_has_cd_blade ? (uhc_ustrong_throwspeed_horz + 0.5 * hsp * spr_dir) : 0;
+
+            throw_blade(12, 65, temp_ustrong_hsp, 
                                 uhc_ustrong_throwspeed_base + (strong_charge/60.0) * 
                                (uhc_ustrong_throwspeed_max - uhc_ustrong_throwspeed_base), AT_USTRONG);
         }
@@ -532,12 +538,21 @@ if (uhc_has_cd_blade || uhc_spin_cost_throw_bypass)
 //==============================================================================
 #define throw_blade(xoffset, yoffset, hspd, vspd, cd_atk)
 {
-    uhc_current_cd.x = x + (spr_dir * xoffset);
-    uhc_current_cd.y = y - yoffset;
+    //throw failure: disc missing
+    if !instance_exists(uhc_current_cd) return; 
+
+    if (uhc_has_cd_blade)
+    {
+        uhc_current_cd.x = x + (spr_dir * xoffset);
+        uhc_current_cd.y = y - yoffset;
+    }
+
     uhc_current_cd.hsp = spr_dir * hspd;
     uhc_current_cd.vsp = vspd;
     uhc_current_cd.spr_dir = spr_dir;
     
+    uhc_current_cd.rune_throw_was_remote = !uhc_has_cd_blade;
+
     uhc_has_cd_blade = false;
     uhc_pickup_cooldown = uhc_pickup_cooldown_max;
     
