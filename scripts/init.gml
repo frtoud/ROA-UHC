@@ -277,6 +277,7 @@ vfx_screenshot_tab = sprite_get("vfx_screenshot");
 //Rune flags
 uhc_rune_flags = 
 {
+    doctor_nair: has_rune("B"),
     passive_rewind: has_rune("G"),
     aircharge_strongs: has_rune("A"),
     wincon: has_rune("H"), //you're welcome ShadowKing

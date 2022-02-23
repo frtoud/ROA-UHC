@@ -85,3 +85,26 @@ set_hitbox_value(AT_NAIR, 4, HG_WINDOW, 3);
 set_hitbox_value(AT_NAIR, 4, HG_LIFETIME,  get_window_value(AT_NAIR, 3, AG_WINDOW_LENGTH));
 set_hitbox_value(AT_NAIR, 4, HG_HITBOX_X, -4);
 set_hitbox_value(AT_NAIR, 4, HG_HITBOX_Y, -12);
+
+//RUNE: reverse sourspot mechanic
+//Base knockback scales as move lasts longer
+if (uhc_rune_flags.doctor_nair)
+{
+    set_hitbox_value(AT_NAIR, 1, HG_DAMAGE, 6);
+    set_hitbox_value(AT_NAIR, 1, HG_BASE_KNOCKBACK, 6);
+    set_hitbox_value(AT_NAIR, 1, HG_KNOCKBACK_SCALING, 0.55);
+    set_hitbox_value(AT_NAIR, 1, HG_HIT_SFX, asset_get("sfx_blow_medium2"));
+
+    set_hitbox_value(AT_NAIR, 2, HG_BASE_KNOCKBACK, 4);
+    set_hitbox_value(AT_NAIR, 2, HG_KNOCKBACK_SCALING, 0.40);
+
+    set_hitbox_value(AT_NAIR, 3, HG_DAMAGE, 8);
+    set_hitbox_value(AT_NAIR, 3, HG_ANGLE, 45);
+    set_hitbox_value(AT_NAIR, 3, HG_BASE_KNOCKBACK, 8);
+    set_hitbox_value(AT_NAIR, 3, HG_FINAL_BASE_KNOCKBACK, 12);
+    set_hitbox_value(AT_NAIR, 3, HG_KNOCKBACK_SCALING, .5);
+    set_hitbox_value(AT_NAIR, 3, HG_HIT_SFX, asset_get("sfx_blow_heavy2"));
+    set_hitbox_value(AT_NAIR, 3, HG_BASE_HITPAUSE, 9);
+    set_hitbox_value(AT_NAIR, 3, HG_HITPAUSE_SCALING, .6);
+
+}
