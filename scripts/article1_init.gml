@@ -138,3 +138,6 @@ rune_wincon_timer = 0;
 rune_wincon_timer_max = 15;
 rune_wincon_active = false;
 rune_wincon_speed_min = 6;
+
+rune_throw_was_remote = false;
+rune_remote_penalty = 0.6; //finisher penalty for remote throws (DSTRONG, FSTRONG, USTRONG)

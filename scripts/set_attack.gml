@@ -2,7 +2,8 @@
 
 //===============================================
 //Strongs to Tilts conversions
-if (!uhc_has_cd_blade)
+if !(uhc_has_cd_blade 
+   || (uhc_rune_flags.remote_throws && instance_exists(uhc_current_cd)) )
 {
     if (attack == AT_FSTRONG) { attack = AT_FTILT; }
     else if (attack == AT_USTRONG) { attack = AT_UTILT; }

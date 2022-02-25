@@ -18,6 +18,43 @@ if (uhc_rune_flags.aircharge_strongs)
     }
     uhc_last_strong_charge = strong_charge;
 }
+//=====================================================
+// airdodge-buffering rune: copies effects of USPECIAL
+if (uhc_rune_flags.airdodge_buffering)
+{
+    if (state == PS_AIR_DODGE && window == 0 && window_timer == 1) //one frame late to avoid wavedash triggerring this effect
+    && !instance_exists(uhc_uspecial_hitbox)
+    {
+        uhc_uspecial_hitbox = create_hitbox(AT_USPECIAL, 2, x, y - 20);
+        uhc_uspecial_start_pos.x = x;
+        uhc_uspecial_start_pos.y = y;
+    }
+    else if (state == PS_AIR_DODGE && window == 2 && window_timer = 0) 
+         || (state == PS_WAVELAND && state_timer == 0)
+    {
+        //keep in sync with USPECIAL in attack_update
+        if (instance_exists(uhc_uspecial_hitbox)) 
+            { uhc_uspecial_hitbox.destroyed = true; }
+        
+        reset_hitbox_value(AT_USPECIAL, 3, HG_ANGLE);
+        var travel_angle = point_direction(uhc_uspecial_start_pos.x, 
+                                           uhc_uspecial_start_pos.y, x, y);
+        set_hitbox_value(AT_USPECIAL, 3, HG_ANGLE, travel_angle);
+        
+        with (oPlayer) if (self != other && uhc_being_buffered_by == other)
+        {
+            //for each victim...
+            var victim = self;
+            uhc_being_buffered_by = noone;
+            with (other) //...back to Hypercam
+            {
+                var hitbox = create_hitbox(AT_USPECIAL, 3, victim.x, victim.y - victim.char_height/2);
+                hitbox.spr_dir = 1;
+            }
+        }
+    }
+}
+//=====================================================
 
 //=====================================================
 //All states that don't count for charges
@@ -126,6 +163,29 @@ if (state == PS_WALL_JUMP && attack == AT_USPECIAL)
 if (state == PS_ATTACK_GROUND && attack == AT_DATTACK && window == 2)
 {
     hsp = clamp(hsp, -dash_speed, dash_speed);
+}
+
+//======================================================
+// Dan pls: make all "bonus" indexes hold the "base + bonus" max value
+// because reset_hitbox_value stops working as advertized on Tuesdays, between 1:20PM and 1:45M EST, or during a waxing crescent moon
+if (!danpls_adjusted_spinbonuses)
+{
+    for (var atk = 0; atk < 50; atk++)
+    {
+        for (var hb = 1; get_hitbox_value(atk, hb, HG_HITBOX_TYPE) != 0; hb++)
+        {
+            if (0 < get_hitbox_value(atk, hb, HG_SPIN_DAMAGE_BONUS))
+            { set_hitbox_value(atk, hb, HG_SPIN_DAMAGE_BONUS, get_hitbox_value(atk, hb, HG_DAMAGE) + get_hitbox_value(atk, hb, HG_SPIN_DAMAGE_BONUS)); }
+            if (0 < get_hitbox_value(atk, hb, HG_SPIN_HITPAUSE_BONUS))
+            { set_hitbox_value(atk, hb, HG_SPIN_HITPAUSE_BONUS, get_hitbox_value(atk, hb, HG_BASE_HITPAUSE) + get_hitbox_value(atk, hb, HG_SPIN_HITPAUSE_BONUS)); }
+            if (0 < get_hitbox_value(atk, hb, HG_SPIN_KNOCKBACK_BONUS))
+            { set_hitbox_value(atk, hb, HG_SPIN_KNOCKBACK_BONUS, get_hitbox_value(atk, hb, HG_BASE_KNOCKBACK) + get_hitbox_value(atk, hb, HG_SPIN_KNOCKBACK_BONUS)); }
+            if (0 < get_hitbox_value(atk, hb, HG_SPIN_KNOCKBACK_SCALING_BONUS))
+            { set_hitbox_value(atk, hb, HG_SPIN_KNOCKBACK_SCALING_BONUS, get_hitbox_value(atk, hb, HG_KNOCKBACK_SCALING) + get_hitbox_value(atk, hb, HG_SPIN_KNOCKBACK_SCALING_BONUS)); }
+        }
+    }
+
+    danpls_adjusted_spinbonuses = true;
 }
 
 //======================================================

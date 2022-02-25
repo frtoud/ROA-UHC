@@ -15,7 +15,12 @@
 //=====================================================
 
 //one exception to condition below: this is based on player behavior
-if (aerial_strong_check)
+// REMOTE THROWS: penalty no longer makes any sense. flat %
+if (rune_throw_was_remote)
+{
+    aerial_strong_frames = floor(rune_remote_penalty * aerial_strong_frames_max);
+}
+else if (aerial_strong_check)
 {
 	if (current_owner_id.free && aerial_strong_frames < aerial_strong_frames_max) 
 	    aerial_strong_frames++;
@@ -189,6 +194,17 @@ switch (state)
             }
             set_state(AR_STATE_IDLE);
         }
+
+        //=====================================================
+        else if (rune_throw_was_remote)
+        {
+            // RUNE: Remote throw (does not get HSP)
+            hsp *= 0.9;
+            if (state_timer < cd_roll_grav_time) 
+                vsp += 0.02 * state_timer * cd_grav_force;
+        }
+        //=====================================================
+
         else if (-hsp * spr_dir < cd_roll_speed)
         {
             hsp -= (spr_dir * cd_accel_force);
@@ -355,7 +371,10 @@ switch (state)
             }
         }
         
-        if (dstrong_need_gravity) do_gravity();
+        if (dstrong_need_gravity) 
+            do_gravity();
+        else
+            vsp *= 0.7;
         
         if (dstrong_remaining_laps <= 0)
         {
@@ -363,7 +382,12 @@ switch (state)
             
             if (has_hit) //finisher
             {
-                spawn_hitbox(AT_DSTRONG, 3);
+                var finisher = spawn_hitbox(AT_DSTRONG, 3);
+                if (aerial_strong_frames > 0)
+                {
+                	finisher.kb_scale *= lerp(1.0, aerial_strong_max_penality, 
+                	    (aerial_strong_frames * 1.0/aerial_strong_frames_max));
+                }
             }
             
             set_state(AR_STATE_IDLE);
@@ -841,16 +865,13 @@ if (getting_bashed && state != AR_STATE_BASHED)
     with (player_id)
     {
         if (0 < get_hitbox_value(atk, hnum, HG_SPIN_DAMAGE_BONUS))
-        { 
-            hb.damage += charge_percent * get_hitbox_value(atk, hnum, HG_SPIN_DAMAGE_BONUS); 
-            hb.damage = floor(hb.damage);
-        }
+        { hb.damage = floor(lerp(hb.damage, get_hitbox_value(atk, hnum, HG_SPIN_DAMAGE_BONUS), charge_percent)); }
         if (0 < get_hitbox_value(atk, hnum, HG_SPIN_HITPAUSE_BONUS))
-        { hb.hitpause += charge_percent * get_hitbox_value(atk, hnum, HG_SPIN_HITPAUSE_BONUS); }
+        {hb.hitpause = lerp(hb.hitpause, get_hitbox_value(atk, hnum, HG_SPIN_HITPAUSE_BONUS), charge_percent); }
         if (0 < get_hitbox_value(atk, hnum, HG_SPIN_KNOCKBACK_BONUS))
-        { hb.kb_value += charge_percent * get_hitbox_value(atk, hnum, HG_SPIN_KNOCKBACK_BONUS); }
+        {hb.kb_value = lerp(hb.kb_value, get_hitbox_value(atk, hnum, HG_SPIN_KNOCKBACK_BONUS), charge_percent); }
         if (0 < get_hitbox_value(atk, hnum, HG_SPIN_KNOCKBACK_SCALING_BONUS))
-        { hb.kb_scale += charge_percent * get_hitbox_value(atk, hnum, HG_SPIN_KNOCKBACK_SCALING_BONUS); }
+        {hb.kb_scale = lerp(hb.kb_scale, get_hitbox_value(atk, hnum, HG_SPIN_KNOCKBACK_SCALING_BONUS), charge_percent); }
         
         //SFX
         if (0 < get_hitbox_value(atk, hnum, HG_SPIN_SFX) && charge_percent > uhc_spin_sfx_threshold)

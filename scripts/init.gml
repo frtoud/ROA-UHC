@@ -106,6 +106,9 @@ AG_WINDOW_LENGTH_BLADED = 71;// Length of window if holding blade
 HG_SPIN_COST = 70;           // CD Charge cost of hitting with this hitbox
 
 // Scaling bonuses applied on top of their respective values depending on CD Charge:
+//NOTE: because of an issue with reset_hitbox_value, it will instead hold the "base + bonus" maximum value. dan pls.
+danpls_adjusted_spinbonuses = false; //see update.gml
+
 HG_SPIN_DAMAGE_BONUS = 71;            // HG_DAMAGE
 HG_SPIN_HITPAUSE_BONUS = 72;          // HG_BASE_HITPAUSE
 HG_SPIN_KNOCKBACK_BONUS = 73;         // HG_BASE_KNOCKBACK
@@ -236,7 +239,7 @@ add_uhc_video(i, "video_blocked",  0, 1); i++;
 uhc_taunt_blocked_video = uhc_taunt_videos[0]; //keep track of this one separately; might be useful
 add_uhc_video(i, "video_dream",    0, 0); i++;
 add_uhc_video(i, "video_nyan",    10, 0); i++;
-add_uhc_video(i, "video_rick",     8, 0); i++;
+add_uhc_video(i, "video_rick",     8, 2); i++;
 add_uhc_video(i, "video_unreal",  15, 0); i++;
 add_uhc_video(i, "video_love",    16, 0); i++;
 uhc_taunt_num_videos = i;
@@ -274,7 +277,10 @@ vfx_screenshot_tab = sprite_get("vfx_screenshot");
 //Rune flags
 uhc_rune_flags = 
 {
+    deadly_rickroll: has_rune("D"),
+    doctor_nair: has_rune("B"),
     passive_rewind: has_rune("G"),
+    airdodge_buffering: has_rune("C"),
     aircharge_strongs: has_rune("A"),
     wincon: has_rune("H"), //you're welcome ShadowKing
     remote_throws: has_rune("N"),
@@ -301,7 +307,7 @@ uhc_cd_spin_drain_idle = uhc_rune_flags.passive_rewind ? -0.065 : 0.065; //per f
 uhc_cd_spin_drain_clairen = 0.65; //per frame
 uhc_cd_spin_charge_rate = 1.35; //per frame
 uhc_cd_spin_max = 100;
-uhc_cd_respawn_timer_max = uhc_rune_flags.dual_disk_system ? -1 : 300; //# of frames
+uhc_cd_respawn_timer_max = uhc_rune_flags.dual_disk_system ? -1 : 300; //# of frames (FREE when dual-wielding)
 uhc_pickup_cooldown_max = 30; //# of frames
 uhc_throw_cooldown_max = 12; //# of frames
 
