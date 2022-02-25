@@ -279,6 +279,7 @@ uhc_rune_flags =
 {
     doctor_nair: has_rune("B"),
     passive_rewind: has_rune("G"),
+    airdodge_buffering: has_rune("C"),
     aircharge_strongs: has_rune("A"),
     wincon: has_rune("H"), //you're welcome ShadowKing
     remote_throws: has_rune("N"),
