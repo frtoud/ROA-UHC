@@ -123,11 +123,14 @@ switch (state)
     } break;
     case PS_AIR_DODGE:
     {
-        if (window == 0)
+        if (window == 0) //beginning of dodge
         {
-            //beginning of dodge
             uhc_anim_last_dodge.posx = x;
             uhc_anim_last_dodge.posy = y;
+        }
+        else if (window == 1) //dodge active
+        {
+            spawn_twinkle(vfx_glitch, x, y - (char_height/2), 15);
         }
     } break;
     case PS_WALL_JUMP:
