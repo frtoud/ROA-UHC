@@ -239,7 +239,7 @@ add_uhc_video(i, "video_blocked",  0, 1); i++;
 uhc_taunt_blocked_video = uhc_taunt_videos[0]; //keep track of this one separately; might be useful
 add_uhc_video(i, "video_dream",    0, 0); i++;
 add_uhc_video(i, "video_nyan",    10, 0); i++;
-add_uhc_video(i, "video_rick",     8, 0); i++;
+add_uhc_video(i, "video_rick",     8, 2); i++;
 add_uhc_video(i, "video_unreal",  15, 0); i++;
 add_uhc_video(i, "video_love",    16, 0); i++;
 uhc_taunt_num_videos = i;
@@ -277,6 +277,7 @@ vfx_screenshot_tab = sprite_get("vfx_screenshot");
 //Rune flags
 uhc_rune_flags = 
 {
+    deadly_rickroll: has_rune("D"),
     doctor_nair: has_rune("B"),
     passive_rewind: has_rune("G"),
     airdodge_buffering: has_rune("C"),

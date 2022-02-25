@@ -518,6 +518,26 @@ switch (attack)
         {
             window = 2;
         }
+
+        //==============================================================
+        // RUNE: Rickroll earrape
+        // I'm almost sorry
+        if (uhc_rune_flags.deadly_rickroll) && (uhc_taunt_current_video != noone)
+         && (uhc_taunt_current_video.special == 2) && (uhc_taunt_timer % 31 == 1)
+        {
+            with (oPlayer) 
+            if (self != other) && (get_player_team(player) != get_player_team(other.player))
+            {
+                var distance = point_distance(other.x, other.y, x, y);
+                if (distance < 100)
+                    take_damage(player, other.player, 4);
+                else if (distance < 250)
+                    take_damage(player, other.player, 2);
+                else
+                    take_damage(player, other.player, 1);
+            }
+        }
+        //==============================================================)
     } break;
     default:
     break;
