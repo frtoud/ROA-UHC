@@ -279,8 +279,10 @@ uhc_rune_flags =
 {
     deadly_rickroll: has_rune("D"),
     doctor_nair: has_rune("B"),
-    passive_rewind: has_rune("G"),
+    ganon_dair: has_rune("E"),
     airdodge_buffering: has_rune("C"),
+
+    passive_rewind: has_rune("G"),
     aircharge_strongs: has_rune("A"),
     wincon: has_rune("H"), //you're welcome ShadowKing
     remote_throws: has_rune("N"),
