@@ -566,6 +566,8 @@ if (uhc_has_cd_blade || uhc_spin_cost_throw_bypass)
         
         //apply buffs based on current charge level
         var charge_percent = (uhc_current_cd.cd_spin_meter / uhc_cd_spin_max);
+        charge_percent = min(1, charge_percent / uhc_cd_spin_effective_max);
+
         for (var hb = 1; hb <= get_num_hitboxes(attack); hb++)
         {
             // Projectile-blades handled separately
