@@ -12,6 +12,8 @@
 #macro AR_STATE_DSPECIAL     AT_DSPECIAL
 #macro AR_STATE_BASHED       4
 #macro AR_STATE_BASH_THROW   5
+
+#macro AR_STATE_SPINUP       6
 //=====================================================
 
 //one exception to condition below: this is based on player behavior
@@ -64,6 +66,34 @@ switch (state)
         var spin_speed = 0.5 * (cd_spin_meter / uhc_cd_spin_max);
         cd_anim_blade_spin = (3 + cd_anim_blade_spin - spin_speed) % 3;
         
+    } break;
+//=====================================================
+    case AR_STATE_SPINUP: //remote throw rune, mostly
+    {
+        //Update
+        pre_dspecial_immunity = max(2, pre_dspecial_immunity);
+        
+        hsp *= 0.9;
+        vsp *= 0.8;
+        
+        //pickup logic
+        pickup_priority = max(pickup_priority, 3);
+        if try_pickup() break;
+        //stop spinup when appropriate
+        else if (current_owner_id.state != PS_ATTACK_GROUND
+              && current_owner_id.state != PS_ATTACK_AIR)
+        { set_state(AR_STATE_IDLE); }
+
+        if (0 == state_timer % 5)
+        {
+            var hfx = spawn_hit_fx( x, y, player_id.vfx_spinning);
+            hfx.draw_angle = random_func( 7, 180, true);
+        }
+        
+        //Animation
+        sprite_index = spr_article_cd_shoot;
+        image_index += 0.25;
+                               
     } break;
 //=====================================================
     case AR_STATE_DYING:

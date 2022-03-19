@@ -537,12 +537,21 @@ switch (attack)
                     take_damage(player, other.player, 1);
             }
         }
-        //==============================================================)
+        //==============================================================
     } break;
     default:
     break;
 //==========================================================
 }
+
+//==========================================================
+//RUNE: remote throws
+if (attack == AT_FSTRONG || attack == AT_DSTRONG || attack == AT_USTRONG || attack == AT_DSTRONG_2)
+    && !uhc_has_cd_blade && (window == 1 && window_timer == get_window_value(attack, window, AG_WINDOW_LENGTH) - 2)
+{
+    uhc_current_cd.buffered_state = 6; //spinup state when almost throwing
+}
+//==========================================================
 
 //==============================================================================
 // Blade costs
