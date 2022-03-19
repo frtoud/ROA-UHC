@@ -59,7 +59,7 @@ switch (attack)
             var walk_dir = right_down - left_down;
             hsp = clamp(hsp + walk_dir * walk_accel, -walk_speed, walk_speed);
             
-            if (window == 9 && window_timer > 6 && walk_dir != spr_dir)
+            if (window == 9 && window_timer > 6 && walk_dir != spr_dir) && !was_parried
             {
                 set_state(PS_WALK_TURN);
             }
