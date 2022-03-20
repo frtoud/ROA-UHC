@@ -286,6 +286,7 @@ uhc_rune_flags =
     airdodge_buffering: has_rune("C"),
 
     fire_throws: has_rune("I"),
+    late_ad: has_rune("J"),
 
     passive_rewind: has_rune("G"),
     aircharge_strongs: has_rune("A"),
@@ -318,8 +319,9 @@ uhc_cd_respawn_timer_max = uhc_rune_flags.dual_disk_system ? -1 : 300; //# of fr
 uhc_pickup_cooldown_max = 30; //# of frames
 uhc_throw_cooldown_max = 12; //# of frames
 
-uhc_cd_spin_effective_max = 0.85; //% of uhc_cd_spin_max at which bonus scalings starts going down
+//% of uhc_cd_spin_max at which bonus scalings starts going down
 //ie. at [100..85] you still get 100% bonuses, then linearly down to zero
+uhc_cd_spin_effective_max = (uhc_rune_flags.late_ad ? 0.35 : 0.85);
 
 uhc_nspecial_charges_max = 4;
 uhc_nspecial_speed = 12;
