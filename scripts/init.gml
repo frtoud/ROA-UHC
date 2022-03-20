@@ -115,8 +115,9 @@ HG_SPIN_KNOCKBACK_BONUS = 73;         // HG_BASE_KNOCKBACK
 HG_SPIN_KNOCKBACK_SCALING_BONUS = 74; // HG_KNOCKBACK_SCALING
 // sound effect adjustment for high spin moves
 HG_SPIN_SFX = 75;                     // HG_HIT_SFX 
-uhc_spin_sfx_threshold = 0.40; //above 40% spin, you get the new sounds
-uhc_spin_sfx_high_threshold = 0.80; //above 80% spin, some moves get even more sounds
+uhc_spin_sfx_threshold = 0.50; //above 50% spin bonuses, you get the new sounds
+uhc_spin_sfx_high_threshold = 0.95; //above 95% spin bonuses, some moves get even more sounds
+// (not actual spin percent, see uhc_cd_spin_effective_max below)
 
 // Custom Angle Flipper values
 ANGLE_FLIPPER_AUTOLINK = 33; //simulates "pull towards center" but considers position of victim & base KB direction/length
@@ -161,6 +162,7 @@ uhc_pratland_spr = sprite_get("pratland");
 //Interface
 vfx_label = sprite_get("vfx_label");
 vfx_hud_bar = sprite_get("hud_bar");
+vfx_hud_ad = sprite_get("hud_bar_ad");
 vfx_hud_icons = sprite_get("hud_icons");
 
 vfx_buffering = sprite_get("vfx_buffering");
@@ -312,6 +314,9 @@ uhc_cd_spin_max = 100;
 uhc_cd_respawn_timer_max = uhc_rune_flags.dual_disk_system ? -1 : 300; //# of frames (FREE when dual-wielding)
 uhc_pickup_cooldown_max = 30; //# of frames
 uhc_throw_cooldown_max = 12; //# of frames
+
+uhc_cd_spin_effective_max = 0.85; //% of uhc_cd_spin_max at which bonus scalings starts going down
+//ie. at [100..85] you still get 100% bonuses, then linearly down to zero
 
 uhc_nspecial_charges_max = 4;
 uhc_nspecial_speed = 12;

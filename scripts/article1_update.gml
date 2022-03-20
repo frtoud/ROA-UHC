@@ -64,6 +64,8 @@ switch (state)
         
         //Animation
         var spin_speed = 0.5 * (cd_spin_meter / uhc_cd_spin_max);
+        spin_speed = min(0.5, spin_speed / current_owner_id.uhc_cd_spin_effective_max);
+
         cd_anim_blade_spin = (3 + cd_anim_blade_spin - spin_speed) % 3;
         
     } break;
@@ -891,7 +893,9 @@ if (getting_bashed && state != AR_STATE_BASHED)
     }
     
     //apply buffs (should have the same effects as attack_update's adjust_blade_attack_grid)
-    var charge_percent = cd_saved_spin_meter / player_id.uhc_cd_spin_max;
+    var charge_percent = cd_saved_spin_meter / uhc_cd_spin_max;
+    charge_percent = min(1, charge_percent / current_owner_id.uhc_cd_spin_effective_max);
+
     with (player_id)
     {
         if (0 < get_hitbox_value(atk, hnum, HG_SPIN_DAMAGE_BONUS))

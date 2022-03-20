@@ -59,7 +59,7 @@ switch (attack)
             var walk_dir = right_down - left_down;
             hsp = clamp(hsp + walk_dir * walk_accel, -walk_speed, walk_speed);
             
-            if (window == 9 && window_timer > 6 && walk_dir != spr_dir)
+            if (window == 9 && window_timer > 6 && walk_dir != spr_dir) && !was_parried
             {
                 set_state(PS_WALK_TURN);
             }
@@ -614,6 +614,8 @@ if (uhc_has_cd_blade || uhc_spin_cost_throw_bypass)
         
         //apply buffs based on current charge level
         var charge_percent = (uhc_current_cd.cd_spin_meter / uhc_cd_spin_max);
+        charge_percent = min(1, charge_percent / uhc_cd_spin_effective_max);
+
         for (var hb = 1; hb <= get_num_hitboxes(attack); hb++)
         {
             // Projectile-blades handled separately
