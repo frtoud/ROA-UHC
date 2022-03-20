@@ -124,7 +124,7 @@ switch (state)
         {
             death_timer = 0;
         }
-        
+
         //recall availability
         can_recall = true;
         
@@ -774,6 +774,25 @@ if (getting_bashed && state != AR_STATE_BASHED)
     destroy_cd_hitboxes();
 }
 
+//=====================================================
+//RUNE: fire throw
+if (rune_fire_charge > 0)
+{
+    if (rune_fire_charge == 1) sound_play(asset_get("sfx_zetter_fireball_fire"));
+    if (state_timer % 2 == 0) 
+    {
+        var vfx_x = (state == AR_STATE_HELD ? current_owner_id.x + current_owner_id.spr_dir * 20 : x ) + random_func(3, 30, true) - 15;
+        var vfx_y = (state == AR_STATE_HELD ? current_owner_id.y - 20 : y ) + random_func(4, 30, true) - 15;
+        spawn_hit_fx(vfx_x, vfx_y, vfx_burning);
+    }
+
+    if (state == AR_STATE_IDLE) || (state == AR_STATE_ROLL) || (state == AR_STATE_DSPECIAL)
+    || ((state == AR_STATE_SPINUP || state == AR_STATE_HELD ) && current_owner_id.strong_charge < 50)
+    {
+        rune_fire_charge = 0; //reset firethrow rune when caught, new throw is initiated, or unrelated attack begins
+    }
+}
+
 //==============================================================================
 #define set_state(new_state)
 {
@@ -910,6 +929,14 @@ if (getting_bashed && state != AR_STATE_BASHED)
         //SFX
         if (0 < get_hitbox_value(atk, hnum, HG_SPIN_SFX) && charge_percent > uhc_spin_sfx_threshold)
         { hb.sound_effect = get_hitbox_value(atk, hnum, HG_SPIN_SFX); }
+
+    }
+    //RUNE: fire aspect (finishers only)
+    if (rune_fire_charge) && (hb.damage > 5 || hb.kb_scale > 0.1)
+    {
+        hb.effect = 1; //fire
+        hb.hit_effect = 148; //fire
+        hb.sound_effect = asset_get("sfx_burnapplied"); //take a guess
     }
     
     return hb;

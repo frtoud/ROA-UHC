@@ -200,6 +200,7 @@ uhc_anim_rewind =
 };
 
 vfx_spinning = hit_fx_create(sprite_get("vfx_spinning"), 4);
+vfx_burning = hit_fx_create(asset_get("fire_part_spr1"), 24);
 
 indicator_spr = sprite_get("indicator_triangle");
 
@@ -283,6 +284,8 @@ uhc_rune_flags =
     doctor_nair: has_rune("B"),
     ganon_dair: has_rune("E"),
     airdodge_buffering: has_rune("C"),
+
+    fire_throws: has_rune("I"),
 
     passive_rewind: has_rune("G"),
     aircharge_strongs: has_rune("A"),

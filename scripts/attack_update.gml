@@ -545,13 +545,35 @@ switch (attack)
 }
 
 //==========================================================
-//RUNE: remote throws
 if (attack == AT_FSTRONG || attack == AT_DSTRONG || attack == AT_USTRONG || attack == AT_DSTRONG_2)
-    && !uhc_has_cd_blade && (window == 1 && window_timer == get_window_value(attack, window, AG_WINDOW_LENGTH) - 2)
 {
-    uhc_current_cd.buffered_state = 6; //spinup state when almost throwing
+    //RUNE: remote throws
+    if (!uhc_has_cd_blade && (window == 1 && window_timer == get_window_value(attack, window, AG_WINDOW_LENGTH) - 2))
+        uhc_current_cd.buffered_state = 6; //spinup state when almost throwing
+
+    //RUNE: fire disc
+    if (uhc_rune_flags.fire_throws) && (window == 1)
+    {
+        if (strong_charge < 55 && strong_charge % 3 == 1)
+        {
+            strong_charge++; //accelerate normal chargetimes
+        }
+        else if (strong_charge == 58 && uhc_current_cd.rune_fire_charge < 30)
+        {
+            strong_charge--;
+            uhc_last_strong_charge--; //hack to make aircharge rune still apply hitpause
+            uhc_current_cd.rune_fire_charge++;
+            if (uhc_has_cd_blade && uhc_current_cd.rune_fire_charge % 25 == 1)
+            {
+                take_damage( player, -1, 1);
+            }
+        }
+        else if (window_timer == 1)
+        {
+            uhc_current_cd.rune_fire_charge = 0;
+        }
+    }
 }
-//==========================================================
 
 //==============================================================================
 // Blade costs

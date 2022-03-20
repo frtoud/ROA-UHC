@@ -141,3 +141,6 @@ rune_wincon_speed_min = 6;
 
 rune_throw_was_remote = false;
 rune_remote_penalty = 0.6; //finisher penalty for remote throws (DSTRONG, FSTRONG, USTRONG)
+
+rune_fire_charge = 0;
+vfx_burning = player_id.vfx_burning;
