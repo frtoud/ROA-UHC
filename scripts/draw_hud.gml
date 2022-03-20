@@ -90,6 +90,14 @@ draw_sprite_ext(vfx_hud_icons, sound_icon, temp_x + sound_pos_x, temp_y + bar_y,
 
 shader_end();
 
+if (get_match_setting(SET_HITBOX_VIS)) && instance_exists(tracked_cd)
+{
+    var charge_percent = (tracked_cd.cd_spin_meter / uhc_cd_spin_max);
+    charge_percent = min(1, charge_percent / uhc_cd_spin_effective_max);
+        
+    draw_debug_text(temp_x + 8, temp_y - 32, "Spin Bonuses: " + string(floor(charge_percent * 100)) + "%");
+}
+
 //==========================================================
 //unsafe update code
 //(Should only be involved in rendering)
