@@ -96,6 +96,7 @@ set_hitbox_value(AT_FSTRONG, 3, HG_BASE_HITPAUSE, 8);
 set_hitbox_value(AT_FSTRONG, 3, HG_HITPAUSE_SCALING, 0.6);
 set_hitbox_value(AT_FSTRONG, 3, HG_SPIN_COST, 8);
 set_hitbox_value(AT_FSTRONG, 3, HG_SPIN_DAMAGE_BONUS, 4.2);
+set_hitbox_value(AT_FSTRONG, 3, HG_SPIN_KNOCKBACK_SCALING_BONUS, 0.2);
 set_hitbox_value(AT_FSTRONG, 3, HG_VISUAL_EFFECT, 304);
 set_hitbox_value(AT_FSTRONG, 3, HG_HIT_SFX, sound_get("sfx_ssbu_slash3"));
 set_hitbox_value(AT_FSTRONG, 3, HG_PROJECTILE_SPRITE, asset_get("empty_sprite"));
