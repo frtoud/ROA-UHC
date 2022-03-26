@@ -153,6 +153,9 @@ if (!uhc_handled_victory_quote)
         case CH_CLAIREN: 
            quote = "future gen. consels wii2 ps4 xbox720?"; 
            break;
+        case CH_MOLLO: 
+           quote = "oh btw quick moth qestion r u all-terrain 2?"; 
+           break;
 
         case CH_WRASTOR:
            quote = "u got sent rigt into the danger zone xd"; 
@@ -162,6 +165,9 @@ if (!uhc_handled_victory_quote)
            break;
         case CH_ELLIANA:
            quote = "tf2 2008 in 2012+ download (no steam)"; 
+           break;
+        case CH_POMME:
+           quote = "w8 i kno dat song!! ooo ooo ooowa waaah!!!"; 
            break;
 
         case CH_ORCANE:
@@ -173,6 +179,9 @@ if (!uhc_handled_victory_quote)
         case CH_RANNO:
            quote = "Frogger's adventire (gcn) title theme & ending"; 
            break;
+        case CH_HODAN:
+           quote = "i dont get it,, new btd specil ice monkey skin looks wierd"; 
+           break;
 
         case CH_KRAGG: 
            quote = "How 2 get mincraft free no virus 100% workign 2011"; 
@@ -182,6 +191,9 @@ if (!uhc_handled_victory_quote)
            break;
         case CH_SYLVANOS:
            quote = "THIS VIDEO CONTAINS SNOOP DOGG"; 
+           break;
+        case CH_OLYMPIA:
+           quote = "ow ey i tihnk u scrathced it"; 
            break;
 
         case CH_ORI:

@@ -190,10 +190,20 @@ if (object_index == asset_get("draw_result_screen"))
 #define get_random_quote()
 {
     var quotes = [];
-    quotes[3] = "sorry for bad english '^^";
-    quotes[2] = "suscribe 4 more fightign combo vids";
-    quotes[1] = "Helo yutube an welcome 2 my battle tuotrial";
-    quotes[0] = "Thx 4 watchign dont forget to rate n subcribe";
+    var i = 0;
+    quotes[i++] = "Thx 4 watchign dont forget to rate n subcribe";
+    quotes[i++] = "Thx 4 watchign dont forget to rate n subcribe";
+    quotes[i++] = "Thx 4 watchign dont forget to rate n subcribe";
+    quotes[i++] = "sorry for bad english '^^";
+    quotes[i++] = "sorry for bad english '^^";
+    quotes[i++] = "suscribe 4 more fightign combo vids";
+    quotes[i++] = "suscribe 4 more fightign combo vids";
+    quotes[i++] = "Helo yutube an welcome 2 my battle tuotrial";
+    quotes[i++] = "come rewatchh da battle with me i hav pop corn";
+    quotes[i++] = "wow wut a twist of events vry cool";
+    quotes[i++] = "oops w8 ok im recordn now can we remacth";
+    quotes[i++] = "omg im so pumpd rite now taht was fun";
+    quotes[i++] = "i hope we can collab agian. :)";
     return quotes[(current_time) % array_length(quotes)];
 }
 
