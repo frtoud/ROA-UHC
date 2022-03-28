@@ -159,6 +159,14 @@ if (state == PS_WALL_JUMP && attack == AT_USPECIAL)
 }
 
 //======================================================
+// RUNE: Star rewind
+uhc_is_star_rewinding = uhc_rune_flags.star_rewind
+                && (state == PS_ATTACK_AIR || state == PS_ATTACK_GROUND)
+                && (attack == AT_DSPECIAL && window == 4);
+
+uhc_can_overrewind = max(0, uhc_can_overrewind - 1);
+
+//======================================================
 // Dan pls: prevent stacking of hsp on first frame of window 2
 if (state == PS_ATTACK_GROUND && attack == AT_DATTACK && window == 2)
 {

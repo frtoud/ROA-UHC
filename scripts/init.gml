@@ -287,6 +287,7 @@ uhc_rune_flags =
 
     fire_throws: has_rune("I"),
     late_ad: has_rune("J"),
+    star_rewind: has_rune("K"),
 
     passive_rewind: has_rune("G"),
     aircharge_strongs: has_rune("A"),
@@ -369,6 +370,10 @@ uhc_uspecial_start_pos = { x:0, y:0 };
 
 //from other_init, for simplicity
 uhc_handler_id = noone;
+
+//RUNES
+uhc_is_star_rewinding = false;
+uhc_can_overrewind = false; //allows UHC to rewind even at end of playback, while a star is active
 
 //=================================================
 // Compatibility Zone

@@ -412,7 +412,9 @@ switch (attack)
         }
         else if (window == 4)
         {
-            if (uhc_current_cd.cd_spin_meter >= uhc_cd_spin_max)
+            if (uhc_current_cd.cd_spin_meter >= uhc_cd_spin_max 
+            //RUNE: can overrewind as long as one star is affected
+            && !(uhc_rune_flags.star_rewind && uhc_can_overrewind))
             || (shield_pressed || special_pressed || attack_pressed || jump_pressed)
             {
                 window = 5;
