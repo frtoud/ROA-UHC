@@ -202,6 +202,33 @@ switch (attack)
         }
     } break;
 //==========================================================
+    case AT_UAIR:
+    {
+        if (uhc_rune_flags.super_flash)
+        && (window_timer == 1 && window == 1)
+        {
+            if (uhc_fspecial_charge_current == uhc_fspecial_charge_max)
+            {
+                set_hitbox_value(AT_UAIR, 2, HG_BASE_KNOCKBACK, 8);
+                set_hitbox_value(AT_UAIR, 2, HG_KNOCKBACK_SCALING, .9);
+                set_hitbox_value(AT_UAIR, 2, HG_HIT_SFX, asset_get("sfx_absa_uair"));
+            }
+            else if (uhc_fspecial_charge_current > uhc_fspecial_charge_half)
+            {
+                set_hitbox_value(AT_UAIR, 2, HG_BASE_KNOCKBACK, 7);
+                set_hitbox_value(AT_UAIR, 2, HG_KNOCKBACK_SCALING, .7);
+                set_hitbox_value(AT_UAIR, 2, HG_HIT_SFX, asset_get("sfx_absa_kickhit"));
+            }
+            else
+            {
+                reset_hitbox_value(AT_UAIR, 2, HG_BASE_KNOCKBACK);
+                reset_hitbox_value(AT_UAIR, 2, HG_KNOCKBACK_SCALING);
+                reset_hitbox_value(AT_UAIR, 2, HG_HIT_SFX);
+            }
+            uhc_fspecial_charge_current = max(0, uhc_fspecial_charge_current - uhc_uair_flash_penalty);
+        }
+    } break;
+//==========================================================
     case AT_NSPECIAL:
     {
         if (window == 1 && special_down)

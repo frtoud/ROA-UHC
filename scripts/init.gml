@@ -285,6 +285,7 @@ uhc_rune_flags =
     ganon_dair: has_rune("B"),
     airdodge_buffering: has_rune("D"),
     star_rewind: has_rune("C"),
+    super_flash: has_rune("G"),
 
 
     late_ad: has_rune("M"),
@@ -330,6 +331,8 @@ uhc_nspecial_speed = 12;
 uhc_fspecial_charge_max = 15*60;
 uhc_fspecial_charge_half = 5*60;
 uhc_fspecial_cooldown = 1*60;
+//super flash rune
+uhc_uair_flash_penalty = 4*60;
 
 uhc_uspecial_speed = 3;
 uhc_uspecial_speed_fast = 7;
