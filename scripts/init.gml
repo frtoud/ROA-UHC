@@ -286,7 +286,7 @@ uhc_rune_flags =
     airdodge_buffering: has_rune("D"),
     star_rewind: has_rune("C"),
     super_flash: has_rune("G"),
-
+    whiffless: has_rune("L"),
 
     late_ad: has_rune("M"),
     fire_throws: has_rune("E"),

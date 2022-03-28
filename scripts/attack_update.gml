@@ -708,6 +708,9 @@ if (uhc_has_cd_blade || uhc_spin_cost_throw_bypass)
                              get_window_value(attack, w, AG_WINDOW_LENGTH_BLADED));
         }
     }
+
+    //RUNE: whifflag immunity
+    if (uhc_rune_flags.whiffless && !uhc_has_cd_blade) has_hit = true;
 }
 
 //===============================================
