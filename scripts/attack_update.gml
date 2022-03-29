@@ -608,7 +608,6 @@ if (attack == AT_FSTRONG || attack == AT_DSTRONG || attack == AT_USTRONG || atta
 // Blade costs
 if (uhc_has_cd_blade || uhc_spin_cost_throw_bypass) 
 && (window_timer == 1 && !hitpause)
-
 {
     var window_cost = get_window_value(attack, window, AG_WINDOW_SPIN_COST);
     uhc_current_cd.cd_spin_meter = 

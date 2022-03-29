@@ -603,6 +603,7 @@ if (uhc_taunt_collect_videos && state == PS_ATTACK_GROUND && attack == AT_TAUNT)
         case CH_ZETTERBURN:
         case CH_FORSBURN:
         case CH_CLAIREN:
+        case CH_MOLLO:
            sprite_change_offset("video_sparta", 11, 8);
            videos[0] = { sprite:sprite_get("video_sparta"),   
                          song:sound_get("video_sparta"),   
@@ -611,6 +612,7 @@ if (uhc_taunt_collect_videos && state == PS_ATTACK_GROUND && attack == AT_TAUNT)
         case CH_WRASTOR:
         case CH_ABSA:
         case CH_ELLIANA:
+        case CH_POMME:
            sprite_change_offset("video_numa", 11, 8);
            videos[0] = { sprite:sprite_get("video_numa"),   
                          song:sound_get("video_numa"),   
@@ -625,6 +627,7 @@ if (uhc_taunt_collect_videos && state == PS_ATTACK_GROUND && attack == AT_TAUNT)
         case CH_ETALUS: 
         case CH_RANNO:
         case CH_ORCANE:
+        case CH_HODAN:
            sprite_change_offset("video_lime", 11, 8);
            videos[0] = { sprite:sprite_get("video_lime"),   
                          song:sound_get("video_lime"),   
@@ -633,6 +636,7 @@ if (uhc_taunt_collect_videos && state == PS_ATTACK_GROUND && attack == AT_TAUNT)
         case CH_KRAGG: 
         case CH_MAYPUL:
         case CH_SYLVANOS:
+        case CH_OLYMPIA:
            sprite_change_offset("video_darude", 11, 8);
            videos[0] = { sprite:sprite_get("video_darude"),   
                          song:sound_get("video_darude"),   
