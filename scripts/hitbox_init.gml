@@ -11,4 +11,7 @@ else if (attack == AT_NSPECIAL)
 {
     star_was_parried = false;
     star_already_reflected = false;
+
+    //RUNE: star rewind
+    star_is_rewinding = false;
 }

@@ -143,3 +143,83 @@ if (my_hitboxID.attack == AT_FSPECIAL) && (my_hitboxID.hbox_num == 1)
         }
     }
 }
+
+//=======================================================
+//COMBO-STAR RUNE
+if (uhc_rune_flags.combo_stars)
+   && (hit_player_obj.prev_state == PS_HITSTUN 
+    || hit_player_obj.prev_state == PS_HITSTUN_LAND)
+{
+    //target was already in hitstun before this moment
+
+    if (uhc_last_hit_landed != my_hitboxID.attack)
+    {
+        uhc_combo_prehit_flag = is_combo_move(my_hitboxID);
+    }
+
+    if (uhc_combo_prehit_flag && is_combo_box(my_hitboxID))
+    {
+        //give star charge
+        if (uhc_nspecial_charges < uhc_nspecial_charges_max) uhc_nspecial_charges++;
+
+        sound_play((uhc_nspecial_charges == uhc_nspecial_charges_max ? 
+                    asset_get("mfx_star") : asset_get("mfx_player_ready")), 
+                    false, noone, 1, 0.75 + (0.15 * uhc_nspecial_charges));
+        
+        var hfx = spawn_hit_fx(x, y - 40, vfx_star_destroy_longer);
+        hfx.depth = depth - 4;
+
+        uhc_combo_prehit_flag = false;
+    }
+}
+
+uhc_last_hit_landed = my_hitboxID.attack;
+
+//Verify if this hitbox is part of a move that grant stars as per combo mechanic
+#define is_combo_move(hb)
+{
+    switch (hb.attack)
+    {
+        case AT_FAIR:
+        case AT_BAIR:
+        case AT_NAIR:
+        case AT_DAIR:
+        case AT_UAIR:
+        case AT_JAB:
+        case AT_FTILT:
+        case AT_DTILT:
+        case AT_UTILT:
+        case AT_DATTACK:
+            return true;
+        default:
+            return false;
+    }
+}
+
+//Verify if this hitbox is the one that should grant a star as per combo mechanic
+#define is_combo_box(hb)
+{
+    switch (hb.attack)
+    {
+        case AT_FAIR:
+        case AT_NAIR:
+        case AT_UAIR:
+        case AT_JAB:
+        case AT_FTILT:
+        case AT_DTILT:
+        case AT_DATTACK:
+            return true; 
+            break;
+        case AT_BAIR:
+            return (hb.hbox_num == 2 || hb.hbox_num == 4);
+            break;
+        case AT_DAIR:
+            return (hb.hbox_num == 3);
+            break;
+        case AT_UTILT:
+            return (hb.hbox_num == 3 || hb.hbox_num == 6);
+        default:
+            return false; 
+            break;
+    }
+}

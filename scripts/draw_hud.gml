@@ -37,6 +37,7 @@ if (uhc_has_cd_blade || instance_exists(tracked_cd))
 {
     var marker_pos = max(0, 1.0 - tracked_cd.cd_spin_meter/uhc_cd_spin_max) * (bar_width - 10);
     draw_sprite_stretched(vfx_hud_icons, ICON_BAR, temp_x + bar_start_x, temp_y + bar_y + 2, marker_pos, 18);
+    draw_sprite_ext(vfx_hud_ad, 0, temp_x + bar_start_x + (bar_width*(1 - uhc_cd_spin_effective_max)), temp_y + bar_y, 2, 2, 0, c_white, 1);
     draw_sprite_ext(vfx_hud_icons, ICON_MARKER, temp_x + bar_start_x + 2 + marker_pos, temp_y + bar_y, 2, 2, 0, c_white, 1);
 }
 else
@@ -88,6 +89,14 @@ else if (uhc_fspecial_charge_current >= uhc_fspecial_charge_half)
 draw_sprite_ext(vfx_hud_icons, sound_icon, temp_x + sound_pos_x, temp_y + bar_y, 2, 2, 0, c_white, 1);
 
 shader_end();
+
+if (get_match_setting(SET_HITBOX_VIS)) && instance_exists(tracked_cd)
+{
+    var charge_percent = (tracked_cd.cd_spin_meter / uhc_cd_spin_max);
+    charge_percent = min(1, charge_percent / uhc_cd_spin_effective_max);
+        
+    draw_debug_text(temp_x + 8, temp_y - 32, "Spin Bonuses: " + string(floor(charge_percent * 100)) + "%");
+}
 
 //==========================================================
 //unsafe update code

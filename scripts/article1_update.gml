@@ -12,6 +12,8 @@
 #macro AR_STATE_DSPECIAL     AT_DSPECIAL
 #macro AR_STATE_BASHED       4
 #macro AR_STATE_BASH_THROW   5
+
+#macro AR_STATE_SPINUP       6
 //=====================================================
 
 //one exception to condition below: this is based on player behavior
@@ -62,8 +64,38 @@ switch (state)
         
         //Animation
         var spin_speed = 0.5 * (cd_spin_meter / uhc_cd_spin_max);
+        spin_speed = min(0.5, spin_speed / current_owner_id.uhc_cd_spin_effective_max);
+
         cd_anim_blade_spin = (3 + cd_anim_blade_spin - spin_speed) % 3;
         
+    } break;
+//=====================================================
+    case AR_STATE_SPINUP: //remote throw rune, mostly
+    {
+        //Update
+        pre_dspecial_immunity = max(2, pre_dspecial_immunity);
+        
+        hsp *= 0.9;
+        vsp *= 0.8;
+        
+        //pickup logic
+        pickup_priority = max(pickup_priority, 3);
+        if try_pickup() break;
+        //stop spinup when appropriate
+        else if (current_owner_id.state != PS_ATTACK_GROUND
+              && current_owner_id.state != PS_ATTACK_AIR)
+        { set_state(AR_STATE_IDLE); }
+
+        if (0 == state_timer % 5)
+        {
+            var hfx = spawn_hit_fx( x, y, player_id.vfx_spinning);
+            hfx.draw_angle = random_func( 7, 180, true);
+        }
+        
+        //Animation
+        sprite_index = spr_article_cd_shoot;
+        image_index += 0.25;
+                               
     } break;
 //=====================================================
     case AR_STATE_DYING:
@@ -92,7 +124,7 @@ switch (state)
         {
             death_timer = 0;
         }
-        
+
         //recall availability
         can_recall = true;
         
@@ -742,6 +774,25 @@ if (getting_bashed && state != AR_STATE_BASHED)
     destroy_cd_hitboxes();
 }
 
+//=====================================================
+//RUNE: fire throw
+if (rune_fire_charge > 0)
+{
+    if (rune_fire_charge == 1) sound_play(asset_get("sfx_zetter_fireball_fire"));
+    if (state_timer % 2 == 0) 
+    {
+        var vfx_x = (state == AR_STATE_HELD ? current_owner_id.x + current_owner_id.spr_dir * 20 : x ) + random_func(3, 30, true) - 15;
+        var vfx_y = (state == AR_STATE_HELD ? current_owner_id.y - 20 : y ) + random_func(4, 30, true) - 15;
+        spawn_hit_fx(vfx_x, vfx_y, vfx_burning);
+    }
+
+    if (state == AR_STATE_IDLE) || (state == AR_STATE_ROLL) || (state == AR_STATE_DSPECIAL)
+    || ((state == AR_STATE_SPINUP || state == AR_STATE_HELD ) && current_owner_id.strong_charge < 50)
+    {
+        rune_fire_charge = 0; //reset firethrow rune when caught, new throw is initiated, or unrelated attack begins
+    }
+}
+
 //==============================================================================
 #define set_state(new_state)
 {
@@ -861,7 +912,9 @@ if (getting_bashed && state != AR_STATE_BASHED)
     }
     
     //apply buffs (should have the same effects as attack_update's adjust_blade_attack_grid)
-    var charge_percent = cd_saved_spin_meter / player_id.uhc_cd_spin_max;
+    var charge_percent = cd_saved_spin_meter / uhc_cd_spin_max;
+    charge_percent = min(1, charge_percent / current_owner_id.uhc_cd_spin_effective_max);
+
     with (player_id)
     {
         if (0 < get_hitbox_value(atk, hnum, HG_SPIN_DAMAGE_BONUS))
@@ -876,6 +929,14 @@ if (getting_bashed && state != AR_STATE_BASHED)
         //SFX
         if (0 < get_hitbox_value(atk, hnum, HG_SPIN_SFX) && charge_percent > uhc_spin_sfx_threshold)
         { hb.sound_effect = get_hitbox_value(atk, hnum, HG_SPIN_SFX); }
+
+    }
+    //RUNE: fire aspect (finishers only)
+    if (rune_fire_charge) && (hb.damage > 5 || hb.kb_scale > 0.1)
+    {
+        hb.effect = 1; //fire
+        hb.hit_effect = 148; //fire
+        hb.sound_effect = asset_get("sfx_burnapplied"); //take a guess
     }
     
     return hb;

@@ -59,7 +59,7 @@ switch (attack)
             var walk_dir = right_down - left_down;
             hsp = clamp(hsp + walk_dir * walk_accel, -walk_speed, walk_speed);
             
-            if (window == 9 && window_timer > 6 && walk_dir != spr_dir)
+            if (window == 9 && window_timer > 6 && walk_dir != spr_dir) && !was_parried
             {
                 set_state(PS_WALK_TURN);
             }
@@ -199,6 +199,33 @@ switch (attack)
                 x = lerp(x, nudge_pos_x, other.uhc_bair_pseudograb_factor);
                 y = lerp(y, nudge_pos_y, other.uhc_bair_pseudograb_factor);
             }
+        }
+    } break;
+//==========================================================
+    case AT_UAIR:
+    {
+        if (uhc_rune_flags.super_flash)
+        && (window_timer == 1 && window == 1)
+        {
+            if (uhc_fspecial_charge_current == uhc_fspecial_charge_max)
+            {
+                set_hitbox_value(AT_UAIR, 2, HG_BASE_KNOCKBACK, 8);
+                set_hitbox_value(AT_UAIR, 2, HG_KNOCKBACK_SCALING, .9);
+                set_hitbox_value(AT_UAIR, 2, HG_HIT_SFX, asset_get("sfx_absa_uair"));
+            }
+            else if (uhc_fspecial_charge_current > uhc_fspecial_charge_half)
+            {
+                set_hitbox_value(AT_UAIR, 2, HG_BASE_KNOCKBACK, 7);
+                set_hitbox_value(AT_UAIR, 2, HG_KNOCKBACK_SCALING, .7);
+                set_hitbox_value(AT_UAIR, 2, HG_HIT_SFX, asset_get("sfx_absa_kickhit"));
+            }
+            else
+            {
+                reset_hitbox_value(AT_UAIR, 2, HG_BASE_KNOCKBACK);
+                reset_hitbox_value(AT_UAIR, 2, HG_KNOCKBACK_SCALING);
+                reset_hitbox_value(AT_UAIR, 2, HG_HIT_SFX);
+            }
+            uhc_fspecial_charge_current = max(0, uhc_fspecial_charge_current - uhc_uair_flash_penalty);
         }
     } break;
 //==========================================================
@@ -412,7 +439,9 @@ switch (attack)
         }
         else if (window == 4)
         {
-            if (uhc_current_cd.cd_spin_meter >= uhc_cd_spin_max)
+            if (uhc_current_cd.cd_spin_meter >= uhc_cd_spin_max 
+            //RUNE: can overrewind as long as one star is affected
+            && !(uhc_rune_flags.star_rewind && uhc_can_overrewind))
             || (shield_pressed || special_pressed || attack_pressed || jump_pressed)
             {
                 window = 5;
@@ -537,18 +566,48 @@ switch (attack)
                     take_damage(player, other.player, 1);
             }
         }
-        //==============================================================)
+        //==============================================================
     } break;
     default:
     break;
 //==========================================================
 }
 
+//==========================================================
+if (attack == AT_FSTRONG || attack == AT_DSTRONG || attack == AT_USTRONG || attack == AT_DSTRONG_2)
+{
+    //RUNE: remote throws
+    if (!uhc_has_cd_blade && (window == 1 && window_timer == get_window_value(attack, window, AG_WINDOW_LENGTH) - 2))
+        uhc_current_cd.buffered_state = 6; //spinup state when almost throwing
+
+    //RUNE: fire disc
+    if (uhc_rune_flags.fire_throws) && (window == 1)
+    {
+        if (strong_charge < 55 && strong_charge % 3 == 1)
+        {
+            strong_charge++; //accelerate normal chargetimes
+        }
+        else if (strong_charge == 58 && uhc_current_cd.rune_fire_charge < 30)
+        {
+            strong_charge--;
+            uhc_last_strong_charge--; //hack to make aircharge rune still apply hitpause
+            uhc_current_cd.rune_fire_charge++;
+            if (uhc_has_cd_blade && uhc_current_cd.rune_fire_charge % 25 == 1)
+            {
+                take_damage( player, -1, 1);
+            }
+        }
+        else if (window_timer == 1)
+        {
+            uhc_current_cd.rune_fire_charge = 0;
+        }
+    }
+}
+
 //==============================================================================
 // Blade costs
 if (uhc_has_cd_blade || uhc_spin_cost_throw_bypass) 
 && (window_timer == 1 && !hitpause)
-
 {
     var window_cost = get_window_value(attack, window, AG_WINDOW_SPIN_COST);
     uhc_current_cd.cd_spin_meter = 
@@ -605,6 +664,8 @@ if (uhc_has_cd_blade || uhc_spin_cost_throw_bypass)
         
         //apply buffs based on current charge level
         var charge_percent = (uhc_current_cd.cd_spin_meter / uhc_cd_spin_max);
+        charge_percent = min(1, charge_percent / uhc_cd_spin_effective_max);
+
         for (var hb = 1; hb <= get_num_hitboxes(attack); hb++)
         {
             // Projectile-blades handled separately
@@ -646,6 +707,9 @@ if (uhc_has_cd_blade || uhc_spin_cost_throw_bypass)
                              get_window_value(attack, w, AG_WINDOW_LENGTH_BLADED));
         }
     }
+
+    //RUNE: whifflag immunity
+    if (uhc_rune_flags.whiffless && !uhc_has_cd_blade) has_hit = true;
 }
 
 //===============================================

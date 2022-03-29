@@ -36,3 +36,6 @@ else if (up_strong_pressed || down_strong_pressed
 // Forces an update to the attack grid
 // Moved to attack_update in case of catching the blade midmove 
 uhc_update_blade_status = true;
+
+//RUNE: combo counter
+uhc_combo_prehit_flag = false;

@@ -86,3 +86,25 @@ set_hitbox_value(AT_DAIR, 3, HG_BASE_HITPAUSE, 8);
 set_hitbox_value(AT_DAIR, 3, HG_HITPAUSE_SCALING, 1.0);
 set_hitbox_value(AT_DAIR, 3, HG_VISUAL_EFFECT_Y_OFFSET, 20);
 set_hitbox_value(AT_DAIR, 3, HG_HIT_SFX, asset_get("sfx_blow_heavy1"));
+
+//================================================
+// RUNE: Spiking Nair
+if (uhc_rune_flags.ganon_dair)
+{
+    set_window_value(AT_DAIR, 1, AG_WINDOW_LENGTH, 15);
+    set_window_value(AT_DAIR, 1, AG_WINDOW_SFX, asset_get("sfx_swipe_medium2"));
+    set_window_value(AT_DAIR, 1, AG_WINDOW_GOTO, 4);
+
+    set_window_value(AT_DAIR, 4, AG_WINDOW_LENGTH, 8);
+    set_window_value(AT_DAIR, 4, AG_WINDOW_ANIM_FRAMES, 2);
+    set_window_value(AT_DAIR, 4, AG_WINDOW_ANIM_FRAME_START, 7);
+
+    set_window_value(AT_DAIR, 5, AG_WINDOW_LENGTH, 12);
+    set_window_value(AT_DAIR, 5, AG_WINDOW_ANIM_FRAMES, 2);
+    set_window_value(AT_DAIR, 5, AG_WINDOW_ANIM_FRAME_START, 9);
+
+
+    set_hitbox_value(AT_DAIR, 3, HG_ANGLE, 270);
+    set_hitbox_value(AT_DAIR, 3, HG_DAMAGE, 10);
+
+}

@@ -115,8 +115,9 @@ HG_SPIN_KNOCKBACK_BONUS = 73;         // HG_BASE_KNOCKBACK
 HG_SPIN_KNOCKBACK_SCALING_BONUS = 74; // HG_KNOCKBACK_SCALING
 // sound effect adjustment for high spin moves
 HG_SPIN_SFX = 75;                     // HG_HIT_SFX 
-uhc_spin_sfx_threshold = 0.40; //above 40% spin, you get the new sounds
-uhc_spin_sfx_high_threshold = 0.80; //above 80% spin, some moves get even more sounds
+uhc_spin_sfx_threshold = 0.50; //above 50% spin bonuses, you get the new sounds
+uhc_spin_sfx_high_threshold = 0.95; //above 95% spin bonuses, some moves get even more sounds
+// (not actual spin percent, see uhc_cd_spin_effective_max below)
 
 // Custom Angle Flipper values
 ANGLE_FLIPPER_AUTOLINK = 33; //simulates "pull towards center" but considers position of victim & base KB direction/length
@@ -161,6 +162,7 @@ uhc_pratland_spr = sprite_get("pratland");
 //Interface
 vfx_label = sprite_get("vfx_label");
 vfx_hud_bar = sprite_get("hud_bar");
+vfx_hud_ad = sprite_get("hud_bar_ad");
 vfx_hud_icons = sprite_get("hud_icons");
 
 vfx_buffering = sprite_get("vfx_buffering");
@@ -173,6 +175,7 @@ uhc_anim_nspecial_smear_air = sprite_get("nspecial_air_smear");
 
 vfx_star_trail = hit_fx_create(sprite_get("vfx_star_trail"), 3);
 vfx_star_destroy = hit_fx_create(sprite_get("vfx_star_destroy"), 8);
+vfx_star_destroy_longer = hit_fx_create(sprite_get("vfx_star_destroy"), 20);
 
 //FSPECIAL flash
 vfx_flash_charge = sprite_get("vfx_flash_charge");
@@ -198,6 +201,7 @@ uhc_anim_rewind =
 };
 
 vfx_spinning = hit_fx_create(sprite_get("vfx_spinning"), 4);
+vfx_burning = hit_fx_create(asset_get("fire_part_spr1"), 24);
 
 indicator_spr = sprite_get("indicator_triangle");
 
@@ -277,12 +281,20 @@ vfx_screenshot_tab = sprite_get("vfx_screenshot");
 //Rune flags
 uhc_rune_flags = 
 {
-    deadly_rickroll: has_rune("D"),
-    doctor_nair: has_rune("B"),
-    passive_rewind: has_rune("G"),
-    airdodge_buffering: has_rune("C"),
-    aircharge_strongs: has_rune("A"),
-    wincon: has_rune("H"), //you're welcome ShadowKing
+    deadly_rickroll: has_rune("F"),
+    doctor_nair: has_rune("A"),
+    ganon_dair: has_rune("B"),
+    airdodge_buffering: has_rune("D"),
+    star_rewind: has_rune("C"),
+    combo_stars: has_rune("H"),
+    super_flash: has_rune("G"),
+    whiffless: has_rune("L"),
+
+    late_ad: has_rune("M"),
+    fire_throws: has_rune("E"),
+    passive_rewind: has_rune("I"),
+    aircharge_strongs: has_rune("J"),
+    wincon: has_rune("K"), //you're welcome ShadowKing
     remote_throws: has_rune("N"),
     dual_disk_system: has_rune("O") //you read that right
 }
@@ -311,12 +323,18 @@ uhc_cd_respawn_timer_max = uhc_rune_flags.dual_disk_system ? -1 : 300; //# of fr
 uhc_pickup_cooldown_max = 30; //# of frames
 uhc_throw_cooldown_max = 12; //# of frames
 
+//% of uhc_cd_spin_max at which bonus scalings starts going down
+//ie. at [100..85] you still get 100% bonuses, then linearly down to zero
+uhc_cd_spin_effective_max = (uhc_rune_flags.late_ad ? 0.35 : 0.85);
+
 uhc_nspecial_charges_max = 4;
 uhc_nspecial_speed = 12;
 
 uhc_fspecial_charge_max = 15*60;
 uhc_fspecial_charge_half = 5*60;
 uhc_fspecial_cooldown = 1*60;
+//super flash rune
+uhc_uair_flash_penalty = 4*60;
 
 uhc_uspecial_speed = 3;
 uhc_uspecial_speed_fast = 7;
@@ -357,6 +375,15 @@ uhc_uspecial_start_pos = { x:0, y:0 };
 
 //from other_init, for simplicity
 uhc_handler_id = noone;
+
+//RUNES
+uhc_is_star_rewinding = false;
+uhc_can_overrewind = false; //allows UHC to rewind even at end of playback, while a star is active
+
+//somewhat wonky combo counter
+//see hit_player.gml
+uhc_combo_prehit_flag = false; // allows multihits to count as one move; to let the last hitbox grant a star
+uhc_last_hit_landed = AT_TAUNT;
 
 //=================================================
 // Compatibility Zone
