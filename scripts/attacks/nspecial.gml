@@ -64,6 +64,5 @@ for (var i = 1; i <= 5; i++)
     {
         set_hitbox_value(AT_NSPECIAL, i, HG_LIFETIME, 2 * get_hitbox_value(AT_NSPECIAL, i, HG_LIFETIME));
         set_hitbox_value(AT_NSPECIAL, i, HG_PROJECTILE_ENEMY_BEHAVIOR, 1);
-        set_hitbox_value(AT_NSPECIAL, i, HG_FORCE_FLINCH, 0);
     }
 }
