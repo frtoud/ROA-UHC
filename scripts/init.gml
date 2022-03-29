@@ -175,6 +175,7 @@ uhc_anim_nspecial_smear_air = sprite_get("nspecial_air_smear");
 
 vfx_star_trail = hit_fx_create(sprite_get("vfx_star_trail"), 3);
 vfx_star_destroy = hit_fx_create(sprite_get("vfx_star_destroy"), 8);
+vfx_star_destroy_longer = hit_fx_create(sprite_get("vfx_star_destroy"), 20);
 
 //FSPECIAL flash
 vfx_flash_charge = sprite_get("vfx_flash_charge");
@@ -285,6 +286,7 @@ uhc_rune_flags =
     ganon_dair: has_rune("B"),
     airdodge_buffering: has_rune("D"),
     star_rewind: has_rune("C"),
+    combo_stars: has_rune("H"),
     super_flash: has_rune("G"),
     whiffless: has_rune("L"),
 
@@ -377,6 +379,11 @@ uhc_handler_id = noone;
 //RUNES
 uhc_is_star_rewinding = false;
 uhc_can_overrewind = false; //allows UHC to rewind even at end of playback, while a star is active
+
+//somewhat wonky combo counter
+//see hit_player.gml
+uhc_combo_prehit_flag = false; // allows multihits to count as one move; to let the last hitbox grant a star
+uhc_last_hit_landed = AT_TAUNT;
 
 //=================================================
 // Compatibility Zone
