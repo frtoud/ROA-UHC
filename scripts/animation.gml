@@ -409,6 +409,7 @@ switch (state)
             else
             {
                 uhc_current_cd.cd_anim_blade_spin = 0;
+                draw_indicator = false;
             }
         }
     }break;

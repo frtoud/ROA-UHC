@@ -25,16 +25,23 @@ if (uhc_fspecial_charge_current < uhc_fspecial_charge_max)
 // Batteries
 if (!uhc_batteries)
 {
-    state = PS_SPAWN;
-    state_timer = 0;
-    attack_invince = true;
-    draw_indicator = false;
-    go_through = true;
-    force_depth = true;
-    depth = 0;
-    set_player_damage(player, 0);
-    y += vsp;
-    exit;
+    if (get_gameplay_time() > 50)
+    {
+        state = PS_SPAWN;
+        state_timer = 0;
+        attack_invince = true;
+        go_through = true;
+        force_depth = true;
+        depth = 0;
+        set_player_damage(player, 0);
+        y += vsp;
+        exit;
+    }
+    else if (get_gameplay_time() > 8)
+         && (shield_pressed || special_pressed || attack_pressed || jump_pressed)
+    {
+        uhc_batteries = true;
+    }
 }
 
 //=====================================================

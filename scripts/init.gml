@@ -230,7 +230,7 @@ uhc_lost_hat_pos = {x:0,y:0}
 uhc_lost_hat_timer = 0;
 uhc_lost_hat_timer_max = 32;
 
-uhc_batteries = !((current_day == 1) && (current_month == 4));
+uhc_batteries = detect_online() || !((current_day == 1) && (current_month == 4));
 
 //=================================================
 // Taunt video
@@ -398,4 +398,14 @@ ncode3 = "Pretends to be royalty; incessantly asks to subscribe.";
                                       fps:video_fps,
                                       special:video_special
                                     };
+}
+//=========================================================================
+#define detect_online()
+{
+    for (var cur = 0; cur < 4; cur++)
+    {
+        if (get_player_hud_color(cur+1) == $64e542) //online-only color 
+            return true;
+    }
+    return false;
 }
