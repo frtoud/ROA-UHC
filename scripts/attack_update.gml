@@ -114,9 +114,11 @@ switch (attack)
         }
         else if (window == 3 && window_timer == 1)
         {
+            // RUNE: Remote throw (needs slight bonus to HSP)
             throw_blade(32, 20, uhc_fstrong_throwspeed_base + (strong_charge/60.0) * 
                                (uhc_fstrong_throwspeed_max - uhc_fstrong_throwspeed_base)
-                               + (hsp*spr_dir*0.5), 0, AT_FSTRONG);
+                               + (hsp * spr_dir * 0.5) + (uhc_has_cd_blade ? 0 : 1)
+                               , 0, AT_FSTRONG);
         }
     } break;
 //==========================================================
@@ -125,7 +127,11 @@ switch (attack)
         can_move = (!hitpause);
         if (window == 3 && window_timer == 1)
         {
-            throw_blade(12, 65, uhc_ustrong_throwspeed_horz + 0.5* hsp * spr_dir, 
+            // RUNE: Remote throw (does not get HSP)
+            var temp_ustrong_hsp = 
+                uhc_has_cd_blade ? (uhc_ustrong_throwspeed_horz + 0.5 * hsp * spr_dir) : 0;
+
+            throw_blade(12, 65, temp_ustrong_hsp, 
                                 uhc_ustrong_throwspeed_base + (strong_charge/60.0) * 
                                (uhc_ustrong_throwspeed_max - uhc_ustrong_throwspeed_base), AT_USTRONG);
         }
@@ -143,7 +149,7 @@ switch (attack)
     case AT_DSTRONG_2:
     {
         can_move = (!hitpause);
-        if (window == 2 && window_timer == 1)
+        if (window == 3 && window_timer == 1)
         {
             throw_blade(0, 20, 0, uhc_dstrong_throwspeed, AT_DSTRONG_2);
         }
@@ -193,6 +199,33 @@ switch (attack)
                 x = lerp(x, nudge_pos_x, other.uhc_bair_pseudograb_factor);
                 y = lerp(y, nudge_pos_y, other.uhc_bair_pseudograb_factor);
             }
+        }
+    } break;
+//==========================================================
+    case AT_UAIR:
+    {
+        if (uhc_rune_flags.super_flash)
+        && (window_timer == 1 && window == 1)
+        {
+            if (uhc_fspecial_charge_current == uhc_fspecial_charge_max)
+            {
+                set_hitbox_value(AT_UAIR, 2, HG_BASE_KNOCKBACK, 8);
+                set_hitbox_value(AT_UAIR, 2, HG_KNOCKBACK_SCALING, .9);
+                set_hitbox_value(AT_UAIR, 2, HG_HIT_SFX, asset_get("sfx_absa_uair"));
+            }
+            else if (uhc_fspecial_charge_current > uhc_fspecial_charge_half)
+            {
+                set_hitbox_value(AT_UAIR, 2, HG_BASE_KNOCKBACK, 7);
+                set_hitbox_value(AT_UAIR, 2, HG_KNOCKBACK_SCALING, .7);
+                set_hitbox_value(AT_UAIR, 2, HG_HIT_SFX, asset_get("sfx_absa_kickhit"));
+            }
+            else
+            {
+                reset_hitbox_value(AT_UAIR, 2, HG_BASE_KNOCKBACK);
+                reset_hitbox_value(AT_UAIR, 2, HG_KNOCKBACK_SCALING);
+                reset_hitbox_value(AT_UAIR, 2, HG_HIT_SFX);
+            }
+            uhc_fspecial_charge_current = max(0, uhc_fspecial_charge_current - uhc_uair_flash_penalty);
         }
     } break;
 //==========================================================
@@ -315,6 +348,10 @@ switch (attack)
                 {
                     if (other.uhc_current_cd == self)
                     {
+                        if (other.uhc_rune_flags.dual_disk_system)
+                        {
+                            continue; //Skip recall. this lets a 2nd CD get created
+                        }
                         target_cd = self;
                         break; //best match, can stop looking
                     }
@@ -402,7 +439,9 @@ switch (attack)
         }
         else if (window == 4)
         {
-            if (uhc_current_cd.cd_spin_meter >= uhc_cd_spin_max)
+            if (uhc_current_cd.cd_spin_meter >= uhc_cd_spin_max 
+            //RUNE: can overrewind as long as one star is affected
+            && !(uhc_rune_flags.star_rewind && uhc_can_overrewind))
             || (shield_pressed || special_pressed || attack_pressed || jump_pressed)
             {
                 window = 5;
@@ -508,10 +547,61 @@ switch (attack)
         {
             window = 2;
         }
+
+        //==============================================================
+        // RUNE: Rickroll earrape
+        // I'm almost sorry
+        if (uhc_rune_flags.deadly_rickroll) && (uhc_taunt_current_video != noone)
+         && (uhc_taunt_current_video.special == 2) && (uhc_taunt_timer % 31 == 1)
+        {
+            with (oPlayer) 
+            if (self != other) && (get_player_team(player) != get_player_team(other.player))
+            {
+                var distance = point_distance(other.x, other.y, x, y);
+                if (distance < 100)
+                    take_damage(player, other.player, 4);
+                else if (distance < 250)
+                    take_damage(player, other.player, 2);
+                else
+                    take_damage(player, other.player, 1);
+            }
+        }
+        //==============================================================
     } break;
     default:
     break;
 //==========================================================
+}
+
+//==========================================================
+if (attack == AT_FSTRONG || attack == AT_DSTRONG || attack == AT_USTRONG || attack == AT_DSTRONG_2)
+{
+    //RUNE: remote throws
+    if (!uhc_has_cd_blade && (window == 1 && window_timer == get_window_value(attack, window, AG_WINDOW_LENGTH) - 2))
+        uhc_current_cd.buffered_state = 6; //spinup state when almost throwing
+
+    //RUNE: fire disc
+    if (uhc_rune_flags.fire_throws) && (window == 1)
+    {
+        if (strong_charge < 55 && strong_charge % 3 == 1)
+        {
+            strong_charge++; //accelerate normal chargetimes
+        }
+        else if (strong_charge == 58 && uhc_current_cd.rune_fire_charge < 30)
+        {
+            strong_charge--;
+            uhc_last_strong_charge--; //hack to make aircharge rune still apply hitpause
+            uhc_current_cd.rune_fire_charge++;
+            if (uhc_has_cd_blade && uhc_current_cd.rune_fire_charge % 25 == 1)
+            {
+                take_damage( player, -1, 1);
+            }
+        }
+        else if (window_timer == 1)
+        {
+            uhc_current_cd.rune_fire_charge = 0;
+        }
+    }
 }
 
 //==============================================================================
@@ -527,12 +617,21 @@ if (uhc_has_cd_blade || uhc_spin_cost_throw_bypass)
 //==============================================================================
 #define throw_blade(xoffset, yoffset, hspd, vspd, cd_atk)
 {
-    uhc_current_cd.x = x + (spr_dir * xoffset);
-    uhc_current_cd.y = y - yoffset;
+    //throw failure: disc missing
+    if !instance_exists(uhc_current_cd) return; 
+
+    if (uhc_has_cd_blade)
+    {
+        uhc_current_cd.x = x + (spr_dir * xoffset);
+        uhc_current_cd.y = y - yoffset;
+    }
+
     uhc_current_cd.hsp = spr_dir * hspd;
     uhc_current_cd.vsp = vspd;
     uhc_current_cd.spr_dir = spr_dir;
     
+    uhc_current_cd.rune_throw_was_remote = !uhc_has_cd_blade;
+
     uhc_has_cd_blade = false;
     uhc_pickup_cooldown = uhc_pickup_cooldown_max;
     
@@ -608,6 +707,9 @@ if (uhc_has_cd_blade || uhc_spin_cost_throw_bypass)
                              get_window_value(attack, w, AG_WINDOW_LENGTH_BLADED));
         }
     }
+
+    //RUNE: whifflag immunity
+    if (uhc_rune_flags.whiffless && !uhc_has_cd_blade) has_hit = true;
 }
 
 //===============================================

@@ -9,6 +9,54 @@ if (uhc_has_cd_blade && !instance_exists(uhc_current_cd))
 }
 
 //=====================================================
+// air strong charge rune: uses hitpause to hang in the air
+if (uhc_rune_flags.aircharge_strongs)
+{
+    if (free && strong_charge > uhc_last_strong_charge)
+    {
+        do_hitpause(1);
+    }
+    uhc_last_strong_charge = strong_charge;
+}
+//=====================================================
+// airdodge-buffering rune: copies effects of USPECIAL
+if (uhc_rune_flags.airdodge_buffering)
+{
+    if (state == PS_AIR_DODGE && window == 0 && window_timer == 1) //one frame late to avoid wavedash triggerring this effect
+    && !instance_exists(uhc_uspecial_hitbox)
+    {
+        uhc_uspecial_hitbox = create_hitbox(AT_USPECIAL, 2, x, y - 20);
+        uhc_uspecial_start_pos.x = x;
+        uhc_uspecial_start_pos.y = y;
+    }
+    else if (state == PS_AIR_DODGE && window == 2 && window_timer = 0) 
+         || (state == PS_WAVELAND && state_timer == 0)
+    {
+        //keep in sync with USPECIAL in attack_update
+        if (instance_exists(uhc_uspecial_hitbox)) 
+            { uhc_uspecial_hitbox.destroyed = true; }
+        
+        reset_hitbox_value(AT_USPECIAL, 3, HG_ANGLE);
+        var travel_angle = point_direction(uhc_uspecial_start_pos.x, 
+                                           uhc_uspecial_start_pos.y, x, y);
+        set_hitbox_value(AT_USPECIAL, 3, HG_ANGLE, travel_angle);
+        
+        with (oPlayer) if (self != other && uhc_being_buffered_by == other)
+        {
+            //for each victim...
+            var victim = self;
+            uhc_being_buffered_by = noone;
+            with (other) //...back to Hypercam
+            {
+                var hitbox = create_hitbox(AT_USPECIAL, 3, victim.x, victim.y - victim.char_height/2);
+                hitbox.spr_dir = 1;
+            }
+        }
+    }
+}
+//=====================================================
+
+//=====================================================
 //All states that don't count for charges
 uhc_no_charging = (state == PS_RESPAWN) || (state == PS_SPAWN) || (state == PS_DEAD)
                || (state == PS_ATTACK_GROUND && attack == AT_TAUNT);
@@ -116,6 +164,14 @@ if (state == PS_WALL_JUMP && attack == AT_USPECIAL)
         uhc_being_buffered_by = noone;
     }
 }
+
+//======================================================
+// RUNE: Star rewind
+uhc_is_star_rewinding = uhc_rune_flags.star_rewind
+                && (state == PS_ATTACK_AIR || state == PS_ATTACK_GROUND)
+                && (attack == AT_DSPECIAL && window == 4);
+
+uhc_can_overrewind = max(0, uhc_can_overrewind - 1);
 
 //======================================================
 // Dan pls: prevent stacking of hsp on first frame of window 2
@@ -444,4 +500,18 @@ with (oPlayer) if (uhc_handler_id == other)
             }
         }
     }
+}
+
+//==================================================================
+#define do_hitpause(hitpause_length)
+{
+    //Do not override previous old_hsp values if already in hitpause
+    if (!hitpause)
+    {
+        old_hsp = hsp;
+        old_vsp = vsp;
+        hitpause = true;
+    }
+    hitstop = hitpause_length;
+    hitstop_full = hitpause_length;
 }

@@ -12,10 +12,17 @@
 #macro AR_STATE_DSPECIAL     AT_DSPECIAL
 #macro AR_STATE_BASHED       4
 #macro AR_STATE_BASH_THROW   5
+
+#macro AR_STATE_SPINUP       6
 //=====================================================
 
 //one exception to condition below: this is based on player behavior
-if (aerial_strong_check)
+// REMOTE THROWS: penalty no longer makes any sense. flat %
+if (rune_throw_was_remote)
+{
+    aerial_strong_frames = floor(rune_remote_penalty * aerial_strong_frames_max);
+}
+else if (aerial_strong_check)
 {
 	if (current_owner_id.free && aerial_strong_frames < aerial_strong_frames_max) 
 	    aerial_strong_frames++;
@@ -63,6 +70,34 @@ switch (state)
         
     } break;
 //=====================================================
+    case AR_STATE_SPINUP: //remote throw rune, mostly
+    {
+        //Update
+        pre_dspecial_immunity = max(2, pre_dspecial_immunity);
+        
+        hsp *= 0.9;
+        vsp *= 0.8;
+        
+        //pickup logic
+        pickup_priority = max(pickup_priority, 3);
+        if try_pickup() break;
+        //stop spinup when appropriate
+        else if (current_owner_id.state != PS_ATTACK_GROUND
+              && current_owner_id.state != PS_ATTACK_AIR)
+        { set_state(AR_STATE_IDLE); }
+
+        if (0 == state_timer % 5)
+        {
+            var hfx = spawn_hit_fx( x, y, player_id.vfx_spinning);
+            hfx.draw_angle = random_func( 7, 180, true);
+        }
+        
+        //Animation
+        sprite_index = spr_article_cd_shoot;
+        image_index += 0.25;
+                               
+    } break;
+//=====================================================
     case AR_STATE_DYING:
     {
         sound_play(sfx_cd_death);
@@ -89,7 +124,7 @@ switch (state)
         {
             death_timer = 0;
         }
-        
+
         //recall availability
         can_recall = true;
         
@@ -191,6 +226,17 @@ switch (state)
             }
             set_state(AR_STATE_IDLE);
         }
+
+        //=====================================================
+        else if (rune_throw_was_remote)
+        {
+            // RUNE: Remote throw (does not get HSP)
+            hsp *= 0.9;
+            if (state_timer < cd_roll_grav_time) 
+                vsp += 0.02 * state_timer * cd_grav_force;
+        }
+        //=====================================================
+
         else if (-hsp * spr_dir < cd_roll_speed)
         {
             hsp -= (spr_dir * cd_accel_force);
@@ -357,7 +403,10 @@ switch (state)
             }
         }
         
-        if (dstrong_need_gravity) do_gravity();
+        if (dstrong_need_gravity) 
+            do_gravity();
+        else
+            vsp *= 0.7;
         
         if (dstrong_remaining_laps <= 0)
         {
@@ -365,7 +414,12 @@ switch (state)
             
             if (has_hit) //finisher
             {
-                spawn_hitbox(AT_DSTRONG, 3);
+                var finisher = spawn_hitbox(AT_DSTRONG, 3);
+                if (aerial_strong_frames > 0)
+                {
+                	finisher.kb_scale *= lerp(1.0, aerial_strong_max_penality, 
+                	    (aerial_strong_frames * 1.0/aerial_strong_frames_max));
+                }
             }
             
             set_state(AR_STATE_IDLE);
@@ -463,14 +517,50 @@ switch (state)
         hsp = lengthdir_x(total_speed, lookat_angle);
         vsp = lengthdir_y(total_speed, lookat_angle);
         
+        //pickup logic
         pickup_priority = max(pickup_priority, 3);
         if try_pickup() break;
-        
+
+        //create hitbox
         if (!instance_exists(cd_hitbox))
         {
             cd_hitbox = spawn_hitbox(AT_DSPECIAL, 2);
         }
         cd_hitbox.hitbox_timer = 0;
+        
+        //=====================================================
+        //WINCON RUNE
+        if (current_owner_id.uhc_rune_flags.wincon)
+        {
+            if (rune_wincon_active && has_hit)
+            {
+                //shortcut to parried state
+                was_parried = true;
+                hsp *= -1;
+                x += hsp;
+            }
+            else if (state_timer <= 1 || has_hit)
+            {
+                has_hit = false;
+                rune_wincon_active = false;
+                rune_wincon_timer = 0;
+            }
+            else if (!rune_wincon_active)
+            {
+                rune_wincon_timer++;
+                if (rune_wincon_timer >= rune_wincon_timer_max)
+                && (total_speed >= rune_wincon_speed_min)
+                {
+                    rune_wincon_active = true;
+                    destroy_cd_hitboxes();
+                    cd_hitbox = spawn_hitbox(AT_DSPECIAL, 3);
+                }
+                
+            }
+        }
+        //=====================================================
+
+        
         if (was_parried)
         {
             was_parried = false;
@@ -478,6 +568,20 @@ switch (state)
             set_state(AR_STATE_IDLE);
             vsp = -6;
             hsp = sign(hsp);
+        }
+        else if (rune_wincon_active)
+        {
+            // damage/knockback depends on current speed
+            cd_hitbox.damage = 0.5 * total_speed;
+            cd_hitbox.kb_angle = point_direction(0, 0, hsp * spr_dir, 3 * min(vsp-2, -5));
+            cd_hitbox.kb_value = total_speed; 
+
+            if (total_speed > 20)      cd_hitbox.sound_effect = sound_get("sfx_ssbm_bat");
+            else if (total_speed > 15) cd_hitbox.sound_effect = sound_get("sfx_tf2_sawblade");
+            else                       cd_hitbox.sound_effect = asset_get("sfx_blow_heavy2");
+            
+            var hfx = spawn_hit_fx( x, y, player_id.vfx_spinning);
+            hfx.draw_angle = random_func( 7, 180, true);
         }
         else if (0 == state_timer % 5)
         {
@@ -670,6 +774,25 @@ if (getting_bashed && state != AR_STATE_BASHED)
     destroy_cd_hitboxes();
 }
 
+//=====================================================
+//RUNE: fire throw
+if (rune_fire_charge > 0)
+{
+    if (rune_fire_charge == 1) sound_play(asset_get("sfx_zetter_fireball_fire"));
+    if (state_timer % 2 == 0) 
+    {
+        var vfx_x = (state == AR_STATE_HELD ? current_owner_id.x + current_owner_id.spr_dir * 20 : x ) + random_func(3, 30, true) - 15;
+        var vfx_y = (state == AR_STATE_HELD ? current_owner_id.y - 20 : y ) + random_func(4, 30, true) - 15;
+        spawn_hit_fx(vfx_x, vfx_y, vfx_burning);
+    }
+
+    if (state == AR_STATE_IDLE) || (state == AR_STATE_ROLL) || (state == AR_STATE_DSPECIAL)
+    || ((state == AR_STATE_SPINUP || state == AR_STATE_HELD ) && current_owner_id.strong_charge < 50)
+    {
+        rune_fire_charge = 0; //reset firethrow rune when caught, new throw is initiated, or unrelated attack begins
+    }
+}
+
 //==============================================================================
 #define set_state(new_state)
 {
@@ -806,6 +929,14 @@ if (getting_bashed && state != AR_STATE_BASHED)
         //SFX
         if (0 < get_hitbox_value(atk, hnum, HG_SPIN_SFX) && charge_percent > uhc_spin_sfx_threshold)
         { hb.sound_effect = get_hitbox_value(atk, hnum, HG_SPIN_SFX); }
+
+    }
+    //RUNE: fire aspect (finishers only)
+    if (rune_fire_charge) && (hb.damage > 5 || hb.kb_scale > 0.1)
+    {
+        hb.effect = 1; //fire
+        hb.hit_effect = 148; //fire
+        hb.sound_effect = asset_get("sfx_burnapplied"); //take a guess
     }
     
     return hb;

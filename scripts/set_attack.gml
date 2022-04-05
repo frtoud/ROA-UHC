@@ -2,7 +2,8 @@
 
 //===============================================
 //Strongs to Tilts conversions
-if (!uhc_has_cd_blade)
+if !(uhc_has_cd_blade 
+   || (uhc_rune_flags.remote_throws && instance_exists(uhc_current_cd)) )
 {
     if (attack == AT_FSTRONG) { attack = AT_FTILT; }
     else if (attack == AT_USTRONG) { attack = AT_UTILT; }
@@ -18,18 +19,23 @@ else if (up_strong_pressed || down_strong_pressed
     else if (attack == AT_DAIR) { attack = AT_DSTRONG_2; }
     
     //Prevent strong charge when in the air
-    if (free)
+    if (free && !uhc_rune_flags.aircharge_strongs)
     {
         set_attack_value(AT_FSTRONG, AG_STRONG_CHARGE_WINDOW, 0);
         set_attack_value(AT_USTRONG, AG_STRONG_CHARGE_WINDOW, 0);
+        reset_attack_value(AT_DSTRONG_2, AG_STRONG_CHARGE_WINDOW);
     }
     else
     {
         reset_attack_value(AT_FSTRONG, AG_STRONG_CHARGE_WINDOW);
         reset_attack_value(AT_USTRONG, AG_STRONG_CHARGE_WINDOW);
+        set_attack_value(AT_DSTRONG_2, AG_STRONG_CHARGE_WINDOW, 1);
     }
 }
 
 // Forces an update to the attack grid
 // Moved to attack_update in case of catching the blade midmove 
 uhc_update_blade_status = true;
+
+//RUNE: combo counter
+uhc_combo_prehit_flag = false;

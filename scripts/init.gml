@@ -175,6 +175,7 @@ uhc_anim_nspecial_smear_air = sprite_get("nspecial_air_smear");
 
 vfx_star_trail = hit_fx_create(sprite_get("vfx_star_trail"), 3);
 vfx_star_destroy = hit_fx_create(sprite_get("vfx_star_destroy"), 8);
+vfx_star_destroy_longer = hit_fx_create(sprite_get("vfx_star_destroy"), 20);
 
 //FSPECIAL flash
 vfx_flash_charge = sprite_get("vfx_flash_charge");
@@ -200,6 +201,7 @@ uhc_anim_rewind =
 };
 
 vfx_spinning = hit_fx_create(sprite_get("vfx_spinning"), 4);
+vfx_burning = hit_fx_create(asset_get("fire_part_spr1"), 24);
 
 indicator_spr = sprite_get("indicator_triangle");
 
@@ -241,7 +243,7 @@ add_uhc_video(i, "video_blocked",  0, 1); i++;
 uhc_taunt_blocked_video = uhc_taunt_videos[0]; //keep track of this one separately; might be useful
 add_uhc_video(i, "video_dream",    0, 0); i++;
 add_uhc_video(i, "video_nyan",    10, 0); i++;
-add_uhc_video(i, "video_rick",     8, 0); i++;
+add_uhc_video(i, "video_rick",     8, 2); i++;
 add_uhc_video(i, "video_unreal",  15, 0); i++;
 add_uhc_video(i, "video_love",    16, 0); i++;
 uhc_taunt_num_videos = i;
@@ -276,6 +278,28 @@ uhc_unsafe_screenshot =
 vfx_screenshot_tab = sprite_get("vfx_screenshot");
 
 //=================================================
+//Rune flags
+uhc_rune_flags = 
+{
+    deadly_rickroll: has_rune("F"),
+    doctor_nair: has_rune("A"),
+    ganon_dair: has_rune("B"),
+    airdodge_buffering: has_rune("D"),
+    star_rewind: has_rune("C"),
+    combo_stars: has_rune("H"),
+    super_flash: has_rune("G"),
+    whiffless: has_rune("L"),
+
+    late_ad: has_rune("M"),
+    fire_throws: has_rune("E"),
+    passive_rewind: has_rune("I"),
+    aircharge_strongs: has_rune("J"),
+    wincon: has_rune("K"), //you're welcome ShadowKing
+    remote_throws: has_rune("N"),
+    dual_disk_system: has_rune("O") //you read that right
+}
+
+//=================================================
 //Balancing variables
 uhc_fstrong_throwspeed_base = 8;
 uhc_fstrong_throwspeed_max = 12;
@@ -291,16 +315,17 @@ uhc_dair_boost = 3;
 uhc_dair_boost_final = 7;
 
 uhc_cd_spin_drain_base = 0.035; //per frame
-uhc_cd_spin_drain_idle = 0.065; //per frame
+uhc_cd_spin_drain_idle = uhc_rune_flags.passive_rewind ? -0.065 : 0.065; //per frame
 uhc_cd_spin_drain_clairen = 0.65; //per frame
 uhc_cd_spin_charge_rate = 1.35; //per frame
 uhc_cd_spin_max = 100;
-uhc_cd_respawn_timer_max = 300; //# of frames
+uhc_cd_respawn_timer_max = uhc_rune_flags.dual_disk_system ? -1 : 300; //# of frames (FREE when dual-wielding)
 uhc_pickup_cooldown_max = 30; //# of frames
 uhc_throw_cooldown_max = 12; //# of frames
 
-uhc_cd_spin_effective_max = 0.85; //% of uhc_cd_spin_max at which bonus scalings starts going down
+//% of uhc_cd_spin_max at which bonus scalings starts going down
 //ie. at [100..85] you still get 100% bonuses, then linearly down to zero
+uhc_cd_spin_effective_max = (uhc_rune_flags.late_ad ? 0.35 : 0.85);
 
 uhc_nspecial_charges_max = 4;
 uhc_nspecial_speed = 12;
@@ -308,6 +333,8 @@ uhc_nspecial_speed = 12;
 uhc_fspecial_charge_max = 15*60;
 uhc_fspecial_charge_half = 5*60;
 uhc_fspecial_cooldown = 1*60;
+//super flash rune
+uhc_uair_flash_penalty = 4*60;
 
 uhc_uspecial_speed = 3;
 uhc_uspecial_speed_fast = 7;
@@ -334,6 +361,8 @@ uhc_looping_attack_can_exit = false; //used with jab, dattack
 uhc_fresh_air_throw = false; //true if just threw CD in aerial attack
 uhc_air_throw_frames = 0; //increases for each frame not landed after an aerial throw
 
+uhc_last_strong_charge = 0; //for air strong charge hitpause
+
 uhc_dair_window_bounced = 0;
 
 uhc_fspecial_charge_current = 0;
@@ -346,6 +375,15 @@ uhc_uspecial_start_pos = { x:0, y:0 };
 
 //from other_init, for simplicity
 uhc_handler_id = noone;
+
+//RUNES
+uhc_is_star_rewinding = false;
+uhc_can_overrewind = false; //allows UHC to rewind even at end of playback, while a star is active
+
+//somewhat wonky combo counter
+//see hit_player.gml
+uhc_combo_prehit_flag = false; // allows multihits to count as one move; to let the last hitbox grant a star
+uhc_last_hit_landed = AT_TAUNT;
 
 //=================================================
 // Compatibility Zone

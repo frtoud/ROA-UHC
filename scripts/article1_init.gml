@@ -119,7 +119,7 @@ aerial_strong_check = false; //true if need to count number of aerial strong fra
 aerial_strong_frames = 0; //number of frames last owner was not grounded
 aerial_strong_frames_max = 12; //limit for full penalty
 
-aerial_strong_max_penality = 0.25; //multiplier for maximu penalty
+aerial_strong_max_penality = 0.25; //multiplier for maximum penalty
 
 //=====================================================
 // animation variables
@@ -131,3 +131,17 @@ cd_anim_color = get_player_color(player_id.player) //color of CD
 unbashable = true;
 getting_bashed = false;
 bashed_id = noone;
+
+//======================================================
+// Runes
+rune_wincon_timer = 0;
+rune_wincon_timer_max = 15;
+rune_wincon_active = false;
+rune_wincon_speed_min = 6;
+
+rune_throw_was_remote = false;
+rune_remote_penalty = 0.3; //finisher penalty for remote throws (DSTRONG, FSTRONG, USTRONG)
+//makles a remote throw use the same penalty as (rune_remote_penalty * aerial_strong_frames_max) frames
+
+rune_fire_charge = 0;
+vfx_burning = player_id.vfx_burning;

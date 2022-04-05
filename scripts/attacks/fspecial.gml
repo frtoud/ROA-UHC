@@ -147,3 +147,38 @@ set_hitbox_value(AT_FSPECIAL, 6, HG_BASE_HITPAUSE, 1);
 set_hitbox_value(AT_FSPECIAL, 6, HG_EXTRA_HITPAUSE, 30);
 set_hitbox_value(AT_FSPECIAL, 6, HG_VISUAL_EFFECT, 197);
 set_hitbox_value(AT_FSPECIAL, 6, HG_HIT_SFX, asset_get("sfx_absa_singlezap2"));
+
+if (uhc_rune_flags.super_flash)
+{
+    //medium
+    set_hitbox_value(AT_FSPECIAL, 2, HG_ANGLE, 60);
+    set_hitbox_value(AT_FSPECIAL, 2, HG_BASE_KNOCKBACK, 8);
+    set_hitbox_value(AT_FSPECIAL, 2, HG_KNOCKBACK_SCALING, .8);
+    set_hitbox_value(AT_FSPECIAL, 2, HG_EXTRA_HITPAUSE, 8);
+    set_hitbox_value(AT_FSPECIAL, 2, HG_HIT_SFX, asset_get("sfx_absa_kickhit"));
+
+    set_hitbox_value(AT_FSPECIAL, 3, HG_ANGLE, 60);
+    set_hitbox_value(AT_FSPECIAL, 3, HG_BASE_KNOCKBACK, 7);
+    set_hitbox_value(AT_FSPECIAL, 3, HG_KNOCKBACK_SCALING, .7);
+    set_hitbox_value(AT_FSPECIAL, 3, HG_EXTRA_HITPAUSE, 8);
+    set_hitbox_value(AT_FSPECIAL, 3, HG_HIT_SFX, asset_get("sfx_absa_kickhit"));
+
+    //large
+    set_hitbox_value(AT_FSPECIAL, 4, HG_ANGLE, 60);
+    set_hitbox_value(AT_FSPECIAL, 4, HG_BASE_KNOCKBACK, 9);
+    set_hitbox_value(AT_FSPECIAL, 4, HG_KNOCKBACK_SCALING, 1.1);
+    set_hitbox_value(AT_FSPECIAL, 4, HG_EXTRA_HITPAUSE, 16);
+    set_hitbox_value(AT_FSPECIAL, 4, HG_HIT_SFX, asset_get("sfx_absa_uair"));
+
+    set_hitbox_value(AT_FSPECIAL, 5, HG_ANGLE, 60);
+    set_hitbox_value(AT_FSPECIAL, 5, HG_BASE_KNOCKBACK, 9);
+    set_hitbox_value(AT_FSPECIAL, 5, HG_KNOCKBACK_SCALING, 1.0);
+    set_hitbox_value(AT_FSPECIAL, 5, HG_EXTRA_HITPAUSE, 16);
+    set_hitbox_value(AT_FSPECIAL, 5, HG_HIT_SFX, asset_get("sfx_absa_uair"));
+
+    set_hitbox_value(AT_FSPECIAL, 6, HG_ANGLE, 60);
+    set_hitbox_value(AT_FSPECIAL, 6, HG_BASE_KNOCKBACK, 8);
+    set_hitbox_value(AT_FSPECIAL, 6, HG_KNOCKBACK_SCALING, 0.9);
+    set_hitbox_value(AT_FSPECIAL, 6, HG_EXTRA_HITPAUSE, 16);
+    set_hitbox_value(AT_FSPECIAL, 6, HG_HIT_SFX, asset_get("sfx_absa_uair"));
+}

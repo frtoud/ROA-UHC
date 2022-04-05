@@ -123,11 +123,14 @@ switch (state)
     } break;
     case PS_AIR_DODGE:
     {
-        if (window == 0)
+        if (window == 0) //beginning of dodge
         {
-            //beginning of dodge
             uhc_anim_last_dodge.posx = x;
             uhc_anim_last_dodge.posy = y;
+        }
+        else if (window == 1) //dodge active
+        {
+            spawn_twinkle(vfx_glitch, x, y - (char_height/2), 15);
         }
     } break;
     case PS_WALL_JUMP:
@@ -310,10 +313,31 @@ switch (state)
                         if (uhc_taunt_buffering_timer == 0 && uhc_taunt_is_opening)
                         {
                             sound_play(uhc_taunt_current_video.song, true, noone, 1, 1);
+                            //==============================================================
+                            // RUNE: Rickroll earrape
+                            // I'm almost sorry
+                            if (uhc_rune_flags.deadly_rickroll) && (uhc_taunt_current_video.special == 2)
+                            {
+                                sound_play(uhc_taunt_current_video.song, true, noone, 1, 1);
+                                sound_play(uhc_taunt_current_video.song, true, noone, 1, 1);
+                                sound_play(uhc_taunt_current_video.song, true, noone, 1, 1);
+                            }
+                            //==============================================================
+
                         }
                     }
                     else
-                    { uhc_taunt_timer++; }
+                    { 
+                        uhc_taunt_timer++;
+                        //==============================================================
+                        // RUNE: Rickroll
+                        if (uhc_rune_flags.deadly_rickroll) && (uhc_taunt_current_video.special == 2)
+                        && (uhc_taunt_timer % 31 == 1)
+                        {
+                            shake_camera(8, 12);
+                        }
+                        //==============================================================
+                    }
                 }
 
                 if (window == 1) && (window_timer == 12) //startup: shuffle
