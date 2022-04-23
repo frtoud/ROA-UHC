@@ -524,7 +524,7 @@ switch (attack)
                 uhc_being_buffered_by = noone;
                 with (other) if (need_ejector)//...back to Hypercam
                 {
-                    var hitbox = create_hitbox(AT_USPECIAL, 3, victim.x, victim.y - victim.char_height/2);
+                    var hitbox = create_hitbox(AT_USPECIAL, 3, floor(victim.x), floor(victim.y - victim.char_height/2));
                     hitbox.spr_dir = 1;
                 }
             }
