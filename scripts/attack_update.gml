@@ -456,8 +456,8 @@ switch (attack)
                 if (window_timer % 6 == 0)
                 {
                     create_hitbox(AT_DSPECIAL, 1, 
-                                  get_hitbox_value(AT_DSPECIAL, 1, HG_HITBOX_X),
-                                  get_hitbox_value(AT_DSPECIAL, 1, HG_HITBOX_Y));
+                                  floor(get_hitbox_value(AT_DSPECIAL, 1, HG_HITBOX_X)),
+                                  floor(get_hitbox_value(AT_DSPECIAL, 1, HG_HITBOX_Y)));
                 }
             }
         }
