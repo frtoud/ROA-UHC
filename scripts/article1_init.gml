@@ -48,6 +48,9 @@ cd_dstrong_air_min_speed_for_hitbox = 5.5;
 cd_dstrong_air_spiking_time = 10;
 cd_reflect_vspeed = 12;
 
+//bugfix: being in hitstun misses one tick of speed update (VERY noticeable on USTRONG)
+cd_was_just_in_hitstop = false;
+
 cd_dstrong_ground_min_speed = 12;
 cd_dstrong_ground_max_speed = 16;
 cd_dstrong_rotation_speed_base = 10; //degrees per frame
