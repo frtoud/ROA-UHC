@@ -562,12 +562,10 @@ switch (state)
                     destroy_cd_hitboxes();
                     cd_hitbox = spawn_hitbox(AT_DSPECIAL, 3);
                 }
-                
             }
         }
         //=====================================================
 
-        
         if (was_parried)
         {
             was_parried = false;
@@ -896,8 +894,9 @@ if (rune_fire_charge > 0)
             || (state == PS_LAND || state == PS_WAVELAND || state == PS_WALK_TURN 
             ||  state == PS_DASH_START || state == PS_DASH || state == PS_DASH_TURN || state == PS_DASH_STOP)
             {
+                move_cooldown[AT_DSPECIAL] = 0; //updated too late, needed here...
                 set_attack(AT_DSPECIAL);
-                window = 6;
+                window = (special_down ? 3 : 6);
             }
         }
     }
