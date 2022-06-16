@@ -101,7 +101,16 @@ switch (state)
         //walk sound (synced with 8 frames walk, 0.2 anim speed)
         if ((state_timer % 20) == 15)
         {
-            sound_play(asset_get("sfx_may_arc_five"), false, noone, 0.2, 3);
+            if (get_player_color(player) == 3)
+            {
+                var step_sfx = sound_get((state_timer % 40 < 20) ? 
+                                         "sfx_nice_step1" : "sfx_nice_step2");
+                sound_play(step_sfx, false, noone, 0.4, 1);
+            }
+            else 
+            {
+                sound_play(asset_get("sfx_may_arc_five"), false, noone, 0.2, 3);
+            }
         }
     } break;
     case PS_JUMPSQUAT:
@@ -433,6 +442,7 @@ switch (state)
             else
             {
                 uhc_current_cd.cd_anim_blade_spin = 0;
+                draw_indicator = false;
             }
         }
     }break;

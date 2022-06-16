@@ -31,6 +31,7 @@ switch (attack)
         {
             if (window_timer >= 4)
             {
+                //allow exiting the attack after a minimum time
                 uhc_looping_attack_can_exit = true;
             }
             
@@ -78,6 +79,7 @@ switch (attack)
             
             if (window_timer >= 8)
             {
+                //allow exiting the attack after a minimum time
                 uhc_looping_attack_can_exit = true;
             }
             
@@ -189,12 +191,13 @@ switch (attack)
     {
         if (window == 2 || window == 3)
         {
-            var current_time = get_gameplay_time();
+            var current_frame = get_gameplay_time();
             var nudge_pos_x = x + spr_dir * get_hitbox_value(AT_BAIR, 2, HG_HITBOX_X);
             var nudge_pos_y = y + get_hitbox_value(AT_BAIR, 2, HG_HITBOX_Y);
+
             with (oPlayer) if (self != other) && (!hitpause)
             && (uhc_bair_last_pseudograbbed_by == other)
-            && (uhc_bair_last_pseudograb_time + other.uhc_bair_pseudograb_length > current_time)
+            && (uhc_bair_last_pseudograb_time + other.uhc_bair_pseudograb_length > current_frame)
             {
                 x = lerp(x, nudge_pos_x, other.uhc_bair_pseudograb_factor);
                 y = lerp(y, nudge_pos_y, other.uhc_bair_pseudograb_factor);
@@ -453,8 +456,8 @@ switch (attack)
                 if (window_timer % 6 == 0)
                 {
                     create_hitbox(AT_DSPECIAL, 1, 
-                                  get_hitbox_value(AT_DSPECIAL, 1, HG_HITBOX_X),
-                                  get_hitbox_value(AT_DSPECIAL, 1, HG_HITBOX_Y));
+                                  floor(get_hitbox_value(AT_DSPECIAL, 1, HG_HITBOX_X)),
+                                  floor(get_hitbox_value(AT_DSPECIAL, 1, HG_HITBOX_Y)));
                 }
             }
         }
@@ -524,7 +527,7 @@ switch (attack)
                 uhc_being_buffered_by = noone;
                 with (other) if (need_ejector)//...back to Hypercam
                 {
-                    var hitbox = create_hitbox(AT_USPECIAL, 3, victim.x, victim.y - victim.char_height/2);
+                    var hitbox = create_hitbox(AT_USPECIAL, 3, floor(victim.x), floor(victim.y - victim.char_height/2));
                     hitbox.spr_dir = 1;
                 }
             }

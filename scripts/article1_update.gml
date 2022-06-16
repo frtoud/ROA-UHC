@@ -31,7 +31,11 @@ else if (aerial_strong_check)
 }
 
 // no logic/timers affected if we're currently in hitstop
-if (hitstop) exit;
+if (hitstop) 
+{
+    cd_was_just_in_hitstop = true; //for next frame's corrections
+    exit;
+}
 
 //=====================================================
 //applying buffered state
@@ -268,6 +272,9 @@ switch (state)
             cd_hitbox.hitbox_timer = 0;
 	        
             do_gravity();
+            //hitstop skips over one frame of logic; need to compensate
+            if (cd_was_just_in_hitstop) do_gravity();
+
             if (was_parried)
             {
                 was_parried = false;
@@ -291,7 +298,7 @@ switch (state)
                 var finisher = spawn_hitbox(AT_USTRONG, 3);
                 if (aerial_strong_frames > 0)
                 {
-                	finisher.kb_scale *= lerp(1.0, aerial_strong_max_penality, 
+                	finisher.kb_scale *= lerp(1.0, aerial_ustrong_max_penality, 
                 	    (aerial_strong_frames * 1.0/aerial_strong_frames_max));
                 }
             }
@@ -555,12 +562,10 @@ switch (state)
                     destroy_cd_hitboxes();
                     cd_hitbox = spawn_hitbox(AT_DSPECIAL, 3);
                 }
-                
             }
         }
         //=====================================================
 
-        
         if (was_parried)
         {
             was_parried = false;
@@ -678,6 +683,7 @@ switch (state)
 }
 
 state_timer++;
+cd_was_just_in_hitstop = false;
 
 //=====================================================
 //getting hit can interrupt the attack
@@ -888,8 +894,9 @@ if (rune_fire_charge > 0)
             || (state == PS_LAND || state == PS_WAVELAND || state == PS_WALK_TURN 
             ||  state == PS_DASH_START || state == PS_DASH || state == PS_DASH_TURN || state == PS_DASH_STOP)
             {
+                move_cooldown[AT_DSPECIAL] = 0; //updated too late, needed here...
                 set_attack(AT_DSPECIAL);
-                window = 6;
+                window = (special_down ? 3 : 6);
             }
         }
     }

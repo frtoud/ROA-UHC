@@ -48,6 +48,9 @@ cd_dstrong_air_min_speed_for_hitbox = 5.5;
 cd_dstrong_air_spiking_time = 10;
 cd_reflect_vspeed = 12;
 
+//bugfix: being in hitstun misses one tick of speed update (VERY noticeable on USTRONG)
+cd_was_just_in_hitstop = false;
+
 cd_dstrong_ground_min_speed = 12;
 cd_dstrong_ground_max_speed = 16;
 cd_dstrong_rotation_speed_base = 10; //degrees per frame
@@ -120,6 +123,7 @@ aerial_strong_frames = 0; //number of frames last owner was not grounded
 aerial_strong_frames_max = 12; //limit for full penalty
 
 aerial_strong_max_penality = 0.25; //multiplier for maximum penalty
+aerial_ustrong_max_penality = 0.5; //special multiplier for USTRONG
 
 //=====================================================
 // animation variables
@@ -141,7 +145,7 @@ rune_wincon_speed_min = 6;
 
 rune_throw_was_remote = false;
 rune_remote_penalty = 0.3; //finisher penalty for remote throws (DSTRONG, FSTRONG, USTRONG)
-//makles a remote throw use the same penalty as (rune_remote_penalty * aerial_strong_frames_max) frames
+//makes a remote throw use the same penalty as (rune_remote_penalty * aerial_strong_frames_max) frames
 
 rune_fire_charge = 0;
 vfx_burning = player_id.vfx_burning;
