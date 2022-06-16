@@ -298,7 +298,7 @@ switch (state)
                 var finisher = spawn_hitbox(AT_USTRONG, 3);
                 if (aerial_strong_frames > 0)
                 {
-                	finisher.kb_scale *= lerp(1.0, aerial_strong_max_penality, 
+                	finisher.kb_scale *= lerp(1.0, aerial_ustrong_max_penality, 
                 	    (aerial_strong_frames * 1.0/aerial_strong_frames_max));
                 }
             }

@@ -123,6 +123,7 @@ aerial_strong_frames = 0; //number of frames last owner was not grounded
 aerial_strong_frames_max = 12; //limit for full penalty
 
 aerial_strong_max_penality = 0.25; //multiplier for maximum penalty
+aerial_ustrong_max_penality = 0.5; //special multiplier for USTRONG
 
 //=====================================================
 // animation variables
@@ -144,7 +145,7 @@ rune_wincon_speed_min = 6;
 
 rune_throw_was_remote = false;
 rune_remote_penalty = 0.3; //finisher penalty for remote throws (DSTRONG, FSTRONG, USTRONG)
-//makles a remote throw use the same penalty as (rune_remote_penalty * aerial_strong_frames_max) frames
+//makes a remote throw use the same penalty as (rune_remote_penalty * aerial_strong_frames_max) frames
 
 rune_fire_charge = 0;
 vfx_burning = player_id.vfx_burning;
