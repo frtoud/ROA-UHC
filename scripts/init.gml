@@ -234,6 +234,8 @@ uhc_lost_hat_timer_max = 32;
 
 uhc_batteries = detect_online() || !((current_day == 1) && (current_month == 4));
 
+uhc_buffer_breaks_music = (get_synced_var(player) & 0x01) == 0;
+
 //=================================================
 // Taunt video
 uhc_taunt_videos[31] = noone; //preinitialized to a reasonable amount
