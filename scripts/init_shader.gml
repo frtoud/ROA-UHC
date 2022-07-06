@@ -37,6 +37,13 @@ if (current_color == ALT_AIR)
 { 
     set_character_color_shading( 1, 2.0 );
 }
+if (current_color == ALT_R2) && (0x62501C7 == scromble(get_player_name(player)))
+{
+    if ("uhc_anim_current_color" in self) uhc_anim_current_color = 16;
+    apply_color_slot(0, ALT_R2, 3);
+    apply_color_slot(2, ALT_R2, 0);
+    apply_color_slot(3, ALT_R2, 0);
+}
 
 //===================================================
 // Monochrome aesthetics
@@ -278,4 +285,29 @@ if (object_index == asset_get("draw_result_screen"))
         { uhc_victory_quote = get_random_quote(); }
     }
     
+}
+
+#define apply_color_slot(target_shade, source_color, source_shade)
+{
+   set_character_color_slot(target_shade,  
+        get_color_profile_slot_r(source_color, source_shade),  
+        get_color_profile_slot_g(source_color, source_shade),
+        get_color_profile_slot_b(source_color, source_shade), 1);
+   set_article_color_slot(target_shade,  
+        get_color_profile_slot_r(source_color, source_shade),  
+        get_color_profile_slot_g(source_color, source_shade),
+        get_color_profile_slot_b(source_color, source_shade), 1);
+}
+
+#define scromble(text)
+{
+    //thx adlr
+    var A = 1; var B = 0;
+    for (var i = 0; i < string_length(text); i++) 
+    {
+        A += string_ord_at(text, i+1); A %= 0xFFF1;
+        B += A;                        B %= 0xFFF1;
+
+    }
+    return A + (B << 16);
 }

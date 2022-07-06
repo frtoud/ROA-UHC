@@ -130,6 +130,7 @@ set_color_profile_slot(8, 4, 255,  25,  25); //Blinker
 set_color_profile_slot(9, 0, 200, 200, 200); //Body -- needs shading x2.0
 set_color_profile_slot(9, 1,  45,  45,  45); //Lens
 set_color_profile_slot(9, 2,  50,  64, 150); //CD
+set_color_profile_slot(16,2, 200, 200, 200); //Error
 set_color_profile_slot(9, 3,  45,  35, 145); //Paper
 set_color_profile_slot(9, 4, 255,  25,  25); //Blinker
 

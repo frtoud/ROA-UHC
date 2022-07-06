@@ -128,6 +128,7 @@ ANGLE_FLIPPER_CD_MULTIHIT = 55; //simulate "pull towards center" but considers p
 uhc_anim_blade_spin = 0;
 uhc_anim_current_color = get_player_color(player);
 uhc_anim_blade_color = uhc_anim_current_color;
+init_shader();
 
 uhc_anim_blade_force_draw = false; //strongs need to draw a CD that was just thrown
 
