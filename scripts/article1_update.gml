@@ -540,6 +540,7 @@ switch (state)
         if (!instance_exists(cd_hitbox))
         {
             cd_hitbox = spawn_hitbox(AT_DSPECIAL, 2);
+            refresh_cd_hitbox(true); //guarantee an antipolite refresh upfront
         }
         cd_hitbox.hitbox_timer = 0;
         
@@ -598,7 +599,7 @@ switch (state)
         }
         else if (0 == state_timer % 5)
         {
-            refresh_cd_hitbox(state_timer > 3);
+            refresh_cd_hitbox(true); //antipolite: can't interrupt another hit
             var hfx = spawn_hit_fx( x, y, player_id.vfx_spinning);
             hfx.draw_angle = random_func( 7, 180, true);
         }
