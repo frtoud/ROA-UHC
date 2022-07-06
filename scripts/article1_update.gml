@@ -55,6 +55,12 @@ ignores_walls = (state == AR_STATE_DSPECIAL);
 
 unbashable = (state == AR_STATE_HELD || state == AR_STATE_DYING);
 
+if (destroyed) && (state != AR_STATE_DYING)
+{
+    print("DELET DETECTED");
+    set_state(AR_STATE_DYING);
+} 
+
 can_recall = false;
 can_priority_recall = false;
 
@@ -104,7 +110,9 @@ switch (state)
 //=====================================================
     case AR_STATE_DYING:
     {
+        destroyed = true;
         sound_play(sfx_cd_death);
+        destroy_cd_hitboxes();
         instance_destroy(self); exit;
     } break;
 //=====================================================
