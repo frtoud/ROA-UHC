@@ -1,7 +1,7 @@
-//other_post_draw.gml
-if (results_timer < 5) exit; //giik pls
+//results_post_draw.gml
+// Note: draws in front of portraits, but behind the side boxes
+if (results_timer < 5) exit;
 
-// Note: draws behind portrait and result boxes.
 if ("uhc_initialized_victory_screen" not in self)
 {
     uhc_initialized_victory_screen = true;
