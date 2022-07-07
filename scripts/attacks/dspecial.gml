@@ -93,6 +93,7 @@ set_hitbox_value(AT_DSPECIAL, 2, HG_ANGLE_FLIPPER, ANGLE_FLIPPER_CD_MULTIHIT);
 set_hitbox_value(AT_DSPECIAL, 2, HG_DAMAGE, 1);
 set_hitbox_value(AT_DSPECIAL, 2, HG_TECHABLE, 3);
 set_hitbox_value(AT_DSPECIAL, 2, HG_BASE_KNOCKBACK, 2);
+set_hitbox_value(AT_DSPECIAL, 2, HG_HITSTUN_MULTIPLIER, 2);
 set_hitbox_value(AT_DSPECIAL, 2, HG_BASE_HITPAUSE, 3);
 set_hitbox_value(AT_DSPECIAL, 2, HG_SPIN_COST, 1);
 set_hitbox_value(AT_DSPECIAL, 2, HG_VISUAL_EFFECT, 302);

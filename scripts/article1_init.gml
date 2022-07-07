@@ -34,6 +34,23 @@ ignores_walls = false;
 hit_wall = false;
 through_platforms = false;
 
+destroyed = false; //article destruction
+//=====================================================
+// Hittability
+is_hittable = false;
+hittable_hitpause_mult = 1;
+// also includes variables:
+// enemy_hitboxID, hit_player_obj, hit_player, hit_dir
+// can_be_hit, attack_can_hit
+//Cannot use: hurtbox would be the same as collision box
+
+//=====================================================
+//Ori's compatibility
+unbashable = true;
+getting_bashed = false;
+bashed_id = noone;
+
+//=====================================================
 //Constants
 cd_grav_force  = 0.35;
 cd_frict_force = 0.07;
@@ -128,13 +145,7 @@ aerial_ustrong_max_penality = 0.5; //special multiplier for USTRONG
 //=====================================================
 // animation variables
 cd_anim_blade_spin = 0; //animation speed for the blade when held
-cd_anim_color = get_player_color(player_id.player) //color of CD
-
-//=====================================================
-//Ori's compatibility
-unbashable = true;
-getting_bashed = false;
-bashed_id = noone;
+cd_anim_color = player_id.uhc_anim_current_color //color of CD
 
 //======================================================
 // Runes

@@ -92,7 +92,6 @@ set_hitbox_value(AT_FAIR, 2, HG_BASE_HITPAUSE, 6);
 set_hitbox_value(AT_FAIR, 2, HG_HITPAUSE_SCALING, .25);
 set_hitbox_value(AT_FAIR, 2, HG_VISUAL_EFFECT_X_OFFSET, 32);
 set_hitbox_value(AT_FAIR, 2, HG_HIT_SFX, asset_get("sfx_blow_heavy1"));
-set_hitbox_value(AT_FAIR, 2, HG_ANGLE_FLIPPER, 3); //Horz-outward
 
 //(Blade)
 set_hitbox_value(AT_FAIR, 4, HG_HITBOX_TYPE, 1);
@@ -117,4 +116,3 @@ set_hitbox_value(AT_FAIR, 4, HG_HITPAUSE_SCALING, .4);
 set_hitbox_value(AT_FAIR, 4, HG_VISUAL_EFFECT, 303);
 set_hitbox_value(AT_FAIR, 4, HG_HIT_SFX, asset_get("sfx_blow_heavy2"));
 set_hitbox_value(AT_FAIR, 4, HG_SPIN_SFX, sound_get("sfx_ssbu_slash2"));
-set_hitbox_value(AT_FAIR, 4, HG_ANGLE_FLIPPER, 3); //Horz-outward

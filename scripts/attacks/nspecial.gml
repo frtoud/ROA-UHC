@@ -50,7 +50,7 @@ for (var i = 1; i <= 5; i++)
     set_hitbox_value(AT_NSPECIAL, i, HG_PROJECTILE_GROUND_BEHAVIOR, 0);
     set_hitbox_value(AT_NSPECIAL, i, HG_PROJECTILE_WALL_BEHAVIOR, 0);
     set_hitbox_value(AT_NSPECIAL, i, HG_DAMAGE, 1);
-    set_hitbox_value(AT_NSPECIAL, i, HG_BASE_KNOCKBACK, 5);
+    set_hitbox_value(AT_NSPECIAL, i, HG_BASE_KNOCKBACK, 4);
     set_hitbox_value(AT_NSPECIAL, i, HG_BASE_HITPAUSE, 2);
     set_hitbox_value(AT_NSPECIAL, i, HG_FORCE_FLINCH, 1);
     set_hitbox_value(AT_NSPECIAL, i, HG_ANGLE, 75);

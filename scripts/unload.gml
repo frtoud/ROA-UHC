@@ -58,7 +58,7 @@ if (!uhc_handled_victory_quote)
             if (temp_holding_blade) && (uhc_current_cd.player_id != self)
             { 
                 stole_cd = true;
-                data.held_cd_color = get_player_color(uhc_current_cd.player_id.player); 
+                data.held_cd_color = uhc_current_cd.cd_anim_color; 
             }
 
             if (on_team_with_niconico)

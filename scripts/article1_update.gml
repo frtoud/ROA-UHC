@@ -55,6 +55,12 @@ ignores_walls = (state == AR_STATE_DSPECIAL);
 
 unbashable = (state == AR_STATE_HELD || state == AR_STATE_DYING);
 
+if (destroyed) && (state != AR_STATE_DYING)
+{
+    print("DELET DETECTED");
+    set_state(AR_STATE_DYING);
+} 
+
 can_recall = false;
 can_priority_recall = false;
 
@@ -104,7 +110,9 @@ switch (state)
 //=====================================================
     case AR_STATE_DYING:
     {
+        destroyed = true;
         sound_play(sfx_cd_death);
+        destroy_cd_hitboxes();
         instance_destroy(self); exit;
     } break;
 //=====================================================
@@ -532,6 +540,7 @@ switch (state)
         if (!instance_exists(cd_hitbox))
         {
             cd_hitbox = spawn_hitbox(AT_DSPECIAL, 2);
+            refresh_cd_hitbox(true); //guarantee an antipolite refresh upfront
         }
         cd_hitbox.hitbox_timer = 0;
         
@@ -590,7 +599,7 @@ switch (state)
         }
         else if (0 == state_timer % 5)
         {
-            refresh_cd_hitbox(state_timer > 3);
+            refresh_cd_hitbox(true); //antipolite: can't interrupt another hit
             var hfx = spawn_hit_fx( x, y, player_id.vfx_spinning);
             hfx.draw_angle = random_func( 7, 180, true);
         }

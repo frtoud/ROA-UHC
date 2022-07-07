@@ -16,9 +16,10 @@ with (oPlayer) if (self != other && uhc_being_buffered_by == other)
 }
 
 if (uhc_has_cd_blade)
-{
-    uhc_current_cd.player_id = self; //could be holding anyone's CD...
-    uhc_current_cd.cd_anim_color = get_player_color(player);
+{ 
+    //could be holding anyone's CD... restore as your own
+    uhc_current_cd.player_id = self;
+    uhc_current_cd.cd_anim_color = uhc_anim_current_color;
     uhc_current_cd.cd_spin_meter = floor(uhc_cd_spin_max / 2);
 }
 
