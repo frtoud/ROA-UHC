@@ -2,6 +2,8 @@
 shader_end();
 init_shader();
 
+
+if ("button_anim_timer" not in self) exit;
 //drawing button
 var real_button_x = floor(x + button_x);
 var real_button_y = floor(y + button_y + (get_match_setting(SET_RUNES) ? -rune_size : 0));

@@ -367,7 +367,8 @@ if (swallowed && instance_exists(enemykirby))
 }
 
 //Kirby's attack_update
-with (oPlayer) if (uhc_handler_id == other)
+with (oPlayer) 
+if ("uhc_handler_id" in self) && (uhc_handler_id == other)
 {
     if (uhc_has_kirby_ability)
     {
