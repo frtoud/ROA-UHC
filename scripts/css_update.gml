@@ -1,4 +1,7 @@
 //css_update.gml
+
+if ("button_anim_timer" not in self) exit;
+
 var curpos = { x:get_instance_x(cursor_id), y:get_instance_y(cursor_id) };
 
 var real_button_x = x + button_x;
