@@ -901,7 +901,9 @@ if (rune_fire_charge > 0)
             // "Crownslide": catch blade to remove friction for 12 frames
             if (state_cat == SC_GROUND_NEUTRAL || state_cat == SC_AIR_NEUTRAL)
             || (state == PS_LAND || state == PS_WAVELAND || state == PS_WALK_TURN 
-            ||  state == PS_DASH_START || state == PS_DASH || state == PS_DASH_TURN || state == PS_DASH_STOP)
+            //note: not supported for PS_DASH_START or PS_DASH to avoid risk of canceling back into walk instead
+            //controller joystick is only considered "run_down" on the first frames of full-tilt input
+            ||  state == PS_DASH_TURN || state == PS_DASH_STOP)
             {
                 move_cooldown[AT_DSPECIAL] = 0; //updated too late, needed here...
                 set_attack(AT_DSPECIAL);
