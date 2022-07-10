@@ -1013,7 +1013,8 @@ var antipolite = (argument_count > 0) ? argument[0] : false;
 	    if (player != cd_owner_id.player || can_hit_self)
         && ((hit_priority > best_priority) || (hit_priority == best_priority && damage > best_damage))
 	    && (cd_owner_id.can_be_hit[player] == 0) && (can_hit[cd_owner_id.player])
-        && (proj_break == 0 || ("uhc_parent_cd" in self && other != uhc_parent_cd))
+        //special exception to proj_break rules so it can clang with other CDs
+        && ( ("uhc_parent_cd" in self) ? (other != uhc_parent_cd) : (proj_break == 0) )
 	    && (get_player_team(cd_owner_id.player) != get_player_team(player) || team_attack)
 	    && (self == collision_circle(other.x, other.y, other.cd_hittable_radius, self, true, false))
         {
