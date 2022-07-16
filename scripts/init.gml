@@ -344,6 +344,9 @@ uhc_uspecial_speed_fast = 7;
 
 //=================================================
 //Custom variables initialized here
+uhc_do_cstick_tilt_check = false; //detect cstick inputs
+uhc_do_cstick_special_check = false;
+
 uhc_has_cd_blade = true;
 uhc_current_cd = instance_create(x, y, "obj_article1"); //CD held (or last CD held)
 uhc_pickup_cooldown = 0; //number of frames before being able to pickup a CD
@@ -375,6 +378,7 @@ uhc_nspecial_is_charging = false;
 
 uhc_uspecial_hitbox = noone;
 uhc_uspecial_start_pos = { x:0, y:0 };
+uhc_uspecial_last_dir = 0; //controller cannot rely on joy_dir when idle; it reverts to zero
 
 //from other_init, for simplicity
 uhc_handler_id = noone;

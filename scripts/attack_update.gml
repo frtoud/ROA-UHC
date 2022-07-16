@@ -91,7 +91,10 @@ switch (attack)
                 create_hitbox(AT_DATTACK, 3, 0, 0);
             }
             
-            if (!attack_down && uhc_looping_attack_can_exit) || (was_parried)
+            var loopcheck = attack_down 
+                        || (uhc_do_cstick_tilt_check && left_stick_down || right_stick_down);
+
+            if (!loopcheck && uhc_looping_attack_can_exit) || (was_parried)
             { 
                 window = 4;
                 window_timer = 0;
@@ -482,13 +485,28 @@ switch (attack)
             //sync with this for animation
             uhc_anim_last_dodge.posx = x;
             uhc_anim_last_dodge.posy = y;
+            uhc_uspecial_last_dir = 90; //default to upwards
         }
         else if (window == 3)
         {
-            var uspecial_speed = joy_pad_idle ? uhc_uspecial_speed 
-                                              : uhc_uspecial_speed_fast;
-            hsp = lengthdir_x(uspecial_speed, joy_dir);
-            vsp = lengthdir_y(uspecial_speed, joy_dir);
+            var uspecial_speed = uhc_uspecial_speed;
+            if (!joy_pad_idle)
+            {
+                uspecial_speed = uhc_uspecial_speed_fast;
+                uhc_uspecial_last_dir = joy_dir;
+            }
+            else if (uhc_do_cstick_special_check)
+            {
+                var stick_down = (up_stick_down || down_stick_down || left_stick_down || right_stick_down);
+                if (stick_down)
+                {
+                    uspecial_speed = uhc_uspecial_speed_fast;
+                    uhc_uspecial_last_dir = point_direction( 0, 0,right_stick_down - left_stick_down, 
+                                                                   down_stick_down - up_stick_down);
+                }
+            }
+            hsp = lengthdir_x(uspecial_speed, uhc_uspecial_last_dir);
+            vsp = lengthdir_y(uspecial_speed, uhc_uspecial_last_dir);
         }
         var attack_stopped = false;
         var need_ejector = true;
