@@ -139,8 +139,8 @@ aerial_strong_check = false; //true if need to count number of aerial strong fra
 aerial_strong_frames = 0; //number of frames last owner was not grounded
 aerial_strong_frames_max = 12; //limit for full penalty
 
-aerial_strong_max_penality = 0.25; //multiplier for maximum penalty
-aerial_ustrong_max_penality = 0.5; //special multiplier for USTRONG
+aerial_strong_max_penality = 0.4; //multiplier for maximum penalty
+aerial_ustrong_max_penality = 0.6; //special multiplier for USTRONG
 
 //=====================================================
 // animation variables
