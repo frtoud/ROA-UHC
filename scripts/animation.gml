@@ -327,9 +327,8 @@ switch (state)
                             // I'm almost sorry
                             if (uhc_rune_flags.deadly_rickroll) && (uhc_taunt_current_video.special == 2)
                             {
-                                sound_play(uhc_taunt_current_video.song, true, noone, 1, 1);
-                                sound_play(uhc_taunt_current_video.song, true, noone, 1, 1);
-                                sound_play(uhc_taunt_current_video.song, true, noone, 1, 1);
+                                //not providing the pitch argument does allow >1 volume. Dan pls
+                                sound_play(uhc_taunt_current_video.song, true, noone, 5);
                             }
                             //==============================================================
 
