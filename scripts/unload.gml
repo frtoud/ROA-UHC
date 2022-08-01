@@ -124,6 +124,7 @@ if (!uhc_handled_victory_quote)
         // KFAD
         //=================================================================
         case "2218690857": // King Dedede
+        case "2842873754":
            quote = "if this tutoriel helped you pls subscribe for more kirby videos"; 
            break;
         case "2263955842": // Reimu (ZUN stand-in)
