@@ -28,7 +28,7 @@ if ("uhc_parent_cd" in my_hitboxID)
     
     //Special Flipper: "Projectile Autolink" 
     // Attempts to pull towards center of future hitbox position
-    if (my_hitboxID.hit_flipper == ANGLE_FLIPPER_CD_MULTIHIT)
+    if (ANGLE_FLIPPER_CD_MULTIHIT == get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_UHC_MULTIHIT_FLIPPER))
     // No effect on armored enemies
     && (hit_player_obj.state == PS_HITSTUN || hit_player_obj.state == PS_HITSTUN_LAND)
     {
@@ -65,7 +65,7 @@ if ("uhc_parent_cd" in my_hitboxID)
 
 //Special Flipper: "Autolink" 
 // Adjusts to pull towards wherever current knockback is pointing at (relative to the hitbox)
-if (my_hitboxID.hit_flipper == ANGLE_FLIPPER_AUTOLINK)
+if (ANGLE_FLIPPER_AUTOLINK == get_hitbox_value(my_hitboxID.attack, my_hitboxID.hbox_num, HG_UHC_MULTIHIT_FLIPPER))
 // No effect on armored enemies; only do this for hitstun states
 && (hit_player_obj.state == PS_HITSTUN || hit_player_obj.state == PS_HITSTUN_LAND)
 {

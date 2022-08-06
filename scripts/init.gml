@@ -119,9 +119,10 @@ uhc_spin_sfx_threshold = 0.50; //above 50% spin bonuses, you get the new sounds
 uhc_spin_sfx_high_threshold = 0.95; //above 95% spin bonuses, some moves get even more sounds
 // (not actual spin percent, see uhc_cd_spin_effective_max below)
 
-// Custom Angle Flipper values
-ANGLE_FLIPPER_AUTOLINK = 33; //simulates "pull towards center" but considers position of victim & base KB direction/length
-ANGLE_FLIPPER_CD_MULTIHIT = 55; //simulate "pull towards center" but considers position of victim & speed of cd
+// Custom Angle Flipper setup
+HG_UHC_MULTIHIT_FLIPPER = 77;
+ANGLE_FLIPPER_AUTOLINK = 1; //simulates "pull towards center" but considers position of victim & base KB direction/length
+ANGLE_FLIPPER_CD_MULTIHIT = 2; //simulate "pull towards center" but considers position of victim & speed of cd
 
 //=================================================
 //Custom vfx & sprites
