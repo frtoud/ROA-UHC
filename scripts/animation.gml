@@ -482,19 +482,61 @@ if (uhc_taunt_collect_videos && state == PS_ATTACK_GROUND && attack == AT_TAUNT)
     var collected_urls = [];
     collected_urls[0] = url;
     var vid = noone;
-    
-    with (oPlayer) 
-    if ("url" in self) && !array_exists(url, collected_urls)
+
+    //check buddy
+    var buddy_replaces_playlist = false;
+    if ("uhc_taunt_videos" in my_pet && is_array(my_pet.uhc_taunt_videos))
     {
-        collected_urls[array_length(collected_urls)] = url;
-        
-        var videos_to_collect = noone;
-        if ("uhc_taunt_videos" in self && is_array(uhc_taunt_videos))
-        { videos_to_collect = uhc_taunt_videos; }
+        buddy_replaces_playlist = ("uhc_replace_videos" in my_pet && my_pet.uhc_replace_videos);
+        if (buddy_replaces_playlist)
+        {
+            uhc_taunt_num_videos = 1; //flushes all videos
+        }
+
+        //grab from buddy
+        for (var i = 0; i < array_length(my_pet.uhc_taunt_videos); i++)
+        {
+            vid = my_pet.uhc_taunt_videos[i];
+            if (vid != noone) && ("uhc_taunt_videos" in self)
+            && ("sprite" in vid) && ("song" in vid) && ("fps" in vid)
+            {
+                if ("special" not in vid) { vid.special = 0; }
+                if ("title" not in vid) { vid.title = "Private video"; }
+                uhc_taunt_videos[uhc_taunt_num_videos] = vid;
+                uhc_taunt_num_videos++;
+            }
+        }
+    }
+
+    if (!buddy_replaces_playlist) //continue collecting if buddy did not override
+    {
+        with (oPlayer) 
+        if ("url" in self) && !array_exists(url, collected_urls)
+        {
+            collected_urls[array_length(collected_urls)] = url;
+            
+            var videos_to_collect = noone;
+            if ("uhc_taunt_videos" in self && is_array(uhc_taunt_videos))
+            { videos_to_collect = uhc_taunt_videos; }
+            else with (other) 
+            { videos_to_collect = try_get_builtin_video(other.url); }
+            
+            if (videos_to_collect != noone)
+            {
+                for (var i = 0; i < array_length(videos_to_collect); i++)
+                {
+                    vid = videos_to_collect[i];
+                    with (other)
+                    {
+                        //Send vid to Hypercam
+                        if (vid != noone) && ("uhc_taunt_videos" in self)
+                        && ("sprite" in vid) && ("song" in vid) && ("fps" in vid)
+                        {
                             if ("special" not in vid) { vid.special = 0; }
                             if ("title" not in vid) { vid.title = "Private video"; }
-                        uhc_taunt_videos[uhc_taunt_num_videos] = vid;
-                        uhc_taunt_num_videos++;
+                            uhc_taunt_videos[uhc_taunt_num_videos] = vid;
+                            uhc_taunt_num_videos++;
+                        }
                     }
                 }
             }
