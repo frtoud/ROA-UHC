@@ -243,18 +243,18 @@ uhc_buffer_breaks_music = (get_synced_var(player) & 0x01) == 0;
 uhc_taunt_videos[31] = noone; //preinitialized to a reasonable amount
 uhc_taunt_collect_videos = true;
 var i = 0;
-uhc_taunt_videos[i] = make_video("This video is not available in your country.", 
-                                 "video_blocked", "video_blocked", 0, 1); i++;
-uhc_taunt_videos[i] = make_video("Trance - 009 Sound System Dreamscape (HD)", 
-                                 "video_dream",   "video_dream",   0);    i++;
-uhc_taunt_videos[i] = make_video("Nyan Cat [original]", 
-                                 "video_nyan",    "video_nyan",   10);    i++;
-uhc_taunt_videos[i] = make_video("Rick Astley - Never Gonna Give You Up (Official Music Video)", 
-                                 "video_rick",    "video_rick",    8, 2); i++;
-uhc_taunt_videos[i] = make_video("[YTP] The King Downloads Sony Vegas", 
-                                 "video_unreal",  "video_unreal", 15);    i++;
-uhc_taunt_videos[i] = make_video("What is love !!! Jim Carrey Troll Face", 
-                                 "video_love",    "video_love",   16);    i++;
+uhc_taunt_videos[i] = make_uhc_video("This video is not available in your country.", 
+                                     "video_blocked", "video_blocked", 0, 1); i++;
+uhc_taunt_videos[i] = make_uhc_video("Trance - 009 Sound System Dreamscape (HD)", 
+                                     "video_dream",   "video_dream",   0);    i++;
+uhc_taunt_videos[i] = make_uhc_video("Nyan Cat [original]", 
+                                     "video_nyan",    "video_nyan",   10);    i++;
+uhc_taunt_videos[i] = make_uhc_video("Rick Astley - Never Gonna Give You Up (Official Music Video)", 
+                                     "video_rick",    "video_rick",    8, 2); i++;
+uhc_taunt_videos[i] = make_uhc_video("[YTP] The King Downloads Sony Vegas", 
+                                     "video_unreal",  "video_unreal", 15);    i++;
+uhc_taunt_videos[i] = make_uhc_video("What is love !!! Jim Carrey Troll Face", 
+                                     "video_love",    "video_love",   16);    i++;
 uhc_taunt_num_videos = i;
 uhc_taunt_blocked_video = uhc_taunt_videos[0]; //keep track of this one separately. might be useful
 
