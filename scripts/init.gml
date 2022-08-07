@@ -243,14 +243,20 @@ uhc_buffer_breaks_music = (get_synced_var(player) & 0x01) == 0;
 uhc_taunt_videos[31] = noone; //preinitialized to a reasonable amount
 uhc_taunt_collect_videos = true;
 var i = 0;
-add_uhc_video(i, "video_blocked",  0, 1); i++;
-uhc_taunt_blocked_video = uhc_taunt_videos[0]; //keep track of this one separately; might be useful
-add_uhc_video(i, "video_dream",    0, 0); i++;
-add_uhc_video(i, "video_nyan",    10, 0); i++;
-add_uhc_video(i, "video_rick",     8, 2); i++;
-add_uhc_video(i, "video_unreal",  15, 0); i++;
-add_uhc_video(i, "video_love",    16, 0); i++;
+uhc_taunt_videos[i] = make_video("This video is not available in your country.", 
+                                 "video_blocked", "video_blocked", 0, 1); i++;
+uhc_taunt_videos[i] = make_video("Trance - 009 Sound System Dreamscape (HD)", 
+                                 "video_dream",   "video_dream",   0);    i++;
+uhc_taunt_videos[i] = make_video("Nyan Cat [original]", 
+                                 "video_nyan",    "video_nyan",   10);    i++;
+uhc_taunt_videos[i] = make_video("Rick Astley - Never Gonna Give You Up (Official Music Video)", 
+                                 "video_rick",    "video_rick",    8, 2); i++;
+uhc_taunt_videos[i] = make_video("[YTP] The King Downloads Sony Vegas", 
+                                 "video_unreal",  "video_unreal", 15);    i++;
+uhc_taunt_videos[i] = make_video("What is love !!! Jim Carrey Troll Face", 
+                                 "video_love",    "video_love",   16);    i++;
 uhc_taunt_num_videos = i;
+uhc_taunt_blocked_video = uhc_taunt_videos[0]; //keep track of this one separately. might be useful
 
 uhc_taunt_current_video_index = 0;
 uhc_taunt_current_video = noone;
@@ -261,6 +267,8 @@ uhc_taunt_buffering_timer = 0;
 uhc_taunt_reloop = false;
 uhc_taunt_bufferskip = false;
 
+//=============================================================
+//Screenshot spoofing
 //NOTE: time values unsafe for online! only used in rendering!
 uhc_fast_screenshot = 2 < (is_player_on(1) + is_player_on(2) + is_player_on(3) + is_player_on(4));
 uhc_unsafe_screenshot = 
@@ -434,16 +442,24 @@ ncode3 = "Pretends to be royalty; incessantly asks to subscribe.";
 
 
 //=========================================================================
-#define add_uhc_video(video_index, video_filename, video_fps, video_special)
+#define make_uhc_video
+var video_title = argument[0], 
+    sprite_name = argument[1],
+    sound_name  = argument[2], 
+    video_fps   = argument[3];
+//set to 1 to skip bufferring
+//set to 2 to be extra loud if "deadly rickroll" rune is active 
+var video_special = argument_count > 4 ? argument[4] : 0;
 {
     //cheating: this is preferrably done in load.gml, but I'm lazy.
-    sprite_change_offset(video_filename, 11, 8);
+    sprite_change_offset(sprite_name, 11, 8);
     
-    uhc_taunt_videos[video_index] = { sprite:sprite_get(video_filename),   
-                                      song:sound_get(video_filename),   
-                                      fps:video_fps,
-                                      special:video_special
-                                    };
+    return { title:video_title,
+             sprite:sprite_get(sprite_name),
+             song:sound_get(sound_name),
+             fps:video_fps,
+             special:video_special
+           };
 }
 //=========================================================================
 #define detect_online()
