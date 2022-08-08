@@ -513,7 +513,7 @@ switch (attack)
         }
         var attack_stopped = false;
         var need_ejector = true;
-        //non-ejecting cancel on shield (with compounding penalty)
+        //non-ejecting cancel on shield (with penalty)
         if (shield_pressed && window == 3)
         {
             window = 4; 
@@ -521,9 +521,8 @@ switch (attack)
             attack_stopped = true;
             need_ejector = false;
 
-            //raise off the penalty timer
-            uhc_uspecial_soft_cooldown = max(uhc_uspecial_soft_cooldown_max * 2,
-                uhc_uspecial_soft_cooldown + uhc_uspecial_soft_cooldown_max);
+            //start the penalty timer
+            uhc_uspecial_soft_cooldown = uhc_uspecial_soft_cooldown_max;
         }
         //autocancel if landing
         else if (!free && window > 2)
