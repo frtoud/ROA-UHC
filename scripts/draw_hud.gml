@@ -102,7 +102,15 @@ draw_sprite_ext(vfx_hud_icons, sound_icon, temp_x + sound_pos_x, temp_y + bar_y,
 
 shader_end();
 
-if (get_match_setting(SET_HITBOX_VIS)) && instance_exists(tracked_cd)
+//Video title
+if (uhc_taunt_current_video != noone)
+{
+    var valign = draw_get_valign();
+    draw_set_valign(fa_bottom);
+    textDraw(temp_x - 4, temp_y - 24, "fName", c_white, 18, 220, fa_left, fa_bottom, 1, true, 1, uhc_taunt_current_video.title)
+}
+//Spin % display
+else if (get_match_setting(SET_HITBOX_VIS)) && instance_exists(tracked_cd)
 {
     var charge_percent = (tracked_cd.cd_spin_meter / uhc_cd_spin_max);
     charge_percent = min(1, charge_percent / uhc_cd_spin_effective_max);
@@ -166,3 +174,44 @@ if (screenshot.target != noone > 0 && instance_exists(screenshot.target))
 
 
 
+
+//=====================================================================
+#define textDraw(x1, y1, font, color, line_sep, line_max, halign, valign, scale, outlined, alpha, text)
+// Draw text at position x1, y1, using scale, alpha, align, font and color.
+// line_sep is the vertical separation between text.
+// line_max is the maximum length for a line of text.
+// if outlined is TRUE, draws a 2px black contour.
+//=====================================================================
+{
+    x1 = round(x1);
+    y1 = round(y1);
+
+    old_font = draw_get_font();
+    old_hal = draw_get_halign();
+    old_val = draw_get_valign();
+
+    draw_set_font(asset_get(font));
+    draw_set_halign(halign);
+    draw_set_valign(valign);
+
+    if (outlined)
+    {
+        for (var i = -1; i < 2; i++) 
+        {
+            for (var j = -1; j < 2; j++) 
+            {
+                draw_text_ext_transformed_color(x1 + i * 2, y1 + j * 2, text, 
+                    line_sep, line_max, scale, scale, 0, c_black, c_black, c_black, c_black, alpha);
+            }
+        }
+    }
+
+    if (alpha > 0.01) 
+        draw_text_ext_transformed_color(x1, y1, text, line_sep, line_max, 
+                    scale, scale, 0, color, color, color, color, alpha);
+
+     draw_set_font(old_font);
+     draw_set_halign(old_hal);
+     draw_set_valign(old_val);
+}
+//=====================================================================
