@@ -169,6 +169,7 @@ vfx_hud_icons = sprite_get("hud_icons");
 
 vfx_buffering = sprite_get("vfx_buffering");
 vfx_mini_buffering = sprite_get("vfx_mini_buffering");
+vfx_muted = sprite_get("vfx_muted");
 
 //NSPECIAL 
 uhc_anim_nspecial_arm = sprite_get("nspecial_arm");
@@ -268,6 +269,8 @@ uhc_taunt_opening_timer_max = 8;
 uhc_taunt_buffering_timer = 0;
 uhc_taunt_reloop = false;
 uhc_taunt_bufferskip = false;
+uhc_taunt_current_audio = noone;
+uhc_taunt_muted = false;
 
 //=============================================================
 //Screenshot spoofing

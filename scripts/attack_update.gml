@@ -572,6 +572,21 @@ switch (attack)
                 window_timer = 0;
                 uhc_taunt_reloop = taunt_pressed;
             }
+            if (shield_pressed)
+            {
+                uhc_taunt_muted = !uhc_taunt_muted;
+                clear_button_buffer(PC_SHIELD_PRESSED);
+                if (uhc_taunt_muted) sound_play(sound_get("sfx_popup"));
+
+                if !(uhc_rune_flags.deadly_rickroll && uhc_taunt_current_video.special == 2)
+                {
+                    if (uhc_taunt_muted)
+                        sound_stop(uhc_taunt_current_audio);
+                    else
+                        uhc_taunt_current_audio = 
+                        sound_play(uhc_taunt_current_video.song, true, noone, 1, 1);
+                }
+            }
         }
         else if (window == 6 && uhc_taunt_reloop)
         {

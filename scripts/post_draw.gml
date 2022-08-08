@@ -155,6 +155,14 @@ if (uhc_taunt_current_video != noone)
     { draw_sprite_ext(vfx_mini_buffering, (floor(get_gameplay_time()/4) % 16), vid_x, vid_y, 1, y_scale/2, 0, c_white, alpha); }
 }
 
+//Muted setting
+if (uhc_taunt_muted)
+&& ( (state == PS_SPAWN) 
+  || (uhc_taunt_current_video != noone) && 
+     !(uhc_taunt_current_video.special == 2 && uhc_rune_flags.deadly_rickroll) )
+{
+    draw_sprite_ext(vfx_muted, (spr_dir > 0), x -(spr_dir*32), y-28, 2, 2, 0, c_white, 1);
+}
 
 //===================================================
 // Host hat

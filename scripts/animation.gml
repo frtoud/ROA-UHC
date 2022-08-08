@@ -325,17 +325,19 @@ switch (state)
                         uhc_taunt_buffering_timer--; 
                         if (uhc_taunt_buffering_timer == 0 && uhc_taunt_is_opening)
                         {
-                            sound_play(uhc_taunt_current_video.song, true, noone, 1, 1);
                             //==============================================================
                             // RUNE: Rickroll earrape
                             // I'm almost sorry
                             if (uhc_rune_flags.deadly_rickroll) && (uhc_taunt_current_video.special == 2)
                             {
                                 //not providing the pitch argument does allow >1 volume. Dan pls
-                                sound_play(uhc_taunt_current_video.song, true, noone, 5);
+                                uhc_taunt_current_audio = 
+                                   sound_play(uhc_taunt_current_video.song, true, noone, 5);
                             }
                             //==============================================================
-
+                            else if (!uhc_taunt_muted)
+                                uhc_taunt_current_audio = 
+                                   sound_play(uhc_taunt_current_video.song, true, noone, 1, 1);
                         }
                     }
                     else
@@ -375,7 +377,7 @@ switch (state)
                     //Switching channels
                     if (uhc_taunt_current_video != noone)
                     {
-                        sound_stop(uhc_taunt_current_video.song);
+                        sound_stop(uhc_taunt_current_audio);
                         video_number = (uhc_taunt_current_video_index + 1) % uhc_taunt_num_videos;
                     }
                     else
@@ -399,8 +401,10 @@ switch (state)
                 }
                 else if (window == 6) && (window_timer == 4) //Click to end
                 {
-                    sound_stop(uhc_taunt_current_video.song);
+                    sound_stop(uhc_taunt_current_audio);
                     uhc_taunt_is_opening = false;
+                    uhc_taunt_opening_timer = 0;
+                    uhc_taunt_current_video = noone;
                 }
 
                 //Respawn taunt special behavior
@@ -441,6 +445,9 @@ switch (state)
             {
                 uhc_anim_blink_timer = uhc_anim_blink_timer_max;
                 sound_play(sfx_cd_respawn);
+
+                //Mute mode
+                if (shield_down) uhc_taunt_muted = true;
             }
             else
             {
@@ -476,7 +483,7 @@ if (uhc_lost_hat_timer < uhc_lost_hat_timer_max)
 //prevent this from looping if no longer taunting
 if (uhc_taunt_current_video != noone && state != PS_ATTACK_GROUND)
 {
-    sound_stop(uhc_taunt_current_video.song);
+    sound_stop(uhc_taunt_current_audio);
     uhc_taunt_is_opening = false;
     uhc_taunt_opening_timer = 0;
     uhc_taunt_current_video = noone;
