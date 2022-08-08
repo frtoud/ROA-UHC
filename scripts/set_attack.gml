@@ -33,6 +33,10 @@ else if (up_strong_pressed || down_strong_pressed
     }
 }
 
+//detect if using cstick tilt or special inputs
+uhc_do_cstick_tilt_check = (is_attack_pressed(DIR_ANY) && !attack_pressed);
+uhc_do_cstick_special_check = (is_special_pressed(DIR_ANY) && !special_pressed);
+
 // Forces an update to the attack grid
 // Moved to attack_update in case of catching the blade midmove 
 uhc_update_blade_status = true;

@@ -2,11 +2,13 @@
 shader_end();
 init_shader();
 
-
-if ("button_anim_timer" not in self) exit;
 //drawing button
 var real_button_x = floor(x + button_x);
-var real_button_y = floor(y + button_y + (get_match_setting(SET_RUNES) ? -rune_size : 0));
+var real_button_y = floor(y + button_y);
+if (get_match_setting(SET_RUNES) || get_match_setting(SET_TEAMS) )
+{
+    real_button_y -= rune_size;
+}
 
 //music note icon
 draw_sprite_ext(sprite_get("css_icons"), button_highlighted && (button_anim_timer == 0), 

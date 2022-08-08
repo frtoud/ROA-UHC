@@ -901,7 +901,9 @@ if (rune_fire_charge > 0)
             // "Crownslide": catch blade to remove friction for 12 frames
             if (state_cat == SC_GROUND_NEUTRAL || state_cat == SC_AIR_NEUTRAL)
             || (state == PS_LAND || state == PS_WAVELAND || state == PS_WALK_TURN 
-            ||  state == PS_DASH_START || state == PS_DASH || state == PS_DASH_TURN || state == PS_DASH_STOP)
+            //note: not supported for PS_DASH_START or PS_DASH to avoid risk of canceling back into walk instead
+            //controller joystick is only considered "run_down" on the first frames of full-tilt input
+            ||  state == PS_DASH_TURN || state == PS_DASH_STOP)
             {
                 move_cooldown[AT_DSPECIAL] = 0; //updated too late, needed here...
                 set_attack(AT_DSPECIAL);
@@ -1011,7 +1013,8 @@ var antipolite = (argument_count > 0) ? argument[0] : false;
 	    if (player != cd_owner_id.player || can_hit_self)
         && ((hit_priority > best_priority) || (hit_priority == best_priority && damage > best_damage))
 	    && (cd_owner_id.can_be_hit[player] == 0) && (can_hit[cd_owner_id.player])
-        && (proj_break == 0 || ("uhc_parent_cd" in self && other != uhc_parent_cd))
+        //special exception to proj_break rules so it can clang with other CDs
+        && ( ("uhc_parent_cd" in self) ? (other != uhc_parent_cd) : (proj_break == 0) )
 	    && (get_player_team(cd_owner_id.player) != get_player_team(player) || team_attack)
 	    && (self == collision_circle(other.x, other.y, other.cd_hittable_radius, self, true, false))
         {

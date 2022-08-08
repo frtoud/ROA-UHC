@@ -46,7 +46,7 @@ hitstun_grav = .5;
 knockback_adj = 0.95; //the multiplier to KB dealt to you. 1 = default, >1 = lighter, <1 = heavier
 
 land_time = 6; //normal landing frames
-prat_land_time = 16;
+prat_land_time = 18;
 wave_land_time = 8;
 wave_land_adj = 1.35; //the multiplier to your initial hsp when wavelanding. Usually greater than 1
 wave_friction = .04; //grounded deceleration when wavelanding
@@ -119,9 +119,10 @@ uhc_spin_sfx_threshold = 0.50; //above 50% spin bonuses, you get the new sounds
 uhc_spin_sfx_high_threshold = 0.95; //above 95% spin bonuses, some moves get even more sounds
 // (not actual spin percent, see uhc_cd_spin_effective_max below)
 
-// Custom Angle Flipper values
-ANGLE_FLIPPER_AUTOLINK = 33; //simulates "pull towards center" but considers position of victim & base KB direction/length
-ANGLE_FLIPPER_CD_MULTIHIT = 55; //simulate "pull towards center" but considers position of victim & speed of cd
+// Custom Angle Flipper setup
+HG_UHC_MULTIHIT_FLIPPER = 77;
+ANGLE_FLIPPER_AUTOLINK = 1; //simulates "pull towards center" but considers position of victim & base KB direction/length
+ANGLE_FLIPPER_CD_MULTIHIT = 2; //simulate "pull towards center" but considers position of victim & speed of cd
 
 //=================================================
 //Custom vfx & sprites
@@ -168,6 +169,7 @@ vfx_hud_icons = sprite_get("hud_icons");
 
 vfx_buffering = sprite_get("vfx_buffering");
 vfx_mini_buffering = sprite_get("vfx_mini_buffering");
+vfx_muted = sprite_get("vfx_muted");
 
 //NSPECIAL 
 uhc_anim_nspecial_arm = sprite_get("nspecial_arm");
@@ -213,6 +215,8 @@ uhc_anim_platform_timer_min =  90; //start of platform visibility
 uhc_anim_platform_timer_max = 300 - uhc_anim_platform_timer_min; //time until platform despawns
 uhc_anim_platform_buffer_timer = 0;
 
+uhc_anim_frozen_meter = 0;
+
 sfx_dspecial_reload = sound_get("sfx_reload");
 sfx_dspecial_reload_done = sound_get("sfx_reload_done");
 sfx_cd_death = sound_get("sfx_cd_death");
@@ -242,14 +246,20 @@ uhc_buffer_breaks_music = (get_synced_var(player) & 0x01) == 0;
 uhc_taunt_videos[31] = noone; //preinitialized to a reasonable amount
 uhc_taunt_collect_videos = true;
 var i = 0;
-add_uhc_video(i, "video_blocked",  0, 1); i++;
-uhc_taunt_blocked_video = uhc_taunt_videos[0]; //keep track of this one separately; might be useful
-add_uhc_video(i, "video_dream",    0, 0); i++;
-add_uhc_video(i, "video_nyan",    10, 0); i++;
-add_uhc_video(i, "video_rick",     8, 2); i++;
-add_uhc_video(i, "video_unreal",  15, 0); i++;
-add_uhc_video(i, "video_love",    16, 0); i++;
+uhc_taunt_videos[i] = make_uhc_video("This video is not available in your country.", 
+                                     "video_blocked", "video_blocked", 0, 1); i++;
+uhc_taunt_videos[i] = make_uhc_video("Trance - 009 Sound System Dreamscape (HD)", 
+                                     "video_dream",   "video_dream",   0);    i++;
+uhc_taunt_videos[i] = make_uhc_video("Nyan Cat [original]", 
+                                     "video_nyan",    "video_nyan",   10);    i++;
+uhc_taunt_videos[i] = make_uhc_video("Rick Astley - Never Gonna Give You Up (Official Music Video)", 
+                                     "video_rick",    "video_rick",    8, 2); i++;
+uhc_taunt_videos[i] = make_uhc_video("[YTP] The King Downloads Sony Vegas", 
+                                     "video_unreal",  "video_unreal", 15);    i++;
+uhc_taunt_videos[i] = make_uhc_video("What is love !!! Jim Carrey Troll Face", 
+                                     "video_love",    "video_love",   16);    i++;
 uhc_taunt_num_videos = i;
+uhc_taunt_blocked_video = uhc_taunt_videos[0]; //keep track of this one separately. might be useful
 
 uhc_taunt_current_video_index = 0;
 uhc_taunt_current_video = noone;
@@ -259,7 +269,11 @@ uhc_taunt_opening_timer_max = 8;
 uhc_taunt_buffering_timer = 0;
 uhc_taunt_reloop = false;
 uhc_taunt_bufferskip = false;
+uhc_taunt_current_audio = noone;
+uhc_taunt_muted = false;
 
+//=============================================================
+//Screenshot spoofing
 //NOTE: time values unsafe for online! only used in rendering!
 uhc_fast_screenshot = 2 < (is_player_on(1) + is_player_on(2) + is_player_on(3) + is_player_on(4));
 uhc_unsafe_screenshot = 
@@ -341,9 +355,14 @@ uhc_uair_flash_penalty = 4*60;
 
 uhc_uspecial_speed = 3;
 uhc_uspecial_speed_fast = 7;
+uhc_uspecial_soft_cooldown_max = 150;
+uhc_extended_pratland_penalty = 20;
 
 //=================================================
 //Custom variables initialized here
+uhc_do_cstick_tilt_check = false; //detect cstick inputs
+uhc_do_cstick_special_check = false;
+
 uhc_has_cd_blade = true;
 uhc_current_cd = instance_create(x, y, "obj_article1"); //CD held (or last CD held)
 uhc_pickup_cooldown = 0; //number of frames before being able to pickup a CD
@@ -375,6 +394,11 @@ uhc_nspecial_is_charging = false;
 
 uhc_uspecial_hitbox = noone;
 uhc_uspecial_start_pos = { x:0, y:0 };
+uhc_uspecial_last_dir = 0; //controller cannot rely on joy_dir when idle; it reverts to zero
+
+uhc_uspecial_soft_cooldown = 0;
+uhc_has_extended_pratland = false;
+
 
 //from other_init, for simplicity
 uhc_handler_id = noone;
@@ -429,16 +453,24 @@ ncode3 = "Pretends to be royalty; incessantly asks to subscribe.";
 
 
 //=========================================================================
-#define add_uhc_video(video_index, video_filename, video_fps, video_special)
+#define make_uhc_video
+var video_title = argument[0], 
+    sprite_name = argument[1],
+    sound_name  = argument[2], 
+    video_fps   = argument[3];
+//set to 1 to skip bufferring
+//set to 2 to be extra loud if "deadly rickroll" rune is active 
+var video_special = argument_count > 4 ? argument[4] : 0;
 {
     //cheating: this is preferrably done in load.gml, but I'm lazy.
-    sprite_change_offset(video_filename, 11, 8);
+    sprite_change_offset(sprite_name, 11, 8);
     
-    uhc_taunt_videos[video_index] = { sprite:sprite_get(video_filename),   
-                                      song:sound_get(video_filename),   
-                                      fps:video_fps,
-                                      special:video_special
-                                    };
+    return { title:video_title,
+             sprite:sprite_get(sprite_name),
+             song:sound_get(sound_name),
+             fps:video_fps,
+             special:video_special
+           };
 }
 //=========================================================================
 #define detect_online()

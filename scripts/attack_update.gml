@@ -91,7 +91,10 @@ switch (attack)
                 create_hitbox(AT_DATTACK, 3, 0, 0);
             }
             
-            if (!attack_down && uhc_looping_attack_can_exit) || (was_parried)
+            var loopcheck = attack_down 
+                        || (uhc_do_cstick_tilt_check && left_stick_down || right_stick_down);
+
+            if (!loopcheck && uhc_looping_attack_can_exit) || (was_parried)
             { 
                 window = 4;
                 window_timer = 0;
@@ -474,7 +477,6 @@ switch (attack)
         can_fast_fall = false;
         can_wall_jump = (window > 2);
         
-        //moving around
         if (window == 2 && window_timer == get_window_value(AT_USPECIAL, 2, AG_WINDOW_LENGTH) - 1)
         {
             uhc_uspecial_start_pos.x = x;
@@ -482,29 +484,54 @@ switch (attack)
             //sync with this for animation
             uhc_anim_last_dodge.posx = x;
             uhc_anim_last_dodge.posy = y;
+            uhc_uspecial_last_dir = 90; //default to upwards
+
+            //apply penalty
+            uhc_has_extended_pratland = (0 < uhc_uspecial_soft_cooldown);
         }
+        //moving around
         else if (window == 3)
         {
-            var uspecial_speed = joy_pad_idle ? uhc_uspecial_speed 
-                                              : uhc_uspecial_speed_fast;
-            hsp = lengthdir_x(uspecial_speed, joy_dir);
-            vsp = lengthdir_y(uspecial_speed, joy_dir);
+            var uspecial_speed = uhc_uspecial_speed;
+            if (!joy_pad_idle)
+            {
+                uspecial_speed = uhc_uspecial_speed_fast;
+                uhc_uspecial_last_dir = joy_dir;
+            }
+            else if (uhc_do_cstick_special_check)
+            {
+                var stick_down = (up_stick_down || down_stick_down || left_stick_down || right_stick_down);
+                if (stick_down)
+                {
+                    uspecial_speed = uhc_uspecial_speed_fast;
+                    uhc_uspecial_last_dir = point_direction( 0, 0,right_stick_down - left_stick_down, 
+                                                                   down_stick_down - up_stick_down);
+                }
+            }
+            hsp = lengthdir_x(uspecial_speed, uhc_uspecial_last_dir);
+            vsp = lengthdir_y(uspecial_speed, uhc_uspecial_last_dir);
         }
         var attack_stopped = false;
         var need_ejector = true;
-        //autocancel if landing
+        //non-ejecting cancel on shield (with compounding penalty)
         if (shield_pressed && window == 3)
         {
             window = 4; 
             window_timer = 1;
             attack_stopped = true;
             need_ejector = false;
+
+            //raise off the penalty timer
+            uhc_uspecial_soft_cooldown = max(uhc_uspecial_soft_cooldown_max * 2,
+                uhc_uspecial_soft_cooldown + uhc_uspecial_soft_cooldown_max);
         }
+        //autocancel if landing
         else if (!free && window > 2)
         {
             set_state(PS_PRATFALL);
             attack_stopped = true;
         }
+        //ran out the clock
         else if (window == 4 && window_timer == 1)
         {
             attack_stopped = true;
@@ -544,6 +571,21 @@ switch (attack)
                 window = 5;
                 window_timer = 0;
                 uhc_taunt_reloop = taunt_pressed;
+            }
+            if (shield_pressed)
+            {
+                uhc_taunt_muted = !uhc_taunt_muted;
+                clear_button_buffer(PC_SHIELD_PRESSED);
+                if (uhc_taunt_muted) sound_play(sound_get("sfx_popup"));
+
+                if !(uhc_rune_flags.deadly_rickroll && uhc_taunt_current_video.special == 2)
+                {
+                    if (uhc_taunt_muted)
+                        sound_stop(uhc_taunt_current_audio);
+                    else
+                        uhc_taunt_current_audio = 
+                        sound_play(uhc_taunt_current_video.song, true, noone, 1, 1);
+                }
             }
         }
         else if (window == 6 && uhc_taunt_reloop)

@@ -83,6 +83,7 @@ sprite_change_offset("vfx_spinning", 21, 22);
 
 sprite_change_offset("vfx_buffering", 12, 12);
 sprite_change_offset("vfx_mini_buffering", 5, 5);
+sprite_change_offset("vfx_muted", 8, 7);
 sprite_change_offset("vfx_flash_charge", -1, 21);
 sprite_change_offset("vfx_flash_small", 0, 24);
 sprite_change_offset("vfx_flash_medium", 0, 53);

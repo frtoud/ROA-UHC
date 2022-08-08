@@ -27,9 +27,12 @@ if (state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR)
 
 //===================================================
 // Strong buffering
-if (state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR)
+if ((state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR)
   && (window == get_attack_value(attack, AG_STRONG_CHARGE_WINDOW))
-  && (strong_charge > 0)
+  && (strong_charge > 0))
+//same for the extra pratland hitpause
+|| (state == PS_PRATLAND && hitpause)
+|| (uhc_has_extended_pratland)
 {
     draw_buffering(x, y);
 }
@@ -45,6 +48,10 @@ if (state == PS_AIR_DODGE && window == 1)
                     spr_dir * scale, scale, spr_angle, c_white, 1);
     shader_end();
     draw_blade(sprite_index, img_index, uhc_anim_last_dodge.posx, uhc_anim_last_dodge.posy);
+    draw_buffering(uhc_anim_last_dodge.posx, uhc_anim_last_dodge.posy);
+}
+else if (uhc_uspecial_soft_cooldown > 0)
+{
     draw_buffering(uhc_anim_last_dodge.posx, uhc_anim_last_dodge.posy);
 }
 
@@ -148,6 +155,14 @@ if (uhc_taunt_current_video != noone)
     { draw_sprite_ext(vfx_mini_buffering, (floor(get_gameplay_time()/4) % 16), vid_x, vid_y, 1, y_scale/2, 0, c_white, alpha); }
 }
 
+//Muted setting
+if (uhc_taunt_muted)
+&& ( (state == PS_SPAWN) 
+  || (uhc_taunt_current_video != noone) && 
+     !(uhc_taunt_current_video.special == 2 && uhc_rune_flags.deadly_rickroll) )
+{
+    draw_sprite_ext(vfx_muted, (spr_dir > 0), x -(spr_dir*32), y-28, 2, 2, 0, c_white, 1);
+}
 
 //===================================================
 // Host hat

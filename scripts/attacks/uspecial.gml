@@ -25,7 +25,7 @@ set_window_value(AT_USPECIAL, 2, AG_WINDOW_HAS_SFX, 1);
 set_window_value(AT_USPECIAL, 2, AG_WINDOW_SFX, sound_get("sfx_click"));
 
 set_window_value(AT_USPECIAL, 3, AG_WINDOW_TYPE, 0);
-set_window_value(AT_USPECIAL, 3, AG_WINDOW_LENGTH, 30);
+set_window_value(AT_USPECIAL, 3, AG_WINDOW_LENGTH, 27);
 set_window_value(AT_USPECIAL, 3, AG_WINDOW_ANIM_FRAMES, 1);
 set_window_value(AT_USPECIAL, 3, AG_WINDOW_ANIM_FRAME_START, 5);
 
@@ -62,7 +62,7 @@ set_hitbox_value(AT_USPECIAL, 1, HG_HITBOX_GROUP, -1);
 set_hitbox_value(AT_USPECIAL, 2, HG_HITBOX_TYPE, 2);
 set_hitbox_value(AT_USPECIAL, 2, HG_WINDOW, 2);
 set_hitbox_value(AT_USPECIAL, 2, HG_WINDOW_CREATION_FRAME, 5);
-set_hitbox_value(AT_USPECIAL, 2, HG_LIFETIME, 30);
+set_hitbox_value(AT_USPECIAL, 2, HG_LIFETIME, 28);
 set_hitbox_value(AT_USPECIAL, 2, HG_HITBOX_Y, -24);
 set_hitbox_value(AT_USPECIAL, 2, HG_WIDTH, 60);
 set_hitbox_value(AT_USPECIAL, 2, HG_HEIGHT, 60);

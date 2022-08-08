@@ -305,6 +305,10 @@ switch (state)
                     spawn_twinkle(vfx_glitch, uhc_anim_last_dodge.posx, 
                                               uhc_anim_last_dodge.posy - (char_height/2), 80);
                 }
+                else if (window > 3 && uhc_has_extended_pratland)
+                {
+                    image_index = 7;
+                }
             } break;
 //===============================================================
             case AT_TAUNT:
@@ -321,18 +325,19 @@ switch (state)
                         uhc_taunt_buffering_timer--; 
                         if (uhc_taunt_buffering_timer == 0 && uhc_taunt_is_opening)
                         {
-                            sound_play(uhc_taunt_current_video.song, true, noone, 1, 1);
                             //==============================================================
                             // RUNE: Rickroll earrape
                             // I'm almost sorry
                             if (uhc_rune_flags.deadly_rickroll) && (uhc_taunt_current_video.special == 2)
                             {
-                                sound_play(uhc_taunt_current_video.song, true, noone, 1, 1);
-                                sound_play(uhc_taunt_current_video.song, true, noone, 1, 1);
-                                sound_play(uhc_taunt_current_video.song, true, noone, 1, 1);
+                                //not providing the pitch argument does allow >1 volume. Dan pls
+                                uhc_taunt_current_audio = 
+                                   sound_play(uhc_taunt_current_video.song, true, noone, 5);
                             }
                             //==============================================================
-
+                            else if (!uhc_taunt_muted)
+                                uhc_taunt_current_audio = 
+                                   sound_play(uhc_taunt_current_video.song, true, noone, 1, 1);
                         }
                     }
                     else
@@ -372,7 +377,7 @@ switch (state)
                     //Switching channels
                     if (uhc_taunt_current_video != noone)
                     {
-                        sound_stop(uhc_taunt_current_video.song);
+                        sound_stop(uhc_taunt_current_audio);
                         video_number = (uhc_taunt_current_video_index + 1) % uhc_taunt_num_videos;
                     }
                     else
@@ -396,8 +401,10 @@ switch (state)
                 }
                 else if (window == 6) && (window_timer == 4) //Click to end
                 {
-                    sound_stop(uhc_taunt_current_video.song);
+                    sound_stop(uhc_taunt_current_audio);
                     uhc_taunt_is_opening = false;
+                    uhc_taunt_opening_timer = 0;
+                    uhc_taunt_current_video = noone;
                 }
 
                 //Respawn taunt special behavior
@@ -438,6 +445,9 @@ switch (state)
             {
                 uhc_anim_blink_timer = uhc_anim_blink_timer_max;
                 sound_play(sfx_cd_respawn);
+
+                //Mute mode
+                if (shield_down) uhc_taunt_muted = true;
             }
             else
             {
@@ -447,6 +457,11 @@ switch (state)
         }
     }break;
     default: break;
+}
+
+if (uhc_uspecial_soft_cooldown)
+{
+    image_index = 2 * floor(image_index/2);
 }
 
 //===================================================
@@ -468,7 +483,7 @@ if (uhc_lost_hat_timer < uhc_lost_hat_timer_max)
 //prevent this from looping if no longer taunting
 if (uhc_taunt_current_video != noone && state != PS_ATTACK_GROUND)
 {
-    sound_stop(uhc_taunt_current_video.song);
+    sound_stop(uhc_taunt_current_audio);
     uhc_taunt_is_opening = false;
     uhc_taunt_opening_timer = 0;
     uhc_taunt_current_video = noone;
@@ -483,32 +498,61 @@ if (uhc_taunt_collect_videos && state == PS_ATTACK_GROUND && attack == AT_TAUNT)
     var collected_urls = [];
     collected_urls[0] = url;
     var vid = noone;
-    
-    with (oPlayer) 
-    if ("url" in self) && !array_exists(url, collected_urls)
+
+    //check buddy
+    var buddy_replaces_playlist = false;
+    if ("uhc_taunt_videos" in my_pet && is_array(my_pet.uhc_taunt_videos))
     {
-        collected_urls[array_length(collected_urls)] = url;
-        
-        var videos_to_collect = noone;
-        if ("uhc_taunt_videos" in self && is_array(uhc_taunt_videos))
-        { videos_to_collect = uhc_taunt_videos; }
-        else with (other) 
-        { videos_to_collect = try_get_builtin_video(other.url); }
-        
-        if (videos_to_collect != noone)
+        buddy_replaces_playlist = ("uhc_replace_videos" in my_pet && my_pet.uhc_replace_videos);
+        if (buddy_replaces_playlist)
         {
-            for (var i = 0; i < array_length(videos_to_collect); i++)
+            uhc_taunt_num_videos = 1; //flushes all videos
+        }
+
+        //grab from buddy
+        for (var i = 0; i < array_length(my_pet.uhc_taunt_videos); i++)
+        {
+            vid = my_pet.uhc_taunt_videos[i];
+            if (vid != noone) && ("uhc_taunt_videos" in self)
+            && ("sprite" in vid) && ("song" in vid) && ("fps" in vid)
             {
-                vid = videos_to_collect[i];
-                with (other)
+                if ("special" not in vid) { vid.special = 0; }
+                if ("title" not in vid) { vid.title = "Private video"; }
+                uhc_taunt_videos[uhc_taunt_num_videos] = vid;
+                uhc_taunt_num_videos++;
+            }
+        }
+    }
+
+    if (!buddy_replaces_playlist) //continue collecting if buddy did not override
+    {
+        with (oPlayer) 
+        if ("url" in self) && !array_exists(url, collected_urls)
+        {
+            collected_urls[array_length(collected_urls)] = url;
+            
+            var videos_to_collect = noone;
+            if ("uhc_taunt_videos" in self && is_array(uhc_taunt_videos))
+            { videos_to_collect = uhc_taunt_videos; }
+            else with (other) 
+            { videos_to_collect = try_get_builtin_video(other.url); }
+            
+            if (videos_to_collect != noone)
+            {
+                for (var i = 0; i < array_length(videos_to_collect); i++)
                 {
-                    //Send vid to Hypercam
-                    if (vid != noone) && ("uhc_taunt_videos" in self)
-                    && ("sprite" in vid) && ("song" in vid) && ("fps" in vid)
+                    vid = videos_to_collect[i];
+                    with (other)
                     {
-                        if ("special" not in vid) { vid.special = 0; }
-                        uhc_taunt_videos[uhc_taunt_num_videos] = vid;
-                        uhc_taunt_num_videos++;
+                        //Send vid to Hypercam
+                        if (vid != noone) && ("uhc_taunt_videos" in self)
+                        && ("sprite" in vid) && ("song" in vid) && ("fps" in vid)
+                        {
+                            if ("special" not in vid) { vid.special = 0; }
+                            if ("title" not in vid) { vid.title = "Private video"; }
+                            uhc_taunt_videos[uhc_taunt_num_videos] = vid;
+                            uhc_taunt_num_videos++;
+                        }
                     }
                 }
             }
@@ -572,16 +616,19 @@ if (uhc_taunt_collect_videos && state == PS_ATTACK_GROUND && attack == AT_TAUNT)
         //=================================================================
         case "2177081326": // Nico Nico
            sprite_change_offset("video_fukkireta", 11, 8);
-           videos[0] = { sprite:sprite_get("video_fukkireta"),   
-                         song:sound_get("video_fukkireta"),   
+           videos[0] = { title:"[Karaoke] Fukkireta (Mischievous Function) [off vocal]  Gojimaji-P",
+                         sprite:sprite_get("video_fukkireta"),
+                         song:sound_get("video_fukkireta"),
                          fps:13 };
            sprite_change_offset("video_caramel", 11, 8);
-           videos[1] = { sprite:sprite_get("video_caramel"),   
-                         song:sound_get("video_caramel"),   
+           videos[1] = { title:"CaramellDansen (Full Version + Lyrics)",
+                         sprite:sprite_get("video_caramel"),
+                         song:sound_get("video_caramel"),
                          fps:10 };
            sprite_change_offset("video_leek", 11, 8);
-           videos[2] = { sprite:sprite_get("video_leek"),   
-                         song:sound_get("video_leek"),   
+           videos[2] = { title:"Leek Spin", 
+                         sprite:sprite_get("video_leek"),
+                         song:sound_get("video_leek"),
                          fps:7 };
            break;
         //=================================================================
@@ -590,21 +637,24 @@ if (uhc_taunt_collect_videos && state == PS_ATTACK_GROUND && attack == AT_TAUNT)
         case "1933111975": // Trummel & Alto
         case "2282173822": // Trummel & Alto 2
            sprite_change_offset("video_sax", 11, 8);
-           videos[0] = { sprite:sprite_get("video_sax"),   
-                         song:sound_get("video_sax"),   
+           videos[0] = { title:"HD Epic Sax Gandalf",
+                         sprite:sprite_get("video_sax"),
+                         song:sound_get("video_sax"),
                          fps:18 };
            break;
         case "1890617624": //Ronald
         case "2154720280": //Nolan
            sprite_change_offset("video_lol", 11, 8);
-           videos[0] = { sprite:sprite_get("video_lol"),   
-                         song:sound_get("video_lol"),   
+           videos[0] = { title:"YTMND-lol, internet",
+                         sprite:sprite_get("video_lol"),
+                         song:sound_get("video_lol"),
                          fps:8 };
            break;
         case "2390163800": //SEGERAK
            sprite_change_offset("video_brody", 11, 8);
-           videos[0] = { sprite:sprite_get("video_brody"),   
-                         song:sound_get("video_brody"),   
+           videos[0] = { title:"BRODYQUEST",
+                         sprite:sprite_get("video_brody"),
+                         song:sound_get("video_brody"),
                          fps:14 };
            break;
         //=================================================================
@@ -615,8 +665,9 @@ if (uhc_taunt_collect_videos && state == PS_ATTACK_GROUND && attack == AT_TAUNT)
         case CH_CLAIREN:
         case CH_MOLLO:
            sprite_change_offset("video_sparta", 11, 8);
-           videos[0] = { sprite:sprite_get("video_sparta"),   
-                         song:sound_get("video_sparta"),   
+           videos[0] = { title:"This is Sparta! Last techno remix",
+                         sprite:sprite_get("video_sparta"),
+                         song:sound_get("video_sparta"),
                          fps:5 };
            break;
         case CH_WRASTOR:
@@ -624,14 +675,16 @@ if (uhc_taunt_collect_videos && state == PS_ATTACK_GROUND && attack == AT_TAUNT)
         case CH_ELLIANA:
         case CH_POMME:
            sprite_change_offset("video_numa", 11, 8);
-           videos[0] = { sprite:sprite_get("video_numa"),   
-                         song:sound_get("video_numa"),   
+           videos[0] = { title:"Numa Numa",
+                         sprite:sprite_get("video_numa"),
+                         song:sound_get("video_numa"),
                          fps:7 };
            break;
         case CH_SHOVEL_KNIGHT:
            sprite_change_offset("video_rs", 11, 8);
-           videos[0] = { sprite:sprite_get("video_rs"),   
-                         song:sound_get("video_rs"),   
+           videos[0] = { title:"Old RuneScape Soundtrack: Harmony",
+                         sprite:sprite_get("video_rs"),
+                         song:sound_get("video_rs"),
                          fps:1 };
            break;
         case CH_ETALUS: 
@@ -639,8 +692,9 @@ if (uhc_taunt_collect_videos && state == PS_ATTACK_GROUND && attack == AT_TAUNT)
         case CH_ORCANE:
         case CH_HODAN:
            sprite_change_offset("video_lime", 11, 8);
-           videos[0] = { sprite:sprite_get("video_lime"),   
-                         song:sound_get("video_lime"),   
+           videos[0] = { title:"LOL! LIMEWIRE!",
+                         sprite:sprite_get("video_lime"),
+                         song:sound_get("video_lime"),
                          fps:12 };
            break;
         case CH_KRAGG: 
@@ -648,14 +702,16 @@ if (uhc_taunt_collect_videos && state == PS_ATTACK_GROUND && attack == AT_TAUNT)
         case CH_SYLVANOS:
         case CH_OLYMPIA:
            sprite_change_offset("video_darude", 11, 8);
-           videos[0] = { sprite:sprite_get("video_darude"),   
-                         song:sound_get("video_darude"),   
+           videos[0] = { title:"Darude - Sandstorm",
+                         sprite:sprite_get("video_darude"),
+                         song:sound_get("video_darude"),
                          fps:1 };
            break;
         case CH_ORI:
            sprite_change_offset("video_cat", 11, 8);
-           videos[0] = { sprite:sprite_get("video_cat"),   
-                         song:sound_get("video_cat"),   
+           videos[0] = { title:"Keyboard Cat 10 Hours",
+                         sprite:sprite_get("video_cat"),
+                         song:sound_get("video_cat"),
                          fps:10 };
         default: break;
     }

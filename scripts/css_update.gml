@@ -1,8 +1,16 @@
 //css_update.gml
+
+if ("button_anim_timer" not in self) exit;
+if !instance_exists(cursor_id) exit; //giik pls
+
 var curpos = { x:get_instance_x(cursor_id), y:get_instance_y(cursor_id) };
 
 var real_button_x = x + button_x;
-var real_button_y = y + button_y + (get_match_setting(SET_RUNES) ? -rune_size : 0);
+var real_button_y = y + button_y;
+if (get_match_setting(SET_RUNES) || get_match_setting(SET_TEAMS) )
+{
+    real_button_y -= rune_size;
+}
 
 var new_highlighted = (curpos.x > real_button_x) && (curpos.x < real_button_x + 32)
                    && (curpos.y > real_button_y) && (curpos.y < real_button_y + 32);
