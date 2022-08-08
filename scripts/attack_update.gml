@@ -477,7 +477,6 @@ switch (attack)
         can_fast_fall = false;
         can_wall_jump = (window > 2);
         
-        //moving around
         if (window == 2 && window_timer == get_window_value(AT_USPECIAL, 2, AG_WINDOW_LENGTH) - 1)
         {
             uhc_uspecial_start_pos.x = x;
@@ -486,7 +485,11 @@ switch (attack)
             uhc_anim_last_dodge.posx = x;
             uhc_anim_last_dodge.posy = y;
             uhc_uspecial_last_dir = 90; //default to upwards
+
+            //apply penalty
+            uhc_has_extended_pratland = (0 < uhc_uspecial_soft_cooldown);
         }
+        //moving around
         else if (window == 3)
         {
             var uspecial_speed = uhc_uspecial_speed;
@@ -510,19 +513,25 @@ switch (attack)
         }
         var attack_stopped = false;
         var need_ejector = true;
-        //autocancel if landing
+        //non-ejecting cancel on shield (with compounding penalty)
         if (shield_pressed && window == 3)
         {
             window = 4; 
             window_timer = 1;
             attack_stopped = true;
             need_ejector = false;
+
+            //raise off the penalty timer
+            uhc_uspecial_soft_cooldown = max(uhc_uspecial_soft_cooldown_max * 2,
+                uhc_uspecial_soft_cooldown + uhc_uspecial_soft_cooldown_max);
         }
+        //autocancel if landing
         else if (!free && window > 2)
         {
             set_state(PS_PRATFALL);
             attack_stopped = true;
         }
+        //ran out the clock
         else if (window == 4 && window_timer == 1)
         {
             attack_stopped = true;

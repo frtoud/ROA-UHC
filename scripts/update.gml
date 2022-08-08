@@ -165,6 +165,24 @@ if (state == PS_WALL_JUMP && attack == AT_USPECIAL)
     }
 }
 
+//Uspecial shield-cancel penalty
+if (uhc_uspecial_soft_cooldown > 0)
+{
+    uhc_uspecial_soft_cooldown--;
+}
+if (uhc_has_extended_pratland)
+{
+    if (state == PS_PRATLAND)
+    {
+        do_hitpause(uhc_extended_pratland_penalty);
+        uhc_has_extended_pratland = false;
+    }
+    else if (state != PS_ATTACK_AIR && state != PS_PRATFALL)
+    {
+        uhc_has_extended_pratland = false;
+    }
+}
+
 //======================================================
 // RUNE: Star rewind
 uhc_is_star_rewinding = uhc_rune_flags.star_rewind

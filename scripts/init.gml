@@ -214,6 +214,8 @@ uhc_anim_platform_timer_min =  90; //start of platform visibility
 uhc_anim_platform_timer_max = 300 - uhc_anim_platform_timer_min; //time until platform despawns
 uhc_anim_platform_buffer_timer = 0;
 
+uhc_anim_frozen_meter = 0;
+
 sfx_dspecial_reload = sound_get("sfx_reload");
 sfx_dspecial_reload_done = sound_get("sfx_reload_done");
 sfx_cd_death = sound_get("sfx_cd_death");
@@ -350,6 +352,8 @@ uhc_uair_flash_penalty = 4*60;
 
 uhc_uspecial_speed = 3;
 uhc_uspecial_speed_fast = 7;
+uhc_uspecial_soft_cooldown_max = 150;
+uhc_extended_pratland_penalty = 20;
 
 //=================================================
 //Custom variables initialized here
@@ -388,6 +392,10 @@ uhc_nspecial_is_charging = false;
 uhc_uspecial_hitbox = noone;
 uhc_uspecial_start_pos = { x:0, y:0 };
 uhc_uspecial_last_dir = 0; //controller cannot rely on joy_dir when idle; it reverts to zero
+
+uhc_uspecial_soft_cooldown = 0;
+uhc_has_extended_pratland = false;
+
 
 //from other_init, for simplicity
 uhc_handler_id = noone;

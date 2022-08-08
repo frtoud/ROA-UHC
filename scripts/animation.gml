@@ -305,6 +305,10 @@ switch (state)
                     spawn_twinkle(vfx_glitch, uhc_anim_last_dodge.posx, 
                                               uhc_anim_last_dodge.posy - (char_height/2), 80);
                 }
+                else if (window > 3 && uhc_has_extended_pratland)
+                {
+                    image_index = 7;
+                }
             } break;
 //===============================================================
             case AT_TAUNT:
@@ -446,6 +450,11 @@ switch (state)
         }
     }break;
     default: break;
+}
+
+if (uhc_uspecial_soft_cooldown)
+{
+    image_index = 2 * floor(image_index/2);
 }
 
 //===================================================

@@ -27,9 +27,12 @@ if (state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR)
 
 //===================================================
 // Strong buffering
-if (state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR)
+if ((state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR)
   && (window == get_attack_value(attack, AG_STRONG_CHARGE_WINDOW))
-  && (strong_charge > 0)
+  && (strong_charge > 0))
+//same for the extra pratland hitpause
+|| (state == PS_PRATLAND && hitpause)
+|| (uhc_has_extended_pratland)
 {
     draw_buffering(x, y);
 }
@@ -45,6 +48,10 @@ if (state == PS_AIR_DODGE && window == 1)
                     spr_dir * scale, scale, spr_angle, c_white, 1);
     shader_end();
     draw_blade(sprite_index, img_index, uhc_anim_last_dodge.posx, uhc_anim_last_dodge.posy);
+    draw_buffering(uhc_anim_last_dodge.posx, uhc_anim_last_dodge.posy);
+}
+else if (uhc_uspecial_soft_cooldown > 0)
+{
     draw_buffering(uhc_anim_last_dodge.posx, uhc_anim_last_dodge.posy);
 }
 
