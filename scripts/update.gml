@@ -175,6 +175,7 @@ if (uhc_has_extended_pratland)
     if (state == PS_PRATLAND)
     {
         do_hitpause(uhc_extended_pratland_penalty);
+        uhc_uspecial_soft_cooldown = 0;
         uhc_has_extended_pratland = false;
     }
     else if (state != PS_ATTACK_AIR && state != PS_PRATFALL)

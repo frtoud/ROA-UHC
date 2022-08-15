@@ -485,9 +485,6 @@ switch (attack)
             uhc_anim_last_dodge.posx = x;
             uhc_anim_last_dodge.posy = y;
             uhc_uspecial_last_dir = 90; //default to upwards
-
-            //apply penalty
-            uhc_has_extended_pratland = (0 < uhc_uspecial_soft_cooldown);
         }
         //moving around
         else if (window == 3)
@@ -513,7 +510,7 @@ switch (attack)
         }
         var attack_stopped = false;
         var need_ejector = true;
-        //non-ejecting cancel on shield (with compounding penalty)
+        //non-ejecting cancel on shield (with penalty)
         if (shield_pressed && window == 3)
         {
             window = 4; 
@@ -521,9 +518,16 @@ switch (attack)
             attack_stopped = true;
             need_ejector = false;
 
-            //raise off the penalty timer
-            uhc_uspecial_soft_cooldown = max(uhc_uspecial_soft_cooldown_max * 2,
-                uhc_uspecial_soft_cooldown + uhc_uspecial_soft_cooldown_max);
+            //apply penalty...
+            if (0 < uhc_uspecial_soft_cooldown)
+            {
+               uhc_has_extended_pratland = true;
+            }
+            //... or start the penalty timer
+            else
+            {
+                uhc_uspecial_soft_cooldown = uhc_uspecial_soft_cooldown_max;
+            }
         }
         //autocancel if landing
         else if (!free && window > 2)

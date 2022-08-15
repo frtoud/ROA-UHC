@@ -460,6 +460,7 @@ switch (state)
 }
 
 if (uhc_uspecial_soft_cooldown)
+&& !(state == PS_ATTACK_AIR && attack == AT_USPECIAL && window == 3)
 {
     image_index = 2 * floor(image_index/2);
 }
