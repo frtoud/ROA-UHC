@@ -473,7 +473,7 @@ switch (attack)
 //==========================================================
     case AT_USPECIAL:
     {
-        can_move = (window == 5);
+        can_move = (window == 6);
         can_fast_fall = false;
         can_wall_jump = (window > 2);
         
@@ -487,7 +487,7 @@ switch (attack)
             uhc_uspecial_last_dir = 90; //default to upwards
         }
         //moving around
-        else if (window == 3)
+        else if (window == 3 || window == 4)
         {
             var uspecial_speed = uhc_uspecial_speed;
             if (!joy_pad_idle)
@@ -511,9 +511,9 @@ switch (attack)
         var attack_stopped = false;
         var need_ejector = true;
         //non-ejecting cancel on shield (with penalty)
-        if (shield_pressed && window == 3)
+        if (shield_pressed && (window == 3 || window == 4))
         {
-            window = 4; 
+            window = 5; 
             window_timer = 1;
             attack_stopped = true;
             need_ejector = false;
@@ -536,7 +536,7 @@ switch (attack)
             attack_stopped = true;
         }
         //ran out the clock
-        else if (window == 4 && window_timer == 1)
+        else if (window == 5 && window_timer == 1)
         {
             attack_stopped = true;
         }
