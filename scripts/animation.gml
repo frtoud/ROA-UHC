@@ -299,13 +299,13 @@ switch (state)
                 { 
                     image_index = 1; //air frame
                 }
-                else if (window == 3)
+                else if (window == 3 || window == 4)
                 {
-                    spawn_twinkle(vfx_glitch, x, y - (char_height/2), 15);
+                    spawn_twinkle(vfx_glitch, x, y - (char_height/2), 15 * (window - 2));
                     spawn_twinkle(vfx_glitch, uhc_anim_last_dodge.posx, 
-                                              uhc_anim_last_dodge.posy - (char_height/2), 80);
+                                  uhc_anim_last_dodge.posy - (char_height/2), 80);
                 }
-                else if (window > 3 && uhc_has_extended_pratland)
+                else if (window > 4 && uhc_has_extended_pratland)
                 {
                     image_index = 7;
                 }
@@ -460,7 +460,7 @@ switch (state)
 }
 
 if (uhc_uspecial_soft_cooldown)
-&& !(state == PS_ATTACK_AIR && attack == AT_USPECIAL && window == 3)
+&& !(state == PS_ATTACK_AIR && attack == AT_USPECIAL && (window == 3 || window == 4))
 {
     image_index = 2 * floor(image_index/2);
 }

@@ -47,6 +47,7 @@ for (var i = 1; i <= 5; i++)
     set_hitbox_value(AT_NSPECIAL, i, HG_WIDTH, 16);
     set_hitbox_value(AT_NSPECIAL, i, HG_HEIGHT, 16);
     set_hitbox_value(AT_NSPECIAL, i, HG_PRIORITY, 3);
+    set_hitbox_value(AT_NSPECIAL, i, HG_HITSTUN_MULTIPLIER, 0.5);
     set_hitbox_value(AT_NSPECIAL, i, HG_PROJECTILE_GROUND_BEHAVIOR, 0);
     set_hitbox_value(AT_NSPECIAL, i, HG_PROJECTILE_WALL_BEHAVIOR, 0);
     set_hitbox_value(AT_NSPECIAL, i, HG_DAMAGE, 1);

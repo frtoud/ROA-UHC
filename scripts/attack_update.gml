@@ -105,7 +105,10 @@ switch (attack)
         if (!was_parried && has_hit_player)
         {
             can_attack = true;
-            can_jump = true;
+            //except for these:
+            move_cooldown[AT_JAB] = 2;
+            move_cooldown[AT_UTILT] = 2;
+            move_cooldown[AT_DATTACK] = 2;
         }
     } break;
 //==========================================================
@@ -473,7 +476,7 @@ switch (attack)
 //==========================================================
     case AT_USPECIAL:
     {
-        can_move = (window == 5);
+        can_move = (window == 6);
         can_fast_fall = false;
         can_wall_jump = (window > 2);
         
@@ -487,7 +490,7 @@ switch (attack)
             uhc_uspecial_last_dir = 90; //default to upwards
         }
         //moving around
-        else if (window == 3)
+        else if (window == 3 || window == 4)
         {
             var uspecial_speed = uhc_uspecial_speed;
             if (!joy_pad_idle)
@@ -511,9 +514,9 @@ switch (attack)
         var attack_stopped = false;
         var need_ejector = true;
         //non-ejecting cancel on shield (with penalty)
-        if (shield_pressed && window == 3)
+        if (shield_pressed && (window == 3 || window == 4))
         {
-            window = 4; 
+            window = 5; 
             window_timer = 1;
             attack_stopped = true;
             need_ejector = false;
@@ -536,7 +539,7 @@ switch (attack)
             attack_stopped = true;
         }
         //ran out the clock
-        else if (window == 4 && window_timer == 1)
+        else if (window == 5 && window_timer == 1)
         {
             attack_stopped = true;
         }
@@ -576,25 +579,26 @@ switch (attack)
                 window_timer = 0;
                 uhc_taunt_reloop = taunt_pressed;
             }
-            if (shield_pressed)
-            {
-                uhc_taunt_muted = !uhc_taunt_muted;
-                clear_button_buffer(PC_SHIELD_PRESSED);
-                if (uhc_taunt_muted) sound_play(sound_get("sfx_popup"));
-
-                if !(uhc_rune_flags.deadly_rickroll && uhc_taunt_current_video.special == 2)
-                {
-                    if (uhc_taunt_muted)
-                        sound_stop(uhc_taunt_current_audio);
-                    else
-                        uhc_taunt_current_audio = 
-                        sound_play(uhc_taunt_current_video.song, true, noone, 1, 1);
-                }
-            }
         }
         else if (window == 6 && uhc_taunt_reloop)
         {
             window = 2;
+        }
+        
+        if (window == 3 || window == 4 || window == 5) && (shield_pressed)
+        {
+            uhc_taunt_muted = !uhc_taunt_muted;
+            clear_button_buffer(PC_SHIELD_PRESSED);
+            if (uhc_taunt_muted) sound_play(sound_get("sfx_popup"));
+
+            if !(uhc_rune_flags.deadly_rickroll && uhc_taunt_current_video.special == 2)
+            {
+                if (uhc_taunt_muted)
+                    sound_stop(uhc_taunt_current_audio);
+                else if (uhc_taunt_buffering_timer == 0)
+                    uhc_taunt_current_audio = 
+                    sound_play(uhc_taunt_current_video.song, true, noone, 1, 1);
+            }
         }
 
         //==============================================================
