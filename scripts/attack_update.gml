@@ -105,7 +105,10 @@ switch (attack)
         if (!was_parried && has_hit_player)
         {
             can_attack = true;
-            can_jump = true;
+            //except for these:
+            move_cooldown[AT_JAB] = 2;
+            move_cooldown[AT_UTILT] = 2;
+            move_cooldown[AT_DATTACK] = 2;
         }
     } break;
 //==========================================================
