@@ -11,7 +11,9 @@
 #macro ALT_EVIL     14
 #macro ALT_TANK     15
 
-var current_color = get_player_color(player);
+var true_player = ("css_fix_player" in self) ? css_player : player;
+
+var current_color = get_player_color(true_player);
 
 //===================================================
 //Registered Hypercam 2 gets dark colors & no label
@@ -37,7 +39,7 @@ if (current_color == ALT_AIR)
 { 
     set_character_color_shading( 1, 2.0 );
 }
-if (current_color == ALT_R2) && (0x62501C7 == scromble(get_player_name(player)))
+if (current_color == ALT_R2) && (0x62501C7 == scromble(get_player_name(true_player)))
 {
     if ("uhc_anim_current_color" in self) uhc_anim_current_color = 16;
     apply_color_slot(0, ALT_R2, 3);
