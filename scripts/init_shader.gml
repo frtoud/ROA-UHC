@@ -11,7 +11,8 @@
 #macro ALT_EVIL     14
 #macro ALT_TANK     15
 
-var true_player = ("css_fix_player" in self) ? css_player : player;
+//fix for online CSS
+var true_player = (room == asset_get("network_char_select")) ? 0 : player;
 
 var current_color = get_player_color(true_player);
 

@@ -1,7 +1,5 @@
 //css_update.gml
 
-css_fix_player = player; //for init_shader in online CSS
-
 if ("button_anim_timer" not in self) exit;
 if !instance_exists(cursor_id) exit; //giik pls
 
