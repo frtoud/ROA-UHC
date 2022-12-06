@@ -40,9 +40,10 @@ if ((state == PS_ATTACK_GROUND || state == PS_ATTACK_AIR)
 //===================================================
 //Dodge effects
 if (state == PS_AIR_DODGE && window == 1)
-|| (state == PS_ATTACK_AIR && attack == AT_USPECIAL && window == 3)
+|| (state == PS_ATTACK_AIR && attack == AT_USPECIAL && (window == 3 || window == 4))
 {
-    var img_index = (state == PS_AIR_DODGE) ? 1 : (random_func(5, 2, true) + 3);
+    var img_index = (state == PS_AIR_DODGE) ? 1 : 
+                    ((window == 3) ? (random_func(5, 3, true) + 3) : 4);
     shader_start();
     draw_sprite_ext(sprite_index, img_index, uhc_anim_last_dodge.posx, uhc_anim_last_dodge.posy, 
                     spr_dir * scale, scale, spr_angle, c_white, 1);
