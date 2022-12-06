@@ -8,6 +8,7 @@ if ("uhc_initialized_victory_screen" not in self)
     //defaults to prevent errors
     uhc_held_cd_color_array = [-1, -1, -1, -1, -1];
     uhc_victory_quote = "win qoute machine broke :(";
+    uhc_batteries = noone;
     
     //magic happens in there
     get_victory_screen_data();
