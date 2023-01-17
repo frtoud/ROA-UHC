@@ -32,11 +32,9 @@ if (uhc_anim_rewind.active)
 // Music suppression (needs to be here so that pausing still works)
 if (state == PS_ATTACK_AIR || state == PS_ATTACK_GROUND)
 {
-    if (attack == AT_USPECIAL && (window == 3 || window == 4)) && uhc_buffer_breaks_music
-    { suppress_stage_music(0, 1); }
-    else if (attack == AT_TAUNT && window >= 2 && window <= 6)
-         && !(uhc_taunt_muted && uhc_taunt_current_video != noone
-                              && !(uhc_taunt_current_video.special == 2
-                                 && uhc_rune_flags.deadly_rickroll) )
+    if (attack == AT_TAUNT && window >= 2 && window <= 6)
+    && !(uhc_taunt_muted && uhc_taunt_current_video != noone
+                         && !(uhc_taunt_current_video.special == 2
+                         && uhc_rune_flags.deadly_rickroll) )
     { suppress_stage_music(0, 0.01); }
 }

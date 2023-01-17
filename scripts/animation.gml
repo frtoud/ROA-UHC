@@ -491,6 +491,22 @@ if (uhc_taunt_current_video != noone && state != PS_ATTACK_GROUND)
 }
 
 //==============================================================
+// USPECIAL's custom music suppresion
+// HAHAHAHAHAHZZAZZHZZAZZHZZAZZH---%;
+if (uhc_buffer_breaks_music)
+{
+    var should_break = ( (state == PS_ATTACK_AIR || state == PS_ATTACK_GROUND) 
+                      && (attack == AT_USPECIAL && (window == 3 || window == 4)) );
+
+    if (uhc_music_is_broken xor should_break)
+    {
+        uhc_music_is_broken = should_break;
+        for (var i = 0; i < uhc_music_break_strength; i++)
+            sound_volume(uhc_music_break_storage[i], should_break, 1);
+    }
+}
+
+//==============================================================
 //collect compat videos
 if (uhc_taunt_collect_videos && state == PS_ATTACK_GROUND && attack == AT_TAUNT)
 {
