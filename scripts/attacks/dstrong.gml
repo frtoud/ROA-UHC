@@ -49,7 +49,7 @@ set_hitbox_value(AT_DSTRONG, 2, HG_HITBOX_TYPE, 2);
 set_hitbox_value(AT_DSTRONG, 2, HG_LIFETIME, 5);
 set_hitbox_value(AT_DSTRONG, 2, HG_WIDTH, 40);
 set_hitbox_value(AT_DSTRONG, 2, HG_HEIGHT, 40);
-set_hitbox_value(AT_DSTRONG, 2, HG_SHAPE, 1);
+set_hitbox_value(AT_DSTRONG, 2, HG_SHAPE, 0);
 set_hitbox_value(AT_DSTRONG, 2, HG_PRIORITY, 2);
 set_hitbox_value(AT_DSTRONG, 2, HG_IGNORES_PROJECTILES, 1);
 set_hitbox_value(AT_DSTRONG, 2, HG_PROJECTILE_DESTROY_EFFECT, 1); //none
