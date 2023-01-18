@@ -102,7 +102,7 @@ current_owner_id = player_id; //whoever is currently using the blade
 // gameplay relevant flags
 uhc_cd_spin_max = player_id.uhc_cd_spin_max; //forward this constant
 
-cd_spin_meter = floor(uhc_cd_spin_max / 2); //current charge of blade
+cd_spin_meter = uhc_cd_spin_max; //current charge of blade
 cd_saved_spin_meter = cd_spin_meter; //charge of blade at the beginning of current move (for hitboxes)
 
 has_hit = false; //if a cd-hitbox connected on this move

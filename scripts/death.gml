@@ -20,7 +20,7 @@ if (uhc_has_cd_blade)
     //could be holding anyone's CD... restore as your own
     uhc_current_cd.player_id = self;
     uhc_current_cd.cd_anim_color = uhc_anim_current_color;
-    uhc_current_cd.cd_spin_meter = floor(uhc_cd_spin_max / 2);
+    uhc_current_cd.cd_spin_meter = uhc_cd_spin_max;
 }
 
 if (get_match_setting(SET_SEASON) == 4) uhc_has_hat = true; //christmas
