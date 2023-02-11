@@ -61,7 +61,11 @@ if (!uhc_handled_victory_quote)
                 data.held_cd_color = uhc_current_cd.cd_anim_color; 
             }
 
-            if (on_team_with_niconico)
+            if ("cin_is_on_island" in self)
+            {
+                data.status_quote = "lmao i knew ud be in the heckin water. ok now come out plz im worrid bout u";
+            }
+            else if (on_team_with_niconico)
             {
                 data.status_quote = "nobody mess with teh ultimate team of ultimae destiny!!!";
             }
