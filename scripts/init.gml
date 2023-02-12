@@ -458,6 +458,12 @@ ncode1 = "Outfitted with a deadly sawblade and throwing stars.";
 ncode2 = "Creator unknown, but deeply nostalgic.";
 ncode3 = "Pretends to be royalty; incessantly asks to subscribe.";
 
+//Po & Gumbo
+pot_compat_variable = sprite_get("cmp_gumbo");
+pot_compat_text = "PBJ Sandwich";
+
+//Mamizou
+mamizou_transform_spr = sprite_get("cmp_mamizou");
 
 //=========================================================================
 #define make_uhc_video

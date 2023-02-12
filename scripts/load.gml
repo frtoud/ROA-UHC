@@ -108,6 +108,7 @@ set_victory_bg(sprite_get("victory"));
 
 sprite_change_offset("cmp_trial_grounds", 31, 0);
 sprite_change_offset("cmp_kirby", 32, 54);
+sprite_change_offset_bladed("cmp_mamizou", 13, 22);
 
 //=================================================
 // DEFINES

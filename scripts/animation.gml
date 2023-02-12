@@ -577,6 +577,9 @@ if (uhc_taunt_collect_videos && state == PS_ATTACK_GROUND && attack == AT_TAUNT)
     }
 }
 
+//Mamizou compatibility is immune to post_draw blade sprites
+mamizou_transform_spr = sprite_get(uhc_has_cd_blade ? "cmp_mamizou_blade" : "cmp_mamizou");
+
 //==============================================================
 // purpose: if AG_WINDOW_SFX_FRAME is negative, play SFX on the X-to-last frame of this window
 // eg. Set AG_WINDOW_SFX_FRAME to -1 for it to apply to the last frame of a window
