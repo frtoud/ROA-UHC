@@ -2,8 +2,8 @@
 //=====================================================
 #macro AR_STATE_BUFFER      -1 
 #macro AR_STATE_HELD         0
-#macro AR_STATE_IDLE         1
-#macro AR_STATE_DYING        2
+#macro AR_STATE_DYING        1
+#macro AR_STATE_IDLE         2
 #macro AR_STATE_ROLL         3
 #macro AR_STATE_FSTRONG      AT_FSTRONG
 #macro AR_STATE_USTRONG      AT_USTRONG
