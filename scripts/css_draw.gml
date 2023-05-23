@@ -48,3 +48,54 @@ if (button_highlighted && !uhc_uspecial_music_fix && (button_anim_timer == 0))
     draw_debug_text(text_x, text_y, "Error in audio buffering");
     draw_debug_text(text_x, text_y + 18, "codec! Click to reload.");
 }
+
+var num_vids = array_length(playlist_persistence.playlist);
+if instance_exists(playlist_persistence) && (num_vids > 0)
+{
+    var real_playlist_x = floor(x + playlist_x);
+    var real_playlist_y = floor(y + playlist_y);
+    draw_sprite_ext(sprite_get("vfx_playlist_icon"), 0, real_playlist_x, real_playlist_y, 2, 2, 0, c_white, 1);
+    draw_debug_text(real_playlist_x+24, real_playlist_y+6, string(array_length(playlist_persistence.playlist))); 
+
+    if (playlist_highlighted)
+    {
+        real_playlist_x += 48;
+        real_playlist_y -= 193;
+
+        //bg
+        draw_sprite(sprite_get("vfx_playlist_bg"), 0, real_playlist_x - 58, real_playlist_y - 20);
+
+        for (var i = 0; i < playlist_perpage && (i + playlist_page * playlist_perpage) < num_vids; i++)
+        {
+            var yoffset = i * 36 - 4;
+            var viddata = playlist_persistence.playlist[(i + playlist_page * playlist_perpage)];
+            //inconsistent issues because sprite offset is set in load.gml, but draw_sprite_part_ext does not care >:]
+            draw_sprite_part_ext(sprite_get(viddata.spritename), 4, 0, 0, 22, 16,
+                        real_playlist_x - 52, real_playlist_y + yoffset - 10, 2, 2, c_white, 1);
+            var substr = string(viddata.title);
+            if (string_length(substr) > 22)
+            {
+                substr = string_copy(substr, 0, 19) + "...";
+            }
+            draw_debug_text(real_playlist_x, real_playlist_y + yoffset, substr); 
+        }
+        
+        draw_debug_text(real_playlist_x - 38, real_playlist_y + 135, "my playlst"); 
+        draw_debug_text(real_playlist_x + 88, real_playlist_y + 135, 
+                        "Page "+string(playlist_page+1)+"/"+ string(ceil(num_vids / playlist_perpage))); 
+    }
+}
+
+exit;
+{
+    var i = 0;
+    {
+        repeat 0 //(array_length(playlist_persistence.playlist)) 
+        {
+            
+            draw_sprite_ext(sprite_get(playlist_persistence.playlist[i].spritename), 0, real_playlist_x - 30, real_playlist_y+i*16, 2, 2, 0, c_white, 1);
+            i++;
+        }
+    }
+    
+}

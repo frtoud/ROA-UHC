@@ -523,6 +523,7 @@ var video_special = argument_count > 4 ? argument[4] : 0;
         data.step_timer = 0;
 
         //initialized to basic info
+        data.playlist = [];
         data.playlist_bits = 0x00;
         data.playlist_urls = [
             "2177081326",

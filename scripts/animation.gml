@@ -511,7 +511,12 @@ if (uhc_buffer_breaks_music)
 if (uhc_taunt_collect_videos && state == PS_ATTACK_GROUND && attack == AT_TAUNT)
 {
     uhc_taunt_collect_videos = false; //collect once, only when starting to taunt
-    
+    for (var i = 1; i < uhc_taunt_num_videos; i++)
+    {
+        //skip 0: blocked video is NOT added to the playlist
+        playlist_register("hypercam", uhc_taunt_videos[i], i, true);
+    }
+
     var collected_urls = [];
     collected_urls[0] = url;
     var vid = noone;
@@ -537,6 +542,8 @@ if (uhc_taunt_collect_videos && state == PS_ATTACK_GROUND && attack == AT_TAUNT)
                 if ("title" not in vid) { vid.title = "Private video"; }
                 uhc_taunt_videos[uhc_taunt_num_videos] = vid;
                 uhc_taunt_num_videos++;
+
+                playlist_register(my_pet.url, vid, i, builtin);
             }
         }
     }
@@ -578,7 +585,7 @@ if (uhc_taunt_collect_videos && state == PS_ATTACK_GROUND && attack == AT_TAUNT)
                         uhc_taunt_videos[uhc_taunt_num_videos] = vid;
                         uhc_taunt_num_videos++;
 
-                        }
+                        playlist_register(effective_url, vid, i, builtin);
                     }
                 }
             }
@@ -811,4 +818,39 @@ mamizou_transform_spr = sprite_get(uhc_has_cd_blade ? "cmp_mamizou_blade" : "cmp
             }
         }
     }
+}
+//==============================================================
+#define playlist_register(url, vid, index, builtin)
+{
+    //unique-ish string-identifier per video (hopefully)
+    var unique_id = string(url) + (builtin ? "_B_" : "_") + string(index);
+
+    var videodata = noone;
+    for (k = 0; k < array_length(uhc_playlist_data.playlist); k++)
+    { 
+        if (unique_id == uhc_playlist_data.playlist[k].id)
+        { videodata = uhc_playlist_data.playlist[k]; break; }
+    }
+    if (videodata == noone)
+    {
+        //new item!
+        videodata = { id:unique_id };
+        uhc_playlist_data.playlist[array_length(uhc_playlist_data.playlist)] = videodata;
+        videodata.spritename = "video_unavailable";
+        if (builtin)
+        {
+            //this is a bit sad but workable for now
+            var possible_videos = ["video_love", "video_dream", "video_nyan", "video_rick", "video_unreal",
+                "video_cat", "video_rs", "video_darude", "video_lime", "video_numa", "video_sparta", "video_lol", 
+                "video_brody", "video_ghost", "video_sax", "video_fukkireta", "video_leek", "video_caramel"];
+
+            for (i = 0; i < array_length(possible_videos); i++)
+            if (vid.sprite == sprite_get(possible_videos[i]))
+            {
+                videodata.spritename = possible_videos[i]; break;
+            }
+        }
+    }
+    //update title just in case
+    videodata.title = vid.title;
 }
