@@ -146,6 +146,9 @@ if (!uhc_handled_victory_quote)
         case "2108835464": // Take a guess
            quote = "lmaoooooo ahahahshahajh he said it he said tit im piickle woodmaaaan!!!!11!!"; 
            break;
+        case "2561615071": // Nappa
+           quote = "u r hilarios and i wll qoute everythign u say :)"; 
+           break;
         //=================================================================
         // Base cast
         //=================================================================

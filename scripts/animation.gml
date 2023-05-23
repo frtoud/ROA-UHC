@@ -719,6 +719,13 @@ mamizou_transform_spr = sprite_get(uhc_has_cd_blade ? "cmp_mamizou_blade" : "cmp
                          song:sound_get("video_brody"),
                          fps:14 };
            break;
+        case "2561615071": //Nappa
+           sprite_change_offset("video_ghost", 11, 8);
+           videos[0] = { title:"Ghost Nappa by TFS (Full Song)",
+                         sprite:sprite_get("video_ghost"),
+                         song:sound_get("video_ghost"),
+                         fps:14 };
+           break;
         //=================================================================
         // Base cast
         //=================================================================
