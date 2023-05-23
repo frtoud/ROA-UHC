@@ -30,7 +30,6 @@ if (new_highlighted)
     {
         sound_play(sound_get("sfx_click"));
         uhc_uspecial_music_fix = !uhc_uspecial_music_fix;
-        set_synced_var(player, uhc_uspecial_music_fix);
         button_anim_timer = 24;
     }
 }
@@ -44,3 +43,15 @@ if (button_anim_timer > 0)
     if (button_anim_timer == 0)
         sound_play(uhc_uspecial_music_fix ? asset_get("mfx_star") : sound_get("sfx_warn") );
 }
+
+
+//update synced variable
+//bit structure: 00000000 00000000 00000000 00000000
+//USPECIAL buffer audio                            X
+//Playlist unlocks                 XXXXXXXX XXXX    
+var v = 0;
+v |= (uhc_uspecial_music_fix ? 1 : 0);
+if instance_exists(playlist_persistence) 
+    v |= (playlist_persistence.playlist_bits << 4);
+
+set_synced_var(player, v);

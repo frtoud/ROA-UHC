@@ -268,6 +268,10 @@ uhc_taunt_videos[i] = make_uhc_video("What is love !!! Jim Carrey Troll Face",
 uhc_taunt_num_videos = i;
 uhc_taunt_blocked_video = uhc_taunt_videos[0]; //keep track of this one separately. might be useful
 
+uhc_taunt_videos_unlock_bits = (get_synced_var(player) >> 4) & 0xFFFF;
+
+uhc_playlist_data = get_playlist_persistence();
+
 uhc_taunt_current_video_index = 0;
 uhc_taunt_current_video = noone;
 uhc_taunt_timer = 0;
@@ -494,4 +498,45 @@ var video_special = argument_count > 4 ? argument[4] : 0;
             return true;
     }
     return false;
+}
+//=========================================================================
+#macro IMPOSSIBLY_LONG_TIME 999999999999999999999999999999999999999999999
+#define get_playlist_persistence()
+{
+    var data = noone;
+    with asset_get("hit_fx_obj") if ("uhc_playlist_persistence" in self)
+    {
+        data = self; break;
+    }
+    if !instance_exists(data)
+    {
+        data = spawn_hit_fx(-999, -999, 0);
+        data.uhc_playlist_persistence = true;
+        data.player = 0;
+        data.visible = false;
+        data.persistent = true;
+
+        //making data last "forever"
+        data.pause = IMPOSSIBLY_LONG_TIME;
+        data.hit_length = IMPOSSIBLY_LONG_TIME;
+        data.pause_timer = 0;
+        data.step_timer = 0;
+
+        //initialized to basic info
+        data.playlist_bits = 0x00;
+        data.playlist_urls = [
+            "2177081326",
+            "1933111975",
+            "1890617624",
+            "2390163800",
+            "2561615071",
+            CH_ZETTERBURN,
+            CH_WRASTOR,
+            CH_ORCANE,
+            CH_KRAGG,
+            CH_ORI,
+            CH_SHOVEL_KNIGHT
+        ]; //should match animation.gml#try_get_builtin_video
+    }
+    return data;
 }
